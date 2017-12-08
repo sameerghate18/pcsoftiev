@@ -49,9 +49,29 @@
         }
         
     }
+}
+
+- (void)fetchDataForGETURL:(NSString*)urlString body:(NSDictionary*)bodyParams completion:(void(^)(id responseData, NSError *error))completionBlock   {
     
+    Reachability *reachability = [Reachability reachabilityForInternetConnection];
     
-    
+    if ([reachability currentReachabilityStatus] != NotReachable ) {
+        
+        NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:urlString] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:1800];
+        request.HTTPMethod = @"GET";
+        
+        NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration] ;
+        [configuration setRequestCachePolicy:NSURLRequestUseProtocolCachePolicy];
+        
+        NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration];
+        
+        NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+                        
+            completionBlock(data,error);
+            
+        }];
+        [dataTask resume];
+    }
 }
 
 @end

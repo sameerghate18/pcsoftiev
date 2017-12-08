@@ -27,6 +27,7 @@ typedef enum{
     TXTypePO,
     TXTypeSO,
     TXTypePayments,
+    TXTypeEmployeeExpense,
     TXTypePI,
     TXTypeRB,
     TXTypePCR
@@ -90,6 +91,25 @@ typedef enum
 
 #define kAttendanceService @"GetAttendance?scocd=SE&rperson="
 #define kCashFlowService @"GetCashFlow?scocd=SE&sDate=2014-04-15"
+
+#define GET_EECount_URL(baseURL, scocd,userId) \
+[NSString stringWithFormat:@"%@/authlstcnt?scocd=%@&userId=%@",baseURL,scocd,userId];  \
+
+#define GET_AUTH_LIST_URL(baseURL,scocd,userId) \
+[NSString stringWithFormat:@"%@/authlist?scocd=%@&userId=%@&type=EP",baseURL,scocd,userId];  \
+
+#define kGETEECountURL(baseURL,scocd, userId)  \
+[NSString stringWithFormat:@"%@\authlstcnt?scocd=%@&userId=%@",baseURL,scocd,userId];  \
+
+#define GET_EE_DETAIL_URL(baseURL,scocd,userId,doctype,docno)    \
+[NSString stringWithFormat:@"%@/GetDocDtlEXP?scocd=%@&userId=%@&doctype=%@&docno=%@",baseURL,scocd,userId,doctype,docno];  \
+
+#define GET_EE_Exp_KM_URL(baseURL,scocd,userId,doctype,docno) \
+[NSString stringWithFormat:@"%@/GetDocDtlEXPKm?scocd=%@&userId=%@&doctype=%@&docno=%@",baseURL,scocd,userId,doctype,docno];\
+
+#define GET_SUBMIT_EXPENSE_URL(baseURL,scocd,userId,docno,expJson)  \
+[NSString stringWithFormat:@"%@/submitexpE?scocd=%@&userid=%@&docno=%@&exptrndt=%@",baseURL,scocd,userId,docno,expJson] ;   \
+
 
 #define kHTTP_Method_POST @"POST"
 #define kHTTP_Method_GET @"GET"

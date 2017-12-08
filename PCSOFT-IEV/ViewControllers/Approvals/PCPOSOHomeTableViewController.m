@@ -9,6 +9,7 @@
 #import "PCPOSOHomeTableViewController.h"
 #import "PCPOSOTransactionsTableViewController.h"
 #import <QuartzCore/QuartzCore.h>
+#import "ConnectionHandler.h"
 
 @interface PCPOSOHomeTableViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -26,6 +27,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [self getExpenseListCount];
 //    self.tableView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg_home.png"]];
     
     UIImageView *bg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bg_home.png"]];
@@ -33,8 +35,8 @@
     
     [self setTitle:@"Authorizations"];
     
-    titles = @[@"Purchase Indents",@"Purchase Order", @"Sale Order", @"Expense Booking", @"Bills Passing", @"Payments"];
-    images = @[@"PI-icon",@"PO-icon.png",@"SO-icon.png",@"EB-icon.png",@"BP-icon.png",@"Payment-icon.png"];
+    titles = @[@"Purchase Indents",@"Purchase Order", @"Sale Order", @"Expense Booking", @"Bills Passing", @"Payments", @"Employee Expense"];
+    images = @[@"PI-icon",@"PO-icon.png",@"SO-icon.png",@"EB-icon.png",@"BP-icon.png",@"Payment-icon.png", @"Payment-icon.png"];
 
     self.tableView.layer.cornerRadius = 10.0;
     self.tableView.layer.masksToBounds = YES;
@@ -51,6 +53,21 @@
     self.navigationItem.leftBarButtonItem = barbtn;
     
     [self.tableView reloadData];
+}
+
+- (void)getExpenseListCount {
+    AppDelegate *appDel = (AppDelegate*)[[UIApplication sharedApplication] delegate];
+    NSString *url = GET_EECount_URL(appDel.baseURL, appDel.selectedCompany.CO_CD, appDel.loggedUser.USER_ID);
+    
+    ConnectionHandler *conn = [[ConnectionHandler alloc] init];
+    
+    [conn fetchDataForGETURL:url body:nil completion:^(id responseData, NSError *error) {
+        
+        NSString *count = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
+        NSLog(@"getExpenseListCount - %@", count);
+//        NSString  *arr = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:&error];
+        
+    }];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -120,13 +137,18 @@ static NSString *reuseIdentifier = @"txCell";
             txtype = TXTypePayments;
             break;
             
+        case 6:
+            txtype = TXTypeEmployeeExpense;
+            break;
+            
         default:
             break;
     }
     
-    PCPOSOTransactionsTableViewController *txList = (PCPOSOTransactionsTableViewController*)[kStoryboard instantiateViewControllerWithIdentifier:@"PCPOSOTransactionsTableViewController"];
-    [txList setSelectedTXType:txtype];
-    [self.navigationController pushViewController:txList animated:YES];
+    [self performSegueWithIdentifier:@"transactionListSegue" sender:nil];
+//    PCPOSOTransactionsTableViewController *txList = (PCPOSOTransactionsTableViewController*)[kStoryboard instantiateViewControllerWithIdentifier:@"PCPOSOTransactionsTableViewController"];
+//    [txList setSelectedTXType:txtype];
+//    [self.navigationController pushViewController:txList animated:YES];
 }
 
 #pragma mark - Navigation

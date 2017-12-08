@@ -18,6 +18,8 @@
 
 -(void)fetchDataForURL:(NSString*)urlString body:(NSDictionary*)bodyParams;
 
+- (void)fetchDataForGETURL:(NSString*)urlString body:(NSDictionary*)bodyParams completion:(void(^)(id responseData, NSError *error))completionBlock;
+
 @end
 
 @protocol ConnectionHandlerDelegate <NSObject>

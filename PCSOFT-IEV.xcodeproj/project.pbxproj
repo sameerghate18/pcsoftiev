@@ -79,7 +79,6 @@
 		423A3EC61BE514F400F68DCD /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 423A3EC51BE514F400F68DCD /* UIKit.framework */; };
 		423A3EFF1BE52BDD00F68DCD /* PCAboutAppViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 423A3ECA1BE52BDD00F68DCD /* PCAboutAppViewController.m */; };
 		423A3F011BE52BDD00F68DCD /* PCApprovalItemList.m in Sources */ = {isa = PBXBuildFile; fileRef = 423A3ECF1BE52BDD00F68DCD /* PCApprovalItemList.m */; };
-		423A3F031BE52BDD00F68DCD /* PCPOSOTransactionsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 423A3ED31BE52BDD00F68DCD /* PCPOSOTransactionsTableViewController.m */; };
 		423A3F041BE52BDD00F68DCD /* PCSingleTransactionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 423A3ED51BE52BDD00F68DCD /* PCSingleTransactionViewController.m */; };
 		423A3F061BE52BDD00F68DCD /* PCAttendanceTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 423A3EDA1BE52BDD00F68DCD /* PCAttendanceTableViewCell.m */; };
 		423A3F071BE52BDD00F68DCD /* PCAttendanceTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 423A3EDC1BE52BDD00F68DCD /* PCAttendanceTableViewController.m */; };
@@ -102,6 +101,8 @@
 		4286C6A71BE92E090003B8FC /* AttendanceDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4286C6A51BE92E090003B8FC /* AttendanceDetailCell.xib */; };
 		4286C6AC1BE92E6C0003B8FC /* UIView+Fold.m in Sources */ = {isa = PBXBuildFile; fileRef = 4286C6AB1BE92E6C0003B8FC /* UIView+Fold.m */; };
 		429755F91C1F199400DEF282 /* PCSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 429755F81C1F199400DEF282 /* PCSettingsViewController.m */; };
+		42A164341FDB2CA8005C659D /* PCPOSOTransactionsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 423A3EAE1BE50F1100F68DCD /* PCPOSOTransactionsTableViewController.m */; };
+		42AD55551FDAF2B600F1BEC8 /* PCEmployeeExpenseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42AD55541FDAF2B600F1BEC8 /* PCEmployeeExpenseViewController.m */; };
 		42B613101BEDF27B0062432A /* ChartNew.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 42B6130F1BEDF27B0062432A /* ChartNew.min.js */; };
 		42B9C1611BF60348005F3725 /* MarqueeLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 42B9C1601BF60348005F3725 /* MarqueeLabel.m */; };
 /* End PBXBuildFile section */
@@ -239,8 +240,6 @@
 		423A3EAC1BE50F1100F68DCD /* PCPOSOHomeTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCPOSOHomeTableViewController.m; sourceTree = "<group>"; };
 		423A3EAD1BE50F1100F68DCD /* PCPOSOTransactionsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCPOSOTransactionsTableViewController.h; sourceTree = "<group>"; };
 		423A3EAE1BE50F1100F68DCD /* PCPOSOTransactionsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCPOSOTransactionsTableViewController.m; sourceTree = "<group>"; };
-		423A3EAF1BE50F1100F68DCD /* PCSingleTransactionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCSingleTransactionViewController.h; sourceTree = "<group>"; };
-		423A3EB01BE50F1100F68DCD /* PCSingleTransactionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCSingleTransactionViewController.m; sourceTree = "<group>"; };
 		423A3EB11BE50F1100F68DCD /* POSOSingleTransactionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POSOSingleTransactionCell.h; sourceTree = "<group>"; };
 		423A3EB21BE50F1100F68DCD /* POSOSingleTransactionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = POSOSingleTransactionCell.m; sourceTree = "<group>"; };
 		423A3EB91BE5113200F68DCD /* ConnectionHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConnectionHandler.h; sourceTree = "<group>"; };
@@ -258,10 +257,6 @@
 		423A3ECD1BE52BDD00F68DCD /* PCApprovalItemDetailTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCApprovalItemDetailTableViewController.m; sourceTree = "<group>"; };
 		423A3ECE1BE52BDD00F68DCD /* PCApprovalItemList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCApprovalItemList.h; sourceTree = "<group>"; };
 		423A3ECF1BE52BDD00F68DCD /* PCApprovalItemList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCApprovalItemList.m; sourceTree = "<group>"; };
-		423A3ED01BE52BDD00F68DCD /* PCPOSOHomeTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCPOSOHomeTableViewController.h; sourceTree = "<group>"; };
-		423A3ED11BE52BDD00F68DCD /* PCPOSOHomeTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCPOSOHomeTableViewController.m; sourceTree = "<group>"; };
-		423A3ED21BE52BDD00F68DCD /* PCPOSOTransactionsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCPOSOTransactionsTableViewController.h; sourceTree = "<group>"; };
-		423A3ED31BE52BDD00F68DCD /* PCPOSOTransactionsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCPOSOTransactionsTableViewController.m; sourceTree = "<group>"; };
 		423A3ED41BE52BDD00F68DCD /* PCSingleTransactionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCSingleTransactionViewController.h; sourceTree = "<group>"; };
 		423A3ED51BE52BDD00F68DCD /* PCSingleTransactionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCSingleTransactionViewController.m; sourceTree = "<group>"; };
 		423A3ED61BE52BDD00F68DCD /* POSOSingleTransactionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POSOSingleTransactionCell.h; sourceTree = "<group>"; };
@@ -307,6 +302,8 @@
 		4286C6AB1BE92E6C0003B8FC /* UIView+Fold.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Fold.m"; sourceTree = "<group>"; };
 		429755F71C1F199400DEF282 /* PCSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCSettingsViewController.h; sourceTree = "<group>"; };
 		429755F81C1F199400DEF282 /* PCSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCSettingsViewController.m; sourceTree = "<group>"; };
+		42AD55531FDAF2B600F1BEC8 /* PCEmployeeExpenseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PCEmployeeExpenseViewController.h; sourceTree = "<group>"; };
+		42AD55541FDAF2B600F1BEC8 /* PCEmployeeExpenseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PCEmployeeExpenseViewController.m; sourceTree = "<group>"; };
 		42B6130F1BEDF27B0062432A /* ChartNew.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = ChartNew.min.js; path = "PCSOFT-IEV/ChartNew.min.js"; sourceTree = "<group>"; };
 		42B9C15F1BF60347005F3725 /* MarqueeLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MarqueeLabel.h; sourceTree = "<group>"; };
 		42B9C1601BF60348005F3725 /* MarqueeLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MarqueeLabel.m; sourceTree = "<group>"; };
@@ -626,8 +623,6 @@
 				423A3EAC1BE50F1100F68DCD /* PCPOSOHomeTableViewController.m */,
 				423A3EAD1BE50F1100F68DCD /* PCPOSOTransactionsTableViewController.h */,
 				423A3EAE1BE50F1100F68DCD /* PCPOSOTransactionsTableViewController.m */,
-				423A3EAF1BE50F1100F68DCD /* PCSingleTransactionViewController.h */,
-				423A3EB01BE50F1100F68DCD /* PCSingleTransactionViewController.m */,
 				423A3EB11BE50F1100F68DCD /* POSOSingleTransactionCell.h */,
 				423A3EB21BE50F1100F68DCD /* POSOSingleTransactionCell.m */,
 			);
@@ -652,16 +647,14 @@
 				423A3ECD1BE52BDD00F68DCD /* PCApprovalItemDetailTableViewController.m */,
 				423A3ECE1BE52BDD00F68DCD /* PCApprovalItemList.h */,
 				423A3ECF1BE52BDD00F68DCD /* PCApprovalItemList.m */,
-				423A3ED01BE52BDD00F68DCD /* PCPOSOHomeTableViewController.h */,
-				423A3ED11BE52BDD00F68DCD /* PCPOSOHomeTableViewController.m */,
-				423A3ED21BE52BDD00F68DCD /* PCPOSOTransactionsTableViewController.h */,
-				423A3ED31BE52BDD00F68DCD /* PCPOSOTransactionsTableViewController.m */,
 				423A3ED41BE52BDD00F68DCD /* PCSingleTransactionViewController.h */,
 				423A3ED51BE52BDD00F68DCD /* PCSingleTransactionViewController.m */,
 				423A3ED61BE52BDD00F68DCD /* POSOSingleTransactionCell.h */,
 				423A3ED71BE52BDD00F68DCD /* POSOSingleTransactionCell.m */,
 				4221D85E1C440FE800F5AABA /* PCSendBackViewController.h */,
 				4221D85F1C440FE800F5AABA /* PCSendBackViewController.m */,
+				42AD55531FDAF2B600F1BEC8 /* PCEmployeeExpenseViewController.h */,
+				42AD55541FDAF2B600F1BEC8 /* PCEmployeeExpenseViewController.m */,
 			);
 			name = Approvals;
 			path = ViewControllers/Approvals;
@@ -862,7 +855,6 @@
 			files = (
 				423A3E0D1BE50CFB00F68DCD /* AFHTTPRequestOperation.m in Sources */,
 				423A3E1A1BE50CFB00F68DCD /* UIImageView+AFNetworking.m in Sources */,
-				423A3F031BE52BDD00F68DCD /* PCPOSOTransactionsTableViewController.m in Sources */,
 				423A3D121BE4E2E900F68DCD /* AppDelegate.m in Sources */,
 				423A3EB81BE50F1100F68DCD /* POSOSingleTransactionCell.m in Sources */,
 				423A3E0E1BE50CFB00F68DCD /* AFHTTPRequestOperationManager.m in Sources */,
@@ -908,6 +900,7 @@
 				423A3E931BE50D7500F68DCD /* PCRejectionModel.m in Sources */,
 				4286C6A61BE92E090003B8FC /* AttendanceDetailCell.m in Sources */,
 				423A3E231BE50CFB00F68DCD /* TWRDataSet+Strings.m in Sources */,
+				42AD55551FDAF2B600F1BEC8 /* PCEmployeeExpenseViewController.m in Sources */,
 				423A3E251BE50CFB00F68DCD /* TWRLineChart.m in Sources */,
 				423A3E6D1BE50CFB00F68DCD /* Reachability.m in Sources */,
 				423A3E1C1BE50CFB00F68DCD /* UIRefreshControl+AFNetworking.m in Sources */,
@@ -924,6 +917,7 @@
 				423A3E181BE50CFB00F68DCD /* UIAlertView+AFNetworking.m in Sources */,
 				423A3F0F1BE52BDD00F68DCD /* PCRejectionsTableViewController.m in Sources */,
 				423A3F0A1BE52BDD00F68DCD /* PCProjectionGraphViewController.m in Sources */,
+				42A164341FDB2CA8005C659D /* PCPOSOTransactionsTableViewController.m in Sources */,
 				423A3E221BE50CFB00F68DCD /* TWRCircularChart.m in Sources */,
 				423A3F0D1BE52BDD00F68DCD /* PCRejectionsTableViewCell.m in Sources */,
 				423A3E131BE50CFB00F68DCD /* AFURLRequestSerialization.m in Sources */,

@@ -111,6 +111,10 @@ typedef enum {
             self.partyNameTypeLabel.text = @"Supplier:";
             break;
             
+        case TXTypeEmployeeExpense:
+            self.partyNameTypeLabel.text = @"Supplier:";
+            break;
+            
         default:
             break;
     }

@@ -51,8 +51,8 @@
     _reportsArray = @[@"Sales", @"Cash Flow Projection", @"Rejections", @"Attendance"];
     _reportsIconsArray = @[@"dailysales-side-icon.png",@"cashflow-side-icon.png",@"rejections-side-icon.png",@"attendance-side-icon.png"];
     
-    _transactionsArray = @[@"Purchase Indents",@"Purchase Order", @"Sale Order", @"Expense Booking", @"Bill Passing",@"Payments"];
-    _transactionsIconsArray = @[@"pi-side-icon.png", @"po-side-icon.png",@"so-side-icon.png",@"eb-side-icon.png",@"bp-side-icon.png",@"payments-side-icon.png"];
+    _transactionsArray = @[@"Purchase Indents",@"Purchase Order", @"Sale Order", @"Expense Booking", @"Bill Passing", @"Payments", @"Employee Expense"];
+    _transactionsIconsArray = @[@"pi-side-icon.png", @"po-side-icon.png",@"so-side-icon.png",@"eb-side-icon.png",@"bp-side-icon.png",@"bp-side-icon.png",@"payments-side-icon.png"];
     _moreArray = @[@"Settings",@"About this app", @"Logout"];
     _moreIconsArray = @[@"settings-side-icon.png",@"info-side-icon.png",@"logout-side-icon.png"];
     
@@ -365,6 +365,10 @@
                         
                     case 5:
                         txtype = TXTypePayments;
+                        break;
+                        
+                    case 6:
+                        txtype = TXTypeEmployeeExpense;
                         break;
                         
                     default:

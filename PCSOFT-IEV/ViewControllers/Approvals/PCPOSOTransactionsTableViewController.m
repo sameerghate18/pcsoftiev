@@ -12,6 +12,7 @@
 #import "SVProgressHUD.h"
 #import "PCSingleTransactionViewController.h"
 #import "PCPOSOHomeTableViewController.h"
+#import "PCEmployeeExpenseViewController.h"
 
 @interface PCPOSOTransactionsTableViewController () <ConnectionHandlerDelegate, UITableViewDelegate, UITableViewDataSource>
 {
@@ -99,6 +100,13 @@
             txtype = TXTypePCR;
             break;
             
+        case TXTypeEmployeeExpense:
+            [self setTitle:@"Employee Expense"];
+            self.typeLabel.text = @"EMPLOYEE EXPENSE";
+            self.typeImageview.image = [UIImage imageNamed:@"EB-icon"];
+            txtype = TXTypeEmployeeExpense;
+            break;
+            
         default:
             break;
     }
@@ -163,6 +171,10 @@
             
         case TXTypePI:
             txtypeString = @"PI";
+            break;
+            
+        case TXTypeEmployeeExpense:
+            txtypeString = @"EP";
             break;
             
         default:
@@ -291,6 +303,11 @@
 {
     PCTransactionModel *model = [transactionsList objectAtIndex:indexPath.row];
     
+    if (txtype == TXTypeEmployeeExpense) {
+        [self performSegueWithIdentifier:@"listToExpenseSegue" sender:model];
+        return;
+    }
+    
     PCSingleTransactionViewController *detailVC = [kStoryboard instantiateViewControllerWithIdentifier:@"PCSingleTransactionViewController"];
     detailVC.txType = txtype;
     [detailVC setSelectedTransaction:model];
@@ -324,6 +341,16 @@
             break;
     }
 }
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+
+    if ([segue.identifier isEqualToString:@"listToExpenseSegue"]) {
+        PCTransactionModel *model = (PCTransactionModel*)sender;
+        PCEmployeeExpenseViewController *empExpVC = segue.destinationViewController;
+        [empExpVC setSelectedTransaction:model];
+    }
+}
+
 /*
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
