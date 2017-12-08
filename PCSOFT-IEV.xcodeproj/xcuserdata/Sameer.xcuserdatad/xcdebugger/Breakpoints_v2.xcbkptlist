@@ -179,22 +179,6 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "PCSOFT-IEV/ViewControllers/Approvals/PCPOSOHomeTableViewController.m"
-            timestampString = "474920219.032331"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "137"
-            endingLineNumber = "137"
-            landmarkName = "-prepareForSegue:sender:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "PCSOFT-IEV/ViewControllers/Intro screens/PCUserLoginViewController.m"
             timestampString = "471811385.724283"
             startingColumnNumber = "9223372036854775807"
@@ -379,6 +363,70 @@
             endingLineNumber = "178"
             landmarkName = "-fetchDailySalesData:"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PCSOFT-IEV/ViewControllers/Approvals/PCPOSOTransactionsTableViewController.m"
+            timestampString = "534458203.80676"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "189"
+            endingLineNumber = "189"
+            landmarkName = "-refreshPOSO"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PCSOFT-IEV/ViewControllers/Approvals/PCPOSOHomeTableViewController.m"
+            timestampString = "534458203.832785"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "64"
+            endingLineNumber = "64"
+            landmarkName = "-getExpenseListCount"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[PCPOSOHomeTableViewController getExpenseListCount]"
+                  moduleName = "PCSOFT IEV"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Sameer/Work/PCSOFT%20IEV/PCSOFT-IEV/PCSOFT-IEV/ViewControllers/Approvals/PCPOSOHomeTableViewController.m"
+                  timestampString = "534458204.474406"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "64"
+                  endingLineNumber = "64"
+                  offsetFromSymbolStart = "478">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__52-[PCPOSOHomeTableViewController getExpenseListCount]_block_invoke"
+                  moduleName = "PCSOFT IEV"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Sameer/Work/PCSOFT%20IEV/PCSOFT-IEV/PCSOFT-IEV/ViewControllers/Approvals/PCPOSOHomeTableViewController.m"
+                  timestampString = "534458204.477903"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "66"
+                  endingLineNumber = "66"
+                  offsetFromSymbolStart = "75">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

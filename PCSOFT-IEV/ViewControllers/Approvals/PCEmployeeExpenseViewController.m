@@ -294,14 +294,41 @@
         
         dispatch_async(dispatch_get_main_queue(), ^{
             
-            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Authorization" message:outputString preferredStyle:UIAlertControllerStyleActionSheet];
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Sanction amount" message:outputString preferredStyle:UIAlertControllerStyleActionSheet];
             [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                [self.navigationController popViewControllerAnimated:YES];
+                
             }]];
             [self presentViewController:alert animated:YES completion:nil];
         });
         
     }];
+}
+
+-(IBAction)pageSubmitAction:(id)sender  {
+    
+    AppDelegate *appDel = (AppDelegate*)[[UIApplication sharedApplication] delegate];
+    ConnectionHandler *conn = [[ConnectionHandler alloc] init];
+    
+    NSString *url = GET_PAGE_SUBMIT_URL(appDel.baseURL, appDel.selectedCompany.CO_CD, appDel.loggedUser.USER_ID, [_selectedTransaction.doc_no stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]], @"[{%22sanc_amt%22:253.00,%22id_key%22:%2201%22}]", @"[{%22sanc_amt%22:900.00,%22id_key%22:%22865%22}]" );
+    //
+    
+    [conn fetchDataForGETURL:url body:nil completion:^(id responseData, NSError *error) {
+        
+        NSString *outputString = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
+        outputString = [outputString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        outputString = [outputString substringWithRange:NSMakeRange(1, outputString.length-2)];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Submit" message:outputString preferredStyle:UIAlertControllerStyleActionSheet];
+            [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                
+            }]];
+            [self presentViewController:alert animated:YES completion:nil];
+        });
+        
+    }];
+    
 }
 
 -(void)sendBackDidFinishSendingBackDoc  {

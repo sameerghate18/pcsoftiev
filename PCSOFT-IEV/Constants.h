@@ -110,6 +110,8 @@ typedef enum
 #define GET_SUBMIT_EXPENSE_URL(baseURL,scocd,userId,docno,expJson)  \
 [NSString stringWithFormat:@"%@/submitexpE?scocd=%@&userid=%@&docno=%@&exptrndt=%@",baseURL,scocd,userId,docno,expJson] ;   \
 
+#define GET_PAGE_SUBMIT_URL(baseURL,scocd,userId,docno,expJson,kmValue) \
+[NSString stringWithFormat:@"%@/submitexpE?scocd=%@&userid=%@&docno=%@&exptrndt=%@&exptrnkm=%@",baseURL,scocd,userId,docno,expJson,kmValue];  \
 
 #define kHTTP_Method_POST @"POST"
 #define kHTTP_Method_GET @"GET"
