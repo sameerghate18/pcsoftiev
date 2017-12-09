@@ -294,8 +294,13 @@
     }
     
     cell.textLabel.text = model.doc_desc;
-    cell.detailTextLabel.text = model.party_name;
     
+    if (txtype == TXTypeEmployeeExpense) {
+        cell.detailTextLabel.text = model.doc_no;
+    }
+    else {
+        cell.detailTextLabel.text = model.party_name;
+    }
     return cell;
 }
 
@@ -305,14 +310,10 @@
     
     if (txtype == TXTypeEmployeeExpense) {
         [self performSegueWithIdentifier:@"listToExpenseSegue" sender:model];
-        return;
     }
-    
-    PCSingleTransactionViewController *detailVC = [kStoryboard instantiateViewControllerWithIdentifier:@"PCSingleTransactionViewController"];
-    detailVC.txType = txtype;
-    [detailVC setSelectedTransaction:model];
-    
-    [self.navigationController pushViewController:detailVC animated:YES];
+    else {
+        [self performSegueWithIdentifier:@"listToDetailSegue" sender:model];
+    }
 }
 
 #pragma mark - Alertview Delegate
@@ -344,10 +345,15 @@
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
 
+    PCTransactionModel *model = (PCTransactionModel*)sender;
     if ([segue.identifier isEqualToString:@"listToExpenseSegue"]) {
-        PCTransactionModel *model = (PCTransactionModel*)sender;
         PCEmployeeExpenseViewController *empExpVC = segue.destinationViewController;
         [empExpVC setSelectedTransaction:model];
+    }
+    else if ([segue.identifier isEqualToString:@"listToExpenseSegue"])  {
+        PCSingleTransactionViewController *detailVC = segue.destinationViewController;
+        [detailVC setSelectedTransaction:model];
+        detailVC.txType = txtype;
     }
 }
 

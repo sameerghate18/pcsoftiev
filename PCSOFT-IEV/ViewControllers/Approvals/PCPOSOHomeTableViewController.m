@@ -16,6 +16,7 @@
 {
     NSArray *titles, *images;
     TXType txtype;
+    NSUInteger empExpCount;
 }
 
 @property (nonatomic, weak) IBOutlet UITableView *tableView;
@@ -27,6 +28,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    empExpCount = 0;
     [self getExpenseListCount];
 //    self.tableView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg_home.png"]];
     
@@ -65,8 +67,16 @@
         
         NSString *count = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
         NSLog(@"getExpenseListCount - %@", count);
-//        NSString  *arr = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:&error];
+        NSArray  *arr = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:&error];
         
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (arr.count > 0) {
+                empExpCount = arr.count ;
+                [self.tableView beginUpdates];
+                [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:6 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
+                [self.tableView endUpdates];
+            }
+        });
     }];
 }
 
@@ -103,6 +113,14 @@ static NSString *reuseIdentifier = @"txCell";
     cell.textLabel.text = titles[indexPath.row];
     [cell.imageView setImage:[UIImage imageNamed:images[indexPath.row]]];
     
+    if (indexPath.row == 6) {
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"%lu new", (unsigned long)empExpCount];
+        cell.detailTextLabel.font = [UIFont italicSystemFontOfSize:15];
+        cell.detailTextLabel.textColor = [UIColor darkGrayColor];
+    }
+    else {
+        cell.detailTextLabel.text = @"";
+    }
     // Configure the cell...
     
     return cell;

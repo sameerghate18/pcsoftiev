@@ -58,7 +58,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PCSOFT-IEV/ViewControllers/Approvals/PCSingleTransactionViewController.m"
-            timestampString = "486930789.025669"
+            timestampString = "534507411.165723"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "407"
@@ -106,7 +106,7 @@
             startingLineNumber = "95"
             endingLineNumber = "95"
             landmarkName = "-connectionHandler:didRecieveData:"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -119,8 +119,8 @@
             timestampString = "469038786.174271"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "216"
-            endingLineNumber = "216"
+            startingLineNumber = "210"
+            endingLineNumber = "210"
             landmarkName = "-updateDeviceRegistration"
             landmarkType = "7">
          </BreakpointContent>
@@ -368,11 +368,11 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PCSOFT-IEV/ViewControllers/Approvals/PCPOSOTransactionsTableViewController.m"
-            timestampString = "534458203.80676"
+            timestampString = "534507411.170159"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "189"
@@ -387,44 +387,108 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "PCSOFT-IEV/ViewControllers/Approvals/PCPOSOHomeTableViewController.m"
-            timestampString = "534458203.832785"
+            filePath = "PCSOFT-IEV/ViewControllers/Intro screens/PCAccessCodeViewController.m"
+            timestampString = "534491917.000691"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "64"
-            endingLineNumber = "64"
-            landmarkName = "-getExpenseListCount"
+            startingLineNumber = "176"
+            endingLineNumber = "176"
+            landmarkName = "-checkForIsDeviceAlreadyRegistered"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PCSOFT-IEV/ViewControllers/Intro screens/PCUpdateMobileNumberViewController.m"
+            timestampString = "534493236.32062"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "73"
+            endingLineNumber = "73"
+            landmarkName = "-updateMobileNumberToServer"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PCSOFT-IEV/ViewControllers/Approvals/PCEmployeeExpenseViewController.m"
+            timestampString = "534507411.170514"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "109"
+            endingLineNumber = "109"
+            landmarkName = "-getDetailsForTransaction:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PCSOFT-IEV/ViewControllers/Approvals/PCEmployeeExpenseViewController.m"
+            timestampString = "534507411.174121"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "94"
+            endingLineNumber = "94"
+            landmarkName = "-getDetailsForTransaction:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PCSOFT-IEV/ViewControllers/Approvals/PCEmployeeExpenseViewController.m"
+            timestampString = "534507411.176761"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "326"
+            endingLineNumber = "326"
+            landmarkName = "-initiateSanctionAmount:"
             landmarkType = "7">
             <Locations>
                <Location
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "-[PCPOSOHomeTableViewController getExpenseListCount]"
+                  symbolName = "-[PCEmployeeExpenseViewController initiateSanctionAmount:]"
                   moduleName = "PCSOFT IEV"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Sameer/Work/PCSOFT%20IEV/PCSOFT-IEV/PCSOFT-IEV/ViewControllers/Approvals/PCPOSOHomeTableViewController.m"
-                  timestampString = "534458204.474406"
+                  urlString = "file:///Users/Sameer/Work/PCSOFT%20IEV/PCSOFT-IEV/PCSOFT-IEV/ViewControllers/Approvals/PCEmployeeExpenseViewController.m"
+                  timestampString = "534507412.128332"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "64"
-                  endingLineNumber = "64"
-                  offsetFromSymbolStart = "478">
+                  startingLineNumber = "326"
+                  endingLineNumber = "326"
+                  offsetFromSymbolStart = "644">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "__52-[PCPOSOHomeTableViewController getExpenseListCount]_block_invoke"
+                  symbolName = "__58-[PCEmployeeExpenseViewController initiateSanctionAmount:]_block_invoke"
                   moduleName = "PCSOFT IEV"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Sameer/Work/PCSOFT%20IEV/PCSOFT-IEV/PCSOFT-IEV/ViewControllers/Approvals/PCPOSOHomeTableViewController.m"
-                  timestampString = "534458204.477903"
+                  urlString = "file:///Users/Sameer/Work/PCSOFT%20IEV/PCSOFT-IEV/PCSOFT-IEV/ViewControllers/Approvals/PCEmployeeExpenseViewController.m"
+                  timestampString = "534507412.13252"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "66"
-                  endingLineNumber = "66"
-                  offsetFromSymbolStart = "75">
+                  startingLineNumber = "328"
+                  endingLineNumber = "328"
+                  offsetFromSymbolStart = "84">
                </Location>
             </Locations>
          </BreakpointContent>
