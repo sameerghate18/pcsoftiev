@@ -316,8 +316,11 @@ typedef enum {
         
         refItemListVC = (PCApprovalItemList*)[navViewController viewControllers][0];
         refItemListVC.txtype = self.txType;
-//        PCApprovalItemList *detail = [navViewController viewControllers][0];
-//        [detail setItemsListArray:detailModelsArray];
+    }
+    else if ([segueName isEqualToString:@"authToSendBack"]) {
+        PCSendBackViewController *sendBackVC = segue.destinationViewController;
+        sendBackVC.delegate = self;
+        sendBackVC.selectedTransaction = self.selectedTransaction;
     }
 }
 
@@ -561,10 +564,7 @@ static NSString *cellIdentifier = @"POSOSingleTransactionCell";
         switch (buttonIndex) {
             case 0:
             {
-                PCSendBackViewController *sendBackVC = [kStoryboard instantiateViewControllerWithIdentifier:@"PCSendBackViewController"];
-                sendBackVC.delegate = self;
-                sendBackVC.selectedTransaction = self.selectedTransaction;
-                [self.navigationController presentViewController:sendBackVC animated:YES completion:NULL];
+                [self performSegueWithIdentifier:@"authToSendBack" sender:nil];
             }
                 break;
                 
@@ -692,15 +692,5 @@ static NSString *cellIdentifier = @"POSOSingleTransactionCell";
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

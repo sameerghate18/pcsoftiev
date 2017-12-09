@@ -67,4 +67,14 @@
     return color;
 }
 
++(NSString*)stringDateFromServerDate:(NSString*)serverDate  {
+    //4/2/2016 12:00:00 AM
+    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+    [dateFormat setDateFormat:@"MM/dd/yyyy HH:mm:ss a"];
+    NSDate *newDate = [dateFormat dateFromString:serverDate];
+     [dateFormat setDateFormat:@"dd/MM/yyyy"];
+    NSString *finalString = [dateFormat stringFromDate:newDate];
+    return finalString;
+}
+
 @end

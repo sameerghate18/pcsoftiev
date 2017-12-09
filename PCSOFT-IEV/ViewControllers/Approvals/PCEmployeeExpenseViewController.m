@@ -11,6 +11,11 @@
 #import "ConnectionHandler.h"
 #import "PCSendBackViewController.h"
 
+typedef enum {
+    CellButtonActionTypeUpdate,
+    CellButtonActionTypeSeeMore
+} CellButtonActionType;
+
 @interface EETableviewCell ()
 
 @property (nonatomic, weak) IBOutlet UILabel *expenseTypeLabel;
@@ -19,7 +24,9 @@
 @property (nonatomic, weak) IBOutlet UILabel *particularsLabel;
 @property (nonatomic, weak) IBOutlet UILabel *sanctionAmountLabel;
 @property (nonatomic, weak) IBOutlet UILabel *dateLabel;
+@property (nonatomic, weak) IBOutlet UILabel *sanctionTextLabel;
 @property (nonatomic, weak) IBOutlet UIButton *updateButton;
+@property (nonatomic, weak) IBOutlet UIButton *seeMoreButton;
 
 -(void)fillValuesIntoCell:(EmpExpenseItemModel*)model;
 
@@ -34,7 +41,22 @@
     self.projectNameLabel.text = model.party_name;
     self.particularsLabel.text = model.exp_parti;
     self.sanctionAmountLabel.text = [Utility stringWithCurrencySymbolForValue:[NSString stringWithFormat:@"%ld",(long)model.sanc_amt] forCurrencyCode:@"INR"];
-    self.dateLabel.text = model.exp_date;
+    self.dateLabel.text = [Utility stringDateFromServerDate:model.exp_date];
+    
+    if (model.exp_stat == 2 || model.exp_stat == 6) {
+        self.seeMoreButton.hidden = NO;
+        self.updateButton.hidden = YES;
+        self.sanctionAmountLabel.hidden = YES;
+        self.sanctionTextLabel.hidden = YES;
+        
+    }
+    else {
+        self.seeMoreButton.hidden = YES;
+        self.updateButton.hidden = NO;
+        self.sanctionAmountLabel.hidden = NO;
+        self.sanctionTextLabel.hidden = NO;
+    }
+    
 }
 
 @end
@@ -42,9 +64,13 @@
 @implementation EmpExpenseItemModel
 @end
 
+@implementation EmpExpenseKMModel
+@end
+
 @interface PCEmployeeExpenseViewController () <UITableViewDataSource, UITableViewDelegate, PCSendBackViewControllerDelegate>
 {
     NSMutableArray *detailModelsArray;
+    CellButtonActionType actionType;
 }
 @property (nonatomic, weak) IBOutlet UILabel *documentNameLabel;
 @property (nonatomic, weak) IBOutlet UILabel *dateLabel;
@@ -66,8 +92,8 @@
 
 -(void)populateFields   {
     
-    self.documentNameLabel.text = self.selectedTransaction.doc_desc;
-    self.dateLabel.text = self.selectedTransaction.doc_date;
+    self.documentNameLabel.text = self.selectedTransaction.doc_no;
+    self.dateLabel.text = [Utility stringDateFromServerDate:self.selectedTransaction.doc_date];
     self.amountLabel.text = [Utility stringWithCurrencySymbolForValue:[NSString stringWithFormat:@"%@",self.selectedTransaction.im_basic] forCurrencyCode:@"INR"];
     self.taxLabel.text = [Utility stringWithCurrencySymbolForValue:[NSString stringWithFormat:@"%@",self.selectedTransaction.doc_taxs] forCurrencyCode:@"INR"];
 }
@@ -106,6 +132,11 @@
                 [expenseModel setValuesForKeysWithDictionary:dict];
                 [detailModelsArray addObject:expenseModel];
             }
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self getKMDetailsForTransaction:model];
+            });
+            
         }
         else {
         }
@@ -114,6 +145,27 @@
                 [self.itemsTableview reloadData];
         });
     }];
+}
+
+- (void)getKMDetailsForTransaction:(PCTransactionModel*)model   {
+    
+    AppDelegate *appDel = (AppDelegate*)[[UIApplication sharedApplication] delegate];
+    NSString *doctypeStr = [model.doc_type stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    NSString *url = GET_EE_Exp_KM_URL(appDel.baseURL,  appDel.selectedCompany.CO_CD, appDel.loggedUser.USER_ID, doctypeStr, model.doc_no)
+    
+    ConnectionHandler *conn = [[ConnectionHandler alloc] init];
+    [conn fetchDataForGETURL:url body:nil completion:^(id responseData, NSError *error) {
+        
+        NSArray *arr = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:&error];
+        for (int index = 0; index < arr.count; index++) {
+            NSDictionary *dict = [arr objectAtIndex:index];
+            EmpExpenseKMModel *kmModelObj = [[EmpExpenseKMModel alloc] init];
+            [kmModelObj setValuesForKeysWithDictionary:dict];
+            EmpExpenseItemModel *expenseModel = [detailModelsArray objectAtIndex:index];
+            expenseModel.kmModel = kmModelObj;
+        }
+    }];
+    
 }
 
 #pragma mark - UITableViewDelegates
@@ -129,6 +181,7 @@
     EmpExpenseItemModel *model = [detailModelsArray objectAtIndex:indexPath.row];
     [cell fillValuesIntoCell:model];
     cell.updateButton.tag = indexPath.row;
+    cell.seeMoreButton.tag = indexPath.row;
     
     return cell;
 }
@@ -240,7 +293,7 @@ static NSString *cellIdentifier = @"EETableviewCellIdentifier";
     }
     else {
         
-        UIAlertController *incorrectPwdAlert = [UIAlertController alertControllerWithTitle:@"Authorization failed" message:@"Incorrect credentials provided.\nCannot authorize this document." preferredStyle:UIAlertControllerStyleActionSheet];
+        UIAlertController *incorrectPwdAlert = [UIAlertController alertControllerWithTitle:@"Authorization failed" message:@"Incorrect credentials provided.\nCannot authorize this document." preferredStyle:UIAlertControllerStyleAlert];
         [incorrectPwdAlert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             [self dismissViewControllerAnimated:YES completion:nil];
         }]];
@@ -275,13 +328,37 @@ static NSString *cellIdentifier = @"EETableviewCellIdentifier";
             
             [SVProgressHUD showSuccessWithStatus:@"Done"];
             
-            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Authorization" message:outputString preferredStyle:UIAlertControllerStyleActionSheet];
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Authorization" message:outputString preferredStyle:UIAlertControllerStyleAlert];
             [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 [self.navigationController popViewControllerAnimated:YES];
             }]];
             [self presentViewController:alert animated:YES completion:nil];
         });
         
+    }];
+}
+
+-(IBAction)seeMoreAction:(id)sender  {
+    NSInteger btnTag = ((UIButton*)sender).tag;
+    EmpExpenseItemModel *model = [detailModelsArray objectAtIndex:btnTag];
+}
+
+-(void)getKMDetails:(EmpExpenseItemModel*)model {
+    AppDelegate *appDel = (AppDelegate*)[[UIApplication sharedApplication] delegate];
+    NSString *doctypeStr = [model.doc_type stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    NSString *url = GET_EE_Exp_KM_URL(appDel.baseURL,  appDel.selectedCompany.CO_CD, appDel.loggedUser.USER_ID, doctypeStr, model.doc_no)
+    
+    ConnectionHandler *conn = [[ConnectionHandler alloc] init];
+    [conn fetchDataForGETURL:url body:nil completion:^(id responseData, NSError *error) {
+        
+        NSArray *arr = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:&error];
+        
+        NSMutableArray *kmArray = [[NSMutableArray alloc] init];
+        for (NSDictionary *dict in arr) {
+            EmpExpenseKMModel *kmModel = [[EmpExpenseKMModel alloc] init];
+            [kmModel setValuesForKeysWithDictionary:dict];
+            [kmArray addObject:kmModel];
+        }
     }];
 }
 
@@ -320,7 +397,9 @@ static NSString *cellIdentifier = @"EETableviewCellIdentifier";
     ConnectionHandler *conn = [[ConnectionHandler alloc] init];
 
     NSString *sancAmountStr = [NSString stringWithFormat:@"[{\"sanc_amt\":%ld,\"id_key\":\"%@\"}]", (long)model.sanc_amt, model.id_key];
-    NSString *url = GET_SUBMIT_EXPENSE_URL(appDel.baseURL, appDel.selectedCompany.CO_CD, appDel.loggedUser.USER_ID, [_selectedTransaction.doc_no stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]], sancAmountStr);
+    NSString *encodedStr = [sancAmountStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSString *docNo = [_selectedTransaction.doc_no stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    NSString *url = GET_SUBMIT_EXPENSE_URL(appDel.baseURL, appDel.selectedCompany.CO_CD, appDel.loggedUser.USER_ID, docNo, encodedStr);
     //[{%22sanc_amt%22:253.00,%22id_key%22:%2201%22}]
     
     [conn fetchDataForGETURL:url body:nil completion:^(id responseData, NSError *error) {
@@ -331,7 +410,7 @@ static NSString *cellIdentifier = @"EETableviewCellIdentifier";
         
         dispatch_async(dispatch_get_main_queue(), ^{
             
-            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Sanction amount" message:outputString preferredStyle:UIAlertControllerStyleActionSheet];
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Sanction amount" message:outputString preferredStyle:UIAlertControllerStyleAlert];
             [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 
             }]];
@@ -346,7 +425,20 @@ static NSString *cellIdentifier = @"EETableviewCellIdentifier";
     AppDelegate *appDel = (AppDelegate*)[[UIApplication sharedApplication] delegate];
     ConnectionHandler *conn = [[ConnectionHandler alloc] init];
     
-    NSString *url = GET_PAGE_SUBMIT_URL(appDel.baseURL, appDel.selectedCompany.CO_CD, appDel.loggedUser.USER_ID, [_selectedTransaction.doc_no stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]], @"[{%22sanc_amt%22:253.00,%22id_key%22:%2201%22}]", @"[{%22sanc_amt%22:900.00,%22id_key%22:%22865%22}]" );
+    NSMutableString *itemJSON = [[NSMutableString alloc] initWithString:@"["];
+    NSMutableString *KMjson = [[NSMutableString alloc] initWithString:@"["];
+    
+    for (int index = 0; index < detailModelsArray.count; index++) {
+        EmpExpenseItemModel *model = detailModelsArray[index];
+        NSString *str = [NSString stringWithFormat:@"{\"sanc_amt\":%ld,\"id_key\":\"%@\"}",model.sanc_amt,model.id_key];
+        [itemJSON appendString:str];
+        index<detailModelsArray.count-1?[itemJSON appendString:@","]:nil;
+    }
+    [itemJSON appendString:@"]"];
+    
+    NSString *encodedItemJSON = [itemJSON stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    
+    NSString *url = GET_PAGE_SUBMIT_URL(appDel.baseURL, appDel.selectedCompany.CO_CD, appDel.loggedUser.USER_ID, [_selectedTransaction.doc_no stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]], encodedItemJSON, @"[{%22sanc_amt%22:900.00,%22id_key%22:%22865%22}]");
     
     //submitexpE?scocd=w1&userid=EPENT&docno=?&exptrndt=[{%22sanc_amt%22:253.00,%22id_key%22:%2201%22}]&exptrnkm=        [{"sanc_amt":900.00,"id_key":"865"}]
     
@@ -358,7 +450,7 @@ static NSString *cellIdentifier = @"EETableviewCellIdentifier";
         
         dispatch_async(dispatch_get_main_queue(), ^{
             
-            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Submit" message:outputString preferredStyle:UIAlertControllerStyleActionSheet];
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Submit" message:outputString preferredStyle:UIAlertControllerStyleAlert];
             [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 
             }]];

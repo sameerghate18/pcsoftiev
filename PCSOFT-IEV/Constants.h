@@ -108,7 +108,7 @@ typedef enum
 [NSString stringWithFormat:@"%@/GetDocDtlEXPKm?scocd=%@&userId=%@&doctype=%@&docno=%@",baseURL,scocd,userId,doctype,docno];\
 
 #define GET_SUBMIT_EXPENSE_URL(baseURL,scocd,userId,docno,expJson)  \
-[NSString stringWithFormat:@"%@/submitexpE?scocd=%@&userid=%@&docno=docno&exptrndt=%@",baseURL,scocd,userId,expJson] ;   \
+[NSString stringWithFormat:@"%@/submitexpE?scocd=%@&userid=%@&docno=%@&exptrndt=%@",baseURL,scocd,userId,docno,expJson] ;   \
 
 #define GET_PAGE_SUBMIT_URL(baseURL,scocd,userId,docno,expJson,kmValue) \
 [NSString stringWithFormat:@"%@/submitexpE?scocd=%@&userid=%@&docno=?&exptrndt=%@&exptrnkm=%@",baseURL,scocd,userId,expJson,kmValue];  \

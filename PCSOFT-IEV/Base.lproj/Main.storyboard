@@ -7137,6 +7137,7 @@ PIN - 411004</string>
                         <outlet property="partyNameLabel" destination="h8b-Hy-wAz" id="Px7-gG-NGP"/>
                         <outlet property="partyNameTypeLabel" destination="wWh-f4-a3k" id="6Wo-8i-oE5"/>
                         <outlet property="valueLabel" destination="PDX-Ny-tfe" id="0BO-gv-s8q"/>
+                        <segue destination="H2z-x4-2cT" kind="presentation" identifier="authToSendBack" id="fNc-nK-b0F"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="C9R-XR-uBK" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -7157,25 +7158,6 @@ PIN - 411004</string>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg" translatesAutoresizingMaskIntoConstraints="NO" id="WOb-Ti-6Q1">
                                 <rect key="frame" x="-4" y="20" width="383" height="647"/>
-                            </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="navigate_strip" translatesAutoresizingMaskIntoConstraints="NO" id="TkL-le-vxw">
-                                <rect key="frame" x="-4" y="20" width="383" height="64"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="64" id="Dw9-zb-cFu"/>
-                                    <constraint firstAttribute="height" constant="64" id="EAF-Oo-HzD"/>
-                                </constraints>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="Dw9-zb-cFu"/>
-                                        <exclude reference="EAF-Oo-HzD"/>
-                                    </mask>
-                                </variation>
-                                <variation key="heightClass=regular-widthClass=compact">
-                                    <mask key="constraints">
-                                        <include reference="Dw9-zb-cFu"/>
-                                        <include reference="EAF-Oo-HzD"/>
-                                    </mask>
-                                </variation>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Send Back" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5h6-tV-EWj">
                                 <rect key="frame" x="51.5" y="35" width="272" height="21"/>
@@ -7381,6 +7363,25 @@ PIN - 411004</string>
                                     <action selector="sendbackAction:" destination="H2z-x4-2cT" eventType="touchUpInside" id="Utr-VZ-NZQ"/>
                                 </connections>
                             </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="navigate_strip" translatesAutoresizingMaskIntoConstraints="NO" id="TkL-le-vxw">
+                                <rect key="frame" x="-4" y="0.0" width="383" height="64"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="64" id="Dw9-zb-cFu"/>
+                                    <constraint firstAttribute="height" constant="64" id="EAF-Oo-HzD"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="Dw9-zb-cFu"/>
+                                        <exclude reference="EAF-Oo-HzD"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=compact">
+                                    <mask key="constraints">
+                                        <include reference="Dw9-zb-cFu"/>
+                                        <include reference="EAF-Oo-HzD"/>
+                                    </mask>
+                                </variation>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -7390,7 +7391,7 @@ PIN - 411004</string>
                             <constraint firstItem="w67-wb-pAJ" firstAttribute="top" secondItem="ZxE-2S-6qj" secondAttribute="bottom" constant="19" id="42d-6g-PIg"/>
                             <constraint firstItem="5h6-tV-EWj" firstAttribute="centerX" secondItem="wSK-N1-odc" secondAttribute="centerX" id="4eA-tA-bGd"/>
                             <constraint firstItem="TkL-le-vxw" firstAttribute="leading" secondItem="wSK-N1-odc" secondAttribute="leadingMargin" constant="-20" id="6Zr-IO-5ng"/>
-                            <constraint firstItem="ZxE-2S-6qj" firstAttribute="top" secondItem="TkL-le-vxw" secondAttribute="bottom" constant="5" id="6jR-eR-Tvj"/>
+                            <constraint firstItem="ZxE-2S-6qj" firstAttribute="top" secondItem="TkL-le-vxw" secondAttribute="bottom" constant="25" id="6jR-eR-Tvj"/>
                             <constraint firstItem="ZxE-2S-6qj" firstAttribute="trailing" secondItem="wSK-N1-odc" secondAttribute="trailingMargin" id="Fkq-bu-v10"/>
                             <constraint firstItem="WOb-Ti-6Q1" firstAttribute="leading" secondItem="wSK-N1-odc" secondAttribute="leadingMargin" constant="-20" id="HDe-d4-RU5"/>
                             <constraint firstItem="vxV-Bc-aV6" firstAttribute="trailing" secondItem="wSK-N1-odc" secondAttribute="trailingMargin" id="IrU-vM-ncx"/>
@@ -7407,13 +7408,12 @@ PIN - 411004</string>
                             <constraint firstAttribute="trailingMargin" secondItem="WOb-Ti-6Q1" secondAttribute="trailing" constant="-20" id="ni4-35-4b7"/>
                             <constraint firstItem="5h6-tV-EWj" firstAttribute="top" secondItem="F37-6X-ovH" secondAttribute="bottom" constant="15" id="oDg-DA-409"/>
                             <constraint firstAttribute="trailingMargin" secondItem="LCl-sz-rJ4" secondAttribute="trailing" constant="-10" id="ppy-Vu-HAM"/>
-                            <constraint firstItem="TkL-le-vxw" firstAttribute="top" secondItem="wSK-N1-odc" secondAttribute="topMargin" id="qQe-0i-cQm"/>
+                            <constraint firstItem="TkL-le-vxw" firstAttribute="top" secondItem="wSK-N1-odc" secondAttribute="topMargin" constant="-20" id="qQe-0i-cQm"/>
                             <constraint firstItem="Rr6-1d-AZy" firstAttribute="top" secondItem="Cs2-j1-TOl" secondAttribute="bottom" constant="13" id="yaN-lt-uth"/>
                         </constraints>
                         <variation key="default">
                             <mask key="subviews">
                                 <exclude reference="WOb-Ti-6Q1"/>
-                                <exclude reference="TkL-le-vxw"/>
                                 <exclude reference="5h6-tV-EWj"/>
                                 <exclude reference="LCl-sz-rJ4"/>
                                 <exclude reference="ZxE-2S-6qj"/>
@@ -7422,6 +7422,7 @@ PIN - 411004</string>
                                 <exclude reference="w67-wb-pAJ"/>
                                 <exclude reference="vxV-Bc-aV6"/>
                                 <exclude reference="Rr6-1d-AZy"/>
+                                <exclude reference="TkL-le-vxw"/>
                             </mask>
                             <mask key="constraints">
                                 <exclude reference="nZc-3I-V7m"/>
@@ -7454,7 +7455,6 @@ PIN - 411004</string>
                         <variation key="heightClass=regular-widthClass=compact">
                             <mask key="subviews">
                                 <include reference="WOb-Ti-6Q1"/>
-                                <include reference="TkL-le-vxw"/>
                                 <include reference="5h6-tV-EWj"/>
                                 <include reference="LCl-sz-rJ4"/>
                                 <include reference="ZxE-2S-6qj"/>
@@ -7463,6 +7463,7 @@ PIN - 411004</string>
                                 <include reference="w67-wb-pAJ"/>
                                 <include reference="vxV-Bc-aV6"/>
                                 <include reference="Rr6-1d-AZy"/>
+                                <include reference="TkL-le-vxw"/>
                             </mask>
                             <mask key="constraints">
                                 <include reference="nZc-3I-V7m"/>
@@ -7501,7 +7502,7 @@ PIN - 411004</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="feG-bv-yzr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1830" y="-1880"/>
+            <point key="canvasLocation" x="1646" y="-451"/>
         </scene>
         <!--Root View Controller-->
         <scene sceneID="ujQ-ee-mma">
@@ -7947,11 +7948,11 @@ PIN - 411004</string>
                                         <exclude reference="TCc-Lo-ScV"/>
                                         <exclude reference="j2f-Bw-zM9"/>
                                         <exclude reference="ko9-2W-VoN"/>
-                                        <exclude reference="OnU-lm-9X5"/>
-                                        <exclude reference="lFC-Jr-6dt"/>
                                         <exclude reference="AbY-IC-Nc0"/>
                                         <exclude reference="RdK-WZ-PXI"/>
                                         <exclude reference="Xpq-wn-uSy"/>
+                                        <exclude reference="OnU-lm-9X5"/>
+                                        <exclude reference="lFC-Jr-6dt"/>
                                     </mask>
                                 </variation>
                                 <variation key="heightClass=regular-widthClass=compact">
@@ -7978,11 +7979,11 @@ PIN - 411004</string>
                                         <include reference="TCc-Lo-ScV"/>
                                         <include reference="j2f-Bw-zM9"/>
                                         <include reference="ko9-2W-VoN"/>
-                                        <include reference="OnU-lm-9X5"/>
-                                        <include reference="lFC-Jr-6dt"/>
                                         <include reference="AbY-IC-Nc0"/>
                                         <include reference="RdK-WZ-PXI"/>
                                         <include reference="Xpq-wn-uSy"/>
+                                        <include reference="OnU-lm-9X5"/>
+                                        <include reference="lFC-Jr-6dt"/>
                                     </mask>
                                 </variation>
                             </view>
@@ -8095,7 +8096,7 @@ PIN - 411004</string>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mCM-nw-rcl">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="mCM-nw-rcl">
                                                     <rect key="frame" x="8" y="28" width="239" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="KcY-QN-hmL"/>
@@ -8109,18 +8110,21 @@ PIN - 411004</string>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="92" id="ZKx-IC-biR"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kcx-6U-mdF">
                                                     <rect key="frame" x="8" y="54" width="347" height="1"/>
                                                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                </view>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pR8-rR-acn">
-                                                    <rect key="frame" x="293" y="127" width="54" height="30"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="54" id="zLt-9b-aWZ"/>
+                                                        <constraint firstAttribute="height" constant="1" id="MNY-ip-cUn"/>
+                                                    </constraints>
+                                                </view>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pR8-rR-acn">
+                                                    <rect key="frame" x="251" y="127" width="96" height="30"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="96" id="zLt-9b-aWZ"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="italicSystem" pointSize="14"/>
                                                     <state key="normal" title="Update">
@@ -8130,16 +8134,33 @@ PIN - 411004</string>
                                                         <action selector="updateSanctionAmount:" destination="7az-em-Pdy" eventType="touchUpInside" id="cPn-3m-E5O"/>
                                                     </connections>
                                                 </button>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yq2-M5-9hD">
+                                                    <rect key="frame" x="251" y="127" width="96" height="30"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="96" id="HfG-aY-slA"/>
+                                                        <constraint firstAttribute="width" constant="96" id="N00-28-0X0"/>
+                                                        <constraint firstAttribute="height" constant="30" id="fFX-lZ-dhH"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="italicSystem" pointSize="14"/>
+                                                    <state key="normal" title="See more">
+                                                        <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="seeMoreAction:" destination="7az-em-Pdy" eventType="touchUpInside" id="0uy-TS-ZFn"/>
+                                                    </connections>
+                                                </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Amount" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HJf-wW-lTT">
                                                     <rect key="frame" x="119" y="109" width="228" height="15"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fMi-Ie-fce">
-                                                    <rect key="frame" x="0.0" y="163" width="355" height="1"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fMi-Ie-fce">
+                                                    <rect key="frame" x="0.0" y="159" width="355" height="1"/>
                                                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="1" id="vih-RK-tro"/>
+                                                    </constraints>
                                                 </view>
                                             </subviews>
                                             <constraints>
@@ -8147,6 +8168,7 @@ PIN - 411004</string>
                                                 <constraint firstItem="WYU-dn-nXW" firstAttribute="trailing" secondItem="IVw-my-etS" secondAttribute="trailing" id="5ap-XL-6pU"/>
                                                 <constraint firstItem="oSJ-ZJ-XAn" firstAttribute="leading" secondItem="mCM-nw-rcl" secondAttribute="leading" id="5i5-e9-4X1"/>
                                                 <constraint firstItem="oSJ-ZJ-XAn" firstAttribute="top" secondItem="4vF-3N-10J" secondAttribute="topMargin" id="7hc-cv-HDV"/>
+                                                <constraint firstAttribute="trailing" secondItem="fMi-Ie-fce" secondAttribute="trailing" id="7kH-Ff-GqG"/>
                                                 <constraint firstItem="mCM-nw-rcl" firstAttribute="top" secondItem="oSJ-ZJ-XAn" secondAttribute="bottom" constant="5" id="BB7-FD-xgw"/>
                                                 <constraint firstItem="IVw-my-etS" firstAttribute="leading" secondItem="RCc-Hu-tEx" secondAttribute="leading" id="BBG-GC-ocb"/>
                                                 <constraint firstAttribute="trailing" secondItem="kcx-6U-mdF" secondAttribute="trailing" id="Byi-KE-b7T"/>
@@ -8159,6 +8181,8 @@ PIN - 411004</string>
                                                 <constraint firstItem="RCc-Hu-tEx" firstAttribute="trailing" secondItem="OOf-LK-icM" secondAttribute="trailing" id="Pne-Ie-cjA"/>
                                                 <constraint firstItem="IVw-my-etS" firstAttribute="top" secondItem="bYn-h9-g9D" secondAttribute="bottom" constant="8" symbolic="YES" id="QbM-Pr-jpj"/>
                                                 <constraint firstItem="R3n-dq-TpL" firstAttribute="leading" secondItem="mCM-nw-rcl" secondAttribute="trailing" constant="4" id="RLY-Yp-dWP"/>
+                                                <constraint firstItem="fMi-Ie-fce" firstAttribute="top" secondItem="yq2-M5-9hD" secondAttribute="bottom" constant="2" id="T2n-TZ-5jA"/>
+                                                <constraint firstAttribute="bottom" secondItem="fMi-Ie-fce" secondAttribute="bottom" id="VPA-Ow-Sgt"/>
                                                 <constraint firstItem="oSJ-ZJ-XAn" firstAttribute="leading" secondItem="4vF-3N-10J" secondAttribute="leadingMargin" id="VjB-ZR-BGn"/>
                                                 <constraint firstItem="oSJ-ZJ-XAn" firstAttribute="trailing" secondItem="WYU-dn-nXW" secondAttribute="trailing" id="aEc-Wr-bWN"/>
                                                 <constraint firstItem="pR8-rR-acn" firstAttribute="top" secondItem="HJf-wW-lTT" secondAttribute="bottom" constant="3" id="b75-tq-e1A"/>
@@ -8166,12 +8190,13 @@ PIN - 411004</string>
                                                 <constraint firstItem="bYn-h9-g9D" firstAttribute="leading" secondItem="jxA-cc-E6e" secondAttribute="leading" id="buk-C9-i7l"/>
                                                 <constraint firstItem="HJf-wW-lTT" firstAttribute="trailing" secondItem="pR8-rR-acn" secondAttribute="trailing" id="c8M-jJ-XhN"/>
                                                 <constraint firstItem="RCc-Hu-tEx" firstAttribute="leading" secondItem="OOf-LK-icM" secondAttribute="leading" id="cUE-pm-abq"/>
+                                                <constraint firstItem="fMi-Ie-fce" firstAttribute="leading" secondItem="4vF-3N-10J" secondAttribute="leading" id="dDx-VF-mJl"/>
                                                 <constraint firstItem="RCc-Hu-tEx" firstAttribute="top" secondItem="IVw-my-etS" secondAttribute="bottom" constant="8" symbolic="YES" id="egG-Lk-uNZ"/>
                                                 <constraint firstItem="mCM-nw-rcl" firstAttribute="leading" secondItem="kcx-6U-mdF" secondAttribute="leading" id="gFU-ev-kPm"/>
                                                 <constraint firstItem="kcx-6U-mdF" firstAttribute="leading" secondItem="WYU-dn-nXW" secondAttribute="leading" id="hLC-OL-NAO"/>
+                                                <constraint firstAttribute="trailing" secondItem="yq2-M5-9hD" secondAttribute="trailing" constant="8" id="iXO-Lj-HnX"/>
                                                 <constraint firstItem="jxA-cc-E6e" firstAttribute="trailing" secondItem="HJf-wW-lTT" secondAttribute="trailing" id="ihF-fE-0xg"/>
                                                 <constraint firstItem="bYn-h9-g9D" firstAttribute="leading" secondItem="4vF-3N-10J" secondAttribute="leadingMargin" constant="77" id="l5N-4v-Y3t"/>
-                                                <constraint firstItem="WYU-dn-nXW" firstAttribute="top" secondItem="kcx-6U-mdF" secondAttribute="bottom" constant="8" symbolic="YES" id="n12-qQ-I7Z"/>
                                                 <constraint firstItem="RCc-Hu-tEx" firstAttribute="baseline" secondItem="HJf-wW-lTT" secondAttribute="baseline" id="oyy-dQ-hWC"/>
                                                 <constraint firstItem="bYn-h9-g9D" firstAttribute="trailing" secondItem="4vF-3N-10J" secondAttribute="trailingMargin" id="qsx-Ox-8iq"/>
                                                 <constraint firstItem="HJf-wW-lTT" firstAttribute="leading" secondItem="RCc-Hu-tEx" secondAttribute="trailing" constant="8" symbolic="YES" id="r3Y-cb-wkP"/>
@@ -8188,6 +8213,8 @@ PIN - 411004</string>
                                             <outlet property="particularsLabel" destination="jxA-cc-E6e" id="V4q-pm-VfP"/>
                                             <outlet property="projectNameLabel" destination="bYn-h9-g9D" id="cwn-OX-dv7"/>
                                             <outlet property="sanctionAmountLabel" destination="HJf-wW-lTT" id="vq3-Tp-cUl"/>
+                                            <outlet property="sanctionTextLabel" destination="RCc-Hu-tEx" id="bKe-2R-i0C"/>
+                                            <outlet property="seeMoreButton" destination="yq2-M5-9hD" id="fnu-eD-HEZ"/>
                                             <outlet property="updateButton" destination="pR8-rR-acn" id="4Oa-nD-qPA"/>
                                         </connections>
                                     </tableViewCell>
@@ -8305,7 +8332,7 @@ PIN - 411004</string>
                         <outlet property="documentNameLabel" destination="X5B-Tp-XNn" id="Gho-Hg-FqA"/>
                         <outlet property="itemsTableview" destination="sx6-Wu-sRI" id="Dnt-Fb-gqR"/>
                         <outlet property="taxLabel" destination="bIR-E6-RbB" id="mr7-Be-cHM"/>
-                        <segue destination="H2z-x4-2cT" kind="show" identifier="expToSendBack" id="SZH-DT-C33"/>
+                        <segue destination="H2z-x4-2cT" kind="presentation" identifier="expToSendBack" id="SZH-DT-C33"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eNg-sO-mWR" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -8333,5 +8360,8 @@ PIN - 411004</string>
         <image name="navigate_strip" width="320" height="64"/>
         <image name="pcsoftlogo" width="115" height="50"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="SZH-DT-C33"/>
+    </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.99607843139999996" green="0.85882352939999995" blue="0.039215686270000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>
