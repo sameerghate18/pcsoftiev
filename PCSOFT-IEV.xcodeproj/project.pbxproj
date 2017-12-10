@@ -253,8 +253,6 @@
 		423A3EC71BE5220E00F68DCD /* PrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrefixHeader.pch; path = "PCSOFT-IEV/PrefixHeader.pch"; sourceTree = "<group>"; };
 		423A3EC91BE52BDD00F68DCD /* PCAboutAppViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCAboutAppViewController.h; sourceTree = "<group>"; };
 		423A3ECA1BE52BDD00F68DCD /* PCAboutAppViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCAboutAppViewController.m; sourceTree = "<group>"; };
-		423A3ECC1BE52BDD00F68DCD /* PCApprovalItemDetailTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCApprovalItemDetailTableViewController.h; sourceTree = "<group>"; };
-		423A3ECD1BE52BDD00F68DCD /* PCApprovalItemDetailTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCApprovalItemDetailTableViewController.m; sourceTree = "<group>"; };
 		423A3ECE1BE52BDD00F68DCD /* PCApprovalItemList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCApprovalItemList.h; sourceTree = "<group>"; };
 		423A3ECF1BE52BDD00F68DCD /* PCApprovalItemList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCApprovalItemList.m; sourceTree = "<group>"; };
 		423A3ED41BE52BDD00F68DCD /* PCSingleTransactionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCSingleTransactionViewController.h; sourceTree = "<group>"; };
@@ -643,8 +641,6 @@
 		423A3ECB1BE52BDD00F68DCD /* Approvals */ = {
 			isa = PBXGroup;
 			children = (
-				423A3ECC1BE52BDD00F68DCD /* PCApprovalItemDetailTableViewController.h */,
-				423A3ECD1BE52BDD00F68DCD /* PCApprovalItemDetailTableViewController.m */,
 				423A3ECE1BE52BDD00F68DCD /* PCApprovalItemList.h */,
 				423A3ECF1BE52BDD00F68DCD /* PCApprovalItemList.m */,
 				423A3ED41BE52BDD00F68DCD /* PCSingleTransactionViewController.h */,

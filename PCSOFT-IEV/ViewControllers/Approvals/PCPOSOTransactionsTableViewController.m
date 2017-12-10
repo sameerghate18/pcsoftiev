@@ -103,7 +103,7 @@
         case TXTypeEmployeeExpense:
             [self setTitle:@"Employee Expense"];
             self.typeLabel.text = @"EMPLOYEE EXPENSE";
-            self.typeImageview.image = [UIImage imageNamed:@"EB-icon"];
+            self.typeImageview.image = [UIImage imageNamed:@"Payment-icon.png"];
             txtype = TXTypeEmployeeExpense;
             break;
             

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="1fv-CQ-iKP">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="1fv-CQ-iKP">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -65,9 +65,8 @@
                                 </variation>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select your company" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wic-ep-Gfd">
-                                <rect key="frame" x="88" y="28" width="199" height="21"/>
+                                <rect key="frame" x="101.5" y="28" width="172" height="21"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="199" id="2s6-uk-qEX"/>
                                     <constraint firstAttribute="height" constant="21" id="Gi6-BU-XQl"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
@@ -75,13 +74,11 @@
                                 <nil key="highlightedColor"/>
                                 <variation key="default">
                                     <mask key="constraints">
-                                        <exclude reference="2s6-uk-qEX"/>
                                         <exclude reference="Gi6-BU-XQl"/>
                                     </mask>
                                 </variation>
                                 <variation key="heightClass=regular-widthClass=compact">
                                     <mask key="constraints">
-                                        <include reference="2s6-uk-qEX"/>
                                         <include reference="Gi6-BU-XQl"/>
                                     </mask>
                                 </variation>
@@ -200,22 +197,6 @@
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg" translatesAutoresizingMaskIntoConstraints="NO" id="w6z-Do-Jwo">
                                 <rect key="frame" x="-4" y="20" width="383" height="647"/>
-                            </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="navigate_strip" translatesAutoresizingMaskIntoConstraints="NO" id="9R3-dh-yKs">
-                                <rect key="frame" x="-4" y="20" width="383" height="64"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="64" id="UGe-lk-qP0"/>
-                                </constraints>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="UGe-lk-qP0"/>
-                                    </mask>
-                                </variation>
-                                <variation key="heightClass=regular-widthClass=compact">
-                                    <mask key="constraints">
-                                        <include reference="UGe-lk-qP0"/>
-                                    </mask>
-                                </variation>
                             </imageView>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="Your phone number" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="FHT-K5-VVZ">
                                 <rect key="frame" x="94.5" y="266" width="186" height="38"/>
@@ -379,6 +360,22 @@
                                     </mask>
                                 </variation>
                             </textField>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="navigate_strip" translatesAutoresizingMaskIntoConstraints="NO" id="9R3-dh-yKs">
+                                <rect key="frame" x="0.0" y="0.0" width="383" height="64"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="64" id="UGe-lk-qP0"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="UGe-lk-qP0"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=compact">
+                                    <mask key="constraints">
+                                        <include reference="UGe-lk-qP0"/>
+                                    </mask>
+                                </variation>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -386,11 +383,11 @@
                             <constraint firstItem="5qc-hZ-ELC" firstAttribute="top" secondItem="OJb-Oa-UVX" secondAttribute="bottom" constant="8" id="5dQ-ex-COP"/>
                             <constraint firstAttribute="trailingMargin" secondItem="w6z-Do-Jwo" secondAttribute="trailing" constant="-20" id="BDV-nb-toy"/>
                             <constraint firstItem="OJb-Oa-UVX" firstAttribute="leading" secondItem="eoz-Tm-VJr" secondAttribute="leadingMargin" constant="-2" id="BEK-Ga-Cnp"/>
-                            <constraint firstItem="OJb-Oa-UVX" firstAttribute="top" secondItem="9R3-dh-yKs" secondAttribute="bottom" constant="15" id="BG2-Ew-uTN"/>
+                            <constraint firstItem="OJb-Oa-UVX" firstAttribute="top" secondItem="9R3-dh-yKs" secondAttribute="bottom" constant="35" id="BG2-Ew-uTN"/>
                             <constraint firstItem="FHT-K5-VVZ" firstAttribute="centerX" secondItem="eoz-Tm-VJr" secondAttribute="centerX" id="Kcy-0f-v2I"/>
                             <constraint firstItem="Sgm-Bh-Lpb" firstAttribute="top" secondItem="fw1-O3-2K9" secondAttribute="bottom" constant="5" id="RSZ-Fy-ui8"/>
                             <constraint firstItem="FHT-K5-VVZ" firstAttribute="width" secondItem="5qc-hZ-ELC" secondAttribute="width" id="aEC-ur-6QS"/>
-                            <constraint firstItem="9R3-dh-yKs" firstAttribute="leading" secondItem="eoz-Tm-VJr" secondAttribute="leadingMargin" constant="-20" id="dZb-uM-LTG"/>
+                            <constraint firstItem="9R3-dh-yKs" firstAttribute="leading" secondItem="eoz-Tm-VJr" secondAttribute="leadingMargin" constant="-16" id="dZb-uM-LTG"/>
                             <constraint firstItem="FHT-K5-VVZ" firstAttribute="top" secondItem="5qc-hZ-ELC" secondAttribute="bottom" constant="20" id="gIj-pS-moe"/>
                             <constraint firstItem="fw1-O3-2K9" firstAttribute="centerX" secondItem="eoz-Tm-VJr" secondAttribute="centerX" id="gPr-2m-i0a"/>
                             <constraint firstAttribute="trailingMargin" secondItem="OJb-Oa-UVX" secondAttribute="trailing" constant="-3" id="i7j-Bm-fgd"/>
@@ -399,12 +396,12 @@
                             <constraint firstItem="5qc-hZ-ELC" firstAttribute="centerX" secondItem="eoz-Tm-VJr" secondAttribute="centerX" id="nVG-dw-cdv"/>
                             <constraint firstItem="oFU-SZ-S2U" firstAttribute="top" secondItem="FHT-K5-VVZ" secondAttribute="bottom" constant="18" id="qCE-HO-vPM"/>
                             <constraint firstItem="vKk-tt-F2k" firstAttribute="centerX" secondItem="eoz-Tm-VJr" secondAttribute="centerX" id="r05-YA-y0W"/>
-                            <constraint firstItem="9R3-dh-yKs" firstAttribute="top" secondItem="eoz-Tm-VJr" secondAttribute="topMargin" id="rIK-bG-kwk"/>
+                            <constraint firstItem="9R3-dh-yKs" firstAttribute="top" secondItem="eoz-Tm-VJr" secondAttribute="topMargin" constant="-20" id="rIK-bG-kwk"/>
                             <constraint firstItem="FHT-K5-VVZ" firstAttribute="height" secondItem="5qc-hZ-ELC" secondAttribute="height" id="sC5-UP-uZt"/>
                             <constraint firstItem="oFU-SZ-S2U" firstAttribute="centerX" secondItem="eoz-Tm-VJr" secondAttribute="centerX" id="tFX-fd-cgh"/>
                             <constraint firstItem="vKk-tt-F2k" firstAttribute="top" secondItem="KWi-Cm-1lR" secondAttribute="bottom" constant="8" id="ttt-c6-NqZ"/>
                             <constraint firstItem="Sgm-Bh-Lpb" firstAttribute="centerX" secondItem="eoz-Tm-VJr" secondAttribute="centerX" id="xjz-h9-CZd"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="9R3-dh-yKs" secondAttribute="trailing" constant="-20" id="xuU-wj-OXO"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="9R3-dh-yKs" secondAttribute="trailing" constant="-24" id="xuU-wj-OXO"/>
                             <constraint firstItem="fw1-O3-2K9" firstAttribute="top" secondItem="oFU-SZ-S2U" secondAttribute="bottom" constant="39" id="zM2-kG-yK2"/>
                         </constraints>
                         <variation key="default">
@@ -489,22 +486,6 @@
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg" translatesAutoresizingMaskIntoConstraints="NO" id="fhu-Ss-hPv">
                                 <rect key="frame" x="-4" y="20" width="383" height="647"/>
-                            </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="navigate_strip" translatesAutoresizingMaskIntoConstraints="NO" id="OIc-3X-MeR">
-                                <rect key="frame" x="-4" y="20" width="383" height="64"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="64" id="fu3-7S-nWd"/>
-                                </constraints>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="fu3-7S-nWd"/>
-                                    </mask>
-                                </variation>
-                                <variation key="heightClass=regular-widthClass=compact">
-                                    <mask key="constraints">
-                                        <include reference="fu3-7S-nWd"/>
-                                    </mask>
-                                </variation>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Update mobile number" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VtK-a3-pOY">
                                 <rect key="frame" x="52.5" y="28" width="270" height="21"/>
@@ -600,11 +581,27 @@
                                     <action selector="cancel:" destination="cYZ-87-rAi" eventType="touchUpInside" id="8IX-Xy-B4L"/>
                                 </connections>
                             </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="navigate_strip" translatesAutoresizingMaskIntoConstraints="NO" id="OIc-3X-MeR">
+                                <rect key="frame" x="0.0" y="0.0" width="383" height="64"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="64" id="fu3-7S-nWd"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="fu3-7S-nWd"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=compact">
+                                    <mask key="constraints">
+                                        <include reference="fu3-7S-nWd"/>
+                                    </mask>
+                                </variation>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="7Wf-cf-HGC" firstAttribute="top" secondItem="gWN-5N-Ucf" secondAttribute="bottom" constant="45" id="2Ah-8K-6Iu"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="OIc-3X-MeR" secondAttribute="trailing" constant="-20" id="5Er-Nu-Blz"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="OIc-3X-MeR" secondAttribute="trailing" constant="-24" id="5Er-Nu-Blz"/>
                             <constraint firstItem="VtK-a3-pOY" firstAttribute="centerX" secondItem="YRB-HI-AK1" secondAttribute="centerX" id="DXs-lR-iMw"/>
                             <constraint firstItem="fhu-Ss-hPv" firstAttribute="top" secondItem="YRB-HI-AK1" secondAttribute="topMargin" id="DZN-Kn-pHJ"/>
                             <constraint firstItem="fhu-Ss-hPv" firstAttribute="leading" secondItem="YRB-HI-AK1" secondAttribute="leadingMargin" constant="-20" id="E8a-qi-F9p"/>
@@ -614,12 +611,12 @@
                             <constraint firstAttribute="trailingMargin" secondItem="fhu-Ss-hPv" secondAttribute="trailing" constant="-20" id="Pdj-Se-pff"/>
                             <constraint firstItem="o3Q-vH-Gcw" firstAttribute="top" secondItem="7Wf-cf-HGC" secondAttribute="bottom" constant="14" id="Pjw-2l-ViT"/>
                             <constraint firstItem="MWk-Uy-0oZ" firstAttribute="top" secondItem="fhu-Ss-hPv" secondAttribute="bottom" id="XTd-ob-Opm"/>
-                            <constraint firstItem="OIc-3X-MeR" firstAttribute="top" secondItem="YRB-HI-AK1" secondAttribute="topMargin" id="bg9-mT-j5P"/>
+                            <constraint firstItem="OIc-3X-MeR" firstAttribute="top" secondItem="YRB-HI-AK1" secondAttribute="topMargin" constant="-20" id="bg9-mT-j5P"/>
                             <constraint firstItem="o3Q-vH-Gcw" firstAttribute="centerX" secondItem="YRB-HI-AK1" secondAttribute="centerX" id="dT4-Is-lE4"/>
-                            <constraint firstItem="OIc-3X-MeR" firstAttribute="leading" secondItem="YRB-HI-AK1" secondAttribute="leadingMargin" constant="-20" id="huQ-o4-BXr"/>
+                            <constraint firstItem="OIc-3X-MeR" firstAttribute="leading" secondItem="YRB-HI-AK1" secondAttribute="leadingMargin" constant="-16" id="huQ-o4-BXr"/>
                             <constraint firstItem="WHD-Qe-hU3" firstAttribute="centerX" secondItem="YRB-HI-AK1" secondAttribute="centerX" id="iqo-t5-nfK"/>
                             <constraint firstItem="VtK-a3-pOY" firstAttribute="top" secondItem="HUk-D0-j85" secondAttribute="bottom" constant="8" id="tvF-yR-vY6"/>
-                            <constraint firstItem="WHD-Qe-hU3" firstAttribute="top" secondItem="OIc-3X-MeR" secondAttribute="bottom" constant="54" id="wLw-QO-ijF"/>
+                            <constraint firstItem="WHD-Qe-hU3" firstAttribute="top" secondItem="OIc-3X-MeR" secondAttribute="bottom" constant="74" id="wLw-QO-ijF"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
@@ -979,7 +976,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="l2f-mp-KTG">
-                                            <rect key="frame" x="16" y="0.0" width="289" height="43.5"/>
+                                            <rect key="frame" x="16" y="0.0" width="288" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1300,10 +1297,9 @@
                                                 </variation>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Home Screen: IEV Mobile provides an easy navigator screen" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jg1-YE-XX1">
-                                                <rect key="frame" x="36.5" y="336" width="255" height="95"/>
+                                                <rect key="frame" x="-78" y="336" width="484" height="95"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="95" id="6FX-Xe-8Fs"/>
-                                                    <constraint firstAttribute="width" constant="255" id="luY-pb-4tE"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                 <color key="textColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1311,13 +1307,11 @@
                                                 <variation key="default">
                                                     <mask key="constraints">
                                                         <exclude reference="6FX-Xe-8Fs"/>
-                                                        <exclude reference="luY-pb-4tE"/>
                                                     </mask>
                                                 </variation>
                                                 <variation key="heightClass=regular-widthClass=compact">
                                                     <mask key="constraints">
                                                         <include reference="6FX-Xe-8Fs"/>
-                                                        <include reference="luY-pb-4tE"/>
                                                     </mask>
                                                 </variation>
                                             </label>
@@ -1369,10 +1363,9 @@
                                                 </variation>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Daily Sales : Gives you an exact view of your current and past sales." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KJL-KV-CgO">
-                                                <rect key="frame" x="36.5" y="336" width="255" height="95"/>
+                                                <rect key="frame" x="-108.5" y="336" width="545" height="95"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="95" id="EwR-bW-KBl"/>
-                                                    <constraint firstAttribute="width" constant="255" id="nZ1-hH-RC1"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                 <color key="textColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1380,13 +1373,11 @@
                                                 <variation key="default">
                                                     <mask key="constraints">
                                                         <exclude reference="EwR-bW-KBl"/>
-                                                        <exclude reference="nZ1-hH-RC1"/>
                                                     </mask>
                                                 </variation>
                                                 <variation key="heightClass=regular-widthClass=compact">
                                                     <mask key="constraints">
                                                         <include reference="EwR-bW-KBl"/>
-                                                        <include reference="nZ1-hH-RC1"/>
                                                     </mask>
                                                 </variation>
                                             </label>
@@ -1438,10 +1429,9 @@
                                                 </variation>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="8" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="jGt-T1-f66">
-                                                <rect key="frame" x="36.5" y="336" width="255" height="95"/>
+                                                <rect key="frame" x="-420" y="336" width="1168.5" height="95"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="95" id="DLA-JD-dlm"/>
-                                                    <constraint firstAttribute="width" constant="255" id="vCR-hL-rOb"/>
                                                 </constraints>
                                                 <string key="text">Cash Flow Projections : Estimated projection depending on the invoices and orders booked. Also gives you a view of cash in hand at the moment.</string>
                                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
@@ -1450,13 +1440,11 @@
                                                 <variation key="default">
                                                     <mask key="constraints">
                                                         <exclude reference="DLA-JD-dlm"/>
-                                                        <exclude reference="vCR-hL-rOb"/>
                                                     </mask>
                                                 </variation>
                                                 <variation key="heightClass=regular-widthClass=compact">
                                                     <mask key="constraints">
                                                         <include reference="DLA-JD-dlm"/>
-                                                        <include reference="vCR-hL-rOb"/>
                                                     </mask>
                                                 </variation>
                                             </label>
@@ -1508,9 +1496,8 @@
                                                 </variation>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Top management approvals made easy. Sales Orders, Purchase Orders and Payment approvals can be done on the go." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="8" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="pWr-L0-3zk">
-                                                <rect key="frame" x="36.5" y="336" width="255" height="95"/>
+                                                <rect key="frame" x="-313.5" y="336" width="955.5" height="95"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" constant="255" id="Jdr-7R-Yfj"/>
                                                     <constraint firstAttribute="height" constant="95" id="oFh-R6-ZLQ"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
@@ -1518,13 +1505,11 @@
                                                 <nil key="highlightedColor"/>
                                                 <variation key="default">
                                                     <mask key="constraints">
-                                                        <exclude reference="Jdr-7R-Yfj"/>
                                                         <exclude reference="oFh-R6-ZLQ"/>
                                                     </mask>
                                                 </variation>
                                                 <variation key="heightClass=regular-widthClass=compact">
                                                     <mask key="constraints">
-                                                        <include reference="Jdr-7R-Yfj"/>
                                                         <include reference="oFh-R6-ZLQ"/>
                                                     </mask>
                                                 </variation>
@@ -1743,7 +1728,6 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fVF-3X-0dA">
                                 <rect key="frame" x="124.5" y="24" width="71" height="20"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="71" id="Su5-gH-gKs"/>
                                     <constraint firstAttribute="height" constant="20.5" id="nVJ-7e-pbh"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -1751,13 +1735,11 @@
                                 <nil key="highlightedColor"/>
                                 <variation key="default">
                                     <mask key="constraints">
-                                        <exclude reference="Su5-gH-gKs"/>
                                         <exclude reference="nVJ-7e-pbh"/>
                                     </mask>
                                 </variation>
                                 <variation key="heightClass=regular-widthClass=compact">
                                     <mask key="constraints">
-                                        <include reference="Su5-gH-gKs"/>
                                         <include reference="nVJ-7e-pbh"/>
                                     </mask>
                                 </variation>
@@ -2263,7 +2245,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="About PCSOFT ERP" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lYw-d4-ddd">
-                                                    <rect key="frame" x="8" y="8" width="304" height="21"/>
+                                                    <rect key="frame" x="16" y="11" width="288" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="7zB-9W-7DC"/>
                                                     </constraints>
@@ -2282,7 +2264,7 @@
                                                     </variation>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="25" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MzN-ye-g94">
-                                                    <rect key="frame" x="8" y="37" width="304" height="448"/>
+                                                    <rect key="frame" x="16" y="40" width="288" height="442"/>
                                                     <attributedString key="attributedText">
                                                         <fragment>
                                                             <string key="content">PCSOFT ERP Solutions gives you the power to leverage information technology and take your industrial corporation to new heights of productivity, efficiency and quality control. Our singular focus and commitment to ERP technology is epitomized by the fact that we have been a single product/single market company for the start. The upshot of our narrow focus and dedication to a singular craft, has been that we have gained superior domain knowledge and core-competence as compared to other Indian IT players who prefer to chase hundreds of unrelated markets. In other words our narrow focus has ensured tremendous, unparalleled domain knowledge. Having served many manufacturers in the past, our spherical knowledge of manufacturing/engineering process is unmatched by others. IEV is PCSOFT premium (foremost) ERP Package containing a wide repertoire of features. IEV users overwhelmingly concur that additional revenue generated through improved productivity, plus the revenue saved by forestalling wastage, yields overall benefits that far outweighs initial investment.</string>
@@ -2338,7 +2320,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CONTACT DETAILS" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6k3-Pa-Ovn">
-                                                    <rect key="frame" x="8" y="4" width="304" height="21"/>
+                                                    <rect key="frame" x="8" y="7" width="304" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="304" id="Pmc-8g-80Q"/>
                                                         <constraint firstAttribute="height" constant="21" id="rv8-Xh-lfa"/>
@@ -2393,7 +2375,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="6" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TlP-FL-TIV">
-                                                    <rect key="frame" x="8" y="0.0" width="304" height="94"/>
+                                                    <rect key="frame" x="8" y="3" width="304" height="94"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="304" id="MDp-Cb-Vlb"/>
                                                         <constraint firstAttribute="height" constant="94" id="ghc-A2-qS0"/>
@@ -2448,7 +2430,7 @@ PIN - 411004</string>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Call : +91-20-41034444" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lxy-1I-Yax">
-                                                    <rect key="frame" x="8" y="2" width="304" height="21"/>
+                                                    <rect key="frame" x="8" y="5" width="304" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="304" id="Gjg-lF-CAa"/>
                                                         <constraint firstAttribute="height" constant="21" id="Jae-bi-ANQ"/>
@@ -2497,7 +2479,7 @@ PIN - 411004</string>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="sales@pcsoftindia.com" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nwl-vi-jGt">
-                                                    <rect key="frame" x="8" y="2" width="304" height="21"/>
+                                                    <rect key="frame" x="8" y="5" width="304" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="304" id="G7t-Ya-Xbw"/>
                                                         <constraint firstAttribute="height" constant="21" id="lms-G3-BiN"/>
@@ -2546,7 +2528,7 @@ PIN - 411004</string>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="support@pcsoftindia.com" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gzf-Fg-E0D">
-                                                    <rect key="frame" x="8" y="2" width="304" height="21"/>
+                                                    <rect key="frame" x="8" y="5" width="304" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="304" id="ZJT-9k-5Sl"/>
                                                         <constraint firstAttribute="height" constant="21" id="dq3-kh-9JH"/>
@@ -2595,7 +2577,7 @@ PIN - 411004</string>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="www.pcsoftindia.com" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Un0-si-5AS">
-                                                    <rect key="frame" x="8" y="2" width="304" height="21"/>
+                                                    <rect key="frame" x="8" y="5" width="304" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="KsO-wQ-V91"/>
                                                         <constraint firstAttribute="width" constant="304" id="QNv-hd-D45"/>
@@ -2644,7 +2626,7 @@ PIN - 411004</string>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pcsoftlogo" translatesAutoresizingMaskIntoConstraints="NO" id="BIw-Ma-Hes">
-                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="87"/>
+                                                    <rect key="frame" x="0.0" y="3" width="320" height="81"/>
                                                 </imageView>
                                             </subviews>
                                             <constraints>
@@ -2742,10 +2724,9 @@ PIN - 411004</string>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="About the app" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="prF-YR-mpf">
-                                <rect key="frame" x="87.5" y="32" width="145" height="21"/>
+                                <rect key="frame" x="102" y="32" width="116" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="Pip-7G-XAG"/>
-                                    <constraint firstAttribute="width" constant="145" id="dqu-0M-oYo"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                 <color key="textColor" red="0.99607843139999996" green="0.85882352939999995" blue="0.039215686270000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -2753,13 +2734,11 @@ PIN - 411004</string>
                                 <variation key="default">
                                     <mask key="constraints">
                                         <exclude reference="Pip-7G-XAG"/>
-                                        <exclude reference="dqu-0M-oYo"/>
                                     </mask>
                                 </variation>
                                 <variation key="heightClass=regular-widthClass=compact">
                                     <mask key="constraints">
                                         <include reference="Pip-7G-XAG"/>
-                                        <include reference="dqu-0M-oYo"/>
                                     </mask>
                                 </variation>
                             </label>
@@ -2892,9 +2871,8 @@ PIN - 411004</string>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rejections" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N8Z-fi-SUP">
-                                <rect key="frame" x="115.5" y="31" width="145" height="21"/>
+                                <rect key="frame" x="145" y="31" width="86" height="21"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="145" id="A3x-xr-YmY"/>
                                     <constraint firstAttribute="height" constant="21" id="Td5-zE-Bk7"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
@@ -2927,10 +2905,9 @@ PIN - 411004</string>
                                                     <rect key="frame" x="74.5" y="62" width="226" height="76"/>
                                                     <subviews>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b90-ym-cq9">
-                                                            <rect key="frame" x="67" y="29" width="92" height="34"/>
+                                                            <rect key="frame" x="88" y="29" width="50" height="34"/>
                                                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="width" constant="92" id="Bf8-oU-8CO"/>
                                                                 <constraint firstAttribute="height" constant="24" id="g5w-Tv-DYw">
                                                                     <variation key="heightClass=regular-widthClass=compact" constant="34"/>
                                                                 </constraint>
@@ -2947,13 +2924,11 @@ PIN - 411004</string>
                                                             </userDefinedRuntimeAttributes>
                                                             <variation key="default">
                                                                 <mask key="constraints">
-                                                                    <exclude reference="Bf8-oU-8CO"/>
                                                                     <exclude reference="g5w-Tv-DYw"/>
                                                                 </mask>
                                                             </variation>
                                                             <variation key="heightClass=regular-widthClass=compact">
                                                                 <mask key="constraints">
-                                                                    <include reference="Bf8-oU-8CO"/>
                                                                     <include reference="g5w-Tv-DYw"/>
                                                                 </mask>
                                                             </variation>
@@ -2962,9 +2937,8 @@ PIN - 411004</string>
                                                             </connections>
                                                         </button>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No rejected items found." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pgj-9w-S6k">
-                                                            <rect key="frame" x="20" y="0.0" width="186" height="21"/>
+                                                            <rect key="frame" x="33.5" y="0.0" width="159.5" height="21"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="width" constant="186" id="HnW-8f-Jln"/>
                                                                 <constraint firstAttribute="height" constant="21" id="LOE-bl-NZQ"/>
                                                             </constraints>
                                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
@@ -2972,13 +2946,11 @@ PIN - 411004</string>
                                                             <color key="highlightedColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <variation key="default">
                                                                 <mask key="constraints">
-                                                                    <exclude reference="HnW-8f-Jln"/>
                                                                     <exclude reference="LOE-bl-NZQ"/>
                                                                 </mask>
                                                             </variation>
                                                             <variation key="heightClass=regular-widthClass=compact">
                                                                 <mask key="constraints">
-                                                                    <include reference="HnW-8f-Jln"/>
                                                                     <include reference="LOE-bl-NZQ"/>
                                                                 </mask>
                                                             </variation>
@@ -3228,7 +3200,7 @@ PIN - 411004</string>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oYV-k1-t4e">
-                                                    <rect key="frame" x="36" y="0.0" width="1" height="44"/>
+                                                    <rect key="frame" x="43" y="3" width="1" height="38.5"/>
                                                     <color key="backgroundColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="1" id="7xf-f3-z2R"/>
@@ -3245,7 +3217,7 @@ PIN - 411004</string>
                                                     </variation>
                                                 </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Item Code" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Qs-3n-b7D">
-                                                    <rect key="frame" x="45" y="11" width="152.5" height="21"/>
+                                                    <rect key="frame" x="52" y="14" width="145.5" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="xeZ-3O-70t"/>
                                                     </constraints>
@@ -3264,7 +3236,7 @@ PIN - 411004</string>
                                                     </variation>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Quantity" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YkF-58-3OZ">
-                                                    <rect key="frame" x="214.5" y="12" width="152.5" height="21"/>
+                                                    <rect key="frame" x="214.5" y="15" width="145.5" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="eBo-Ot-cS9"/>
                                                     </constraints>
@@ -3283,7 +3255,7 @@ PIN - 411004</string>
                                                     </variation>
                                                 </label>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="caB-GT-j2L">
-                                                    <rect key="frame" x="205.5" y="0.0" width="1" height="44"/>
+                                                    <rect key="frame" x="205.5" y="3" width="1" height="38.5"/>
                                                     <color key="backgroundColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="1" id="cuv-P4-7rh"/>
@@ -3300,7 +3272,7 @@ PIN - 411004</string>
                                                     </variation>
                                                 </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rUo-xd-Tsy">
-                                                    <rect key="frame" x="8" y="12" width="20" height="20"/>
+                                                    <rect key="frame" x="15" y="15" width="20" height="20"/>
                                                     <color key="backgroundColor" red="0.67908960460000001" green="0.078261754229999994" blue="0.093203188000000006" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="20" id="jz1-Yw-NGi"/>
@@ -3674,10 +3646,10 @@ PIN - 411004</string>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="sWT-JJ-or0">
-                                                    <rect key="frame" x="-8" y="-8" width="116" height="116"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
                                                 </imageView>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="Invoices" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="73m-6Z-pTQ">
-                                                    <rect key="frame" x="0.0" y="59" width="100" height="37"/>
+                                                    <rect key="frame" x="8" y="67" width="84" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="999" constant="21" id="2wO-dp-u9E"/>
                                                         <constraint firstAttribute="width" relation="greaterThanOrEqual" priority="999" constant="84" id="TH4-XM-pj0"/>
@@ -3725,7 +3697,7 @@ PIN - 411004</string>
                                                     <rect key="frame" x="0.0" y="0.0" width="220" height="85"/>
                                                 </imageView>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="APPROVALS" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h1t-6B-2D8">
-                                                    <rect key="frame" x="-37" y="-241.5" width="336" height="568"/>
+                                                    <rect key="frame" x="-29" y="-241.5" width="320" height="568"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="568" id="t4H-CP-S77"/>
                                                     </constraints>
@@ -3859,22 +3831,6 @@ PIN - 411004</string>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg" translatesAutoresizingMaskIntoConstraints="NO" id="Qtm-Fw-5xd">
                                 <rect key="frame" x="-4" y="0.0" width="383" height="667"/>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="navigate_strip" translatesAutoresizingMaskIntoConstraints="NO" id="dSn-g4-caU">
-                                <rect key="frame" x="-4" y="20" width="383" height="64"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="64" id="WXn-g5-ueE"/>
-                                </constraints>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="WXn-g5-ueE"/>
-                                    </mask>
-                                </variation>
-                                <variation key="heightClass=regular-widthClass=compact">
-                                    <mask key="constraints">
-                                        <include reference="WXn-g5-ueE"/>
-                                    </mask>
-                                </variation>
-                            </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u6m-h8-yoe">
                                 <rect key="frame" x="-2" y="26" width="40" height="35"/>
                                 <constraints>
@@ -3901,10 +3857,9 @@ PIN - 411004</string>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Graph view representation" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hnv-YJ-y0k">
-                                <rect key="frame" x="78.5" y="35" width="218" height="21"/>
+                                <rect key="frame" x="85" y="35" width="205.5" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="IPc-1I-h5E"/>
-                                    <constraint firstAttribute="width" constant="218" id="clX-J2-4QQ"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                                 <color key="textColor" red="0.99607843139999996" green="0.85882352939999995" blue="0.039215686270000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -3912,13 +3867,11 @@ PIN - 411004</string>
                                 <variation key="default">
                                     <mask key="constraints">
                                         <exclude reference="IPc-1I-h5E"/>
-                                        <exclude reference="clX-J2-4QQ"/>
                                     </mask>
                                 </variation>
                                 <variation key="heightClass=regular-widthClass=compact">
                                     <mask key="constraints">
                                         <include reference="IPc-1I-h5E"/>
-                                        <include reference="clX-J2-4QQ"/>
                                     </mask>
                                 </variation>
                             </label>
@@ -3936,7 +3889,7 @@ PIN - 411004</string>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xqJ-0n-SlA">
-                                                    <rect key="frame" x="132" y="0.0" width="1" height="44"/>
+                                                    <rect key="frame" x="139" y="3" width="1" height="38.5"/>
                                                     <color key="backgroundColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="1" id="gsN-yi-F6M"/>
@@ -3953,7 +3906,7 @@ PIN - 411004</string>
                                                     </variation>
                                                 </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Month" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4UW-WT-UCR">
-                                                    <rect key="frame" x="39" y="11" width="88" height="21"/>
+                                                    <rect key="frame" x="46" y="14" width="88" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="j9G-M6-1JD"/>
                                                     </constraints>
@@ -3972,7 +3925,7 @@ PIN - 411004</string>
                                                     </variation>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Recievables" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="7" translatesAutoresizingMaskIntoConstraints="NO" id="Q6y-xD-FQ7">
-                                                    <rect key="frame" x="141" y="11" width="226" height="21"/>
+                                                    <rect key="frame" x="148" y="14" width="212" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="eUm-rS-DhL"/>
                                                     </constraints>
@@ -3991,7 +3944,7 @@ PIN - 411004</string>
                                                     </variation>
                                                 </label>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bft-Ty-Ocp">
-                                                    <rect key="frame" x="15" y="12" width="20" height="20"/>
+                                                    <rect key="frame" x="22" y="15" width="20" height="20"/>
                                                     <color key="backgroundColor" red="0.67908960460000001" green="0.078261754229999994" blue="0.093203188000000006" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="20" id="3A3-3m-2nN"/>
@@ -4095,6 +4048,22 @@ PIN - 411004</string>
                                     </mask>
                                 </variation>
                             </view>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="navigate_strip" translatesAutoresizingMaskIntoConstraints="NO" id="dSn-g4-caU">
+                                <rect key="frame" x="-4" y="0.0" width="383" height="64"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="64" id="WXn-g5-ueE"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="WXn-g5-ueE"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=compact">
+                                    <mask key="constraints">
+                                        <include reference="WXn-g5-ueE"/>
+                                    </mask>
+                                </variation>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -4119,7 +4088,7 @@ PIN - 411004</string>
                             </constraint>
                             <constraint firstItem="Hnv-YJ-y0k" firstAttribute="top" secondItem="zaW-oo-2N3" secondAttribute="bottom" constant="15" id="YFZ-bu-m7S"/>
                             <constraint firstItem="aCD-Hg-sd9" firstAttribute="centerX" secondItem="gQq-KO-Uit" secondAttribute="centerX" id="dnl-o2-BF5"/>
-                            <constraint firstItem="dSn-g4-caU" firstAttribute="top" secondItem="gQq-KO-Uit" secondAttribute="topMargin" id="gF3-5s-wn1"/>
+                            <constraint firstItem="dSn-g4-caU" firstAttribute="top" secondItem="gQq-KO-Uit" secondAttribute="topMargin" constant="-20" id="gF3-5s-wn1"/>
                             <constraint firstItem="dSn-g4-caU" firstAttribute="leading" secondItem="gQq-KO-Uit" secondAttribute="leadingMargin" constant="-20" id="hiI-HI-c36"/>
                             <constraint firstItem="Qtm-Fw-5xd" firstAttribute="leading" secondItem="gQq-KO-Uit" secondAttribute="leadingMargin" constant="-20" id="n4J-mt-uPw"/>
                             <constraint firstItem="Qtm-Fw-5xd" firstAttribute="top" secondItem="zaW-oo-2N3" secondAttribute="bottom" constant="-20" id="nZ6-vp-KLr"/>
@@ -4353,10 +4322,10 @@ PIN - 411004</string>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="z7b-6p-7Jw">
-                                                    <rect key="frame" x="8" y="53" width="359" height="93"/>
+                                                    <rect key="frame" x="15" y="56" width="345" height="87"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Attendance details not available at the moment." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m0c-NQ-KyO">
-                                                            <rect key="frame" x="8" y="20" width="343" height="21"/>
+                                                            <rect key="frame" x="8" y="20" width="329" height="21"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="21" id="3s4-34-Ifj"/>
                                                                 <constraint firstAttribute="height" constant="21" id="Z5c-n9-D9c"/>
@@ -4381,7 +4350,7 @@ PIN - 411004</string>
                                                             </variation>
                                                         </label>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GIF-tC-IZn">
-                                                            <rect key="frame" x="133.5" y="49" width="92" height="24"/>
+                                                            <rect key="frame" x="126.5" y="43" width="92" height="24"/>
                                                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="24" id="X3i-uh-3A0"/>
@@ -4701,7 +4670,7 @@ PIN - 411004</string>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Data for selected sales type not available." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PBb-yI-Jyn">
-                                                    <rect key="frame" x="39.5" y="3" width="304" height="21"/>
+                                                    <rect key="frame" x="39.5" y="6" width="304" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="304" id="rfi-sc-UOQ"/>
                                                         <constraint firstAttribute="height" constant="21" id="yea-6Y-Lhs"/>
@@ -4723,7 +4692,7 @@ PIN - 411004</string>
                                                     </variation>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A3P-GP-ZMb">
-                                                    <rect key="frame" x="145.5" y="32" width="92" height="34"/>
+                                                    <rect key="frame" x="145.5" y="29" width="92" height="34"/>
                                                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="24" id="3Wt-ce-Nlc">
@@ -5124,13 +5093,13 @@ PIN - 411004</string>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="da0-i5-fAW" userLabel="container">
-                                                    <rect key="frame" x="20" y="14.5" width="335" height="116"/>
+                                                    <rect key="frame" x="27" y="17.5" width="321" height="110"/>
                                                     <subviews>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="black-white-box" translatesAutoresizingMaskIntoConstraints="NO" id="3Zx-IA-xp9">
-                                                            <rect key="frame" x="0.0" y="0.0" width="335" height="116"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="321" height="110"/>
                                                         </imageView>
                                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Receivables" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="86h-l2-3sJ">
-                                                            <rect key="frame" x="169.5" y="45" width="148.5" height="21"/>
+                                                            <rect key="frame" x="162.5" y="45" width="141.5" height="21"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="21" id="lgn-B9-oDW"/>
                                                             </constraints>
@@ -5149,7 +5118,7 @@ PIN - 411004</string>
                                                             </variation>
                                                         </label>
                                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Payables" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="K0i-qg-iYz">
-                                                            <rect key="frame" x="17" y="45" width="142.5" height="21"/>
+                                                            <rect key="frame" x="17" y="45" width="135.5" height="21"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="21" id="ODV-uy-3VX"/>
                                                             </constraints>
@@ -5168,7 +5137,7 @@ PIN - 411004</string>
                                                             </variation>
                                                         </label>
                                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rs. XXXXXXXX" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="3A1-RJ-nMc">
-                                                            <rect key="frame" x="17" y="74" width="144.5" height="27"/>
+                                                            <rect key="frame" x="17" y="68" width="137.5" height="27"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="27" id="lSA-Ro-4Xc"/>
                                                             </constraints>
@@ -5186,7 +5155,7 @@ PIN - 411004</string>
                                                             </variation>
                                                         </label>
                                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rs. XXXXXXXX" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="PJc-dY-zxJ">
-                                                            <rect key="frame" x="176" y="74" width="142" height="27"/>
+                                                            <rect key="frame" x="169" y="68" width="135" height="27"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="27" id="PRv-jj-ETe"/>
                                                             </constraints>
@@ -5204,7 +5173,7 @@ PIN - 411004</string>
                                                             </variation>
                                                         </label>
                                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Month" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8pf-Y5-MwW">
-                                                            <rect key="frame" x="38" y="10" width="254" height="21"/>
+                                                            <rect key="frame" x="38" y="10" width="240" height="21"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="21" id="rJJ-0j-ZF9"/>
                                                             </constraints>
@@ -5223,7 +5192,7 @@ PIN - 411004</string>
                                                             </variation>
                                                         </label>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5uT-a2-Mjh">
-                                                            <rect key="frame" x="167" y="40" width="1" height="60"/>
+                                                            <rect key="frame" x="160" y="40" width="1" height="54"/>
                                                             <color key="backgroundColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="1" id="Bkw-XL-62r"/>
@@ -5381,10 +5350,10 @@ PIN - 411004</string>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PpE-Gh-XGR" userLabel="container">
-                                                    <rect key="frame" x="20" y="0.0" width="335" height="145"/>
+                                                    <rect key="frame" x="27" y="3" width="321" height="139"/>
                                                     <subviews>
                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="black-white-box" translatesAutoresizingMaskIntoConstraints="NO" id="Wjq-SG-7aV">
-                                                            <rect key="frame" x="0.0" y="0.0" width="335" height="119"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="321" height="119"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="119" id="YYz-Zs-1iT"/>
                                                             </constraints>
@@ -5405,7 +5374,7 @@ PIN - 411004</string>
                                                             </variation>
                                                         </imageView>
                                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rs. XXXXXXXX" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="11" translatesAutoresizingMaskIntoConstraints="NO" id="F9X-Pf-kIl">
-                                                            <rect key="frame" x="82.5" y="50" width="159.5" height="27"/>
+                                                            <rect key="frame" x="75.5" y="50" width="159.5" height="27"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="27" id="uo1-dd-3gI"/>
                                                             </constraints>
@@ -5423,7 +5392,7 @@ PIN - 411004</string>
                                                             </variation>
                                                         </label>
                                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Amount in-hand" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dHy-ON-eKX">
-                                                            <rect key="frame" x="99.5" y="8" width="125.5" height="21"/>
+                                                            <rect key="frame" x="92.5" y="8" width="125.5" height="21"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="125.5" id="27m-Nv-ES0"/>
                                                                 <constraint firstAttribute="height" constant="21" id="SCH-RJ-lSV"/>
@@ -5760,7 +5729,7 @@ PIN - 411004</string>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="d2O-wC-tOf">
-                                                    <rect key="frame" x="81" y="0.0" width="1" height="44"/>
+                                                    <rect key="frame" x="81" y="3" width="1" height="38.5"/>
                                                     <color key="backgroundColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="1" id="xFA-oG-opd"/>
@@ -5777,7 +5746,7 @@ PIN - 411004</string>
                                                     </variation>
                                                 </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Month" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="7" translatesAutoresizingMaskIntoConstraints="NO" id="NxA-tv-4z2">
-                                                    <rect key="frame" x="10" y="11" width="60" height="21"/>
+                                                    <rect key="frame" x="10" y="14" width="60" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="P2A-k6-csW"/>
                                                         <constraint firstAttribute="width" constant="60" id="U58-0U-xa8"/>
@@ -5799,7 +5768,7 @@ PIN - 411004</string>
                                                     </variation>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Payables" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="7" translatesAutoresizingMaskIntoConstraints="NO" id="wsX-ie-sAt">
-                                                    <rect key="frame" x="91" y="11" width="109" height="21"/>
+                                                    <rect key="frame" x="91" y="14" width="109" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="l7S-UC-NTc"/>
                                                     </constraints>
@@ -5818,7 +5787,7 @@ PIN - 411004</string>
                                                     </variation>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Recievables" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="7" translatesAutoresizingMaskIntoConstraints="NO" id="HmL-Er-v7r">
-                                                    <rect key="frame" x="215" y="11" width="101" height="21"/>
+                                                    <rect key="frame" x="215" y="14" width="101" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="me8-Xi-hgo"/>
                                                     </constraints>
@@ -5837,7 +5806,7 @@ PIN - 411004</string>
                                                     </variation>
                                                 </label>
                                                 <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iwc-P2-dJ6">
-                                                    <rect key="frame" x="209" y="0.0" width="1" height="44"/>
+                                                    <rect key="frame" x="209" y="3" width="1" height="44"/>
                                                     <color key="backgroundColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="44" id="K4t-7G-q0F"/>
@@ -6612,25 +6581,14 @@ PIN - 411004</string>
                                             </mask>
                                         </variation>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total value:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="00w-rp-CN7">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Total value:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="00w-rp-CN7">
                                         <rect key="frame" x="20" y="31" width="75" height="21"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="75" id="Ppr-hi-KSN"/>
                                             <constraint firstAttribute="height" constant="21" id="zR8-om-Rld"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
                                         <color key="textColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
-                                        <variation key="default">
-                                            <mask key="constraints">
-                                                <exclude reference="Ppr-hi-KSN"/>
-                                            </mask>
-                                        </variation>
-                                        <variation key="heightClass=regular-widthClass=compact">
-                                            <mask key="constraints">
-                                                <include reference="Ppr-hi-KSN"/>
-                                            </mask>
-                                        </variation>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h8b-Hy-wAz" customClass="MarqueeLabel">
                                         <rect key="frame" x="101" y="5" width="262" height="21"/>
@@ -6651,7 +6609,7 @@ PIN - 411004</string>
                                             </mask>
                                         </variation>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PDX-Ny-tfe">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PDX-Ny-tfe">
                                         <rect key="frame" x="101" y="31" width="262" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="21" id="k3n-KA-S2h"/>
@@ -7019,7 +6977,6 @@ PIN - 411004</string>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="46" id="3H2-jv-81z"/>
                                     <constraint firstAttribute="height" constant="30" id="eeC-AT-dWq"/>
-                                    <constraint firstAttribute="width" constant="46" id="fEf-gJ-krg"/>
                                 </constraints>
                                 <state key="normal" title="Back">
                                     <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -7158,6 +7115,25 @@ PIN - 411004</string>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg" translatesAutoresizingMaskIntoConstraints="NO" id="WOb-Ti-6Q1">
                                 <rect key="frame" x="-4" y="20" width="383" height="647"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="navigate_strip" translatesAutoresizingMaskIntoConstraints="NO" id="TkL-le-vxw">
+                                <rect key="frame" x="-4" y="0.0" width="383" height="64"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="64" id="Dw9-zb-cFu"/>
+                                    <constraint firstAttribute="height" constant="64" id="EAF-Oo-HzD"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="Dw9-zb-cFu"/>
+                                        <exclude reference="EAF-Oo-HzD"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=compact">
+                                    <mask key="constraints">
+                                        <include reference="Dw9-zb-cFu"/>
+                                        <include reference="EAF-Oo-HzD"/>
+                                    </mask>
+                                </variation>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Send Back" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5h6-tV-EWj">
                                 <rect key="frame" x="51.5" y="35" width="272" height="21"/>
@@ -7363,25 +7339,6 @@ PIN - 411004</string>
                                     <action selector="sendbackAction:" destination="H2z-x4-2cT" eventType="touchUpInside" id="Utr-VZ-NZQ"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="navigate_strip" translatesAutoresizingMaskIntoConstraints="NO" id="TkL-le-vxw">
-                                <rect key="frame" x="-4" y="0.0" width="383" height="64"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="64" id="Dw9-zb-cFu"/>
-                                    <constraint firstAttribute="height" constant="64" id="EAF-Oo-HzD"/>
-                                </constraints>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="Dw9-zb-cFu"/>
-                                        <exclude reference="EAF-Oo-HzD"/>
-                                    </mask>
-                                </variation>
-                                <variation key="heightClass=regular-widthClass=compact">
-                                    <mask key="constraints">
-                                        <include reference="Dw9-zb-cFu"/>
-                                        <include reference="EAF-Oo-HzD"/>
-                                    </mask>
-                                </variation>
-                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -7414,6 +7371,7 @@ PIN - 411004</string>
                         <variation key="default">
                             <mask key="subviews">
                                 <exclude reference="WOb-Ti-6Q1"/>
+                                <exclude reference="TkL-le-vxw"/>
                                 <exclude reference="5h6-tV-EWj"/>
                                 <exclude reference="LCl-sz-rJ4"/>
                                 <exclude reference="ZxE-2S-6qj"/>
@@ -7422,15 +7380,14 @@ PIN - 411004</string>
                                 <exclude reference="w67-wb-pAJ"/>
                                 <exclude reference="vxV-Bc-aV6"/>
                                 <exclude reference="Rr6-1d-AZy"/>
-                                <exclude reference="TkL-le-vxw"/>
                             </mask>
                             <mask key="constraints">
                                 <exclude reference="nZc-3I-V7m"/>
-                                <exclude reference="4eA-tA-bGd"/>
-                                <exclude reference="oDg-DA-409"/>
                                 <exclude reference="6Zr-IO-5ng"/>
                                 <exclude reference="m0B-3P-5UJ"/>
                                 <exclude reference="qQe-0i-cQm"/>
+                                <exclude reference="4eA-tA-bGd"/>
+                                <exclude reference="oDg-DA-409"/>
                                 <exclude reference="3zv-IW-je4"/>
                                 <exclude reference="6jR-eR-Tvj"/>
                                 <exclude reference="Fkq-bu-v10"/>
@@ -7455,6 +7412,7 @@ PIN - 411004</string>
                         <variation key="heightClass=regular-widthClass=compact">
                             <mask key="subviews">
                                 <include reference="WOb-Ti-6Q1"/>
+                                <include reference="TkL-le-vxw"/>
                                 <include reference="5h6-tV-EWj"/>
                                 <include reference="LCl-sz-rJ4"/>
                                 <include reference="ZxE-2S-6qj"/>
@@ -7463,15 +7421,14 @@ PIN - 411004</string>
                                 <include reference="w67-wb-pAJ"/>
                                 <include reference="vxV-Bc-aV6"/>
                                 <include reference="Rr6-1d-AZy"/>
-                                <include reference="TkL-le-vxw"/>
                             </mask>
                             <mask key="constraints">
                                 <include reference="nZc-3I-V7m"/>
-                                <include reference="4eA-tA-bGd"/>
-                                <include reference="oDg-DA-409"/>
                                 <include reference="6Zr-IO-5ng"/>
                                 <include reference="m0B-3P-5UJ"/>
                                 <include reference="qQe-0i-cQm"/>
+                                <include reference="4eA-tA-bGd"/>
+                                <include reference="oDg-DA-409"/>
                                 <include reference="3zv-IW-je4"/>
                                 <include reference="6jR-eR-Tvj"/>
                                 <include reference="Fkq-bu-v10"/>
@@ -7517,17 +7474,17 @@ PIN - 411004</string>
                                 <rect key="frame" x="0.0" y="22" width="351" height="58"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ASG-oh-IJd" id="Fbm-ei-2Rv">
-                                    <rect key="frame" x="0.0" y="0.0" width="318" height="57.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="317" height="57.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" placeholderIntrinsicWidth="304" placeholderIntrinsicHeight="25" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="304" translatesAutoresizingMaskIntoConstraints="NO" id="pmJ-Th-C81">
-                                            <rect key="frame" x="21" y="25" width="305" height="25"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" ambiguous="YES" placeholderIntrinsicWidth="304" placeholderIntrinsicHeight="25" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="304" translatesAutoresizingMaskIntoConstraints="NO" id="pmJ-Th-C81">
+                                            <rect key="frame" x="29" y="25" width="296" height="25"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" placeholderIntrinsicWidth="304" placeholderIntrinsicHeight="17" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="304" translatesAutoresizingMaskIntoConstraints="NO" id="Rv1-Cu-455">
-                                            <rect key="frame" x="21" y="8" width="305" height="17"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" ambiguous="YES" placeholderIntrinsicWidth="304" placeholderIntrinsicHeight="17" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="304" translatesAutoresizingMaskIntoConstraints="NO" id="Rv1-Cu-455">
+                                            <rect key="frame" x="29" y="8" width="296" height="17"/>
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -7578,14 +7535,14 @@ PIN - 411004</string>
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="57.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" placeholderIntrinsicWidth="304" placeholderIntrinsicHeight="25" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="304" translatesAutoresizingMaskIntoConstraints="NO" id="kJ7-nr-nDF">
-                                            <rect key="frame" x="21" y="25" width="346" height="25"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" ambiguous="YES" placeholderIntrinsicWidth="304" placeholderIntrinsicHeight="25" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="304" translatesAutoresizingMaskIntoConstraints="NO" id="kJ7-nr-nDF">
+                                            <rect key="frame" x="29" y="25" width="330" height="25"/>
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" placeholderIntrinsicWidth="304" placeholderIntrinsicHeight="17" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="304" translatesAutoresizingMaskIntoConstraints="NO" id="jvZ-O9-569">
-                                            <rect key="frame" x="21" y="8" width="346" height="17"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" ambiguous="YES" placeholderIntrinsicWidth="304" placeholderIntrinsicHeight="17" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="304" translatesAutoresizingMaskIntoConstraints="NO" id="jvZ-O9-569">
+                                            <rect key="frame" x="29" y="8" width="330" height="17"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <color key="textColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
@@ -8049,7 +8006,7 @@ PIN - 411004</string>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Expense type" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oSJ-ZJ-XAn">
-                                                    <rect key="frame" x="8" y="8" width="85" height="15"/>
+                                                    <rect key="frame" x="15" y="11" width="85" height="15"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="85" id="roC-d6-Xl1"/>
                                                     </constraints>
@@ -8058,37 +8015,37 @@ PIN - 411004</string>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Project No. :" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WYU-dn-nXW">
-                                                    <rect key="frame" x="8" y="63" width="85" height="15"/>
+                                                    <rect key="frame" x="15" y="60.5" width="85" height="15"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1234567890" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bYn-h9-g9D">
-                                                    <rect key="frame" x="85" y="63" width="262" height="15"/>
+                                                    <rect key="frame" x="92" y="60.5" width="248" height="15"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Particulars" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jxA-cc-E6e">
-                                                    <rect key="frame" x="85" y="86" width="262" height="15"/>
+                                                    <rect key="frame" x="92" y="83.5" width="248" height="15"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Particulars :" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IVw-my-etS">
-                                                    <rect key="frame" x="8" y="86" width="85" height="15"/>
+                                                    <rect key="frame" x="15" y="83.5" width="85" height="15"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sanction amount :" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RCc-Hu-tEx">
-                                                    <rect key="frame" x="8" y="109" width="103" height="15"/>
+                                                    <rect key="frame" x="15" y="106.5" width="103" height="15"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="08/12/2017" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OOf-LK-icM">
-                                                    <rect key="frame" x="8" y="132" width="103" height="20"/>
+                                                    <rect key="frame" x="15" y="129.5" width="103" height="20"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="20" id="w8l-uS-26W"/>
                                                     </constraints>
@@ -8097,7 +8054,7 @@ PIN - 411004</string>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="mCM-nw-rcl">
-                                                    <rect key="frame" x="8" y="28" width="239" height="21"/>
+                                                    <rect key="frame" x="15" y="31" width="225" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="KcY-QN-hmL"/>
                                                     </constraints>
@@ -8106,7 +8063,7 @@ PIN - 411004</string>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R3n-dq-TpL">
-                                                    <rect key="frame" x="251" y="28" width="92" height="21"/>
+                                                    <rect key="frame" x="244" y="31" width="92" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="92" id="ZKx-IC-biR"/>
                                                     </constraints>
@@ -8115,14 +8072,14 @@ PIN - 411004</string>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kcx-6U-mdF">
-                                                    <rect key="frame" x="8" y="54" width="347" height="1"/>
+                                                    <rect key="frame" x="15" y="57" width="340" height="1"/>
                                                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="1" id="MNY-ip-cUn"/>
                                                     </constraints>
                                                 </view>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pR8-rR-acn">
-                                                    <rect key="frame" x="251" y="127" width="96" height="30"/>
+                                                    <rect key="frame" x="244" y="124.5" width="96" height="30"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="96" id="zLt-9b-aWZ"/>
                                                     </constraints>
@@ -8150,7 +8107,7 @@ PIN - 411004</string>
                                                     </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Amount" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HJf-wW-lTT">
-                                                    <rect key="frame" x="119" y="109" width="228" height="15"/>
+                                                    <rect key="frame" x="126" y="106.5" width="214" height="15"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -8361,7 +8318,7 @@ PIN - 411004</string>
         <image name="pcsoftlogo" width="115" height="50"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="SZH-DT-C33"/>
+        <segue reference="fNc-nK-b0F"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.99607843139999996" green="0.85882352939999995" blue="0.039215686270000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>

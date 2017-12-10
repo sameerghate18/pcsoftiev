@@ -162,7 +162,9 @@ typedef enum {
             EmpExpenseKMModel *kmModelObj = [[EmpExpenseKMModel alloc] init];
             [kmModelObj setValuesForKeysWithDictionary:dict];
             EmpExpenseItemModel *expenseModel = [detailModelsArray objectAtIndex:index];
-            expenseModel.kmModel = kmModelObj;
+            if (kmModelObj.exp_code == expenseModel.exp_code) {
+                expenseModel.kmModel = kmModelObj;
+            }
         }
     }];
     
