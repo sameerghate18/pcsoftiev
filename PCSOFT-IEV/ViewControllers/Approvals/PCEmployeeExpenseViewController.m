@@ -43,12 +43,14 @@ typedef enum {
     self.sanctionAmountLabel.text = [Utility stringWithCurrencySymbolForValue:[NSString stringWithFormat:@"%ld",(long)model.sanc_amt] forCurrencyCode:@"INR"];
     self.dateLabel.text = [Utility stringDateFromServerDate:model.exp_date];
     
+    [model addObserver:self forKeyPath:@"sanc_amt" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:nil];
+    [model addObserver:self forKeyPath:@"kmModel" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:nil];
+    
     if (model.exp_stat == 2 || model.exp_stat == 6) {
         self.seeMoreButton.hidden = NO;
         self.updateButton.hidden = YES;
         self.sanctionAmountLabel.hidden = YES;
         self.sanctionTextLabel.hidden = YES;
-        
     }
     else {
         self.seeMoreButton.hidden = YES;
@@ -56,6 +58,54 @@ typedef enum {
         self.sanctionAmountLabel.hidden = NO;
         self.sanctionTextLabel.hidden = NO;
     }
+    
+}
+
+- (void)observeValueForKeyPath:(nullable NSString *)keyPath ofObject:(nullable id)object change:(nullable NSDictionary<NSKeyValueChangeKey, id> *)change context:(nullable void *)context   {
+    
+    EmpExpenseItemModel *itemModel;
+    EmpExpenseKMModel *kmModel;
+    if ([object isKindOfClass:[EmpExpenseItemModel class]]) {
+        itemModel = (EmpExpenseItemModel*)object;
+        if ([keyPath isEqualToString:@"sanc_amt"]) {
+            
+            unsigned int newValue = [change[@"new"] intValue];
+            unsigned int oldValue = [change[@"old"] intValue];
+            
+            if (newValue == oldValue) {
+                itemModel.sancAmountChanged = NO;
+                itemModel.valueChange = NewValueEqual;
+            }
+            else if (newValue < oldValue){
+                itemModel.sancAmountChanged = YES;
+                itemModel.valueChange = NewValueLesser;
+            }
+            else {
+                itemModel.valueChange = NewValueMore;
+            }
+        }
+    }
+    else if ([object isKindOfClass:[EmpExpenseKMModel class]]) {
+        kmModel = (EmpExpenseKMModel*)object;
+        if ([keyPath isEqualToString:@"sanc_amt"]) {
+            
+            unsigned int newValue = [change[@"new"] intValue];
+            unsigned int oldValue = [change[@"old"] intValue];
+            
+            if (newValue == oldValue) {
+                kmModel.sancAmountChanged = NO;
+                kmModel.valueChange = NewValueEqual;
+            }
+            else if (newValue < oldValue){
+                kmModel.sancAmountChanged = YES;
+                kmModel.valueChange = NewValueLesser;
+            }
+            else {
+                kmModel.valueChange = NewValueMore;
+            }
+        }
+    }
+    
     
 }
 
@@ -307,6 +357,59 @@ static NSString *cellIdentifier = @"EETableviewCellIdentifier";
     }
 }
 
+- (void)presentSanctionAmountUpdateSheetForItem:(EmpExpenseItemModel*)model completion:(void(^)(BOOL valueUpdated, NSError *error))completionBlock  {
+    
+    NSInteger sancAmt;
+    if ((model.exp_stat == 2) || (model.exp_stat == 6)) {
+        sancAmt = model.kmModel.sanc_amt;
+    }
+    else { sancAmt = model.sanc_amt;}
+    
+    NSString *sanctAmount = [Utility stringWithCurrencySymbolForValue:[NSString stringWithFormat:@"%ld",(long)sancAmt] forCurrencyCode:@"INR"];
+    UIAlertController *sanctionAlert = [UIAlertController alertControllerWithTitle:@"Sanction Amount" message:[NSString stringWithFormat:@"Please provide new sanction amount.\nThis amount should be less than %@",sanctAmount] preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *updateAction = [UIAlertAction actionWithTitle:@"Update" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        
+        UITextField *amtTf = (UITextField*)sanctionAlert.textFields[0];
+        if ((model.exp_stat == 2) || (model.exp_stat == 6)) {
+            model.kmModel.sanc_amt = [amtTf.text integerValue];
+        }
+        else {
+            model.sanc_amt = [amtTf.text integerValue];
+        }
+    }];
+    
+    updateAction.enabled = false;
+    
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self dismissViewControllerAnimated:true completion:nil];
+    }];
+    
+    [sanctionAlert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+        textField.placeholder = @"New amount";
+        textField.keyboardType = UIKeyboardTypeDecimalPad;
+    }];
+    
+    [[NSNotificationCenter defaultCenter] addObserverForName:UITextFieldTextDidChangeNotification object:[sanctionAlert.textFields objectAtIndex:0] queue:NSOperationQueue.mainQueue usingBlock:^(NSNotification * _Nonnull note) {
+        
+        UITextField *amtTf = (UITextField*)sanctionAlert.textFields[0];
+        
+        if (amtTf.text.length > 0) {
+            if (sancAmt > [amtTf.text integerValue])  {
+                updateAction.enabled = true;
+            }
+            else {  updateAction.enabled = false;   }
+        }
+        else { updateAction.enabled = false;    }
+    }];
+    
+    [sanctionAlert addAction:updateAction];
+    [sanctionAlert addAction:cancelAction];
+    
+    [self presentViewController:sanctionAlert animated:YES completion:nil];
+    
+}
+
 #pragma mark - Connection
 
 -(void)initiateConfirmation
@@ -343,6 +446,30 @@ static NSString *cellIdentifier = @"EETableviewCellIdentifier";
 -(IBAction)seeMoreAction:(id)sender  {
     NSInteger btnTag = ((UIButton*)sender).tag;
     EmpExpenseItemModel *model = [detailModelsArray objectAtIndex:btnTag];
+    EmpExpenseKMModel *kmModel = model.kmModel;
+    
+    NSString *date = [Utility stringDateFromServerDate:kmModel.trvl_date];
+    NSString *amt = [Utility stringWithCurrencySymbolForValue:[NSString stringWithFormat:@"%ld",(long)kmModel.trvl_amt] forCurrencyCode:@"INR"];
+    NSString *sancAmt = [Utility stringWithCurrencySymbolForValue:[NSString stringWithFormat:@"%ld",(long)kmModel.sanc_amt] forCurrencyCode:@"INR"];
+    
+    NSString *message;
+    
+    if (model.exp_stat == 2) {
+        message = [NSString stringWithFormat:@"\nDoc no. : %@\n\nTravel Date : %@\nTravel Party : %@\nStart KM : %ld\nEnd KM : %ld\nTotal KM : %ld\nRate : %ld\nAmount : %@\n\nSanction Amount : %@", kmModel.doc_no,date,kmModel.trvl_parti,(long)kmModel.km_start,(long)kmModel.km_end,(long)kmModel.km_total,(long)kmModel.km_rate, amt,sancAmt ];
+    }
+    else if (model.exp_stat == 6) {
+        message = [NSString stringWithFormat:@"\nDoc no. : %@\n\nTravel Date : %@\nTravel Party : %@\nTotal KM : %ld\nRate : %ld\nAmount : %@\n\nSanction Amount : %@", kmModel.doc_no,date,kmModel.trvl_parti,(long)kmModel.km_total,(long)kmModel.km_rate, amt,sancAmt ];
+    }
+    
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"KM Details" message:message preferredStyle:UIAlertControllerStyleAlert];
+    [alert addAction:[UIAlertAction actionWithTitle:@"Update Sanction Amount" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self presentSanctionAmountUpdateSheetForItem:model completion:nil];
+    }]];
+    [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self dismissViewControllerAnimated:true completion:nil];
+    }]];
+    
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
 -(void)getKMDetails:(EmpExpenseItemModel*)model {
@@ -369,28 +496,13 @@ static NSString *cellIdentifier = @"EETableviewCellIdentifier";
     NSInteger btnTag = ((UIButton*)sender).tag;
     EmpExpenseItemModel *model = [detailModelsArray objectAtIndex:btnTag];
     
-    NSString *sanctAmount = [Utility stringWithCurrencySymbolForValue:[NSString stringWithFormat:@"%ld",(long)model.sanc_amt] forCurrencyCode:@"INR"];
     
-    UIAlertController *sanctionAlert = [UIAlertController alertControllerWithTitle:@"Sanction Amount" message:[NSString stringWithFormat:@"Please provide new sanction amount.\nThis amount should be less than %@",sanctAmount] preferredStyle:UIAlertControllerStyleAlert];
-    
-    __block UITextField *amountTF;
-    
-    [sanctionAlert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
-        textField.placeholder = @"Amount";
-        amountTF  = textField;
+    [self presentSanctionAmountUpdateSheetForItem:model completion:^(BOOL valueUpdated, NSError *error) {
+        
+        if (valueUpdated == YES) {
+            
+        }
     }];
-    
-    [sanctionAlert addAction:[UIAlertAction actionWithTitle:@"Sanction" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        model.sanc_amt = [amountTF.text integerValue];
-        [self initiateSanctionAmount:model];
-    }]];
-    
-    [sanctionAlert addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-        [self dismissViewControllerAnimated:YES completion:nil];
-    }]];
-    
-    [self presentViewController:sanctionAlert animated:YES completion:nil];
-    
 }
 
 -(void)initiateSanctionAmount:(EmpExpenseItemModel*)model   {
@@ -434,13 +546,33 @@ static NSString *cellIdentifier = @"EETableviewCellIdentifier";
         EmpExpenseItemModel *model = detailModelsArray[index];
         NSString *str = [NSString stringWithFormat:@"{\"sanc_amt\":%ld,\"id_key\":\"%@\"}",model.sanc_amt,model.id_key];
         [itemJSON appendString:str];
-        index<detailModelsArray.count-1?[itemJSON appendString:@","]:nil;
+
+        if ((model.exp_stat == 2) ||  (model.exp_stat == 6)) {
+//            if (model.kmModel.sancAmountChanged == true)    {
+            NSString *str1 = [NSString stringWithFormat:@"{\"sanc_amt\":%ld,\"id_key\":\"%@\"}",model.kmModel.sanc_amt,model.kmModel.id_key];
+            [KMjson appendString:str1];
+//            }
+//            else {
+//                [KMjson appendString:@"{\"sanc_amt\":\"\",\"id_key\":\"\"}"];
+//            }
+        }
+        else {
+            NSString *str1 = [NSString stringWithFormat:@"{\"sanc_amt\":\"0\",\"id_key\":\"0\"}"];
+            [KMjson appendString:str1];
+        }
+        
+        index<detailModelsArray.count-1?[itemJSON appendString:@","]:[itemJSON appendString:@""];
+        index<detailModelsArray.count-1?[KMjson appendString:@","]:[itemJSON appendString:@""];
     }
     [itemJSON appendString:@"]"];
-    
+    [KMjson appendString:@"]"];
     NSString *encodedItemJSON = [itemJSON stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSString *encodedkmJSON = [KMjson stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     
-    NSString *url = GET_PAGE_SUBMIT_URL(appDel.baseURL, appDel.selectedCompany.CO_CD, appDel.loggedUser.USER_ID, [_selectedTransaction.doc_no stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]], encodedItemJSON, @"[{%22sanc_amt%22:900.00,%22id_key%22:%22865%22}]");
+    NSString *docNo = [_selectedTransaction.doc_no stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    NSString *url = GET_PAGE_SUBMIT_URL(appDel.baseURL, appDel.selectedCompany.CO_CD, appDel.loggedUser.USER_ID, docNo , encodedItemJSON,encodedkmJSON);
+    
+    //@"[{%22sanc_amt%22:900.00,%22id_key%22:%22865%22}]");
     
     //submitexpE?scocd=w1&userid=EPENT&docno=?&exptrndt=[{%22sanc_amt%22:253.00,%22id_key%22:%2201%22}]&exptrnkm=        [{"sanc_amt":900.00,"id_key":"865"}]
     
@@ -452,9 +584,9 @@ static NSString *cellIdentifier = @"EETableviewCellIdentifier";
         
         dispatch_async(dispatch_get_main_queue(), ^{
             
-            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Submit" message:outputString preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Submit Expenses" message:outputString preferredStyle:UIAlertControllerStyleAlert];
             [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                
+                [self.navigationController popViewControllerAnimated:true];
             }]];
             [self presentViewController:alert animated:YES completion:nil];
         });

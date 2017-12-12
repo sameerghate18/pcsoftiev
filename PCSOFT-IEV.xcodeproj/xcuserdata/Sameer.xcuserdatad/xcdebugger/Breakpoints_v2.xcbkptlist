@@ -372,7 +372,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PCSOFT-IEV/ViewControllers/Approvals/PCPOSOTransactionsTableViewController.m"
-            timestampString = "534612807.303796"
+            timestampString = "534808075.71164"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "189"
@@ -416,15 +416,78 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PCSOFT-IEV/ViewControllers/Approvals/PCEmployeeExpenseViewController.m"
-            timestampString = "534612807.326543"
+            timestampString = "534808075.712116"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "140"
-            endingLineNumber = "140"
+            startingLineNumber = "188"
+            endingLineNumber = "188"
+            landmarkName = "-getDetailsForTransaction:"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__60-[PCEmployeeExpenseViewController getDetailsForTransaction:]_block_invoke_2"
+                  moduleName = "PCSOFT IEV"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Sameer/Work/PCSOFT%20IEV/PCSOFT-IEV/PCSOFT-IEV/ViewControllers/Approvals/PCEmployeeExpenseViewController.m"
+                  timestampString = "534805222.723358"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "188"
+                  endingLineNumber = "188"
+                  offsetFromSymbolStart = "42">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__copy_helper_block_"
+                  moduleName = "PCSOFT IEV"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Sameer/Work/PCSOFT%20IEV/PCSOFT-IEV/PCSOFT-IEV/ViewControllers/Approvals/PCEmployeeExpenseViewController.m"
+                  timestampString = "534805222.726781"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "188"
+                  endingLineNumber = "188"
+                  offsetFromSymbolStart = "108">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__destroy_helper_block_"
+                  moduleName = "PCSOFT IEV"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Sameer/Work/PCSOFT%20IEV/PCSOFT-IEV/PCSOFT-IEV/ViewControllers/Approvals/PCEmployeeExpenseViewController.m"
+                  timestampString = "534805222.730013"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "188"
+                  endingLineNumber = "188"
+                  offsetFromSymbolStart = "59">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PCSOFT-IEV/ViewControllers/Approvals/PCEmployeeExpenseViewController.m"
+            timestampString = "534808075.712602"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "168"
+            endingLineNumber = "168"
             landmarkName = "-getDetailsForTransaction:"
             landmarkType = "7">
          </BreakpointContent>
@@ -436,13 +499,45 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PCSOFT-IEV/ViewControllers/Approvals/PCEmployeeExpenseViewController.m"
-            timestampString = "534612807.327059"
+            timestampString = "534808075.713126"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "120"
-            endingLineNumber = "120"
-            landmarkName = "-getDetailsForTransaction:"
+            startingLineNumber = "517"
+            endingLineNumber = "517"
+            landmarkName = "-initiateSanctionAmount:"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[PCEmployeeExpenseViewController initiateSanctionAmount:]"
+                  moduleName = "PCSOFT IEV"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Sameer/Work/PCSOFT%20IEV/PCSOFT-IEV/PCSOFT-IEV/ViewControllers/Approvals/PCEmployeeExpenseViewController.m"
+                  timestampString = "534807722.008982"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "520"
+                  endingLineNumber = "520"
+                  offsetFromSymbolStart = "888">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__58-[PCEmployeeExpenseViewController initiateSanctionAmount:]_block_invoke"
+                  moduleName = "PCSOFT IEV"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Sameer/Work/PCSOFT%20IEV/PCSOFT-IEV/PCSOFT-IEV/ViewControllers/Approvals/PCEmployeeExpenseViewController.m"
+                  timestampString = "534807722.011224"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "522"
+                  endingLineNumber = "522"
+                  offsetFromSymbolStart = "84">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -452,11 +547,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PCSOFT-IEV/ViewControllers/Approvals/PCEmployeeExpenseViewController.m"
-            timestampString = "534612807.327334"
+            timestampString = "534808075.713855"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "407"
-            endingLineNumber = "407"
+            startingLineNumber = "512"
+            endingLineNumber = "512"
             landmarkName = "-initiateSanctionAmount:"
             landmarkType = "7">
          </BreakpointContent>
@@ -468,27 +563,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PCSOFT-IEV/ViewControllers/Approvals/PCEmployeeExpenseViewController.m"
-            timestampString = "534612807.327622"
+            timestampString = "534808075.714411"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "402"
-            endingLineNumber = "402"
-            landmarkName = "-initiateSanctionAmount:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PCSOFT-IEV/ViewControllers/Approvals/PCEmployeeExpenseViewController.m"
-            timestampString = "534612807.327891"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "288"
-            endingLineNumber = "288"
+            startingLineNumber = "336"
+            endingLineNumber = "336"
             landmarkName = "-authorizeWithUsername:password:"
             landmarkType = "7">
          </BreakpointContent>
@@ -500,59 +579,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PCSOFT-IEV/ViewControllers/Approvals/PCEmployeeExpenseViewController.m"
-            timestampString = "534612807.328159"
+            timestampString = "534808075.714821"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "352"
-            endingLineNumber = "352"
-            landmarkName = "-getKMDetails:"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[PCEmployeeExpenseViewController getKMDetails:]"
-                  moduleName = "PCSOFT IEV"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Sameer/Work/PCSOFT%20IEV/PCSOFT-IEV/PCSOFT-IEV/ViewControllers/Approvals/PCEmployeeExpenseViewController.m"
-                  timestampString = "534568897.006963"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "352"
-                  endingLineNumber = "352"
-                  offsetFromSymbolStart = "661">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__48-[PCEmployeeExpenseViewController getKMDetails:]_block_invoke"
-                  moduleName = "PCSOFT IEV"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Sameer/Work/PCSOFT%20IEV/PCSOFT-IEV/PCSOFT-IEV/ViewControllers/Approvals/PCEmployeeExpenseViewController.m"
-                  timestampString = "534568897.010266"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "354"
-                  endingLineNumber = "354"
-                  offsetFromSymbolStart = "138">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PCSOFT-IEV/ViewControllers/Approvals/PCEmployeeExpenseViewController.m"
-            timestampString = "534612807.328421"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "354"
-            endingLineNumber = "354"
+            startingLineNumber = "477"
+            endingLineNumber = "477"
             landmarkName = "-getKMDetails:"
             landmarkType = "7">
          </BreakpointContent>
@@ -564,45 +595,93 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PCSOFT-IEV/ViewControllers/Approvals/PCEmployeeExpenseViewController.m"
-            timestampString = "534612807.328687"
+            timestampString = "534808075.715231"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "157"
-            endingLineNumber = "157"
-            landmarkName = "-getKMDetailsForTransaction:"
+            startingLineNumber = "479"
+            endingLineNumber = "479"
+            landmarkName = "-getKMDetails:"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[PCEmployeeExpenseViewController getKMDetailsForTransaction:]"
-                  moduleName = "PCSOFT IEV"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Sameer/Work/PCSOFT%20IEV/PCSOFT-IEV/PCSOFT-IEV/ViewControllers/Approvals/PCEmployeeExpenseViewController.m"
-                  timestampString = "534568897.026066"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "157"
-                  endingLineNumber = "157"
-                  offsetFromSymbolStart = "709">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__62-[PCEmployeeExpenseViewController getKMDetailsForTransaction:]_block_invoke"
-                  moduleName = "PCSOFT IEV"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Sameer/Work/PCSOFT%20IEV/PCSOFT-IEV/PCSOFT-IEV/ViewControllers/Approvals/PCEmployeeExpenseViewController.m"
-                  timestampString = "534568897.029298"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "159"
-                  endingLineNumber = "159"
-                  offsetFromSymbolStart = "87">
-               </Location>
-            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PCSOFT-IEV/ViewControllers/Approvals/PCEmployeeExpenseViewController.m"
+            timestampString = "534808075.715619"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "502"
+            endingLineNumber = "502"
+            landmarkName = "-updateSanctionAmount:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PCSOFT-IEV/ViewControllers/Approvals/PCEmployeeExpenseViewController.m"
+            timestampString = "534808075.715985"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "573"
+            endingLineNumber = "573"
+            landmarkName = "-pageSubmitAction:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PCSOFT-IEV/ViewControllers/Approvals/PCEmployeeExpenseViewController.m"
+            timestampString = "534808075.716325"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "550"
+            endingLineNumber = "550"
+            landmarkName = "-pageSubmitAction:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PCSOFT-IEV/ViewControllers/Approvals/PCEmployeeExpenseViewController.m"
+            timestampString = "534808075.716633"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "88"
+            endingLineNumber = "88"
+            landmarkName = "-observeValueForKeyPath:ofObject:change:context:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PCSOFT-IEV/ViewControllers/Approvals/PCEmployeeExpenseViewController.m"
+            timestampString = "534808075.71693"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "68"
+            endingLineNumber = "68"
+            landmarkName = "-observeValueForKeyPath:ofObject:change:context:"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

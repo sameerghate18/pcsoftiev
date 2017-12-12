@@ -9,6 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "PCTransactionModel.h"
 
+typedef enum{
+    NewValueLesser,
+    NewValueEqual,
+    NewValueMore
+} NewValueChange;
+
 @interface EETableviewCell : UITableViewCell
 
 @end
@@ -36,6 +42,8 @@
 @property (nonatomic) NSInteger trvl_amt;//": 540,
 @property (nonatomic, strong) NSString *trvl_date;//": "3/30/2017 12:00:00 AM",
 @property (nonatomic, strong) NSString *trvl_parti;//": "TRAVEL KM"
+@property (nonatomic) BOOL sancAmountChanged;
+@property (nonatomic) NewValueChange valueChange;
 
 @end
 
@@ -58,7 +66,8 @@
     @property (nonatomic, strong) NSString *party_name;//": "ENRICH SPACES LLP",
     @property (nonatomic, strong) NSString *projct_no;//": "10014",
     @property (nonatomic) NSInteger sanc_amt;//": 2500
-
+    @property (nonatomic) BOOL sancAmountChanged;
+    @property (nonatomic) NewValueChange valueChange;
     @property (nonatomic, strong) EmpExpenseKMModel *kmModel;
 
 @end
