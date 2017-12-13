@@ -95,9 +95,6 @@
                     [self.delegate didUpdateMobileNumber:self.updatedMobileNumber];
                 }
             }
-            
-            
-            
             [self dismissViewControllerAnimated:YES completion:NULL];
         }
         else {

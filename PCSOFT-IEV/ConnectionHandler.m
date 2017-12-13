@@ -24,21 +24,26 @@
     
     if ([reachability currentReachabilityStatus] != NotReachable ) {
         
-        [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+        NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration] ;
+        [configuration setRequestCachePolicy:NSURLRequestUseProtocolCachePolicy];
+        
+        NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration];
+        NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
             
-            if (connectionError == nil) {
+            if (error == nil) {
                 if ([_delegate respondsToSelector:@selector(connectionHandler:didRecieveData:)]) {
                     [_delegate connectionHandler:self didRecieveData:data];
                 }
             }
             else {
                 if ([_delegate respondsToSelector:@selector(connectionHandler:errorRecievingData:)]) {
-                    [_delegate connectionHandler:self errorRecievingData:connectionError];
+                    [_delegate connectionHandler:self errorRecievingData:error];
                 }
             }
             
         }];
         
+        [dataTask resume];
     }
     else {
         
