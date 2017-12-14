@@ -44,7 +44,6 @@ typedef enum {
     self.dateLabel.text = [Utility stringDateFromServerDate:model.exp_date];
     
     [model addObserver:self forKeyPath:@"sanc_amt" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:nil];
-    [model addObserver:self forKeyPath:@"kmModel" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:nil];
     
     if (model.exp_stat == 2 || model.exp_stat == 6) {
         self.seeMoreButton.hidden = NO;
@@ -64,7 +63,6 @@ typedef enum {
 - (void)observeValueForKeyPath:(nullable NSString *)keyPath ofObject:(nullable id)object change:(nullable NSDictionary<NSKeyValueChangeKey, id> *)change context:(nullable void *)context   {
     
     EmpExpenseItemModel *itemModel;
-    EmpExpenseKMModel *kmModel;
     if ([object isKindOfClass:[EmpExpenseItemModel class]]) {
         itemModel = (EmpExpenseItemModel*)object;
         if ([keyPath isEqualToString:@"sanc_amt"]) {
@@ -85,28 +83,6 @@ typedef enum {
             }
         }
     }
-    else if ([object isKindOfClass:[EmpExpenseKMModel class]]) {
-        kmModel = (EmpExpenseKMModel*)object;
-        if ([keyPath isEqualToString:@"sanc_amt"]) {
-            
-            unsigned int newValue = [change[@"new"] intValue];
-            unsigned int oldValue = [change[@"old"] intValue];
-            
-            if (newValue == oldValue) {
-                kmModel.sancAmountChanged = NO;
-                kmModel.valueChange = NewValueEqual;
-            }
-            else if (newValue < oldValue){
-                kmModel.sancAmountChanged = YES;
-                kmModel.valueChange = NewValueLesser;
-            }
-            else {
-                kmModel.valueChange = NewValueMore;
-            }
-        }
-    }
-    
-    
 }
 
 @end
@@ -160,6 +136,8 @@ typedef enum {
 
 -(void)getDetailsForTransaction:(PCTransactionModel*)model
 {
+    [SVProgressHUD showWithStatus:@"Getting expense items"];
+    
     AppDelegate *appDel = (AppDelegate*)[[UIApplication sharedApplication] delegate];
     
     ConnectionHandler *conn = [[ConnectionHandler alloc] init];
@@ -169,6 +147,13 @@ typedef enum {
     
     NSString *url1 = GET_EE_DETAIL_URL(appDel.baseURL, appDel.selectedCompany.CO_CD, appDel.loggedUser.USER_ID, docType, docNo);
     [conn fetchDataForGETURL:url1 body:nil completion:^(id responseData, NSError *error) {
+        
+        if (error) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [SVProgressHUD dismiss];
+            });
+            return;
+        }
         
         NSArray *arr = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:&error];
         if (arr.count > 0) {
@@ -184,6 +169,7 @@ typedef enum {
             }
             
             dispatch_async(dispatch_get_main_queue(), ^{
+                [SVProgressHUD dismiss];
                 [self getKMDetailsForTransaction:model];
             });
             
@@ -199,12 +185,20 @@ typedef enum {
 
 - (void)getKMDetailsForTransaction:(PCTransactionModel*)model   {
     
+    [SVProgressHUD showWithStatus:@"Getting details"];
     AppDelegate *appDel = (AppDelegate*)[[UIApplication sharedApplication] delegate];
     NSString *doctypeStr = [model.doc_type stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     NSString *url = GET_EE_Exp_KM_URL(appDel.baseURL,  appDel.selectedCompany.CO_CD, appDel.loggedUser.USER_ID, doctypeStr, model.doc_no)
     
     ConnectionHandler *conn = [[ConnectionHandler alloc] init];
     [conn fetchDataForGETURL:url body:nil completion:^(id responseData, NSError *error) {
+        
+        if (error) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [SVProgressHUD dismiss];
+            });
+            return;
+        }
         
         NSArray *arr = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:&error];
         for (int index = 0; index < arr.count; index++) {
@@ -217,6 +211,10 @@ typedef enum {
             }
         }
     }];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [SVProgressHUD dismiss];
+    });
     
 }
 
@@ -373,6 +371,7 @@ static NSString *cellIdentifier = @"EETableviewCellIdentifier";
         UITextField *amtTf = (UITextField*)sanctionAlert.textFields[0];
         if ((model.exp_stat == 2) || (model.exp_stat == 6)) {
             model.kmModel.sanc_amt = [amtTf.text integerValue];
+            model.kmModel.sancAmountChanged = YES;
         }
         else {
             model.sanc_amt = [amtTf.text integerValue];
@@ -536,39 +535,35 @@ static NSString *cellIdentifier = @"EETableviewCellIdentifier";
 
 -(IBAction)pageSubmitAction:(id)sender  {
     
+    [SVProgressHUD showWithStatus:@"Submitting expense"];
     AppDelegate *appDel = (AppDelegate*)[[UIApplication sharedApplication] delegate];
     ConnectionHandler *conn = [[ConnectionHandler alloc] init];
     
     NSMutableString *itemJSON = [[NSMutableString alloc] initWithString:@"["];
     NSMutableString *KMjson = [[NSMutableString alloc] initWithString:@"["];
     
-    for (int index = 0; index < detailModelsArray.count; index++) {
+    NSInteger modelsCount = detailModelsArray.count;
+    for (int index = 0; index < modelsCount; index++) {
         EmpExpenseItemModel *model = detailModelsArray[index];
-        NSString *str = [NSString stringWithFormat:@"{\"sanc_amt\":%ld,\"id_key\":\"%@\"}",model.sanc_amt,model.id_key];
-        [itemJSON appendString:str];
-
-        if ((model.exp_stat == 2) ||  (model.exp_stat == 6)) {
-//            if (model.kmModel.sancAmountChanged == true)    {
-            NSString *str1 = [NSString stringWithFormat:@"{\"sanc_amt\":%ld,\"id_key\":\"%@\"}",model.kmModel.sanc_amt,model.kmModel.id_key];
-            [KMjson appendString:str1];
-//            }
-//            else {
-//                [KMjson appendString:@"{\"sanc_amt\":\"\",\"id_key\":\"\"}"];
-//            }
-        }
-        else {
-            NSString *str1 = [NSString stringWithFormat:@"{\"sanc_amt\":\"0\",\"id_key\":\"0\"}"];
-            [KMjson appendString:str1];
+        
+        if (model.sancAmountChanged == YES) {
+            NSString *str = [NSString stringWithFormat:@"{\"sanc_amt\":%ld,\"id_key\":\"%@\"}",(long)model.sanc_amt,model.id_key];
+            [itemJSON appendString:str];
+            index<modelsCount-1?[itemJSON appendString:@","]:[itemJSON appendString:@""];
         }
         
-        index<detailModelsArray.count-1?[itemJSON appendString:@","]:[itemJSON appendString:@""];
-        index<detailModelsArray.count-1?[KMjson appendString:@","]:[itemJSON appendString:@""];
+        if ((model.exp_stat == 2) ||  (model.exp_stat == 6)) {
+            if (model.kmModel.sancAmountChanged == YES)    {
+                NSString *str1 = [NSString stringWithFormat:@"{\"sanc_amt\":%ld,\"id_key\":\"%@\"}",(long)model.kmModel.sanc_amt,model.kmModel.id_key];
+                [KMjson appendString:str1];
+                 index<modelsCount-1?[KMjson appendString:@","]:[itemJSON appendString:@""];
+            }
+        }
     }
     [itemJSON appendString:@"]"];
     [KMjson appendString:@"]"];
     NSString *encodedItemJSON = [itemJSON stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     NSString *encodedkmJSON = [KMjson stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    
     NSString *docNo = [_selectedTransaction.doc_no stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     NSString *url = GET_PAGE_SUBMIT_URL(appDel.baseURL, appDel.selectedCompany.CO_CD, appDel.loggedUser.USER_ID, docNo , encodedItemJSON,encodedkmJSON);
     
@@ -578,12 +573,18 @@ static NSString *cellIdentifier = @"EETableviewCellIdentifier";
     
     [conn fetchDataForGETURL:url body:nil completion:^(id responseData, NSError *error) {
         
+        if (error) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [SVProgressHUD dismiss];
+            });
+        }
+        
         NSString *outputString = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
         outputString = [outputString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
         outputString = [outputString substringWithRange:NSMakeRange(1, outputString.length-2)];
         
         dispatch_async(dispatch_get_main_queue(), ^{
-            
+            [SVProgressHUD dismiss];
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Submit Expenses" message:outputString preferredStyle:UIAlertControllerStyleAlert];
             [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 [self.navigationController popViewControllerAnimated:true];
