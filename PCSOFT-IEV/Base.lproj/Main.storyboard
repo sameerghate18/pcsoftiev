@@ -7390,9 +7390,9 @@ PIN - 411004</string>
                                     <constraint firstAttribute="height" constant="47" id="i3o-0t-4mI"/>
                                 </constraints>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v6f-7R-Qtc">
+                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v6f-7R-Qtc">
                                 <rect key="frame" x="10" y="629" width="150" height="30"/>
-                                <color key="backgroundColor" red="0.001064052988" green="0.51446906889999999" blue="0.0016508990669999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.001064052988" green="0.51446906889999999" blue="0.0016508990669999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="150" id="PNX-xg-LNb"/>
                                     <constraint firstAttribute="height" constant="30" id="et1-GE-EcN"/>
@@ -8042,9 +8042,11 @@ PIN - 411004</string>
                     </view>
                     <connections>
                         <outlet property="amountLabel" destination="r3x-lT-wwF" id="hEi-5I-jwq"/>
+                        <outlet property="cancelButton" destination="sZu-2c-PWz" id="Kb6-K4-gN8"/>
                         <outlet property="dateLabel" destination="OwC-9w-gdN" id="LsF-XP-Okk"/>
                         <outlet property="documentNameLabel" destination="X5B-Tp-XNn" id="Gho-Hg-FqA"/>
                         <outlet property="itemsTableview" destination="sx6-Wu-sRI" id="Dnt-Fb-gqR"/>
+                        <outlet property="submitButton" destination="v6f-7R-Qtc" id="wFH-3F-uzS"/>
                         <outlet property="taxLabel" destination="bIR-E6-RbB" id="mr7-Be-cHM"/>
                         <segue destination="H2z-x4-2cT" kind="presentation" identifier="expToSendBack" id="SZH-DT-C33"/>
                     </connections>
@@ -8075,7 +8077,7 @@ PIN - 411004</string>
         <image name="pcsoftlogo" width="115" height="50"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="fNc-nK-b0F"/>
+        <segue reference="SZH-DT-C33"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.99607843139999996" green="0.85882352939999995" blue="0.039215686270000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>

@@ -45,7 +45,7 @@ typedef enum {
     
     [model addObserver:self forKeyPath:@"sanc_amt" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:nil];
     
-    if (model.exp_stat == 2 || model.exp_stat == 6) {
+    if ((model.exp_stat == 2) || (model.exp_stat == 6)) {
         self.seeMoreButton.hidden = NO;
         self.updateButton.hidden = YES;
         self.sanctionAmountLabel.hidden = YES;
@@ -57,7 +57,6 @@ typedef enum {
         self.sanctionAmountLabel.hidden = NO;
         self.sanctionTextLabel.hidden = NO;
     }
-    
 }
 
 - (void)observeValueForKeyPath:(nullable NSString *)keyPath ofObject:(nullable id)object change:(nullable NSDictionary<NSKeyValueChangeKey, id> *)change context:(nullable void *)context   {
@@ -102,9 +101,10 @@ typedef enum {
 @property (nonatomic, weak) IBOutlet UILabel *dateLabel;
 @property (nonatomic, weak) IBOutlet UILabel *amountLabel;
 @property (nonatomic, weak) IBOutlet UILabel *taxLabel;
-
+@property (nonatomic, weak) IBOutlet UIButton *submitButton;
+@property (nonatomic, weak) IBOutlet UIButton *cancelButton;
 @property (nonatomic, strong) IBOutlet UITableView *itemsTableview;
-
+@property (nonatomic) BOOL enableSubmitButton;
 @end
 
 @implementation PCEmployeeExpenseViewController
@@ -112,6 +112,10 @@ typedef enum {
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.enableSubmitButton = NO;
+    [self.submitButton setEnabled:FALSE];
+    [self.submitButton setBackgroundColor:[UIColor grayColor]];
+    [self addObserver:self forKeyPath:@"enableSubmitButton" options:NSKeyValueObservingOptionNew context:nil];
     [self populateFields];
     [self getDetailsForTransaction:self.selectedTransaction];
 }
@@ -218,6 +222,22 @@ typedef enum {
     
 }
 
+- (void)observeValueForKeyPath:(nullable NSString *)keyPath ofObject:(nullable id)object change:(nullable NSDictionary<NSKeyValueChangeKey, id> *)change context:(nullable void *)context   {
+    
+    if ([keyPath isEqualToString:@"enableSubmitButton"]) {
+        
+        unsigned int newValue = [change[@"new"] intValue];
+        if (newValue == 1) {
+            [self.submitButton setEnabled:TRUE];
+            [self.submitButton setBackgroundColor:[UIColor colorWithRed:0 green:0.51 blue:0 alpha:1.0]];
+        }
+        else {
+            [self.submitButton setEnabled:FALSE];
+            [self.submitButton setBackgroundColor:[UIColor grayColor]];
+        }
+    }
+}
+
 #pragma mark - UITableViewDelegates
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section    {
@@ -229,6 +249,7 @@ typedef enum {
     EETableviewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     
     EmpExpenseItemModel *model = [detailModelsArray objectAtIndex:indexPath.row];
+    
     [cell fillValuesIntoCell:model];
     cell.updateButton.tag = indexPath.row;
     cell.seeMoreButton.tag = indexPath.row;
@@ -375,7 +396,9 @@ static NSString *cellIdentifier = @"EETableviewCellIdentifier";
         }
         else {
             model.sanc_amt = [amtTf.text integerValue];
+            model.sancAmountChanged = YES;
         }
+        self.enableSubmitButton = YES;
     }];
     
     updateAction.enabled = false;
@@ -539,41 +562,52 @@ static NSString *cellIdentifier = @"EETableviewCellIdentifier";
     AppDelegate *appDel = (AppDelegate*)[[UIApplication sharedApplication] delegate];
     ConnectionHandler *conn = [[ConnectionHandler alloc] init];
     
-    NSMutableString *itemJSON = [[NSMutableString alloc] init];
-    NSMutableString *KMjson = [[NSMutableString alloc] init];
+    NSMutableArray *itemJSONArray = [[NSMutableArray alloc] init];
+    NSMutableArray *kmJSONArray = [[NSMutableArray alloc] init];
     
     NSInteger modelsCount = detailModelsArray.count;
     for (int index = 0; index < modelsCount; index++) {
-        EmpExpenseItemModel *model = detailModelsArray[index];
         
+        EmpExpenseItemModel *model = detailModelsArray[index];
         if (model.sancAmountChanged == YES) {
+            [itemJSONArray addObject:model];
+        }
+        else  if ((model.exp_stat == 2) ||  (model.exp_stat == 6)) {
+            if (model.kmModel.sancAmountChanged == YES)    {
+                [kmJSONArray addObject:model];
+            }
+        }
+    }
+    
+    NSMutableString *itemJSON = [[NSMutableString alloc] init];
+    NSMutableString *KMjson = [[NSMutableString alloc] init];
+    
+    NSInteger itemJSONArrayCount = itemJSONArray.count;
+    NSInteger kmJSONArrayCount = kmJSONArray.count;
+    
+    for (int index = 0; index < itemJSONArrayCount; index++) {
+            EmpExpenseItemModel *model = itemJSONArray[index];
             index==0?[itemJSON appendString:@"["]:nil;
             NSString *str = [NSString stringWithFormat:@"{\"sanc_amt\":%ld,\"id_key\":\"%@\"}",(long)model.sanc_amt,model.id_key];
             [itemJSON appendString:str];
-            index<modelsCount-1?[itemJSON appendString:@","]:[itemJSON appendString:@""];
-            index==modelsCount-1?[itemJSON appendString:@"]"]:nil;
-        }
-        
-        if ((model.exp_stat == 2) ||  (model.exp_stat == 6)) {
-            if (model.kmModel.sancAmountChanged == YES)    {
-                index==0?[KMjson appendString:@"["]:nil;
-                NSString *str1 = [NSString stringWithFormat:@"{\"sanc_amt\":%ld,\"id_key\":\"%@\"}",(long)model.kmModel.sanc_amt,model.kmModel.id_key];
-                [KMjson appendString:str1];
-                index<modelsCount-1?[KMjson appendString:@","]:nil;
-                index==modelsCount-1?[KMjson appendString:@"]"]:nil;
-            }
-        }
+            index<itemJSONArrayCount-1?[itemJSON appendString:@","]:[itemJSON appendString:@""];
+            index==itemJSONArrayCount-1?[itemJSON appendString:@"]"]:nil;
+    }
+    
+    for (int index = 0; index < kmJSONArrayCount; index++) {
+        EmpExpenseItemModel *model = kmJSONArray[index];
+        index==0?[KMjson appendString:@"["]:nil;
+        NSString *str1 = [NSString stringWithFormat:@"{\"sanc_amt\":%ld,\"id_key\":\"%@\"}",(long)model.kmModel.sanc_amt,model.kmModel.id_key];
+        [KMjson appendString:str1];
+        index<kmJSONArrayCount-1?[KMjson appendString:@","]:[KMjson appendString:@""];
+        index==kmJSONArrayCount-1?[KMjson appendString:@"]"]:nil;
     }
     
     NSString *encodedItemJSON = [itemJSON stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     NSString *encodedkmJSON = [KMjson stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     NSString *docNo = [_selectedTransaction.doc_no stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     NSString *url = GET_PAGE_SUBMIT_URL(appDel.baseURL, appDel.selectedCompany.CO_CD, appDel.loggedUser.USER_ID, docNo , encodedItemJSON,encodedkmJSON);
-    
-    //@"[{%22sanc_amt%22:900.00,%22id_key%22:%22865%22}]");
-    
-    //submitexpE?scocd=w1&userid=EPENT&docno=?&exptrndt=[{%22sanc_amt%22:253.00,%22id_key%22:%2201%22}]&exptrnkm=        [{"sanc_amt":900.00,"id_key":"865"}]
-    
+
     [conn fetchDataForGETURL:url body:nil completion:^(id responseData, NSError *error) {
         
         if (error) {
@@ -590,6 +624,7 @@ static NSString *cellIdentifier = @"EETableviewCellIdentifier";
             [SVProgressHUD dismiss];
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Submit Expenses" message:outputString preferredStyle:UIAlertControllerStyleAlert];
             [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                self.enableSubmitButton = FALSE;
                 [self.navigationController popViewControllerAnimated:true];
             }]];
             [self presentViewController:alert animated:YES completion:nil];
