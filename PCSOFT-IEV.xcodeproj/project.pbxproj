@@ -1054,7 +1054,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.pcsofterp.IEV;
 				PRODUCT_NAME = "PCSOFT IEV";
-				PROVISIONING_PROFILE = "6b8e5d55-2079-430d-9496-f66f37f6353b";
+				PROVISIONING_PROFILE = "6efd0fca-5032-4543-a162-e92186496a43";
 				PROVISIONING_PROFILE_SPECIFIER = "PCSoftERP Generic Development";
 			};
 			name = Debug;
@@ -1131,7 +1131,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.pcsofterp.IEV;
 				PRODUCT_NAME = "PCSOFT IEV";
-				PROVISIONING_PROFILE = "e31086c5-e5ef-4b04-8ec3-b03a9289febe";
+				PROVISIONING_PROFILE = "0aa4d829-689f-4393-9c5b-644329e80fd9";
 				PROVISIONING_PROFILE_SPECIFIER = "ERPMobile Generic Dist AdHoc";
 			};
 			name = DistAdHoc;
