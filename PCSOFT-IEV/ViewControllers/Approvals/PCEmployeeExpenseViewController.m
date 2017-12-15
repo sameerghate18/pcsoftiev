@@ -540,7 +540,7 @@ static NSString *cellIdentifier = @"EETableviewCellIdentifier";
     ConnectionHandler *conn = [[ConnectionHandler alloc] init];
     
     NSMutableString *itemJSON = [[NSMutableString alloc] initWithString:@"["];
-    NSMutableString *KMjson = [[NSMutableString alloc] initWithString:@"["];
+    NSMutableString *KMjson = [[NSMutableString alloc] init];
     
     NSInteger modelsCount = detailModelsArray.count;
     for (int index = 0; index < modelsCount; index++) {
@@ -554,14 +554,16 @@ static NSString *cellIdentifier = @"EETableviewCellIdentifier";
         
         if ((model.exp_stat == 2) ||  (model.exp_stat == 6)) {
             if (model.kmModel.sancAmountChanged == YES)    {
+                index==0?[KMjson appendString:@"["]:nil;
                 NSString *str1 = [NSString stringWithFormat:@"{\"sanc_amt\":%ld,\"id_key\":\"%@\"}",(long)model.kmModel.sanc_amt,model.kmModel.id_key];
                 [KMjson appendString:str1];
-                 index<modelsCount-1?[KMjson appendString:@","]:[itemJSON appendString:@""];
+                index<modelsCount-1?[KMjson appendString:@","]:nil;
+                index==modelsCount-1?[KMjson appendString:@"]"]:nil;
             }
         }
     }
-    [itemJSON appendString:@"]"];
-    [KMjson appendString:@"]"];
+    [itemJSON appendString:@""];
+    
     NSString *encodedItemJSON = [itemJSON stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     NSString *encodedkmJSON = [KMjson stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     NSString *docNo = [_selectedTransaction.doc_no stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
