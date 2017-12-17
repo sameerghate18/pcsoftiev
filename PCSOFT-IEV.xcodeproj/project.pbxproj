@@ -105,6 +105,10 @@
 		42AD55551FDAF2B600F1BEC8 /* PCEmployeeExpenseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42AD55541FDAF2B600F1BEC8 /* PCEmployeeExpenseViewController.m */; };
 		42B613101BEDF27B0062432A /* ChartNew.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 42B6130F1BEDF27B0062432A /* ChartNew.min.js */; };
 		42B9C1611BF60348005F3725 /* MarqueeLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 42B9C1601BF60348005F3725 /* MarqueeLabel.m */; };
+		42FB608F1FE6A15400E1318B /* EmpExpenseItemListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42FB608E1FE6A15400E1318B /* EmpExpenseItemListViewController.m */; };
+		42FB60921FE6A17300E1318B /* EmpExpenseItemDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42FB60911FE6A17300E1318B /* EmpExpenseItemDetailViewController.m */; };
+		42FB60961FE6DAE400E1318B /* EmpExpenseKMModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 42FB60951FE6DAE400E1318B /* EmpExpenseKMModel.m */; };
+		42FB60991FE6DE1800E1318B /* EmpExpenseItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 42FB60981FE6DE1800E1318B /* EmpExpenseItemModel.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -305,6 +309,14 @@
 		42B6130F1BEDF27B0062432A /* ChartNew.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = ChartNew.min.js; path = "PCSOFT-IEV/ChartNew.min.js"; sourceTree = "<group>"; };
 		42B9C15F1BF60347005F3725 /* MarqueeLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MarqueeLabel.h; sourceTree = "<group>"; };
 		42B9C1601BF60348005F3725 /* MarqueeLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MarqueeLabel.m; sourceTree = "<group>"; };
+		42FB608D1FE6A15400E1318B /* EmpExpenseItemListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EmpExpenseItemListViewController.h; sourceTree = "<group>"; };
+		42FB608E1FE6A15400E1318B /* EmpExpenseItemListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EmpExpenseItemListViewController.m; sourceTree = "<group>"; };
+		42FB60901FE6A17300E1318B /* EmpExpenseItemDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EmpExpenseItemDetailViewController.h; sourceTree = "<group>"; };
+		42FB60911FE6A17300E1318B /* EmpExpenseItemDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EmpExpenseItemDetailViewController.m; sourceTree = "<group>"; };
+		42FB60941FE6DAE400E1318B /* EmpExpenseKMModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EmpExpenseKMModel.h; sourceTree = "<group>"; };
+		42FB60951FE6DAE400E1318B /* EmpExpenseKMModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EmpExpenseKMModel.m; sourceTree = "<group>"; };
+		42FB60971FE6DE1800E1318B /* EmpExpenseItemModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EmpExpenseItemModel.h; sourceTree = "<group>"; };
+		42FB60981FE6DE1800E1318B /* EmpExpenseItemModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EmpExpenseItemModel.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -649,8 +661,7 @@
 				423A3ED71BE52BDD00F68DCD /* POSOSingleTransactionCell.m */,
 				4221D85E1C440FE800F5AABA /* PCSendBackViewController.h */,
 				4221D85F1C440FE800F5AABA /* PCSendBackViewController.m */,
-				42AD55531FDAF2B600F1BEC8 /* PCEmployeeExpenseViewController.h */,
-				42AD55541FDAF2B600F1BEC8 /* PCEmployeeExpenseViewController.m */,
+				42FB60931FE6A17A00E1318B /* Employee Expense */,
 			);
 			name = Approvals;
 			path = ViewControllers/Approvals;
@@ -770,6 +781,31 @@
 			path = MarqueeLabel;
 			sourceTree = "<group>";
 		};
+		42FB60931FE6A17A00E1318B /* Employee Expense */ = {
+			isa = PBXGroup;
+			children = (
+				42AD55531FDAF2B600F1BEC8 /* PCEmployeeExpenseViewController.h */,
+				42AD55541FDAF2B600F1BEC8 /* PCEmployeeExpenseViewController.m */,
+				42FB608D1FE6A15400E1318B /* EmpExpenseItemListViewController.h */,
+				42FB608E1FE6A15400E1318B /* EmpExpenseItemListViewController.m */,
+				42FB60901FE6A17300E1318B /* EmpExpenseItemDetailViewController.h */,
+				42FB60911FE6A17300E1318B /* EmpExpenseItemDetailViewController.m */,
+				42FB609A1FE6E24800E1318B /* Models */,
+			);
+			path = "Employee Expense";
+			sourceTree = "<group>";
+		};
+		42FB609A1FE6E24800E1318B /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				42FB60941FE6DAE400E1318B /* EmpExpenseKMModel.h */,
+				42FB60951FE6DAE400E1318B /* EmpExpenseKMModel.m */,
+				42FB60971FE6DE1800E1318B /* EmpExpenseItemModel.h */,
+				42FB60981FE6DE1800E1318B /* EmpExpenseItemModel.m */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -852,6 +888,7 @@
 				423A3E0D1BE50CFB00F68DCD /* AFHTTPRequestOperation.m in Sources */,
 				423A3E1A1BE50CFB00F68DCD /* UIImageView+AFNetworking.m in Sources */,
 				423A3D121BE4E2E900F68DCD /* AppDelegate.m in Sources */,
+				42FB60961FE6DAE400E1318B /* EmpExpenseKMModel.m in Sources */,
 				423A3EB81BE50F1100F68DCD /* POSOSingleTransactionCell.m in Sources */,
 				423A3E0E1BE50CFB00F68DCD /* AFHTTPRequestOperationManager.m in Sources */,
 				423A3E961BE50D7500F68DCD /* PCUserModel.m in Sources */,
@@ -883,6 +920,7 @@
 				423A3E6B1BE50CFB00F68DCD /* MKDSlideViewController.m in Sources */,
 				423A3E121BE50CFB00F68DCD /* AFURLConnectionOperation.m in Sources */,
 				423A3F081BE52BDD00F68DCD /* PCTilesCollectionCell.m in Sources */,
+				42FB60921FE6A17300E1318B /* EmpExpenseItemDetailViewController.m in Sources */,
 				423A3F141BE52BDD00F68DCD /* PCGraphTableViewCell.m in Sources */,
 				423A3E901BE50D7500F68DCD /* PCDeviceRegisterCheckModel.m in Sources */,
 				423A3E8F1BE50D7500F68DCD /* PCDeviceLicenseModel.m in Sources */,
@@ -901,6 +939,7 @@
 				423A3E6D1BE50CFB00F68DCD /* Reachability.m in Sources */,
 				423A3E1C1BE50CFB00F68DCD /* UIRefreshControl+AFNetworking.m in Sources */,
 				423A3EB51BE50F1100F68DCD /* PCPOSOHomeTableViewController.m in Sources */,
+				42FB60991FE6DE1800E1318B /* EmpExpenseItemModel.m in Sources */,
 				423A3E6C1BE50CFB00F68DCD /* UIViewController+MKDSlideViewController.m in Sources */,
 				423A3E8E1BE50D7500F68DCD /* PCCompanyModel.m in Sources */,
 				423A3E1D1BE50CFB00F68DCD /* UIWebView+AFNetworking.m in Sources */,
@@ -909,6 +948,7 @@
 				429755F91C1F199400DEF282 /* PCSettingsViewController.m in Sources */,
 				423A3E6A1BE50CFB00F68DCD /* MBProgressHUD.m in Sources */,
 				423A3E0F1BE50CFB00F68DCD /* AFHTTPSessionManager.m in Sources */,
+				42FB608F1FE6A15400E1318B /* EmpExpenseItemListViewController.m in Sources */,
 				423A3F071BE52BDD00F68DCD /* PCAttendanceTableViewController.m in Sources */,
 				423A3E181BE50CFB00F68DCD /* UIAlertView+AFNetworking.m in Sources */,
 				423A3F0F1BE52BDD00F68DCD /* PCRejectionsTableViewController.m in Sources */,
