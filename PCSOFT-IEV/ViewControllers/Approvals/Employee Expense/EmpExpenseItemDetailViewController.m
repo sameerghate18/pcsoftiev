@@ -80,9 +80,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    UILabel *titleLabel =  [[UILabel alloc] init];
+    [titleLabel setText:self.selectedExpenseModel.exp_desc];
+    [titleLabel setFont:[UIFont systemFontOfSize:15]];
+    self.navigationItem.titleView = titleLabel;
     [self setItemDetailsArray:self.selectedExpenseModel.kmModelArray];
     [self.detailTableview reloadData];
-    self.title = self.selectedExpenseModel.exp_desc;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -120,7 +123,13 @@ static NSString *type2Identifier = @"EmpExpenseKMType2CellIdentifier";
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath  {
-    return 210;
+    if (self.selectedExpenseModel.exp_stat == 2) {
+        return 220;
+    }
+    else if (self.selectedExpenseModel.exp_stat == 6)   {
+        return 170;
+    }
+    return 220;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

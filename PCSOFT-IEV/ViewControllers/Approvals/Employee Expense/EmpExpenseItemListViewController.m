@@ -95,7 +95,11 @@ typedef enum {
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.title = @"List of Expenses";
+//    self.title = @"List of Expenses";
+    UILabel *titleLabel =  [[UILabel alloc] init];
+    [titleLabel setText:@"List of Expenses"];
+    [titleLabel setFont:[UIFont systemFontOfSize:15]];
+    self.navigationItem.titleView = titleLabel;
     [self.itemsTableview reloadData];
 }
 
@@ -158,6 +162,7 @@ static NSString *cellIdentifier = @"EETableviewCellIdentifier";
             model.sancAmountChanged = YES;
         }
 
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"ExpenseItemUpdatedNotification" object:model];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"EnableSubmitButtonNotification" object:nil];
     }];
     

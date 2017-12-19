@@ -114,9 +114,32 @@ static NSString *reuseIdentifier = @"txCell";
     [cell.imageView setImage:[UIImage imageNamed:images[indexPath.row]]];
     
     if (indexPath.row == 6) {
-        cell.detailTextLabel.text = [NSString stringWithFormat:@"%lu new", (unsigned long)empExpCount];
-        cell.detailTextLabel.font = [UIFont italicSystemFontOfSize:15];
-        cell.detailTextLabel.textColor = [UIColor darkGrayColor];
+//        cell.detailTextLabel.text = [NSString stringWithFormat:@" %lu ", (unsigned long)empExpCount];
+        
+        CGFloat fontSize = 15;
+        UILabel *label = [[UILabel alloc] init];
+        label.font = [UIFont boldSystemFontOfSize:fontSize];
+        label.textAlignment = NSTextAlignmentCenter;
+        label.textColor = [UIColor whiteColor];
+        label.backgroundColor = [UIColor redColor];
+        
+        // Add count to label and size to fit
+        label.text = [NSString stringWithFormat:@"%lu", (unsigned long)empExpCount];
+        [label sizeToFit];
+        
+        // Adjust frame to be square for single digits or elliptical for numbers > 9
+        CGRect frame = label.frame;
+        frame.size.height += (int)(0.4*fontSize);
+        frame.size.width = (empExpCount <= 9) ? frame.size.height : frame.size.width + (int)fontSize;
+        label.frame = frame;
+        
+        // Set radius and clip to bounds
+        label.layer.cornerRadius = frame.size.height/2.0;
+        label.clipsToBounds = true;
+        
+        // Show label in accessory view and remove disclosure
+        cell.accessoryView = label;
+        cell.accessoryType = UITableViewCellAccessoryNone;
     }
     else {
         cell.detailTextLabel.text = @"";

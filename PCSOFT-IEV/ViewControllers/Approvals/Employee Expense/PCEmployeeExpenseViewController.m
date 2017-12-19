@@ -15,7 +15,7 @@
 
 @interface PCEmployeeExpenseViewController () <PCSendBackViewControllerDelegate>
 {
-    NSMutableArray *detailModelsArray;
+    NSMutableArray *detailModelsArray, *updateExpenseModelsArray;
 }
 @property (nonatomic, weak) IBOutlet UILabel *documentNameLabel;
 @property (nonatomic, weak) IBOutlet UILabel *dateLabel;
@@ -35,6 +35,7 @@
     // Do any additional setup after loading the view.
     self.enableSubmitButton = NO;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(enableSubmitButtonAction) name:@"EnableSubmitButtonNotification" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateItemsArray:) name:@"ExpenseItemUpdatedNotification" object:nil];
     [self.submitButton setEnabled:FALSE];
     [self.submitButton setBackgroundColor:[UIColor grayColor]];
     [self populateFields];
@@ -44,6 +45,28 @@
 - (void)enableSubmitButtonAction  {
     [self.submitButton setEnabled:TRUE];
     [self.submitButton setBackgroundColor:[UIColor colorWithRed:0 green:0.51 blue:0 alpha:1.0]];
+}
+
+- (void)updateItemsArray:(NSNotification*)notification    {
+    //exp_code
+    
+    EmpExpenseItemModel *model = (EmpExpenseItemModel*)notification.object;
+    
+    if (!updateExpenseModelsArray) {
+        updateExpenseModelsArray = [[NSMutableArray alloc] initWithObjects:model, nil];
+        return;
+    }
+    
+    for (int index = 0; index < updateExpenseModelsArray.count; index++) {
+        EmpExpenseItemModel *model1 = updateExpenseModelsArray[index];
+        if ([model1.exp_code isEqualToString:model.exp_code]) {
+            [updateExpenseModelsArray replaceObjectAtIndex:index withObject:model];
+            break;
+        }
+        else {
+            [updateExpenseModelsArray addObject:model];
+        }
+    }
 }
 
 -(void)populateFields   {
@@ -149,6 +172,7 @@
         }
         
         dispatch_async(dispatch_get_main_queue(), ^{
+//            updateExpenseModelsArray = [[NSMutableArray alloc] initWithArray:detailModelsArray];
             [self.itemListViewController setDetailModelsArray:detailModelsArray];
             [self.itemListViewController.itemsTableview reloadData];
         });
@@ -380,41 +404,54 @@
     
     NSMutableArray *itemJSONArray = [[NSMutableArray alloc] init];
     NSMutableArray *kmJSONArray = [[NSMutableArray alloc] init];
-    
-    NSInteger modelsCount = detailModelsArray.count;
-    for (int index = 0; index < modelsCount; index++) {
-        
-        EmpExpenseItemModel *model = detailModelsArray[index];
-        if (model.sancAmountChanged == YES) {
-            [itemJSONArray addObject:model];
-        }
-        else  if ((model.exp_stat == 2) ||  (model.exp_stat == 6)) {
-            if (model.kmModel.sancAmountChanged == YES)    {
-                [kmJSONArray addObject:model];
-            }
-        }
-    }
-    
     NSMutableString *itemJSON = [[NSMutableString alloc] init];
     NSMutableString *KMjson = [[NSMutableString alloc] init];
     
-    NSInteger itemJSONArrayCount = itemJSONArray.count;
-    NSInteger kmJSONArrayCount = kmJSONArray.count;
-    
-    for (int index = 0; index < itemJSONArrayCount; index++) {
-            EmpExpenseItemModel *model = itemJSONArray[index];
-            index==0?[itemJSON appendString:@"["]:nil;
+    NSInteger modelsCount = updateExpenseModelsArray.count;
+    for (int index = 0; index < modelsCount; index++) {
+        
+        EmpExpenseItemModel *model = updateExpenseModelsArray[index];
+        index==0?[itemJSON appendString:@"["]:nil;
+        
+        if (model.sancAmountChanged == YES) {
             NSString *str = [NSString stringWithFormat:@"{\"sanc_amt\":%ld,\"id_key\":\"%@\"}",(long)model.sanc_amt,model.id_key];
             [itemJSON appendString:str];
-            index<itemJSONArrayCount-1?[itemJSON appendString:@","]:[itemJSON appendString:@""];
-            index==itemJSONArrayCount-1?[itemJSON appendString:@"]"]:nil;
+        }
+        else if ((model.exp_stat == 2) ||  (model.exp_stat == 6)) {
+           
+            NSInteger totalAmount = 0;
+            NSInteger kmModelsCount = model.kmModelArray.count;
+            for (int kmIndex = 0; kmIndex < kmModelsCount; kmIndex++) {
+                EmpExpenseKMModel *kmModel = [model.kmModelArray objectAtIndex:kmIndex];
+                if (kmModel.sancAmountChanged == YES)    {
+                    [kmJSONArray addObject:kmModel];
+                    totalAmount += kmModel.sanc_amt;
+                }
+            }
+            NSString *str = [NSString stringWithFormat:@"{\"sanc_amt\":%ld,\"id_key\":\"%@\"}",(long)totalAmount,model.id_key];
+            [itemJSON appendString:str];
+        }
+        index<modelsCount-1?[itemJSON appendString:@","]:[KMjson appendString:@""];
+        index==modelsCount-1?[itemJSON appendString:@"]"]:nil;
     }
+
+//    NSInteger itemJSONArrayCount = itemJSONArray.count;
+    NSInteger kmJSONArrayCount = kmJSONArray.count;
+    
+//    for (int index = 0; index < itemJSONArrayCount; index++) {
+//            EmpExpenseItemModel *model = itemJSONArray[index];
+//            index==0?[itemJSON appendString:@"["]:nil;
+//            NSString *str = [NSString stringWithFormat:@"{\"sanc_amt\":%ld,\"id_key\":\"%@\"}",(long)model.sanc_amt,model.id_key];
+//            [itemJSON appendString:str];
+//            index<itemJSONArrayCount-1?[itemJSON appendString:@","]:[itemJSON appendString:@""];
+//            index==itemJSONArrayCount-1?[itemJSON appendString:@"]"]:nil;
+//    }
     
     for (int index = 0; index < kmJSONArrayCount; index++) {
-        EmpExpenseItemModel *model = kmJSONArray[index];
+        EmpExpenseKMModel *kmModel = kmJSONArray[index];
         index==0?[KMjson appendString:@"["]:nil;
-        NSString *str1 = [NSString stringWithFormat:@"{\"sanc_amt\":%ld,\"id_key\":\"%@\"}",(long)model.kmModel.sanc_amt,model.kmModel.id_key];
-        [KMjson appendString:str1];
+        NSString *kmStr = [NSString stringWithFormat:@"{\"sanc_amt\":%ld,\"id_key\":\"%@\"}",(long)kmModel.sanc_amt,kmModel.id_key];
+        [KMjson appendString:kmStr];
         index<kmJSONArrayCount-1?[KMjson appendString:@","]:[KMjson appendString:@""];
         index==kmJSONArrayCount-1?[KMjson appendString:@"]"]:nil;
     }
