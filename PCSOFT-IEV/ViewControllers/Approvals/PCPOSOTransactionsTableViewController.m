@@ -350,7 +350,7 @@
         PCEmployeeExpenseViewController *empExpVC = segue.destinationViewController;
         [empExpVC setSelectedTransaction:model];
     }
-    else if ([segue.identifier isEqualToString:@"listToExpenseSegue"])  {
+    else if ([segue.identifier isEqualToString:@"listToDetailSegue"])  {
         PCSingleTransactionViewController *detailVC = segue.destinationViewController;
         [detailVC setSelectedTransaction:model];
         detailVC.txType = txtype;
