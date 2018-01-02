@@ -158,11 +158,11 @@
             break;
             
         case TXTypePCR:
-            txtypeString = @"cpurchase";
+            txtypeString = @"CPURCHASE";
             break;
             
         case TXTypeRB:
-            txtypeString = @"rbill";
+            txtypeString = @"RBILL";
             break;
             
         case TXTypePayments:

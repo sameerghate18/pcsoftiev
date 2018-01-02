@@ -40,7 +40,7 @@
     
     titles = @[@"Purchase Indents",@"Purchase Order", @"Sale Order", @"Expense Booking", @"Bills Passing", @"Payments", @"Employee Expense"];
     images = @[@"PI-icon",@"PO-icon.png",@"SO-icon.png",@"EB-icon.png",@"BP-icon.png",@"Payment-icon.png", @"Payment-icon.png"];
-    codes = @[@"PI", @"PO", @"SO", @"EB", @"BP", @"PP", @"EP"];
+    codes = @[@"PI", @"PO", @"SO", @"CPURCHASE", @"RBILL", @"PAYMENT", @"EP"];
     
     titleArray = [[NSMutableArray alloc] init];
     
