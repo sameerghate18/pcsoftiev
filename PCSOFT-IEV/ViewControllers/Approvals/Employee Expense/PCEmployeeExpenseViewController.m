@@ -47,6 +47,11 @@
     [self.submitButton setBackgroundColor:[UIColor colorWithRed:0 green:0.51 blue:0 alpha:1.0]];
 }
 
+- (void)disableSubmitButton {
+    [self.submitButton setEnabled:FALSE];
+    [self.submitButton setBackgroundColor:[UIColor grayColor]];
+}
+
 - (void)updateItemsArray:(NSNotification*)notification    {
     //exp_code
     
@@ -54,6 +59,10 @@
     
     if (!updateExpenseModelsArray) {
         updateExpenseModelsArray = [[NSMutableArray alloc] initWithObjects:model, nil];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.itemListViewController setDetailModelsArray:updateExpenseModelsArray];
+            [self.itemListViewController.itemsTableview reloadData];
+        });
         return;
     }
     
@@ -67,6 +76,11 @@
             [updateExpenseModelsArray addObject:model];
         }
     }
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.itemListViewController setDetailModelsArray:updateExpenseModelsArray];
+        [self.itemListViewController.itemsTableview reloadData];
+    });
 }
 
 -(void)populateFields   {
@@ -132,7 +146,7 @@
     }];
 }
 
-- (void)getKMDetailsForTransaction:(PCTransactionModel*)model   {
+- (void)getKMDetailsForTransaction:(PCTransactionModel*)model {
     
     [SVProgressHUD showWithStatus:@"Getting details"];
     AppDelegate *appDel = (AppDelegate*)[[UIApplication sharedApplication] delegate];
@@ -182,7 +196,6 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         [SVProgressHUD dismiss];
     });
-    
 }
 
 - (void)observeValueForKeyPath:(nullable NSString *)keyPath ofObject:(nullable id)object change:(nullable NSDictionary<NSKeyValueChangeKey, id> *)change context:(nullable void *)context   {
@@ -477,8 +490,13 @@
             [SVProgressHUD dismiss];
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Submit Expenses" message:outputString preferredStyle:UIAlertControllerStyleAlert];
             [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                self.enableSubmitButton = FALSE;
-                [self.navigationController popViewControllerAnimated:true];
+        
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    self.enableSubmitButton = FALSE;
+                    [self disableSubmitButton];
+                });
+                
+//                [self.navigationController popViewControllerAnimated:true];
             }]];
             [self presentViewController:alert animated:YES completion:nil];
         });

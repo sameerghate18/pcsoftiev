@@ -1,22 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="1fv-CQ-iKP">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="1fv-CQ-iKP">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
-    <customFonts key="customFonts">
-        <array key="HelveticaNeue.ttc">
-            <string>HelveticaNeue-Bold</string>
-        </array>
-    </customFonts>
     <scenes>
         <!--Navigation Controller-->
         <scene sceneID="gfD-Ze-YfM">
@@ -2370,11 +2365,11 @@
                                         <rect key="frame" x="0.0" y="768" width="320" height="29"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="tAC-gc-u2m" id="ICz-Ju-NDP">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="29"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="28.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CONTACT DETAILS" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6k3-Pa-Ovn">
-                                                    <rect key="frame" x="8" y="7" width="304" height="21"/>
+                                                    <rect key="frame" x="8" y="4" width="304" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="304" id="Pmc-8g-80Q"/>
                                                         <constraint firstAttribute="height" constant="21" id="rv8-Xh-lfa"/>
@@ -2425,11 +2420,11 @@
                                         <rect key="frame" x="0.0" y="797" width="320" height="100"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="8Ns-SP-wtp" id="fHG-nm-lrg">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="100"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="99.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="6" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TlP-FL-TIV">
-                                                    <rect key="frame" x="8" y="3" width="304" height="94"/>
+                                                    <rect key="frame" x="8" y="0.0" width="304" height="94"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="304" id="MDp-Cb-Vlb"/>
                                                         <constraint firstAttribute="height" constant="94" id="ghc-A2-qS0"/>
@@ -2480,11 +2475,11 @@ PIN - 411004</string>
                                         <rect key="frame" x="0.0" y="897" width="320" height="26"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="t3F-L5-6eE" id="zXP-g0-Clw">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="26"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="25.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Call : +91-20-41034444" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lxy-1I-Yax">
-                                                    <rect key="frame" x="8" y="5" width="304" height="21"/>
+                                                    <rect key="frame" x="8" y="2" width="304" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="304" id="Gjg-lF-CAa"/>
                                                         <constraint firstAttribute="height" constant="21" id="Jae-bi-ANQ"/>
@@ -2529,11 +2524,11 @@ PIN - 411004</string>
                                         <rect key="frame" x="0.0" y="923" width="320" height="26"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="soh-oA-Hok" id="UdM-wP-UwP">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="26"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="25.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="sales@pcsoftindia.com" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nwl-vi-jGt">
-                                                    <rect key="frame" x="8" y="5" width="304" height="21"/>
+                                                    <rect key="frame" x="8" y="2" width="304" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="304" id="G7t-Ya-Xbw"/>
                                                         <constraint firstAttribute="height" constant="21" id="lms-G3-BiN"/>
@@ -2578,11 +2573,11 @@ PIN - 411004</string>
                                         <rect key="frame" x="0.0" y="949" width="320" height="26"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="76V-G8-3tP" id="Y8g-Xz-iZ1">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="26"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="25.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="support@pcsoftindia.com" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gzf-Fg-E0D">
-                                                    <rect key="frame" x="8" y="5" width="304" height="21"/>
+                                                    <rect key="frame" x="8" y="2" width="304" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="304" id="ZJT-9k-5Sl"/>
                                                         <constraint firstAttribute="height" constant="21" id="dq3-kh-9JH"/>
@@ -2627,11 +2622,11 @@ PIN - 411004</string>
                                         <rect key="frame" x="0.0" y="975" width="320" height="26"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="YPW-8d-v9q" id="QkK-OQ-2GG">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="26"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="25.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="www.pcsoftindia.com" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Un0-si-5AS">
-                                                    <rect key="frame" x="8" y="5" width="304" height="21"/>
+                                                    <rect key="frame" x="8" y="2" width="304" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="KsO-wQ-V91"/>
                                                         <constraint firstAttribute="width" constant="304" id="QNv-hd-D45"/>
@@ -2676,11 +2671,11 @@ PIN - 411004</string>
                                         <rect key="frame" x="0.0" y="1001" width="320" height="87"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Rgm-2U-ajs" id="n9I-Ok-H7j">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="87"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="86.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pcsoftlogo" translatesAutoresizingMaskIntoConstraints="NO" id="BIw-Ma-Hes">
-                                                    <rect key="frame" x="0.0" y="3" width="320" height="81"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="86.5"/>
                                                 </imageView>
                                             </subviews>
                                             <constraints>
@@ -7251,7 +7246,7 @@ PIN - 411004</string>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Expense type" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oSJ-ZJ-XAn">
-                                                    <rect key="frame" x="15" y="11" width="85" height="15"/>
+                                                    <rect key="frame" x="8" y="8" width="85" height="15"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="85" id="roC-d6-Xl1"/>
                                                     </constraints>
@@ -7260,37 +7255,37 @@ PIN - 411004</string>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Project No. :" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WYU-dn-nXW">
-                                                    <rect key="frame" x="15" y="60.5" width="85" height="15"/>
+                                                    <rect key="frame" x="8" y="63" width="85" height="15"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1234567890" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bYn-h9-g9D">
-                                                    <rect key="frame" x="92" y="60.5" width="248" height="15"/>
+                                                    <rect key="frame" x="85" y="63" width="262" height="15"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Particulars" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jxA-cc-E6e">
-                                                    <rect key="frame" x="92" y="83.5" width="248" height="15"/>
+                                                    <rect key="frame" x="85" y="86" width="262" height="15"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Particulars :" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IVw-my-etS">
-                                                    <rect key="frame" x="15" y="83.5" width="85" height="15"/>
+                                                    <rect key="frame" x="8" y="86" width="85" height="15"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sanction amount :" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RCc-Hu-tEx">
-                                                    <rect key="frame" x="15" y="106.5" width="103" height="15"/>
+                                                    <rect key="frame" x="8" y="109" width="103" height="15"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="08/12/2017" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OOf-LK-icM">
-                                                    <rect key="frame" x="15" y="129.5" width="103" height="20"/>
+                                                    <rect key="frame" x="8" y="132" width="103" height="20"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="20" id="w8l-uS-26W"/>
                                                     </constraints>
@@ -7299,7 +7294,7 @@ PIN - 411004</string>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="mCM-nw-rcl">
-                                                    <rect key="frame" x="15" y="31" width="225" height="21"/>
+                                                    <rect key="frame" x="8" y="28" width="239" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="KcY-QN-hmL"/>
                                                     </constraints>
@@ -7308,7 +7303,7 @@ PIN - 411004</string>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R3n-dq-TpL">
-                                                    <rect key="frame" x="244" y="31" width="92" height="21"/>
+                                                    <rect key="frame" x="251" y="28" width="92" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="92" id="ZKx-IC-biR"/>
                                                     </constraints>
@@ -7317,14 +7312,14 @@ PIN - 411004</string>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kcx-6U-mdF">
-                                                    <rect key="frame" x="15" y="57" width="340" height="1"/>
+                                                    <rect key="frame" x="8" y="54" width="347" height="1"/>
                                                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="1" id="MNY-ip-cUn"/>
                                                     </constraints>
                                                 </view>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pR8-rR-acn">
-                                                    <rect key="frame" x="244" y="124.5" width="96" height="30"/>
+                                                    <rect key="frame" x="251" y="127" width="96" height="30"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="96" id="zLt-9b-aWZ"/>
                                                     </constraints>
@@ -7337,7 +7332,7 @@ PIN - 411004</string>
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yq2-M5-9hD">
-                                                    <rect key="frame" x="251" y="127" width="96" height="30"/>
+                                                    <rect key="frame" x="251" y="126.5" width="96" height="30"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="96" id="HfG-aY-slA"/>
                                                         <constraint firstAttribute="width" constant="96" id="N00-28-0X0"/>
@@ -7352,13 +7347,13 @@ PIN - 411004</string>
                                                     </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Amount" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HJf-wW-lTT">
-                                                    <rect key="frame" x="126" y="106.5" width="214" height="15"/>
+                                                    <rect key="frame" x="119" y="109" width="228" height="15"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fMi-Ie-fce">
-                                                    <rect key="frame" x="0.0" y="159" width="355" height="1"/>
+                                                    <rect key="frame" x="0.0" y="158.5" width="355" height="1"/>
                                                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="1" id="vih-RK-tro"/>
@@ -7472,7 +7467,7 @@ PIN - 411004</string>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Travel Date :" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qP1-mf-VsW">
-                                                    <rect key="frame" x="15" y="16" width="87" height="15"/>
+                                                    <rect key="frame" x="8" y="13" width="87" height="15"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="87" id="CXm-7b-a89"/>
                                                         <constraint firstAttribute="height" constant="15" id="dRU-V2-bvp"/>
@@ -7482,7 +7477,7 @@ PIN - 411004</string>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="1234567890" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C1Z-mt-ig6">
-                                                    <rect key="frame" x="110" y="16" width="237" height="15"/>
+                                                    <rect key="frame" x="103" y="13" width="244" height="15"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="15" id="mMa-Gk-mto"/>
                                                     </constraints>
@@ -7491,7 +7486,7 @@ PIN - 411004</string>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="1234567890" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="97l-z2-3hj">
-                                                    <rect key="frame" x="110" y="39" width="238" height="15"/>
+                                                    <rect key="frame" x="103" y="36" width="245" height="15"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="15" id="ffb-YQ-tZb"/>
                                                     </constraints>
@@ -7500,7 +7495,7 @@ PIN - 411004</string>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Particulars :" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xBR-1B-d2U">
-                                                    <rect key="frame" x="15" y="39" width="87" height="15"/>
+                                                    <rect key="frame" x="8" y="36" width="87" height="15"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="15" id="Fml-HH-7ol"/>
                                                         <constraint firstAttribute="width" constant="87" id="g6q-rl-qKA"/>
@@ -7595,7 +7590,7 @@ PIN - 411004</string>
                                                     </constraints>
                                                 </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ew2-iI-C2h">
-                                                    <rect key="frame" x="0.0" y="219" width="355" height="1"/>
+                                                    <rect key="frame" x="0.0" y="218.5" width="355" height="1"/>
                                                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="1" id="Jed-Wj-EeS"/>
@@ -7665,7 +7660,7 @@ PIN - 411004</string>
                                                     </constraints>
                                                 </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sanction Amount : " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TJi-xD-fW1">
-                                                    <rect key="frame" x="15" y="187" width="122.5" height="15"/>
+                                                    <rect key="frame" x="8" y="186.5" width="122.5" height="15"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="122.5" id="2Ew-FD-tXQ"/>
                                                         <constraint firstAttribute="height" constant="15" id="yxg-Ar-MNA"/>
@@ -7675,7 +7670,7 @@ PIN - 411004</string>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="251" text="00000" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Qc-cJ-012">
-                                                    <rect key="frame" x="138" y="187" width="131" height="15"/>
+                                                    <rect key="frame" x="131" y="186.5" width="138" height="15"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="15" id="lqD-YW-CNX"/>
                                                     </constraints>
@@ -7684,7 +7679,7 @@ PIN - 411004</string>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gbd-49-eIn">
-                                                    <rect key="frame" x="277" y="183" width="70" height="23"/>
+                                                    <rect key="frame" x="277" y="182.5" width="70" height="23"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="23" id="MFA-J3-dSM"/>
@@ -7757,7 +7752,7 @@ PIN - 411004</string>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Travel Date :" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Es-e7-8hR">
-                                                    <rect key="frame" x="15" y="18" width="86" height="15"/>
+                                                    <rect key="frame" x="8" y="15" width="86" height="15"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="15" id="PqQ-Oy-Atd"/>
                                                         <constraint firstAttribute="width" constant="86" id="rPM-fb-cUN"/>
@@ -7767,7 +7762,7 @@ PIN - 411004</string>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="1234567890" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lA8-4b-Kut">
-                                                    <rect key="frame" x="103.5" y="18" width="243.5" height="15"/>
+                                                    <rect key="frame" x="96.5" y="15" width="250.5" height="15"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="15" id="TvZ-wu-Ghb"/>
                                                     </constraints>
@@ -7776,7 +7771,7 @@ PIN - 411004</string>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="1234567890" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yWM-72-ZW9">
-                                                    <rect key="frame" x="104" y="41" width="244" height="15"/>
+                                                    <rect key="frame" x="97" y="38" width="251" height="15"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="15" id="ccJ-sK-Bfy"/>
                                                     </constraints>
@@ -7785,7 +7780,7 @@ PIN - 411004</string>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Particulars :" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pME-i5-yLa">
-                                                    <rect key="frame" x="15" y="41" width="86" height="15"/>
+                                                    <rect key="frame" x="8" y="38" width="86" height="15"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="15" id="FJ2-Wp-b4K"/>
                                                         <constraint firstAttribute="width" constant="86" id="btn-xd-It2"/>
@@ -7880,14 +7875,14 @@ PIN - 411004</string>
                                                     </constraints>
                                                 </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5dN-tV-Eyz">
-                                                    <rect key="frame" x="0.0" y="169" width="355" height="1"/>
+                                                    <rect key="frame" x="0.0" y="168.5" width="355" height="1"/>
                                                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="1" id="7pA-NM-rnX"/>
                                                     </constraints>
                                                 </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sanction Amount : " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dbR-7k-LZ8">
-                                                    <rect key="frame" x="15" y="137" width="122.5" height="15"/>
+                                                    <rect key="frame" x="8" y="136.5" width="122.5" height="15"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="15" id="AfC-ib-QQf"/>
                                                     </constraints>
@@ -7896,7 +7891,7 @@ PIN - 411004</string>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="251" text="00000" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aXJ-eU-5hV">
-                                                    <rect key="frame" x="138" y="137" width="124" height="15"/>
+                                                    <rect key="frame" x="131" y="136.5" width="131" height="15"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="15" id="oAS-D4-gZb"/>
                                                     </constraints>
@@ -7905,7 +7900,7 @@ PIN - 411004</string>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AgJ-lL-63f">
-                                                    <rect key="frame" x="277" y="133" width="70" height="23"/>
+                                                    <rect key="frame" x="277" y="132.5" width="70" height="23"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="23" id="cYI-bH-j60"/>

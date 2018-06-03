@@ -162,8 +162,9 @@ static NSString *cellIdentifier = @"EETableviewCellIdentifier";
             model.sancAmountChanged = YES;
         }
 
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"ExpenseItemUpdatedNotification" object:model];
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"EnableSubmitButtonNotification" object:nil];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"ExpenseItemUpdatedNotification" object:model];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"EnableSubmitButtonNotification" object:nil];
+       
     }];
     
     updateAction.enabled = false;
