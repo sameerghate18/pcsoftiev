@@ -1195,8 +1195,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.pcsofterp.IEV;
 				PRODUCT_NAME = "PCSOFT IEV";
-				PROVISIONING_PROFILE = "c019d634-1eca-4859-a2b2-ddf94e666049";
-				PROVISIONING_PROFILE_SPECIFIER = AppStoreDistProfile;
+				PROVISIONING_PROFILE = "2507fa51-61ee-42f7-85f6-4281bcc4f6b1";
+				PROVISIONING_PROFILE_SPECIFIER = "ERPMobile Generic Dist AdHoc";
 			};
 			name = DistAdHoc;
 		};

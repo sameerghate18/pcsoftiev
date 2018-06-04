@@ -143,12 +143,12 @@ static NSString *cellIdentifier = @"EETableviewCellIdentifier";
     
     NSInteger sancAmt;
     if ((model.exp_stat == 2) || (model.exp_stat == 6)) {
-        sancAmt = model.kmModel.sanc_amt;
+        sancAmt = model.kmModel.exp_amt;
     }
-    else { sancAmt = model.sanc_amt;}
+    else { sancAmt = model.exp_amt;}
     
-    NSString *sanctAmount = [Utility stringWithCurrencySymbolForValue:[NSString stringWithFormat:@"%ld",(long)sancAmt] forCurrencyCode:@"INR"];
-    UIAlertController *sanctionAlert = [UIAlertController alertControllerWithTitle:@"Sanction Amount" message:[NSString stringWithFormat:@"Please provide new sanction amount.\nThis amount should be less than %@",sanctAmount] preferredStyle:UIAlertControllerStyleAlert];
+    NSString *maxExpenseAmount = [Utility stringWithCurrencySymbolForValue:[NSString stringWithFormat:@"%ld",(long)sancAmt] forCurrencyCode:@"INR"];
+    UIAlertController *sanctionAlert = [UIAlertController alertControllerWithTitle:@"Sanction Amount" message:[NSString stringWithFormat:@"Please provide new sanction amount.\nThis amount should be less than %@",maxExpenseAmount] preferredStyle:UIAlertControllerStyleAlert];
     
     UIAlertAction *updateAction = [UIAlertAction actionWithTitle:@"Update" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         
@@ -183,7 +183,7 @@ static NSString *cellIdentifier = @"EETableviewCellIdentifier";
         UITextField *amtTf = (UITextField*)sanctionAlert.textFields[0];
         
         if (amtTf.text.length > 0) {
-            if (sancAmt > [amtTf.text integerValue])  {
+            if (sancAmt >= [amtTf.text doubleValue])  {
                 updateAction.enabled = true;
             }
             else {  updateAction.enabled = false;   }
