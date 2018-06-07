@@ -100,6 +100,9 @@ typedef enum {
     [titleLabel setText:@"List of Expenses"];
     [titleLabel setFont:[UIFont systemFontOfSize:15]];
     self.navigationItem.titleView = titleLabel;
+}
+
+- (void)viewWillAppear:(BOOL)animated {
     [self.itemsTableview reloadData];
 }
 
@@ -143,7 +146,8 @@ static NSString *cellIdentifier = @"EETableviewCellIdentifier";
     
     NSInteger sancAmt;
     if ((model.exp_stat == 2) || (model.exp_stat == 6)) {
-        sancAmt = model.kmModel.exp_amt;
+//        sancAmt = model.kmModel.exp_amt;
+        sancAmt = model.exp_amt;
     }
     else { sancAmt = model.exp_amt;}
     
@@ -161,9 +165,14 @@ static NSString *cellIdentifier = @"EETableviewCellIdentifier";
             model.sanc_amt = [amtTf.text integerValue];
             model.sancAmountChanged = YES;
         }
-
+        
             [[NSNotificationCenter defaultCenter] postNotificationName:@"ExpenseItemUpdatedNotification" object:model];
             [[NSNotificationCenter defaultCenter] postNotificationName:@"EnableSubmitButtonNotification" object:nil];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.navigationController popViewControllerAnimated:true];
+        });
+        
        
     }];
     

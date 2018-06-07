@@ -7332,7 +7332,7 @@ PIN - 411004</string>
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yq2-M5-9hD">
-                                                    <rect key="frame" x="251" y="126.5" width="96" height="30"/>
+                                                    <rect key="frame" x="251" y="126" width="96" height="30"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="96" id="HfG-aY-slA"/>
                                                         <constraint firstAttribute="width" constant="96" id="N00-28-0X0"/>
@@ -7353,7 +7353,7 @@ PIN - 411004</string>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fMi-Ie-fce">
-                                                    <rect key="frame" x="0.0" y="158.5" width="355" height="1"/>
+                                                    <rect key="frame" x="0.0" y="158" width="355" height="1"/>
                                                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="1" id="vih-RK-tro"/>
@@ -7590,7 +7590,7 @@ PIN - 411004</string>
                                                     </constraints>
                                                 </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ew2-iI-C2h">
-                                                    <rect key="frame" x="0.0" y="218.5" width="355" height="1"/>
+                                                    <rect key="frame" x="0.0" y="218" width="355" height="1"/>
                                                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="1" id="Jed-Wj-EeS"/>
@@ -7660,7 +7660,7 @@ PIN - 411004</string>
                                                     </constraints>
                                                 </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sanction Amount : " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TJi-xD-fW1">
-                                                    <rect key="frame" x="8" y="186.5" width="122.5" height="15"/>
+                                                    <rect key="frame" x="8" y="186" width="122.5" height="15"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="122.5" id="2Ew-FD-tXQ"/>
                                                         <constraint firstAttribute="height" constant="15" id="yxg-Ar-MNA"/>
@@ -7670,7 +7670,7 @@ PIN - 411004</string>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="251" text="00000" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Qc-cJ-012">
-                                                    <rect key="frame" x="131" y="186.5" width="138" height="15"/>
+                                                    <rect key="frame" x="131" y="186" width="138" height="15"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="15" id="lqD-YW-CNX"/>
                                                     </constraints>
@@ -7679,7 +7679,7 @@ PIN - 411004</string>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gbd-49-eIn">
-                                                    <rect key="frame" x="277" y="182.5" width="70" height="23"/>
+                                                    <rect key="frame" x="277" y="182" width="70" height="23"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="23" id="MFA-J3-dSM"/>
@@ -7875,14 +7875,14 @@ PIN - 411004</string>
                                                     </constraints>
                                                 </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5dN-tV-Eyz">
-                                                    <rect key="frame" x="0.0" y="168.5" width="355" height="1"/>
+                                                    <rect key="frame" x="0.0" y="168" width="355" height="1"/>
                                                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="1" id="7pA-NM-rnX"/>
                                                     </constraints>
                                                 </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sanction Amount : " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dbR-7k-LZ8">
-                                                    <rect key="frame" x="8" y="136.5" width="122.5" height="15"/>
+                                                    <rect key="frame" x="8" y="136" width="122.5" height="15"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="15" id="AfC-ib-QQf"/>
                                                     </constraints>
@@ -7891,7 +7891,7 @@ PIN - 411004</string>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="251" text="00000" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aXJ-eU-5hV">
-                                                    <rect key="frame" x="131" y="136.5" width="131" height="15"/>
+                                                    <rect key="frame" x="131" y="136" width="131" height="15"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="15" id="oAS-D4-gZb"/>
                                                     </constraints>
@@ -7900,7 +7900,7 @@ PIN - 411004</string>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AgJ-lL-63f">
-                                                    <rect key="frame" x="277" y="132.5" width="70" height="23"/>
+                                                    <rect key="frame" x="277" y="132" width="70" height="23"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="23" id="cYI-bH-j60"/>

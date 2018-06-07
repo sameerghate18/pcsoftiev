@@ -57,28 +57,25 @@
     
     EmpExpenseItemModel *model = (EmpExpenseItemModel*)notification.object;
     
-    if (!updateExpenseModelsArray) {
-        updateExpenseModelsArray = [[NSMutableArray alloc] initWithObjects:model, nil];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.itemListViewController setDetailModelsArray:updateExpenseModelsArray];
-            [self.itemListViewController.itemsTableview reloadData];
-        });
-        return;
-    }
+//    if (!updateExpenseModelsArray) {
+//        updateExpenseModelsArray = [[NSMutableArray alloc] initWithObjects:model, nil];
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            [self.itemListViewController setDetailModelsArray:updateExpenseModelsArray];
+//            [self.itemListViewController.itemsTableview reloadData];
+//        });
+//        return;
+//    }
     
-    for (int index = 0; index < updateExpenseModelsArray.count; index++) {
-        EmpExpenseItemModel *model1 = updateExpenseModelsArray[index];
+    for (int index = 0; index < detailModelsArray.count; index++) {
+        EmpExpenseItemModel *model1 = detailModelsArray[index];
         if ([model1.exp_code isEqualToString:model.exp_code]) {
-            [updateExpenseModelsArray replaceObjectAtIndex:index withObject:model];
+            [detailModelsArray replaceObjectAtIndex:index withObject:model];
             break;
-        }
-        else {
-            [updateExpenseModelsArray addObject:model];
         }
     }
     
     dispatch_async(dispatch_get_main_queue(), ^{
-        [self.itemListViewController setDetailModelsArray:updateExpenseModelsArray];
+        [self.itemListViewController setDetailModelsArray:detailModelsArray];
         [self.itemListViewController.itemsTableview reloadData];
     });
 }
@@ -420,10 +417,10 @@
     NSMutableString *itemJSON = [[NSMutableString alloc] init];
     NSMutableString *KMjson = [[NSMutableString alloc] init];
     
-    NSInteger modelsCount = updateExpenseModelsArray.count;
+    NSInteger modelsCount = detailModelsArray.count;
     for (int index = 0; index < modelsCount; index++) {
         
-        EmpExpenseItemModel *model = updateExpenseModelsArray[index];
+        EmpExpenseItemModel *model = detailModelsArray[index];
         index==0?[itemJSON appendString:@"["]:nil;
         
         if (model.sancAmountChanged == YES) {
