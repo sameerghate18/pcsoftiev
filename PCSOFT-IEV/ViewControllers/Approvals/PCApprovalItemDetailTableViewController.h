@@ -13,6 +13,5 @@
 
 @property (nonatomic, strong) PCTransactionDetailModel *selectedModel;
 @property (nonatomic, strong) NSString *selectedDoctype;
-@property (nonatomic) TXType txtype;
 
 @end

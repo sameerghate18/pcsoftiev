@@ -225,8 +225,6 @@ typedef enum {
             self.partyNameLabel.leadingBuffer = 0.0f;
             self.partyNameLabel.trailingBuffer = 15.0f;
             
-            
-            
             self.descriptionLabel.marqueeType = MLContinuous;
             self.descriptionLabel.rate = 35.0;
             self.descriptionLabel.animationCurve = UIViewAnimationOptionCurveEaseInOut;

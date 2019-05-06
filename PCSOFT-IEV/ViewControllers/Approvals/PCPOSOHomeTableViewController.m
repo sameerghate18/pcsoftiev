@@ -8,6 +8,7 @@
 
 #import "PCPOSOHomeTableViewController.h"
 #import "PCPOSOTransactionsTableViewController.h"
+#import "PCApprovalListModel.h"
 #import <QuartzCore/QuartzCore.h>
 #import "ConnectionHandler.h"
 
@@ -16,7 +17,6 @@
 {
     NSArray *titles, *images, *codes;
     TXType txtype;
-    NSUInteger empExpCount;
     NSMutableDictionary *authCountDict, *titleDict;
     NSMutableArray *unreadCounts, *titleArray;
 }
@@ -30,28 +30,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     titleDict = [[NSMutableDictionary alloc] init];
-    empExpCount = 0;
-//    self.tableView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg_home.png"]];
     
     UIImageView *bg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bg_home.png"]];
     self.tableView.backgroundView = bg;
     
     [self setTitle:@"Authorizations"];
     
-    titles = @[@"Purchase Indents",@"Purchase Order", @"Sale Order", @"Expense Booking", @"Bills Passing", @"Payments", @"Employee Expense"];
-    images = @[@"PI-icon",@"PO-icon.png",@"SO-icon.png",@"EB-icon.png",@"BP-icon.png",@"Payment-icon.png", @"Payment-icon.png"];
-    codes = @[@"PI", @"PO", @"SO", @"CPURCHASE", @"RBILL", @"PAYMENT", @"EP"];
-    
     titleArray = [[NSMutableArray alloc] init];
-    
-    for (int index = 0; index < titles.count; index++) {
-        NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
-        [dict setObject:titles[index] forKey:@"title"];
-        [dict setObject:images[index] forKey:@"image"];
-        [dict setObject:codes[index] forKey:@"code"];
-        [dict setObject:@"0" forKey:@"unreadCount"];
-        [titleArray addObject:dict];
-    }
 
     [self getExpenseListCount];
     
@@ -65,7 +50,10 @@
 //    self.tableView.layer.shadowRadius = 10;
 //    self.tableView.layer.shadowOffset = CGSizeMake(20.0f, 22.0f);
     
-    UIBarButtonItem *barbtn = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"menu_icon.png"] style:UIBarButtonItemStyleBordered target:self action:@selector(showSideMenu)];
+    UIBarButtonItem *barbtn = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"menu_icon.png"]
+                                                               style:UIBarButtonItemStylePlain
+                                                              target:self
+                                                              action:@selector(showSideMenu)];
     
     self.navigationItem.leftBarButtonItem = barbtn;
     
@@ -80,27 +68,16 @@
     
     [conn fetchDataForGETURL:url body:nil completion:^(id responseData, NSError *error) {
         
-        NSString *count = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
-        NSLog(@"getExpenseListCount - %@", count);
         NSArray  *arr = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:&error];
         
         dispatch_async(dispatch_get_main_queue(), ^{
             if (arr.count > 0) {
                 
-                if (!authCountDict) {
-                    authCountDict = [[NSMutableDictionary alloc] init];
-                }
-                [authCountDict removeAllObjects];
-                
                 for (NSDictionary *dict in arr) {
-                    [authCountDict setObject:[NSString stringWithFormat:@"%@",dict[@"seq_no"]] forKey:dict[@"doc_desc"]];
+                    PCApprovalListModel *model = [[PCApprovalListModel alloc] initWithDictionary:dict];
+                    [titleArray addObject:model];
                 }
                 
-                for (int idx = 0; idx < titleArray.count; idx++) {
-                    NSMutableDictionary *dictObj = titleArray[idx];
-                    [dictObj setValue:authCountDict[dictObj[@"code"]] forKey:@"unreadCount"];
-                }
-
                 [self.tableView reloadData];
             }
         });
@@ -128,7 +105,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
-    return titles.count;
+    return titleArray.count;
 }
 
 static NSString *reuseIdentifier = @"txCell";
@@ -137,10 +114,9 @@ static NSString *reuseIdentifier = @"txCell";
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
     
-    NSDictionary *dict = [titleArray objectAtIndex:indexPath.row];
-    cell.textLabel.text = dict[@"title"];
-    [cell.imageView setImage:[UIImage imageNamed:dict[@"image"]]];
-    NSInteger count = [dict[@"unreadCount"] integerValue];
+    PCApprovalListModel *listModel = [titleArray objectAtIndex:indexPath.row];
+    cell.textLabel.text = listModel.doc_desc;
+    NSInteger count = [listModel.seq_no integerValue];
 
      CGFloat fontSize = 15;
      UILabel *label = [[UILabel alloc] init];
@@ -176,47 +152,10 @@ static NSString *reuseIdentifier = @"txCell";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    switch (indexPath.row) {
-            
-        case 0:
-            txtype = TXTypePI;
-            break;
-            
-        case 1:
-            txtype = TXTypePO;
-            break;
-            
-        case 2:
-            txtype = TXTypeSO;
-            break;
-            
-        case 3:
-            txtype = TXTypePCR;
-            break;
-            
-        case 4:
-            txtype = TXTypeRB;
-            break;
-            
-        case 5:
-            txtype = TXTypePayments;
-            break;
-            
-        case 6:
-            txtype = TXTypeEmployeeExpense;
-            break;
-            
-        default:
-            break;
-    }
-    
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     [cell setSelected:NO];
-    
-    [self performSegueWithIdentifier:@"transactionListSegue" sender:nil];
-//    PCPOSOTransactionsTableViewController *txList = (PCPOSOTransactionsTableViewController*)[kStoryboard instantiateViewControllerWithIdentifier:@"PCPOSOTransactionsTableViewController"];
-//    [txList setSelectedTXType:txtype];
-//    [self.navigationController pushViewController:txList animated:YES];
+    PCApprovalListModel *selectedModel = [titleArray objectAtIndex:indexPath.row];
+    [self performSegueWithIdentifier:@"transactionListSegue" sender:selectedModel];
 }
 
 #pragma mark - Navigation
@@ -225,8 +164,9 @@ static NSString *reuseIdentifier = @"txCell";
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
     if ([[segue identifier] isEqualToString:@"transactionListSegue"]) {
+        PCApprovalListModel *selectedModel = (PCApprovalListModel*)sender;
         PCPOSOTransactionsTableViewController *txList = (PCPOSOTransactionsTableViewController*)[segue destinationViewController];
-        [txList setSelectedTXType:txtype];
+        [txList setSelectedApprovalType:selectedModel];
     }
 }
 

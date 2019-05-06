@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PCApprovalListModel.h"
 
 @interface PCPOSOTransactionsTableViewController : UIViewController
 
-@property (nonatomic) TXType selectedTXType;
+@property (nonatomic, strong) PCApprovalListModel *selectedApprovalType;
 
 @end

@@ -105,6 +105,7 @@
 		42AD55551FDAF2B600F1BEC8 /* PCEmployeeExpenseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42AD55541FDAF2B600F1BEC8 /* PCEmployeeExpenseViewController.m */; };
 		42B613101BEDF27B0062432A /* ChartNew.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 42B6130F1BEDF27B0062432A /* ChartNew.min.js */; };
 		42B9C1611BF60348005F3725 /* MarqueeLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 42B9C1601BF60348005F3725 /* MarqueeLabel.m */; };
+		42D219F2211A0ADF00A7F815 /* PCApprovalListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 42D219F1211A0ADF00A7F815 /* PCApprovalListModel.m */; };
 		42FB608F1FE6A15400E1318B /* EmpExpenseItemListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42FB608E1FE6A15400E1318B /* EmpExpenseItemListViewController.m */; };
 		42FB60921FE6A17300E1318B /* EmpExpenseItemDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42FB60911FE6A17300E1318B /* EmpExpenseItemDetailViewController.m */; };
 		42FB60961FE6DAE400E1318B /* EmpExpenseKMModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 42FB60951FE6DAE400E1318B /* EmpExpenseKMModel.m */; };
@@ -309,6 +310,8 @@
 		42B6130F1BEDF27B0062432A /* ChartNew.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = ChartNew.min.js; path = "PCSOFT-IEV/ChartNew.min.js"; sourceTree = "<group>"; };
 		42B9C15F1BF60347005F3725 /* MarqueeLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MarqueeLabel.h; sourceTree = "<group>"; };
 		42B9C1601BF60348005F3725 /* MarqueeLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MarqueeLabel.m; sourceTree = "<group>"; };
+		42D219F0211A0ADF00A7F815 /* PCApprovalListModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PCApprovalListModel.h; sourceTree = "<group>"; };
+		42D219F1211A0ADF00A7F815 /* PCApprovalListModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PCApprovalListModel.m; sourceTree = "<group>"; };
 		42FB608D1FE6A15400E1318B /* EmpExpenseItemListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EmpExpenseItemListViewController.h; sourceTree = "<group>"; };
 		42FB608E1FE6A15400E1318B /* EmpExpenseItemListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EmpExpenseItemListViewController.m; sourceTree = "<group>"; };
 		42FB60901FE6A17300E1318B /* EmpExpenseItemDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EmpExpenseItemDetailViewController.h; sourceTree = "<group>"; };
@@ -618,6 +621,8 @@
 				423A3E891BE50D7500F68DCD /* PCTransactionModel.m */,
 				423A3E8A1BE50D7500F68DCD /* PCUserModel.h */,
 				423A3E8B1BE50D7500F68DCD /* PCUserModel.m */,
+				42D219F0211A0ADF00A7F815 /* PCApprovalListModel.h */,
+				42D219F1211A0ADF00A7F815 /* PCApprovalListModel.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -908,6 +913,7 @@
 				423A3F0C1BE52BDD00F68DCD /* PCRejectionsGraphViewController.m in Sources */,
 				423A3E1B1BE50CFB00F68DCD /* UIProgressView+AFNetworking.m in Sources */,
 				423A3F161BE52BDD00F68DCD /* PCSideMenuTableViewController.m in Sources */,
+				42D219F2211A0ADF00A7F815 /* PCApprovalListModel.m in Sources */,
 				423A3E8D1BE50D7500F68DCD /* PCAttendanceModel.m in Sources */,
 				423A3E101BE50CFB00F68DCD /* AFNetworkReachabilityManager.m in Sources */,
 				423A3F0B1BE52BDD00F68DCD /* PCProjectionTableViewCell.m in Sources */,

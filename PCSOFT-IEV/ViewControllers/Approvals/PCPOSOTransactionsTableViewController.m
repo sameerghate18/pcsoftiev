@@ -19,7 +19,6 @@
     UIRefreshControl *refreshControl;
     NSMutableArray *transactionsList;
     AppDelegate *appDel;
-    TXType txtype;
 }
 
 @property (nonatomic, weak) IBOutlet UITableView *tableView;
@@ -49,76 +48,20 @@
     self.tableView.layer.borderWidth = 1.0;
     self.tableView.layer.borderColor = [UIColor blackColor].CGColor;
     
-//    self.tableView.layer.shadowColor = [UIColor blackColor].CGColor;
-//    self.tableView.layer.shadowOpacity = 0.8;
-//    self.tableView.layer.shadowRadius = 10;
-//    self.tableView.layer.shadowOffset = CGSizeMake(20.0f, 22.0f);
-    
     appDel = (AppDelegate*)[[UIApplication sharedApplication] delegate];
     
-    switch (self.selectedTXType) {
-            
-        case TXTypePO:
-            [self setTitle:@"Purchase Order"];
-            self.typeLabel.text = @"PURCHASE ORDER";
-            self.typeImageview.image = [UIImage imageNamed:@"PO-icon.png"];
-            txtype = TXTypePO;
-            break;
-            
-        case TXTypeSO:
-            [self setTitle:@"SALE ORDER"];
-            self.typeLabel.text = @"SALE ORDER";
-            self.typeImageview.image = [UIImage imageNamed:@"SO-icon.png"];
-            txtype = TXTypeSO;
-            break;
-            
-        case TXTypePayments:
-            [self setTitle:@"Payments"];
-            self.typeLabel.text = @"PAYMENTS";
-            self.typeImageview.image = [UIImage imageNamed:@"Payment-icon.png"];
-            txtype = TXTypePayments;
-            break;
-            
-        case TXTypePI:
-            [self setTitle:@"Purchase Indents"];
-            self.typeLabel.text = @"PURCHASE INDENTS";
-            self.typeImageview.image = [UIImage imageNamed:@"PI-icon"];
-            txtype = TXTypePI;
-            break;
-            
-        case TXTypeRB:
-            [self setTitle:@"Bills Passing"];
-            self.typeLabel.text = @"BILL PASSING";
-            self.typeImageview.image = [UIImage imageNamed:@"BP-icon"];
-            txtype = TXTypeRB;
-            break;
-            
-        case TXTypePCR:
-            [self setTitle:@"Expense Booking"];
-            self.typeLabel.text = @"EXPENSE BOOKING";
-            self.typeImageview.image = [UIImage imageNamed:@"EB-icon"];
-            txtype = TXTypePCR;
-            break;
-            
-        case TXTypeEmployeeExpense:
-            [self setTitle:@"Employee Expense"];
-            self.typeLabel.text = @"EMPLOYEE EXPENSE";
-            self.typeImageview.image = [UIImage imageNamed:@"Payment-icon.png"];
-            txtype = TXTypeEmployeeExpense;
-            break;
-            
-        default:
-            break;
-    }
+    [self setTitle:self.selectedApprovalType.doc_desc];
+    self.typeLabel.text =self.selectedApprovalType.doc_desc;
     
     self.navigationItem.hidesBackButton = YES;
     
-    UIBarButtonItem *barbtn = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"menu_icon.png"] style:UIBarButtonItemStyleBordered target:self action:@selector(showSideMenu)];
+    UIBarButtonItem *barbtn = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"menu_icon.png"]
+                                                               style:UIBarButtonItemStylePlain
+                                                              target:self
+                                                              action:@selector(showSideMenu)];
     
     self.navigationItem.leftBarButtonItem = barbtn;
-    
-    
-    
+
     refreshControl = [[UIRefreshControl alloc] init];
     [refreshControl addTarget:self action:@selector(refreshPOSO) forControlEvents:UIControlEventValueChanged];
     
@@ -143,49 +86,12 @@
     handler.delegate = self;
     
     NSString *url;
-
-    NSString *txtypeString;
-    
-    switch (self.selectedTXType) {
-            
-        case TXTypePO:
-            
-            txtypeString = @"PO";
-            break;
-            
-        case TXTypeSO:
-            txtypeString = @"SO";
-            break;
-            
-        case TXTypePCR:
-            txtypeString = @"CPURCHASE";
-            break;
-            
-        case TXTypeRB:
-            txtypeString = @"RBILL";
-            break;
-            
-        case TXTypePayments:
-            txtypeString = @"PAYMENT";
-            break;
-            
-        case TXTypePI:
-            txtypeString = @"PI";
-            break;
-            
-        case TXTypeEmployeeExpense:
-            txtypeString = @"EP";
-            break;
-            
-        default:
-            break;
-    }
     
     url = [NSString stringWithFormat:@"%@/authlist?scocd=%@&userid=%@&type=%@",
            appDel.baseURL,
            appDel.selectedCompany.CO_CD,
            appDel.loggedUser.USER_ID,
-           txtypeString];
+           self.selectedApprovalType.doc_type];
     
     [handler fetchDataForURL:url body:nil];
 }
@@ -295,7 +201,7 @@
     
     cell.textLabel.text = model.doc_desc;
     
-    if (txtype == TXTypeEmployeeExpense) {
+    if ([self.selectedApprovalType.doc_type isEqualToString:@"EP"]) {
         cell.detailTextLabel.text = model.doc_no;
     }
     else {
@@ -308,7 +214,7 @@
 {
     PCTransactionModel *model = [transactionsList objectAtIndex:indexPath.row];
     
-    if (txtype == TXTypeEmployeeExpense) {
+    if ([self.selectedApprovalType.doc_type isEqualToString:@"EP"]) {
         [self performSegueWithIdentifier:@"listToExpenseSegue" sender:model];
     }
     else {
@@ -356,54 +262,5 @@
         detailVC.txType = txtype;
     }
 }
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

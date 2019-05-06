@@ -14,7 +14,7 @@
 
 @property (nonatomic, strong) PCTransactionModel *selectedTransaction;
 
-@property (nonatomic) TXType txType;
+//@property (nonatomic) TXType txType;
 
 @end
 

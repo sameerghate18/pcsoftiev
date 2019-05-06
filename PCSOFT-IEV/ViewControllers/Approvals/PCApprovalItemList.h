@@ -13,7 +13,6 @@
 
 @property (nonatomic, strong) NSArray *itemsListArray;
 //@property (nonatomic, strong) PCSingleTransactionViewController *parentViewController;
-@property (nonatomic) TXType txtype;
 @property (nonatomic, strong) NSString *selectedDoctype;
 
 @end

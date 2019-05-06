@@ -111,7 +111,6 @@ static NSString *cellIdentifier = @"POSOSingleTransactionCell";
     PCApprovalItemDetailTableViewController *detail = [kStoryboard instantiateViewControllerWithIdentifier:@"PCApprovalItemDetailTableViewController"];
     PCTransactionDetailModel *selectedItem = [_itemsListArray objectAtIndex:indexPath.row];
     [detail setSelectedModel:selectedItem];
-    detail.txtype = self.txtype;
     [detail setSelectedDoctype:self.selectedDoctype];
     [self.navigationController pushViewController:detail animated:YES];
 }

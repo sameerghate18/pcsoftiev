@@ -18,6 +18,7 @@
 #import "PCRejectionsViewController.h"
 #import "PCHomeViewController.h"
 #import "PCSettingsViewController.h"
+#import "PCPOSOHomeTableViewController.h"
 #import "PCViewController.h"
 #import "ConnectionHandler.h"
 #import "SVProgressHUD.h"
@@ -51,8 +52,10 @@
     _reportsArray = @[@"Sales", @"Cash Flow Projection", @"Rejections", @"Attendance"];
     _reportsIconsArray = @[@"dailysales-side-icon.png",@"cashflow-side-icon.png",@"rejections-side-icon.png",@"attendance-side-icon.png"];
     
-    _transactionsArray = @[@"Purchase Indents",@"Purchase Order", @"Sale Order", @"Expense Booking", @"Bill Passing", @"Payments", @"Employee Expense"];
-    _transactionsIconsArray = @[@"pi-side-icon.png", @"po-side-icon.png",@"so-side-icon.png",@"eb-side-icon.png",@"bp-side-icon.png",@"payments-side-icon.png",@"payments-side-icon.png"];
+//    _transactionsArray = @[@"Purchase Indents",@"Purchase Order", @"Sale Order", @"Expense Booking", @"Bill Passing", @"Payments", @"Employee Expense"];
+    _transactionsArray = @[@"Approvals"];
+    
+    _transactionsIconsArray = @[@"pi-side-icon.png"];
     _moreArray = @[@"Settings",@"About this app", @"Logout"];
     _moreIconsArray = @[@"settings-side-icon.png",@"info-side-icon.png",@"logout-side-icon.png"];
     
@@ -339,47 +342,9 @@
             
         case 3:
         {
-                TXType txtype;
-                
-                switch (indexPath.row) {
-                        
-                    case 0:
-                        txtype = TXTypePI;
-                        break;
-                        
-                    case 1:
-                        txtype = TXTypePO;
-                        break;
-                        
-                    case 2:
-                        txtype = TXTypeSO;
-                        break;
-                        
-                    case 3:
-                        txtype = TXTypePCR;
-                        break;
-                        
-                    case 4:
-                        txtype = TXTypeRB;
-                        break;
-                        
-                    case 5:
-                        txtype = TXTypePayments;
-                        break;
-                        
-                    case 6:
-                        txtype = TXTypeEmployeeExpense;
-                        break;
-                        
-                    default:
-                        break;
-                }
-                
-                
-                PCPOSOTransactionsTableViewController * poso = [kStoryboard instantiateViewControllerWithIdentifier:@"PCPOSOTransactionsTableViewController"];
-                poso.selectedTXType = txtype;
+                PCPOSOHomeTableViewController *posoHome = [kStoryboard instantiateViewControllerWithIdentifier:@"PCPOSOHomeTableViewController"];
                 [mainNavController popViewControllerAnimated:NO];
-                [mainNavController pushViewController:poso animated:NO];
+                [mainNavController pushViewController:posoHome animated:NO];
         }
             break;
             
