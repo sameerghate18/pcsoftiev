@@ -75,7 +75,7 @@
     }
     
     dispatch_async(dispatch_get_main_queue(), ^{
-        [self.itemListViewController setDetailModelsArray:detailModelsArray];
+      [self.itemListViewController setDetailModelsArray:self->detailModelsArray];
         [self.itemListViewController.itemsTableview reloadData];
     });
 }
@@ -121,15 +121,15 @@
         
         NSArray *arr = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:&error];
         if (arr.count > 0) {
-            if (!detailModelsArray) {
-                detailModelsArray = [[NSMutableArray alloc] init];
+          if (!self->detailModelsArray) {
+            self->detailModelsArray = [[NSMutableArray alloc] init];
             }
-            [detailModelsArray removeAllObjects];
+          [self->detailModelsArray removeAllObjects];
             
             for (NSDictionary *dict in arr) {
                 EmpExpenseItemModel *expenseModel = [[EmpExpenseItemModel alloc] init];
                 [expenseModel setValuesForKeysWithDictionary:dict];
-                [detailModelsArray addObject:expenseModel];
+              [self->detailModelsArray addObject:expenseModel];
             }
             
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -170,8 +170,8 @@
         }
         
         NSMutableArray *kmModels = [[NSMutableArray alloc] init];
-        for (int index = 0; index < detailModelsArray.count; index++) {
-            EmpExpenseItemModel *expenseModel = [detailModelsArray objectAtIndex:index];
+      for (int index = 0; index < self->detailModelsArray.count; index++) {
+        EmpExpenseItemModel *expenseModel = [self->detailModelsArray objectAtIndex:index];
            
             for (EmpExpenseKMModel *kmObj in kmObjectsArray) {
                 if ([kmObj.exp_code isEqualToString:expenseModel.exp_code]) {
@@ -184,7 +184,7 @@
         
         dispatch_async(dispatch_get_main_queue(), ^{
 //            updateExpenseModelsArray = [[NSMutableArray alloc] initWithArray:detailModelsArray];
-            [self.itemListViewController setDetailModelsArray:detailModelsArray];
+          [self.itemListViewController setDetailModelsArray:self->detailModelsArray];
             [self.itemListViewController.itemsTableview reloadData];
         });
         

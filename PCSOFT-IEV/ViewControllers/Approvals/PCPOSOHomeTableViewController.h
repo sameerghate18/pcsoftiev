@@ -11,3 +11,9 @@
 @interface PCPOSOHomeTableViewController : UIViewController
 
 @end
+
+@interface PCPOSOHomeTableviewCell : UITableViewCell
+
+@property (nonatomic, strong) IBOutlet UILabel *titleLabel;
+
+@end

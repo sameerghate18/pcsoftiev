@@ -26,6 +26,7 @@
 @property (nonatomic) NSNumber *rate;
 @property (nonatomic) NSNumber *total;
 @property (nonatomic) NSNumber *value;
+@property (nonatomic, strong) NSString *cursymbl;
 
 
 @end

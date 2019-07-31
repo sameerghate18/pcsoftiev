@@ -12,6 +12,7 @@
 
 +(NSString*)lastRefreshString;
 +(NSString*)stringWithCurrencySymbolForValue:(NSString*)valStr forCurrencyCode:(NSString*)currencyCode;
++(NSString*)stringWithCurrencySymbolPrefix:(NSString*)value forCurrencySymbol:(NSString*)currencySymbol;
 +(UIColor *)randomColor;
 +(NSString*)stringDateFromServerDate:(NSString*)serverDate;
 

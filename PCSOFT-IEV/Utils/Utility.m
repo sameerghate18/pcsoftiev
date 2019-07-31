@@ -56,6 +56,15 @@
     return string;
 }
 
++(NSString*)stringWithCurrencySymbolPrefix:(NSString*)value forCurrencySymbol:(NSString*)currencySymbol
+{
+  if (currencySymbol.length == 0) {
+    return [Utility stringWithCurrencySymbolForValue:value forCurrencyCode:DEFAULT_CURRENCY_CODE];
+  } else {
+    return [NSString stringWithFormat:@"%@ %@",currencySymbol,value];
+  }
+}
+
 
 +(UIColor *)randomColor
 {

@@ -20,5 +20,5 @@
 @property (nonatomic, strong) NSString *doc_taxs;
 @property (nonatomic, strong) NSNumber *seq_no;
 @property (nonatomic, strong) NSString *doc_ref;
-
+@property (nonatomic, strong) NSString *cursymbl;
 @end

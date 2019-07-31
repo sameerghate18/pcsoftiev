@@ -14,3 +14,10 @@
 @property (nonatomic, strong) PCApprovalListModel *selectedApprovalType;
 
 @end
+
+@interface PCPOSOTransactionsTableViewCell : UITableViewCell
+
+@property (nonatomic, strong) IBOutlet UILabel *titleLabel;
+@property (nonatomic, strong) IBOutlet UILabel *docNumberLabel;
+
+@end

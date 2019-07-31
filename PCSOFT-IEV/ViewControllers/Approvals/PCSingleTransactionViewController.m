@@ -29,7 +29,8 @@ typedef enum {
     ConnectionType connType;
     AppDelegate *appDel;
     NSMutableArray *detailModelsArray;
-    PCApprovalItemList *refItemListVC; 
+    PCApprovalItemList *refItemListVC;
+    NSArray *purchaseDocTypes;
 }
 
 @property (nonatomic, weak) IBOutlet UITableView *detailsTable;
@@ -50,6 +51,12 @@ typedef enum {
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+  
+  purchaseDocTypes = [[NSArray alloc] initWithObjects:@"02",
+                 @"05", @"21", @"22", @"23", @"25", @"24",
+                 @"33", @"34", @"38", @"47", @"4O", @"37",
+                 @"3F", @"64", @"3D", @"30", @"3N", @"69",
+                 @"71", @"FP", @"72", @"PM", nil];
     
     self.detailsTable.layer.cornerRadius = 10.0;
     self.detailsTable.layer.masksToBounds = YES;
@@ -78,47 +85,29 @@ typedef enum {
     
     self.doctaxHeightConstraint.constant = 21;
     self.doctaxValueHeightConstraint.constant = 21;
-    
-    switch (self.txType) {
-        case TXTypePayments:
-            if ([self.selectedTransaction.doc_type containsString:@"15"]) {
-                self.partyNameTypeLabel.text = @"Cash:";
-            }
-            else if ([self.selectedTransaction.doc_type containsString:@"16"])  {
-                self.partyNameTypeLabel.text = @"Bank:";
-            }
-            break;
-            
-        case TXTypePI:
-            self.partyNameTypeLabel.text = @"Employee:";
-            self.doctaxHeightConstraint.constant = 0;
-            self.doctaxValueHeightConstraint.constant = 0;
-            break;
-            
-        case TXTypePO:
-            self.partyNameTypeLabel.text = @"Supplier:";
-            break;
-            
-        case TXTypeSO:
-            self.partyNameTypeLabel.text = @"Customer:";
-            break;
-            
-        case TXTypeRB:
-            self.partyNameTypeLabel.text = @"Customer:";
-            break;
-            
-        case TXTypePCR:
-            self.partyNameTypeLabel.text = @"Supplier:";
-            break;
-            
-        case TXTypeEmployeeExpense:
-            self.partyNameTypeLabel.text = @"Supplier:";
-            break;
-            
-        default:
-            break;
-    }
-    
+  
+  NSString *docType = self.selectedTransaction.doc_type;
+  NSString *partyNameLabel = @"Customer:";
+  
+  if ([docType containsString:@"3E"]) {
+    partyNameLabel = @"Employee:";
+    self.doctaxHeightConstraint.constant = 0;
+    self.doctaxValueHeightConstraint.constant = 0;
+  }
+  else if ([purchaseDocTypes containsObject:docType]) {
+    partyNameLabel = @"Supplier:";
+  }
+  else if ([docType containsString:@"12"] || [docType containsString:@"16"]) {
+    partyNameLabel = @"Bank:";
+  }
+  else if ([docType containsString:@"11"] || [docType containsString:@"15"]) {
+    partyNameLabel= @"Cash:";
+  } else {
+    partyNameLabel = @"Customer:";
+  }
+  
+  self.partyNameTypeLabel.text = partyNameLabel;
+  
 }
 
 -(IBAction)pop:(id)sender
@@ -146,8 +135,9 @@ typedef enum {
                      [_selectedTransaction.doc_type stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]],
                      [_selectedTransaction.doc_no stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]];
     
-    
-    [conn fetchDataForURL:url body:nil];
+  NSLog(@"\ngetDetailsForTransaction %@\n",url);
+  
+  [conn fetchDataForURL:url body:nil];
 }
 
 -(void)connectionHandler:(ConnectionHandler*)conHandler didRecieveData:(NSData*)data
@@ -178,44 +168,31 @@ typedef enum {
         
         dispatch_async(dispatch_get_main_queue(), ^{
             
-            if (self.txType == TXTypePI) {
-                self.valueLabel.text = [Utility stringWithCurrencySymbolForValue:[NSString stringWithFormat:@"%@", _selectedTransaction.im_basic] forCurrencyCode:DEFAULT_CURRENCY_CODE];
+            if ([self.selectedTransaction.doc_type containsString:@"3E"]) {
+              
+              self.valueLabel.text = [Utility stringWithCurrencySymbolPrefix:[NSString stringWithFormat:@"%@",self->_selectedTransaction.im_basic] forCurrencySymbol:self->_selectedTransaction.cursymbl];
             }
             else {
-                self.valueLabel.text = [Utility stringWithCurrencySymbolForValue:[NSString stringWithFormat:@"%@", totalValue] forCurrencyCode:DEFAULT_CURRENCY_CODE];
+              self.valueLabel.text = [Utility stringWithCurrencySymbolPrefix:[NSString stringWithFormat:@"%@",totalValue] forCurrencySymbol:self->_selectedTransaction.cursymbl];
             }
             
-            self.dateLabel.text = _selectedTransaction.doc_date;
-            self.docNumberLabel.text = _selectedTransaction.doc_no;
+          self.dateLabel.text = self->_selectedTransaction.doc_date;
+          self.docNumberLabel.text = self->_selectedTransaction.doc_no;
             
-            if (self.txType == TXTypePI) {
+            if ([self.selectedTransaction.doc_type containsString:@"3E"]) {
                 self.docTaxesLabel.text = @"Not Applicable";
             }
             else {
-                self.docTaxesLabel.text = [Utility stringWithCurrencySymbolForValue:[NSString stringWithFormat:@"%@", _selectedTransaction.doc_taxs] forCurrencyCode:DEFAULT_CURRENCY_CODE];
+              self.docTaxesLabel.text = [Utility stringWithCurrencySymbolPrefix:[NSString stringWithFormat:@"%@",self->_selectedTransaction.doc_taxs] forCurrencySymbol:self->_selectedTransaction.cursymbl];
             }
             
             //Marquee Label
-            if (self.txType == TXTypePayments) {
-                
-                self.descriptionLabel.text = _selectedTransaction.doc_ref;
-                
-                NSString *partyname = [_selectedTransaction.party_name stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-                
-                if (partyname.length == 0) {
-                    PCTransactionDetailModel *mod = [detailModelsArray lastObject];
-                    self.partyNameLabel.text = mod.descr;
-                }
-                else {
-                    self.partyNameLabel.text = _selectedTransaction.party_name;
-                }
-            }
-            else if (self.txType == TXTypePI) {
+            if ([self.selectedTransaction.doc_type containsString:@"3E"]) {
                 self.descriptionLabel.text = @"Not Available";
             }
             else {
-                self.partyNameLabel.text = _selectedTransaction.party_name;
-                self.descriptionLabel.text = _selectedTransaction.doc_ref;
+              self.partyNameLabel.text = self->_selectedTransaction.party_name;
+              self.descriptionLabel.text = self->_selectedTransaction.doc_ref;
             }
             
             self.partyNameLabel.marqueeType = MLContinuous;
@@ -313,7 +290,6 @@ typedef enum {
         navViewController.view.layer.borderColor = [UIColor blackColor].CGColor;
         
         refItemListVC = (PCApprovalItemList*)[navViewController viewControllers][0];
-        refItemListVC.txtype = self.txType;
     }
     else if ([segueName isEqualToString:@"authToSendBack"]) {
         PCSendBackViewController *sendBackVC = segue.destinationViewController;
@@ -327,8 +303,6 @@ typedef enum {
     PCApprovalItemList *itemListVC = [kStoryboard instantiateViewControllerWithIdentifier:@"PCApprovalItemList"];
     [itemListVC setItemsListArray:detailModelsArray];
     [self.navigationController pushViewController:itemListVC animated:YES];
-    
-    
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -477,17 +451,21 @@ static NSString *cellIdentifier = @"POSOSingleTransactionCell";
                     
                 case 3:
                     cell.titleLabel.text = @"Rate";
-                    cell.descriptionLabel.text = [Utility stringWithCurrencySymbolForValue:[NSString stringWithFormat:@"%@",detailModel.rate] forCurrencyCode:DEFAULT_CURRENCY_CODE];
+                
+                cell.descriptionLabel.text = [Utility stringWithCurrencySymbolPrefix:[NSString stringWithFormat:@"%@",detailModel.rate] forCurrencySymbol:detailModel.cursymbl];
+                
                     break;
                     
                 case 4:
                     cell.titleLabel.text = @"Total";
-                    cell.descriptionLabel.text = [Utility stringWithCurrencySymbolForValue:[NSString stringWithFormat:@"%@",detailModel.total] forCurrencyCode:DEFAULT_CURRENCY_CODE];
+                
+                cell.descriptionLabel.text = [Utility stringWithCurrencySymbolPrefix:[NSString stringWithFormat:@"%@",detailModel.total] forCurrencySymbol:detailModel.cursymbl];
+                
                     break;
                     
                 case 5:
                     cell.titleLabel.text = @"Value";
-                    cell.descriptionLabel.text = [Utility stringWithCurrencySymbolForValue:[NSString stringWithFormat:@"%@",detailModel.value] forCurrencyCode:DEFAULT_CURRENCY_CODE];
+                cell.descriptionLabel.text = [Utility stringWithCurrencySymbolPrefix:[NSString stringWithFormat:@"%@",detailModel.value] forCurrencySymbol:detailModel.cursymbl];
                     break;
                     
                 default:
@@ -682,7 +660,9 @@ static NSString *cellIdentifier = @"POSOSingleTransactionCell";
     
     NSString *url = [NSString stringWithFormat:@"%@/authorised?scocd=%@&userId=%@&doctype=%@&docno=%@",
         appDel.baseURL,appDel.selectedCompany.CO_CD,appDel.loggedUser.USER_ID,[_selectedTransaction.doc_type stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]],[_selectedTransaction.doc_no stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]];
-    
+  
+  NSLog(@"\n%@\n",url);
+  
     [conn fetchDataForURL:url body:nil];
 }
 

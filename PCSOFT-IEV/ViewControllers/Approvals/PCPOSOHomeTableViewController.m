@@ -12,11 +12,14 @@
 #import <QuartzCore/QuartzCore.h>
 #import "ConnectionHandler.h"
 
+@implementation PCPOSOHomeTableviewCell
+
+@end
+
 @interface PCPOSOHomeTableViewController () <UITableViewDataSource, UITableViewDelegate>
 
 {
     NSArray *titles, *images, *codes;
-    TXType txtype;
     NSMutableDictionary *authCountDict, *titleDict;
     NSMutableArray *unreadCounts, *titleArray;
 }
@@ -45,11 +48,6 @@
     self.tableView.layer.borderWidth = 1.0;
     self.tableView.layer.borderColor = [UIColor blackColor].CGColor;
     
-//    self.tableView.layer.shadowColor = [UIColor blackColor].CGColor;
-//    self.tableView.layer.shadowOpacity = 0.8;
-//    self.tableView.layer.shadowRadius = 10;
-//    self.tableView.layer.shadowOffset = CGSizeMake(20.0f, 22.0f);
-    
     UIBarButtonItem *barbtn = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"menu_icon.png"]
                                                                style:UIBarButtonItemStylePlain
                                                               target:self
@@ -63,7 +61,11 @@
 - (void)getExpenseListCount {
     AppDelegate *appDel = (AppDelegate*)[[UIApplication sharedApplication] delegate];
     NSString *url = GET_EECount_URL(appDel.baseURL, appDel.selectedCompany.CO_CD, appDel.loggedUser.USER_ID);
-    
+  
+  [SVProgressHUD showWithStatus:@"Fetching list..." maskType:SVProgressHUDMaskTypeBlack];
+  
+  NSLog(@"\ngetExpenseListCount - %@\n",url);
+  
     ConnectionHandler *conn = [[ConnectionHandler alloc] init];
     
     [conn fetchDataForGETURL:url body:nil completion:^(id responseData, NSError *error) {
@@ -77,9 +79,10 @@
                     PCApprovalListModel *model = [[PCApprovalListModel alloc] initWithDictionary:dict];
                     [titleArray addObject:model];
                 }
-                
                 [self.tableView reloadData];
             }
+          
+          [SVProgressHUD dismiss];
         });
     }];
 }
@@ -112,10 +115,10 @@ static NSString *reuseIdentifier = @"txCell";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
+    PCPOSOHomeTableviewCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
     
     PCApprovalListModel *listModel = [titleArray objectAtIndex:indexPath.row];
-    cell.textLabel.text = listModel.doc_desc;
+    cell.titleLabel.text = listModel.doc_desc;
     NSInteger count = [listModel.seq_no integerValue];
 
      CGFloat fontSize = 15;

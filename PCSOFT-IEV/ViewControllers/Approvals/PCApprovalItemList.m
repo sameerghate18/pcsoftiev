@@ -74,7 +74,7 @@ static NSString *cellIdentifier = @"POSOSingleTransactionCell";
     PCTransactionDetailModel *model = [_itemsListArray objectAtIndex:indexPath.row];
     
     cell.titleLabel.text = model.descr;
-    cell.descriptionLabel.text = [Utility stringWithCurrencySymbolForValue:[NSString stringWithFormat:@"%@", model.value] forCurrencyCode:DEFAULT_CURRENCY_CODE];
+    cell.descriptionLabel.text = [Utility stringWithCurrencySymbolPrefix:[NSString stringWithFormat:@"%@", model.value] forCurrencySymbol:model.cursymbl];
 }
 
 -(CGFloat)heightForCellAtIndexPath:(NSIndexPath*)indexPath
@@ -92,7 +92,7 @@ static NSString *cellIdentifier = @"POSOSingleTransactionCell";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return [self heightForCellAtIndexPath:indexPath];
+  return 75.0;//[self heightForCellAtIndexPath:indexPath];
 }
 
 -(CGFloat)calculateHeightForConfiguredSizingCell:(UITableViewCell*)cell

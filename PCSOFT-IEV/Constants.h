@@ -95,11 +95,13 @@ typedef enum
 #define GET_EECount_URL(baseURL, scocd,userId) \
 [NSString stringWithFormat:@"%@/authlstcnt?scocd=%@&userId=%@",baseURL,scocd,userId];  \
 
-#define GET_AUTH_LIST_URL(baseURL,scocd,userId) \
-[NSString stringWithFormat:@"%@/authlist?scocd=%@&userId=%@&type=EP",baseURL,scocd,userId];  \
+// Get the list of pending authorizations for the user
+#define GET_Pending_Auths_URL(baseURL, scocd,userId) \
+[NSString stringWithFormat:@"%@/authlstcnt?SCOCD=%@&USERID=%@",baseURL,scocd,userId];  \
 
-#define kGETEECountURL(baseURL,scocd, userId)  \
-[NSString stringWithFormat:@"%@\authlstcnt?scocd=%@&userId=%@",baseURL,scocd,userId];  \
+// Get details of pending authorization for the selected doctype
+#define GET_Auths_List_URL(baseURL,scocd,userId,doctype) \
+[NSString stringWithFormat:@"%@/authlist?SCOCD=%@&USERID=%@&type=%@",baseURL,scocd,userId,doctype];  \
 
 #define GET_EE_DETAIL_URL(baseURL,scocd,userId,doctype,docno)    \
 [NSString stringWithFormat:@"%@/GetDocDtlEXP?scocd=%@&userId=%@&doctype=%@&docno=%@",baseURL,scocd,userId,doctype,docno];  \
