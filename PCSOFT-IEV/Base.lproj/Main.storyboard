@@ -2529,18 +2529,18 @@ PIN - 411004</string>
                         <viewLayoutGuide key="safeArea" id="RKN-Ht-2cJ"/>
                         <variation key="default">
                             <mask key="constraints">
+                                <exclude reference="JdS-gp-dR3"/>
                                 <exclude reference="GN3-uK-cYc"/>
                                 <exclude reference="gac-IS-qg8"/>
                                 <exclude reference="pLT-iX-fHK"/>
-                                <exclude reference="JdS-gp-dR3"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
                             <mask key="constraints">
+                                <include reference="JdS-gp-dR3"/>
                                 <include reference="GN3-uK-cYc"/>
                                 <include reference="gac-IS-qg8"/>
                                 <include reference="pLT-iX-fHK"/>
-                                <include reference="JdS-gp-dR3"/>
                             </mask>
                         </variation>
                     </view>
@@ -3116,22 +3116,22 @@ PIN - 411004</string>
                         <viewLayoutGuide key="safeArea" id="jTC-Fs-3sG"/>
                         <variation key="default">
                             <mask key="constraints">
+                                <exclude reference="6ZX-Wq-XDO"/>
+                                <exclude reference="TC9-uK-La5"/>
                                 <exclude reference="BH1-FV-nCm"/>
                                 <exclude reference="XC6-su-w0e"/>
                                 <exclude reference="mTp-X8-XFS"/>
-                                <exclude reference="6ZX-Wq-XDO"/>
-                                <exclude reference="TC9-uK-La5"/>
                                 <exclude reference="7hk-mW-BWr"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
                             <mask key="constraints">
-                                <include reference="BH1-FV-nCm"/>
-                                <include reference="XC6-su-w0e"/>
-                                <include reference="mTp-X8-XFS"/>
                                 <include reference="6ZX-Wq-XDO"/>
                                 <include reference="TC9-uK-La5"/>
                                 <exclude reference="WqQ-qK-1LS"/>
+                                <include reference="BH1-FV-nCm"/>
+                                <include reference="XC6-su-w0e"/>
+                                <include reference="mTp-X8-XFS"/>
                                 <exclude reference="Ejp-l1-iP6"/>
                                 <include reference="7hk-mW-BWr"/>
                                 <exclude reference="Lpo-ih-pOa"/>
@@ -3365,10 +3365,10 @@ PIN - 411004</string>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="approvals-home" translatesAutoresizingMaskIntoConstraints="NO" id="Ep1-LA-tHQ">
-                                                    <rect key="frame" x="0.0" y="0.0" width="220" height="16"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="220" height="85"/>
                                                 </imageView>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="APPROVALS" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h1t-6B-2D8">
-                                                    <rect key="frame" x="-29" y="-276" width="320" height="568"/>
+                                                    <rect key="frame" x="-29" y="-241.66666666666666" width="320" height="568.33333333333337"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="568" id="t4H-CP-S77"/>
                                                     </constraints>
@@ -3443,11 +3443,11 @@ PIN - 411004</string>
                         <viewLayoutGuide key="safeArea" id="zGK-RN-5Ss"/>
                         <variation key="default">
                             <mask key="constraints">
-                                <exclude reference="2Rf-M2-BtW"/>
-                                <exclude reference="YF6-Yv-ykt"/>
                                 <exclude reference="Esg-kY-ijP"/>
                                 <exclude reference="UlP-lk-Ypw"/>
                                 <exclude reference="izH-6D-O3B"/>
+                                <exclude reference="2Rf-M2-BtW"/>
+                                <exclude reference="YF6-Yv-ykt"/>
                                 <exclude reference="Gv4-hf-K95"/>
                                 <exclude reference="uUQ-Vx-Zkj"/>
                                 <exclude reference="2pk-V0-93Q"/>
@@ -3459,11 +3459,11 @@ PIN - 411004</string>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
                             <mask key="constraints">
-                                <include reference="2Rf-M2-BtW"/>
-                                <include reference="YF6-Yv-ykt"/>
                                 <include reference="Esg-kY-ijP"/>
                                 <include reference="UlP-lk-Ypw"/>
                                 <include reference="izH-6D-O3B"/>
+                                <include reference="2Rf-M2-BtW"/>
+                                <include reference="YF6-Yv-ykt"/>
                                 <include reference="Gv4-hf-K95"/>
                                 <include reference="uUQ-Vx-Zkj"/>
                                 <include reference="2pk-V0-93Q"/>
@@ -4130,18 +4130,18 @@ PIN - 411004</string>
                         <viewLayoutGuide key="safeArea" id="T9m-S6-naC"/>
                         <variation key="default">
                             <mask key="constraints">
+                                <exclude reference="oyl-fX-Mnz"/>
                                 <exclude reference="PT3-Rb-REB"/>
                                 <exclude reference="gKP-eX-mRt"/>
                                 <exclude reference="nqT-HS-tcb"/>
-                                <exclude reference="oyl-fX-Mnz"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
                             <mask key="constraints">
+                                <include reference="oyl-fX-Mnz"/>
                                 <include reference="PT3-Rb-REB"/>
                                 <include reference="gKP-eX-mRt"/>
                                 <include reference="nqT-HS-tcb"/>
-                                <include reference="oyl-fX-Mnz"/>
                                 <exclude reference="BN8-aX-Tw3"/>
                             </mask>
                         </variation>
@@ -5201,23 +5201,23 @@ PIN - 411004</string>
                         <viewLayoutGuide key="safeArea" id="lQV-ba-vm2"/>
                         <variation key="default">
                             <mask key="constraints">
+                                <exclude reference="JfW-Nc-YF5"/>
+                                <exclude reference="XAi-Fe-FQb"/>
                                 <exclude reference="B6A-SD-q7Z"/>
                                 <exclude reference="GIL-fY-bOi"/>
                                 <exclude reference="m0T-wa-nAo"/>
-                                <exclude reference="JfW-Nc-YF5"/>
-                                <exclude reference="XAi-Fe-FQb"/>
                                 <exclude reference="goD-Ff-IRo"/>
                                 <exclude reference="qOj-2y-2OX"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
                             <mask key="constraints">
-                                <include reference="B6A-SD-q7Z"/>
-                                <include reference="GIL-fY-bOi"/>
-                                <include reference="m0T-wa-nAo"/>
                                 <include reference="JfW-Nc-YF5"/>
                                 <include reference="XAi-Fe-FQb"/>
                                 <exclude reference="nlL-58-M1S"/>
+                                <include reference="B6A-SD-q7Z"/>
+                                <include reference="GIL-fY-bOi"/>
+                                <include reference="m0T-wa-nAo"/>
                                 <exclude reference="goD-Ff-IRo"/>
                                 <exclude reference="qOj-2y-2OX"/>
                                 <exclude reference="vKh-tS-ATG"/>
@@ -5519,20 +5519,20 @@ PIN - 411004</string>
                         <viewLayoutGuide key="safeArea" id="I4D-kq-uvD"/>
                         <variation key="default">
                             <mask key="constraints">
+                                <exclude reference="HZp-90-A2V"/>
                                 <exclude reference="E8b-Cb-vfw"/>
                                 <exclude reference="X4c-Kx-jbj"/>
                                 <exclude reference="c3w-wI-VWD"/>
-                                <exclude reference="HZp-90-A2V"/>
                                 <exclude reference="B7x-jo-jQQ"/>
                                 <exclude reference="gPH-0z-MxQ"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
                             <mask key="constraints">
+                                <include reference="HZp-90-A2V"/>
                                 <include reference="E8b-Cb-vfw"/>
                                 <include reference="X4c-Kx-jbj"/>
                                 <include reference="c3w-wI-VWD"/>
-                                <include reference="HZp-90-A2V"/>
                                 <include reference="B7x-jo-jQQ"/>
                                 <exclude reference="gPH-0z-MxQ"/>
                             </mask>
@@ -5842,33 +5842,45 @@ PIN - 411004</string>
                                             <rect key="frame" x="0.0" y="0.0" width="374" height="74.666666666666671"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ye7-XG-CaV">
-                                                    <rect key="frame" x="20" y="11" width="334" height="33"/>
-                                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ye7-XG-CaV">
+                                                    <rect key="frame" x="20" y="11" width="334" height="18"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S6x-PX-yQm">
-                                                    <rect key="frame" x="20" y="47" width="334" height="17"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S6x-PX-yQm">
+                                                    <rect key="frame" x="20" y="47" width="250" height="17"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="17" id="Zjf-ud-1AF"/>
+                                                        <constraint firstAttribute="height" constant="17" id="5pH-wK-gBa"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="30/09/2019" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LuG-vW-yk8">
+                                                    <rect key="frame" x="278" y="47" width="76" height="17"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="17" id="ij0-TY-VzO"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                                    <color key="textColor" red="0.26274509800000001" green="0.26274509800000001" blue="0.26274509800000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="textColor" red="0.027450980390000001" green="0.34901960780000002" blue="0.58823529409999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="ye7-XG-CaV" firstAttribute="leading" secondItem="VlA-nV-nIi" secondAttribute="leadingMargin" id="5XT-sr-Twi"/>
-                                                <constraint firstItem="S6x-PX-yQm" firstAttribute="bottom" secondItem="VlA-nV-nIi" secondAttribute="bottomMargin" id="AqS-G8-54r"/>
                                                 <constraint firstItem="ye7-XG-CaV" firstAttribute="trailing" secondItem="VlA-nV-nIi" secondAttribute="trailingMargin" id="CZy-Iw-PTr"/>
-                                                <constraint firstItem="S6x-PX-yQm" firstAttribute="leading" secondItem="VlA-nV-nIi" secondAttribute="leadingMargin" id="JMx-CZ-TYW"/>
-                                                <constraint firstItem="S6x-PX-yQm" firstAttribute="top" secondItem="ye7-XG-CaV" secondAttribute="bottom" constant="3" id="YBm-3q-wt2"/>
-                                                <constraint firstItem="S6x-PX-yQm" firstAttribute="trailing" secondItem="VlA-nV-nIi" secondAttribute="trailingMargin" id="sGc-jh-2KU"/>
+                                                <constraint firstItem="S6x-PX-yQm" firstAttribute="centerX" secondItem="VlA-nV-nIi" secondAttribute="centerX" constant="-42" id="Etq-aZ-3eG"/>
+                                                <constraint firstItem="LuG-vW-yk8" firstAttribute="trailing" secondItem="VlA-nV-nIi" secondAttribute="trailingMargin" id="Fae-xB-UZf"/>
+                                                <constraint firstItem="S6x-PX-yQm" firstAttribute="bottom" secondItem="VlA-nV-nIi" secondAttribute="bottomMargin" id="RsQ-gL-4SK"/>
+                                                <constraint firstItem="S6x-PX-yQm" firstAttribute="leading" secondItem="VlA-nV-nIi" secondAttribute="leadingMargin" id="ZBM-3U-uct"/>
+                                                <constraint firstItem="LuG-vW-yk8" firstAttribute="bottom" secondItem="VlA-nV-nIi" secondAttribute="bottomMargin" id="ihc-Tg-yRp"/>
+                                                <constraint firstItem="LuG-vW-yk8" firstAttribute="leading" secondItem="S6x-PX-yQm" secondAttribute="trailing" constant="8" id="oag-ey-zs5"/>
                                                 <constraint firstItem="ye7-XG-CaV" firstAttribute="top" secondItem="VlA-nV-nIi" secondAttribute="topMargin" id="uUV-bN-B1U"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="dateLabel" destination="LuG-vW-yk8" id="sjE-pz-gEl"/>
                                             <outlet property="docNumberLabel" destination="S6x-PX-yQm" id="59g-tG-4Lu"/>
                                             <outlet property="titleLabel" destination="ye7-XG-CaV" id="UtV-Kx-brU"/>
                                         </connections>
@@ -5924,7 +5936,7 @@ PIN - 411004</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ecT-6E-kPu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-788" y="-1239.1625615763546"/>
+            <point key="canvasLocation" x="-788.40579710144937" y="-1239.5089285714284"/>
         </scene>
         <!--Single Transaction View Controller-->
         <scene sceneID="uro-kP-Psc">

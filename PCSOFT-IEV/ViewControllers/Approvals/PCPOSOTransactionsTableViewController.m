@@ -194,7 +194,7 @@
   cell.selectionStyle = UITableViewCellSelectionStyleDefault;
   cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
   
-  cell.titleLabel.text = model.doc_desc;
+  cell.titleLabel.text = model.party_name;
 //  if (cell == nil) {
 //    cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:identifier];
 //    cell.textLabel.font = [UIFont boldSystemFontOfSize:14];
@@ -214,14 +214,18 @@
       cell.docNumberLabel.text = model.party_name;
     }
     
-  }
-  else {
+  } else {
     if (model.party_name.length > 0) {
-      cell.docNumberLabel.text = model.party_name;
+      cell.titleLabel.text = model.party_name;
+//      cell.docNumberLabel.text = model.party_name;
+      cell.docNumberLabel.text = model.doc_no;
     } else {
       cell.docNumberLabel.text = model.doc_no;
     }
   }
+  
+  NSString *dateStr = [Utility stringDateFromServerDate:model.doc_date];
+  cell.dateLabel.text = dateStr;//model.doc_date;
   return cell;
 }
 

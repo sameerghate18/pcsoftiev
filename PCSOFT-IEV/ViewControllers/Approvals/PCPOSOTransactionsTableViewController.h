@@ -19,5 +19,6 @@
 
 @property (nonatomic, strong) IBOutlet UILabel *titleLabel;
 @property (nonatomic, strong) IBOutlet UILabel *docNumberLabel;
+@property (nonatomic, strong) IBOutlet UILabel *dateLabel;
 
 @end
