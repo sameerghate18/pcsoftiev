@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>505626727741-5b5jbcegb92m98s7a52qgn39ka129qae.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.505626727741-5b5jbcegb92m98s7a52qgn39ka129qae</string>
+	<key>API_KEY</key>
+	<string>AIzaSyB4jGleJsPilU7CyofyNFhz4QYal0IRZ3w</string>
+	<key>GCM_SENDER_ID</key>
+	<string>505626727741</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.pcsofterp.IEV</string>
+	<key>PROJECT_ID</key>
+	<string>pcsoftiev</string>
+	<key>STORAGE_BUCKET</key>
+	<string>pcsoftiev.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:505626727741:ios:7f67310d8397aac25ae154</string>
+	<key>DATABASE_URL</key>
+	<string>https://pcsoftiev.firebaseio.com</string>
+</dict>
+</plist>

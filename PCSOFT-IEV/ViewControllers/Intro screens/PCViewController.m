@@ -52,8 +52,6 @@ typedef enum {
     self.navigationItem.hidesBackButton = YES;
 //    self.navigationItem.title = @"Select your company";
     
-    
-    
     dataType = DATA_TYPE_COMPANYLIST;
     [self pullData];
 }
@@ -135,7 +133,7 @@ typedef enum {
             [companyList addObjectsFromArray:[sortedArray copy]];
             
             if (companyList.count == 0) {
-                UIAlertView *noCompList = [[UIAlertView alloc] initWithTitle:@"No companies found." message:@"Could not find list of companies." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:@"Retry",nil];
+                UIAlertView *noCompList = [[UIAlertView alloc] initWithTitle:@"No companies found." message:@"Could not find list of companies." delegate:self cancelButtonTitle:@"Retry" otherButtonTitles:@"Go back",nil];
                 noCompList.tag = 100;
                 [noCompList show];
                 return;
@@ -191,10 +189,7 @@ typedef enum {
         });
         
     }
-    
-    
-    
-    
+
 }
 
 -(void)connectionHandler:(ConnectionHandler*)conHandler errorRecievingData:(NSError*)error
@@ -205,7 +200,7 @@ typedef enum {
             
             [SVProgressHUD dismiss];
             
-            UIAlertView *noInternetalert = [[UIAlertView alloc] initWithTitle:@"IEV" message:@"Internet connection appears to be unavailable.\nPlease check your connection and try again." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:@"Retry",nil];
+            UIAlertView *noInternetalert = [[UIAlertView alloc] initWithTitle:@"IEV" message:@"Internet connection appears to be unavailable.\nPlease check your connection and try again." delegate:self cancelButtonTitle:@"Retry" otherButtonTitles:nil];
             noInternetalert.tag = 101;
             [noInternetalert show];
             
@@ -213,13 +208,13 @@ typedef enum {
         return;
     }
     
-    
-    [SVProgressHUD dismiss];
-//    [SVProgressHUD showErrorWithStatus:@"Error getting data"];
-    UIAlertView *noCompList = [[UIAlertView alloc] initWithTitle:@"Error." message:@"Could not fetch data from server." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:@"Retry",nil];
-    noCompList.tag = 100;
-    [noCompList show];
-    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [SVProgressHUD dismiss];
+        UIAlertView *noCompList = [[UIAlertView alloc] initWithTitle:@"Error." message:@"Could not fetch data from server." delegate:self cancelButtonTitle:@"Retry" otherButtonTitles:nil];
+        noCompList.tag = 100;
+        [noCompList show];
+    });
+
     if (dataType == DATA_TYPE_COMPANYLIST) {
         
     }
@@ -288,9 +283,13 @@ typedef enum {
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
     if (alertView.tag == 100 || alertView.tag == 101) {
-        if (buttonIndex == 1) {
+        if (buttonIndex == 0) {
             [self pullData];
         }
+    }
+    
+    if (alertView.tag == 100 && (buttonIndex == 1)) {
+        [self.navigationController popViewControllerAnimated:TRUE];
     }
 }
 @end

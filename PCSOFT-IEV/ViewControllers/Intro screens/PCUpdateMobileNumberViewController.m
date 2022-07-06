@@ -65,7 +65,7 @@
     updateMobileHandler.tag = kUpdateMobileNumberTag;
     
     NSString *urlString = [NSString stringWithFormat:@"%@updatemobileno?scocd=%@&deviceid=%@&mobno=%@",
-                           kAppBaseURL,
+                           appDel.baseURL,
                            _accessCode,
                            appDel.appUniqueIdentifier,
                            phoneNumber];

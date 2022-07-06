@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -110,6 +110,22 @@
 		42FB60921FE6A17300E1318B /* EmpExpenseItemDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42FB60911FE6A17300E1318B /* EmpExpenseItemDetailViewController.m */; };
 		42FB60961FE6DAE400E1318B /* EmpExpenseKMModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 42FB60951FE6DAE400E1318B /* EmpExpenseKMModel.m */; };
 		42FB60991FE6DE1800E1318B /* EmpExpenseItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 42FB60981FE6DE1800E1318B /* EmpExpenseItemModel.m */; };
+		A5692EDDEC753A0BDB1C19B1 /* Pods_PCSOFT_IEV.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF316DE2AAECC2EC84452893 /* Pods_PCSOFT_IEV.framework */; };
+		D1AFB0B028747A3200AF7C2B /* FirebaseAnalytics.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1AFB0AF28747A3200AF7C2B /* FirebaseAnalytics.xcframework */; };
+		D1AFB0B428747F6300AF7C2B /* FirebaseCore.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1AFB0B328747F6300AF7C2B /* FirebaseCore.xcframework */; };
+		D1AFB0C82874814C00AF7C2B /* SwiftFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1AFB0C72874814C00AF7C2B /* SwiftFile.swift */; };
+		D1AFB0CA2874871E00AF7C2B /* FirebaseMessaging.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1AFB0C92874871E00AF7C2B /* FirebaseMessaging.xcframework */; };
+		D1AFB0CB2874A8D600AF7C2B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D1F66F4B287470DA0014C5E6 /* GoogleService-Info.plist */; };
+		D1AFB0CE2875702A00AF7C2B /* PromisesObjC.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1AFB0CD2875702A00AF7C2B /* PromisesObjC.xcframework */; };
+		D1AFB0D02875703600AF7C2B /* FirebaseInstallations.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1AFB0CF2875703600AF7C2B /* FirebaseInstallations.xcframework */; };
+		D1AFB0D82875708000AF7C2B /* FirebaseCoreDiagnostics.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1AFB0D12875708000AF7C2B /* FirebaseCoreDiagnostics.xcframework */; };
+		D1AFB0D92875708000AF7C2B /* FirebaseCoreInternal.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1AFB0D22875708000AF7C2B /* FirebaseCoreInternal.xcframework */; };
+		D1AFB0DA2875708000AF7C2B /* nanopb.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1AFB0D32875708000AF7C2B /* nanopb.xcframework */; };
+		D1AFB0DB2875708000AF7C2B /* GoogleUtilities.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1AFB0D42875708000AF7C2B /* GoogleUtilities.xcframework */; };
+		D1AFB0DC2875708000AF7C2B /* GoogleDataTransport.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1AFB0D52875708000AF7C2B /* GoogleDataTransport.xcframework */; };
+		D1AFB0DD2875708000AF7C2B /* GoogleAppMeasurementIdentitySupport.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1AFB0D62875708000AF7C2B /* GoogleAppMeasurementIdentitySupport.xcframework */; };
+		D1AFB0DE2875708000AF7C2B /* GoogleAppMeasurement.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1AFB0D72875708000AF7C2B /* GoogleAppMeasurement.xcframework */; };
+		D1F66F48287090840014C5E6 /* PCURLViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D1F66F47287090840014C5E6 /* PCURLViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -320,6 +336,29 @@
 		42FB60951FE6DAE400E1318B /* EmpExpenseKMModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EmpExpenseKMModel.m; sourceTree = "<group>"; };
 		42FB60971FE6DE1800E1318B /* EmpExpenseItemModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EmpExpenseItemModel.h; sourceTree = "<group>"; };
 		42FB60981FE6DE1800E1318B /* EmpExpenseItemModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EmpExpenseItemModel.m; sourceTree = "<group>"; };
+		654D78FC646980DDF1C3322C /* Pods-PCSOFT-IEV.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PCSOFT-IEV.release.xcconfig"; path = "Target Support Files/Pods-PCSOFT-IEV/Pods-PCSOFT-IEV.release.xcconfig"; sourceTree = "<group>"; };
+		69768E5FF34DBDDF15C95FC6 /* Pods-PCSOFT-IEV.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PCSOFT-IEV.debug.xcconfig"; path = "Target Support Files/Pods-PCSOFT-IEV/Pods-PCSOFT-IEV.debug.xcconfig"; sourceTree = "<group>"; };
+		92626C504D0D7FAF7485486C /* Pods-PCSOFT-IEV.distadhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PCSOFT-IEV.distadhoc.xcconfig"; path = "Target Support Files/Pods-PCSOFT-IEV/Pods-PCSOFT-IEV.distadhoc.xcconfig"; sourceTree = "<group>"; };
+		D1AFB0AF28747A3200AF7C2B /* FirebaseAnalytics.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = FirebaseAnalytics.xcframework; sourceTree = "<group>"; };
+		D1AFB0B128747A5F00AF7C2B /* Firebase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Firebase.h; sourceTree = "<group>"; };
+		D1AFB0B228747AA400AF7C2B /* module.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = module.modulemap; sourceTree = "<group>"; };
+		D1AFB0B328747F6300AF7C2B /* FirebaseCore.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = FirebaseCore.xcframework; sourceTree = "<group>"; };
+		D1AFB0C72874814C00AF7C2B /* SwiftFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftFile.swift; sourceTree = "<group>"; };
+		D1AFB0C92874871E00AF7C2B /* FirebaseMessaging.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = FirebaseMessaging.xcframework; sourceTree = "<group>"; };
+		D1AFB0CC2874AD0800AF7C2B /* PCSOFT-IEV.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "PCSOFT-IEV.entitlements"; sourceTree = "<group>"; };
+		D1AFB0CD2875702A00AF7C2B /* PromisesObjC.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = PromisesObjC.xcframework; sourceTree = "<group>"; };
+		D1AFB0CF2875703600AF7C2B /* FirebaseInstallations.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = FirebaseInstallations.xcframework; sourceTree = "<group>"; };
+		D1AFB0D12875708000AF7C2B /* FirebaseCoreDiagnostics.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = FirebaseCoreDiagnostics.xcframework; sourceTree = "<group>"; };
+		D1AFB0D22875708000AF7C2B /* FirebaseCoreInternal.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = FirebaseCoreInternal.xcframework; sourceTree = "<group>"; };
+		D1AFB0D32875708000AF7C2B /* nanopb.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = nanopb.xcframework; sourceTree = "<group>"; };
+		D1AFB0D42875708000AF7C2B /* GoogleUtilities.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = GoogleUtilities.xcframework; sourceTree = "<group>"; };
+		D1AFB0D52875708000AF7C2B /* GoogleDataTransport.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = GoogleDataTransport.xcframework; sourceTree = "<group>"; };
+		D1AFB0D62875708000AF7C2B /* GoogleAppMeasurementIdentitySupport.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = GoogleAppMeasurementIdentitySupport.xcframework; sourceTree = "<group>"; };
+		D1AFB0D72875708000AF7C2B /* GoogleAppMeasurement.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = GoogleAppMeasurement.xcframework; sourceTree = "<group>"; };
+		D1F66F462870905C0014C5E6 /* PCURLViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PCURLViewController.h; sourceTree = "<group>"; };
+		D1F66F47287090840014C5E6 /* PCURLViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PCURLViewController.m; sourceTree = "<group>"; };
+		D1F66F4B287470DA0014C5E6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		FF316DE2AAECC2EC84452893 /* Pods_PCSOFT_IEV.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PCSOFT_IEV.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -327,12 +366,25 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D1AFB0DE2875708000AF7C2B /* GoogleAppMeasurement.xcframework in Frameworks */,
 				423A3EC61BE514F400F68DCD /* UIKit.framework in Frameworks */,
 				423A3EC31BE514DE00F68DCD /* CoreFoundation.framework in Frameworks */,
+				D1AFB0D02875703600AF7C2B /* FirebaseInstallations.xcframework in Frameworks */,
+				D1AFB0DA2875708000AF7C2B /* nanopb.xcframework in Frameworks */,
 				423A3EC41BE514DE00F68DCD /* Foundation.framework in Frameworks */,
+				D1AFB0DC2875708000AF7C2B /* GoogleDataTransport.xcframework in Frameworks */,
 				423A3D291BE4E44500F68DCD /* CoreGraphics.framework in Frameworks */,
+				D1AFB0B428747F6300AF7C2B /* FirebaseCore.xcframework in Frameworks */,
+				D1AFB0D92875708000AF7C2B /* FirebaseCoreInternal.xcframework in Frameworks */,
+				D1AFB0CA2874871E00AF7C2B /* FirebaseMessaging.xcframework in Frameworks */,
 				423A3D271BE4E43F00F68DCD /* QuartzCore.framework in Frameworks */,
+				D1AFB0B028747A3200AF7C2B /* FirebaseAnalytics.xcframework in Frameworks */,
+				D1AFB0DB2875708000AF7C2B /* GoogleUtilities.xcframework in Frameworks */,
+				D1AFB0DD2875708000AF7C2B /* GoogleAppMeasurementIdentitySupport.xcframework in Frameworks */,
 				423A3D251BE4E43800F68DCD /* Security.framework in Frameworks */,
+				A5692EDDEC753A0BDB1C19B1 /* Pods_PCSOFT_IEV.framework in Frameworks */,
+				D1AFB0D82875708000AF7C2B /* FirebaseCoreDiagnostics.xcframework in Frameworks */,
+				D1AFB0CE2875702A00AF7C2B /* PromisesObjC.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -348,6 +400,8 @@
 				42B6130F1BEDF27B0062432A /* ChartNew.min.js */,
 				423A3D0C1BE4E2E900F68DCD /* PCSOFT-IEV */,
 				423A3D0B1BE4E2E900F68DCD /* Products */,
+				E0DD9A58A78B8E619A3B66A2 /* Pods */,
+				DD4DA2F9AADFE4F7EE4FF245 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -362,6 +416,9 @@
 		423A3D0C1BE4E2E900F68DCD /* PCSOFT-IEV */ = {
 			isa = PBXGroup;
 			children = (
+				D1AFB0CC2874AD0800AF7C2B /* PCSOFT-IEV.entitlements */,
+				D1AFB0B228747AA400AF7C2B /* module.modulemap */,
+				D1AFB0B128747A5F00AF7C2B /* Firebase.h */,
 				423A3EB91BE5113200F68DCD /* ConnectionHandler.h */,
 				423A3EBA1BE5113200F68DCD /* ConnectionHandler.m */,
 				423A3EBB1BE5113200F68DCD /* Constants.h */,
@@ -384,8 +441,10 @@
 				423A3D191BE4E2E900F68DCD /* Assets.xcassets */,
 				423A3D1B1BE4E2E900F68DCD /* LaunchScreen.storyboard */,
 				423A3D1E1BE4E2E900F68DCD /* Info.plist */,
+				D1F66F4B287470DA0014C5E6 /* GoogleService-Info.plist */,
 				423A3D2A1BE4E45B00F68DCD /* Frameworks */,
 				423A3D0D1BE4E2E900F68DCD /* Supporting Files */,
+				D1AFB0C72874814C00AF7C2B /* SwiftFile.swift */,
 			);
 			path = "PCSOFT-IEV";
 			sourceTree = "<group>";
@@ -416,6 +475,8 @@
 			children = (
 				423A3E971BE50E6700F68DCD /* PCAccessCodeViewController.h */,
 				423A3E981BE50E6700F68DCD /* PCAccessCodeViewController.m */,
+				D1F66F462870905C0014C5E6 /* PCURLViewController.h */,
+				D1F66F47287090840014C5E6 /* PCURLViewController.m */,
 				423A3E991BE50E6700F68DCD /* PCDemoViewController.h */,
 				423A3E9A1BE50E6700F68DCD /* PCDemoViewController.m */,
 				423A3E9B1BE50E6700F68DCD /* PCHomeViewController.h */,
@@ -811,6 +872,36 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		DD4DA2F9AADFE4F7EE4FF245 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D1AFB0D12875708000AF7C2B /* FirebaseCoreDiagnostics.xcframework */,
+				D1AFB0D22875708000AF7C2B /* FirebaseCoreInternal.xcframework */,
+				D1AFB0D72875708000AF7C2B /* GoogleAppMeasurement.xcframework */,
+				D1AFB0D62875708000AF7C2B /* GoogleAppMeasurementIdentitySupport.xcframework */,
+				D1AFB0D52875708000AF7C2B /* GoogleDataTransport.xcframework */,
+				D1AFB0D42875708000AF7C2B /* GoogleUtilities.xcframework */,
+				D1AFB0D32875708000AF7C2B /* nanopb.xcframework */,
+				D1AFB0C92874871E00AF7C2B /* FirebaseMessaging.xcframework */,
+				D1AFB0B328747F6300AF7C2B /* FirebaseCore.xcframework */,
+				D1AFB0AF28747A3200AF7C2B /* FirebaseAnalytics.xcframework */,
+				D1AFB0CD2875702A00AF7C2B /* PromisesObjC.xcframework */,
+				D1AFB0CF2875703600AF7C2B /* FirebaseInstallations.xcframework */,
+				FF316DE2AAECC2EC84452893 /* Pods_PCSOFT_IEV.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E0DD9A58A78B8E619A3B66A2 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				69768E5FF34DBDDF15C95FC6 /* Pods-PCSOFT-IEV.debug.xcconfig */,
+				654D78FC646980DDF1C3322C /* Pods-PCSOFT-IEV.release.xcconfig */,
+				92626C504D0D7FAF7485486C /* Pods-PCSOFT-IEV.distadhoc.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -818,6 +909,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 423A3D211BE4E2E900F68DCD /* Build configuration list for PBXNativeTarget "PCSOFT-IEV" */;
 			buildPhases = (
+				FF9DD9FD21BF96C3A9AF9E54 /* [CP] Check Pods Manifest.lock */,
 				423A3D061BE4E2E900F68DCD /* Sources */,
 				423A3D071BE4E2E900F68DCD /* Frameworks */,
 				423A3D081BE4E2E900F68DCD /* Resources */,
@@ -837,12 +929,13 @@
 		423A3D021BE4E2E900F68DCD /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1020;
+				LastUpgradeCheck = 1340;
 				ORGANIZATIONNAME = "Sameer Ghate";
 				TargetAttributes = {
 					423A3D091BE4E2E900F68DCD = {
 						CreatedOnToolsVersion = 7.0;
 						DevelopmentTeam = 7VKE5C6GBK;
+						LastSwiftMigration = 1340;
 						ProvisioningStyle = Manual;
 					};
 				};
@@ -878,12 +971,38 @@
 				423A3D1D1BE4E2E900F68DCD /* LaunchScreen.storyboard in Resources */,
 				423A3D1A1BE4E2E900F68DCD /* Assets.xcassets in Resources */,
 				42B613101BEDF27B0062432A /* ChartNew.min.js in Resources */,
+				D1AFB0CB2874A8D600AF7C2B /* GoogleService-Info.plist in Resources */,
 				423A3D181BE4E2E900F68DCD /* Main.storyboard in Resources */,
 				423A3EC01BE5117A00F68DCD /* index.js in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		FF9DD9FD21BF96C3A9AF9E54 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-PCSOFT-IEV-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		423A3D061BE4E2E900F68DCD /* Sources */ = {
@@ -935,6 +1054,7 @@
 				4286C6AC1BE92E6C0003B8FC /* UIView+Fold.m in Sources */,
 				423A3E111BE50CFB00F68DCD /* AFSecurityPolicy.m in Sources */,
 				423A3E1F1BE50CFB00F68DCD /* TWRBarChart.m in Sources */,
+				D1AFB0C82874814C00AF7C2B /* SwiftFile.swift in Sources */,
 				423A3EA11BE50E6700F68DCD /* PCAccessCodeViewController.m in Sources */,
 				423A3E691BE50CFB00F68DCD /* SSKeychainQuery.m in Sources */,
 				423A3E931BE50D7500F68DCD /* PCRejectionModel.m in Sources */,
@@ -951,6 +1071,7 @@
 				423A3E1D1BE50CFB00F68DCD /* UIWebView+AFNetworking.m in Sources */,
 				423A3E261BE50CFB00F68DCD /* UIColor+HexString.m in Sources */,
 				423A3E951BE50D7500F68DCD /* PCTransactionModel.m in Sources */,
+				D1F66F48287090840014C5E6 /* PCURLViewController.m in Sources */,
 				429755F91C1F199400DEF282 /* PCSettingsViewController.m in Sources */,
 				423A3E6A1BE50CFB00F68DCD /* MBProgressHUD.m in Sources */,
 				423A3E0F1BE50CFB00F68DCD /* AFHTTPSessionManager.m in Sources */,
@@ -1025,6 +1146,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -1050,7 +1172,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PROVISIONING_PROFILE = "6b8e5d55-2079-430d-9496-f66f37f6353b";
@@ -1081,6 +1203,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -1100,7 +1223,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PROVISIONING_PROFILE = "80568c79-42df-4700-95d3-75d7c394f76e";
 				SDKROOT = iphoneos;
@@ -1110,41 +1233,64 @@
 		};
 		423A3D221BE4E2E900F68DCD /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 69768E5FF34DBDDF15C95FC6 /* Pods-PCSOFT-IEV.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = "PCSOFT-IEV/PCSOFT-IEV.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 50;
 				DEVELOPMENT_TEAM = 7VKE5C6GBK;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(PROJECT_DIR)/PCSOFT-IEV/PrefixHeader.pch";
 				INFOPLIST_FILE = "PCSOFT-IEV/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.2;
+				MODULEMAP_FILE = "/Users/harshajain/Work/projects/pcsoftiev/PCSOFT-IEV";
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.pcsofterp.IEV;
 				PRODUCT_NAME = "PCSOFT IEV";
 				PROVISIONING_PROFILE = "6efd0fca-5032-4543-a162-e92186496a43";
 				PROVISIONING_PROFILE_SPECIFIER = ERP_Development;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
 		423A3D231BE4E2E900F68DCD /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 654D78FC646980DDF1C3322C /* Pods-PCSOFT-IEV.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = "PCSOFT-IEV/PCSOFT-IEV.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Harsha Jain (7VKE5C6GBK)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CURRENT_PROJECT_VERSION = 50;
 				DEVELOPMENT_TEAM = 7VKE5C6GBK;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(PROJECT_DIR)/PCSOFT-IEV/PrefixHeader.pch";
 				INFOPLIST_FILE = "PCSOFT-IEV/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.2;
+				MODULEMAP_FILE = "/Users/harshajain/Work/projects/pcsoftiev/PCSOFT-IEV";
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.pcsofterp.IEV;
 				PRODUCT_NAME = "PCSOFT IEV";
 				PROVISIONING_PROFILE = "80568c79-42df-4700-95d3-75d7c394f76e";
 				PROVISIONING_PROFILE_SPECIFIER = ERP_AppStoreDistProfile;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
@@ -1171,6 +1317,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -1190,7 +1337,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PROVISIONING_PROFILE = "e31086c5-e5ef-4b04-8ec3-b03a9289febe";
 				SDKROOT = iphoneos;
@@ -1200,21 +1347,32 @@
 		};
 		429E7B7B1BE7E09700EAF4CC /* DistAdHoc */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 92626C504D0D7FAF7485486C /* Pods-PCSOFT-IEV.distadhoc.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = "PCSOFT-IEV/PCSOFT-IEV.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Harsha Jain (7VKE5C6GBK)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CURRENT_PROJECT_VERSION = 50;
 				DEVELOPMENT_TEAM = 7VKE5C6GBK;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(PROJECT_DIR)/PCSOFT-IEV/PrefixHeader.pch";
 				INFOPLIST_FILE = "PCSOFT-IEV/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.2;
+				MODULEMAP_FILE = "/Users/harshajain/Work/projects/pcsoftiev/PCSOFT-IEV";
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.pcsofterp.IEV;
 				PRODUCT_NAME = "PCSOFT IEV";
 				PROVISIONING_PROFILE = "2507fa51-61ee-42f7-85f6-4281bcc4f6b1";
 				PROVISIONING_PROFILE_SPECIFIER = ERP_DistAdHoc;
+				SWIFT_VERSION = 5.0;
 			};
 			name = DistAdHoc;
 		};

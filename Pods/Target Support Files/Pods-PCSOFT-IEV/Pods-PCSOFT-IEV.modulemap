@@ -1,0 +1,6 @@
+framework module Pods_PCSOFT_IEV {
+  umbrella header "Pods-PCSOFT-IEV-umbrella.h"
+
+  export *
+  module * { export * }
+}

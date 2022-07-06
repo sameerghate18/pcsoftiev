@@ -12,15 +12,19 @@
 #import "PCSideMenuTableViewController.h"
 #import "UIViewController+MKDSlideViewController.h"
 #import "SSKeychain.h"
+@import UserNotifications;
+@import FirebaseCore;
+@import FirebaseMessaging;
 
 #define kAppIdentiier @"com.pcsofterp.IEV"
 #define kAppKeychainIdentifier @"appUniqueCode"
 
-@interface AppDelegate ()
-
+@interface AppDelegate () <UNUserNotificationCenterDelegate>
 @end
 
 @implementation AppDelegate
+
+NSString *const kGCMMessageIDKey = @"gcm.message_id";
 
 - (void)instantiateAppFlowWithNavController:(UINavigationController *)rootNav
 {
@@ -35,7 +39,42 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    [FIRApp configure];
     
+    [FIRMessaging messaging].delegate = self;
+    
+    [UNUserNotificationCenter currentNotificationCenter].delegate = self;
+    
+    [[UNUserNotificationCenter currentNotificationCenter] getNotificationSettingsWithCompletionHandler:^(UNNotificationSettings * _Nonnull settings) {
+        if ([settings authorizationStatus] == UNAuthorizationStatusNotDetermined || [settings authorizationStatus] == UNAuthorizationStatusDenied) {
+            
+            [[UNUserNotificationCenter currentNotificationCenter] requestAuthorizationWithOptions:(UNAuthorizationOptionAlert|UNAuthorizationOptionBadge|UNAuthorizationOptionSound) completionHandler:^(BOOL granted, NSError * _Nullable error) {
+                if (granted == true) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        NSLog(@"requestAuthorizationWithOptions GRANTED");
+                    });
+                    
+                } else {
+                    NSLog(@"requestAuthorizationWithOptions DENIED");
+                }
+
+            }];
+        } else {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                NSLog(@"requestAuthorizationWithOptions PRE-GRANTED");
+            });
+            
+        }
+    }];
+    
+    [application registerForRemoteNotifications];
+    
+    if ([launchOptions objectForKey:UIApplicationLaunchOptionsURLKey] == nil) {
+        // Normal launch
+    } else {
+        // Notification launch
+    }
+        
     NSString *retrieveuuid = [SSKeychain passwordForService:kAppIdentiier account:kAppKeychainIdentifier];
     if (retrieveuuid == nil) {
         NSString *uuid  = [self createNewUUID];
@@ -116,6 +155,45 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+    
+    NSLog(@"didRegisterForRemoteNotificationsWithDeviceToken: %@", deviceToken);
+    
+    // With swizzling disabled you must set the APNs device token here.
+    [FIRMessaging messaging].APNSToken = deviceToken;
+}
+
+- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
+    NSLog(@"didFailToRegisterForRemoteNotificationsWithError: %@", error);
+}
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
+    
+    // With swizzling disabled you must let Messaging know about the message, for Analytics
+       [[FIRMessaging messaging] appDidReceiveMessage:userInfo];
+
+      // [START_EXCLUDE]
+      // Print message ID.
+      if (userInfo[kGCMMessageIDKey]) {
+        NSLog(@"Message ID: %@", userInfo[kGCMMessageIDKey]);
+      }
+      // [END_EXCLUDE]
+
+      // Print full message.
+      NSLog(@"%@", userInfo);
+
+      completionHandler(UIBackgroundFetchResultNewData);
+}
+
+- (void)messaging:(FIRMessaging *)messaging didReceiveRegistrationToken:(NSString *)fcmToken {
+    
+    NSLog(@"FCM registration token: %@", fcmToken);
+        // Notify about received token.
+        NSDictionary *dataDict = [NSDictionary dictionaryWithObject:fcmToken forKey:@"token"];
+        [[NSNotificationCenter defaultCenter] postNotificationName:
+         @"FCMToken" object:nil userInfo:dataDict];
 }
 
 @end

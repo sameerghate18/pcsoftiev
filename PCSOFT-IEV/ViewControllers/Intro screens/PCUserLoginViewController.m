@@ -85,9 +85,9 @@
     registerDeviceConnection.delegate = self;
     registerDeviceConnection.tag = kCheckDeviceRegisteredTag;
     
-    NSString *urlString = [NSString stringWithFormat:@"%@isregisterDevice?scocd=%@&DeviceId=%@&MobNo=%@",
-                           kAppBaseURL,
-                           [defaults valueForKey:kAccessCode],
+    //[defaults valueForKey:kAccessCode],
+    NSString *urlString = [NSString stringWithFormat:@"%@isregisterDevice?scocd=""&DeviceId=%@&MobNo=%@",
+                           appDel.baseURL,
                            appDel.appUniqueIdentifier,
                            [defaults valueForKey:kPhoneNumber]];
     
@@ -298,7 +298,7 @@
     
     
     NSString *urlString = [NSString stringWithFormat:@"%@updatedeviceid?scocd=%@&deviceid=%@&mobno=%@",
-                           kAppBaseURL,
+                           appDel.baseURL,
                            [defaults valueForKey:kAccessCode],
                            appDel.appUniqueIdentifier,
                            [defaults valueForKey:kPhoneNumber]];

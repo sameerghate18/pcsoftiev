@@ -41,10 +41,11 @@ typedef enum{
     PCDeviceRegisterModel *deviceRegisterModel;
 }
 
-@property (nonatomic, weak) IBOutlet UITextField *codeTF, *phoneNumberTF;
+@property (nonatomic, weak) IBOutlet UITextField *phoneNumberTF; //*codeTF
 @property (nonatomic, weak) IBOutlet UIImageView *logoImageview;
 @property (nonatomic, weak) IBOutlet UILabel *headerLabel;
 @property (nonatomic, strong) NSString *userPhoneNumber;
+@property (nonatomic, strong) IBOutlet UITextField *urlTextfield;
 
 @end
 
@@ -68,8 +69,8 @@ typedef enum{
     } completion:^(BOOL finished) {
         
         [UIView animateWithDuration:1.0 animations:^{
-            [_codeTF setAlpha:1.0];
-            [_phoneNumberTF setAlpha:1.0];
+            [self->_urlTextfield setAlpha:1.0];
+            [self->_phoneNumberTF setAlpha:1.0];
         }];
         
     }];
@@ -126,6 +127,42 @@ typedef enum{
     }
 }
 
+-(IBAction)verifyURLInput {
+    
+    // test url - https://www.ievmobile.com/ieverptest/service.svc/
+    NSString *urlText = _urlTextfield.text;
+    urlText = [urlText stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    
+    if (urlText.length > 0 && _phoneNumberTF.text.length > 0) {
+        // Check for URL regex
+        if ([self validateURL:urlText] == true) {
+            
+            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+            [defaults setObject:urlText forKey:kCompanyBaseURL];
+            [defaults synchronize];
+            [appDel setBaseURL:urlText];
+            
+            [self checkForIsDeviceAlreadyRegistered];
+            
+        } else {
+            //
+            UIAlertView *invalidURLAlert = [[UIAlertView alloc] initWithTitle:@"Invalid URL" message:@"Please paste a valid URL in the text box. Please make sure the URL ends with '/'." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [invalidURLAlert show];
+            
+        }
+    } else {
+        UIAlertView *emptyField = [[UIAlertView alloc] initWithTitle:@"Empty fields" message:@"Please paste the URL ending with '/' and provide your mobile number in the textboxes." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [emptyField show];
+    }
+}
+
+-(BOOL)validateURL:(NSString*)urlText {
+    NSString *urlRegEx =
+        @"(http|https)://((\\w)*|([0-9]*)|([-|_])*)+([\\.|/]((\\w)*|([0-9]*)|([-|_])*))+/";
+        NSPredicate *urlTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", urlRegEx];
+        return [urlTest evaluateWithObject:urlText];
+}
+
 - (IBAction)registerButtonAction:(id)sender
 {
     [self checkForIsDeviceAlreadyRegistered];
@@ -149,7 +186,7 @@ typedef enum{
     
     [SVProgressHUD showWithStatus:@"Please wait..."];
     
-    NSString *accessCode = _codeTF.text;
+    NSString *accessCode = @"IE"; //_codeTF.text;
     accessCode = [accessCode stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     
     NSString *phoneNumber = _phoneNumberTF.text;
@@ -173,11 +210,16 @@ typedef enum{
     registerDeviceConnection.delegate = self;
     registerDeviceConnection.tag = kCheckDeviceRegisteredTag;
     
-    NSString *urlString = [NSString stringWithFormat:@"%@isregisterDevice?scocd=%@&DeviceId=%@&MobNo=%@",
-                           kAppBaseURL,
-                           _codeTF.text,
+//    NSString *urlString = [NSString stringWithFormat:@"%@isregisterDevice?scocd=%@&DeviceId=%@&MobNo=%@",
+//                           kAppBaseURL,
+//                           _codeTF.text,
+//                           appDel.appUniqueIdentifier,
+//                           self.userPhoneNumber];
+    
+    NSString *urlString = [NSString stringWithFormat:@"%@registerDeviceN?scocd=IE&DeviceId=%@&MobNo=%@&token=%@&tokentype=ios",
+                           appDel.baseURL,
                            appDel.appUniqueIdentifier,
-                           self.userPhoneNumber];
+                           self.userPhoneNumber,@"token"];
     
     setupConnectionType = SetupConnectionTypeCheckDevice;
     
@@ -190,9 +232,8 @@ typedef enum{
     updateMobileHandler.delegate = self;
     updateMobileHandler.tag = kUpdateMobileNumberTag;
         
-    NSString *urlString = [NSString stringWithFormat:@"%@updatemobileno?scocd=%@&deviceid=%@&mobno=%@",
-                           kAppBaseURL,
-                           _codeTF.text,
+    NSString *urlString = [NSString stringWithFormat:@"%@updatemobileno?scocd=IE&deviceid=%@&mobno=%@",
+                           appDel.baseURL,
                            appDel.appUniqueIdentifier,
                            self.userPhoneNumber];
     
@@ -207,9 +248,8 @@ typedef enum{
     updateDevieRegHandler.delegate = self;
     updateDevieRegHandler.tag = kUpdateDeviceRegisterTag;
     
-    NSString *urlString = [NSString stringWithFormat:@"%@updatedeviceid?scocd=%@&deviceid=%@&mobno=%@",
-                           kAppBaseURL,
-                           _codeTF.text,
+    NSString *urlString = [NSString stringWithFormat:@"%@updatedeviceid?scocd=IE&deviceid=%@&mobno=%@",
+                           appDel.baseURL,
                            appDel.appUniqueIdentifier,
                            self.userPhoneNumber];
     
@@ -219,7 +259,7 @@ typedef enum{
 
 -(void)updateLicenseCount
 {
-    NSString *accessCode = _codeTF.text;
+    NSString *accessCode = @"IE"; //_codeTF.text;
     
     accessCode = [accessCode stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     
@@ -239,7 +279,7 @@ typedef enum{
     registerDeviceConnection.delegate = self;
     registerDeviceConnection.tag = kUpdateLicenseTag;
     
-    NSString *urlString = [NSString stringWithFormat:@"%@GetUpdateLic?scocd=%@",kAppBaseURL,_codeTF.text];
+    NSString *urlString = [NSString stringWithFormat:@"%@GetUpdateLic?scocd=IE",appDel.baseURL];
     setupConnectionType = SetupConnectionTypeUpdateLicense;
     
     [registerDeviceConnection fetchDataForURL:urlString body:nil];
@@ -249,8 +289,8 @@ typedef enum{
 {
     [SVProgressHUD showWithStatus:@"Registering device..."];
     
-    NSString *accessCode = [NSString stringWithString:
-                            _codeTF.text];
+    NSString *accessCode = @"IE"; //[NSString stringWithString:
+                            //_codeTF.text];
     
     accessCode = [accessCode stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     
@@ -269,7 +309,7 @@ typedef enum{
     registerDeviceConnection.tag = kRegisterDeviceTag;
     
     NSString *urlString = [NSString stringWithFormat:@"%@registerDeviceID?scocd=%@&DeviceId=%@&MobNo=%@",
-                           kAppBaseURL,
+                           appDel.baseURL,
                            accessCode,
                            appDel.appUniqueIdentifier,
                            phoneNumber];
@@ -281,7 +321,7 @@ typedef enum{
 
 -(void)verifyCode:(NSString*)userCode
 {
-    NSString *accessCode = _codeTF.text;
+    NSString *accessCode = @"IE"; //_codeTF.text;
     
     accessCode = [accessCode stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     
@@ -385,7 +425,10 @@ typedef enum{
                 
                 NSError *error = [NSError errorWithDomain:kErrorDomainUnwantedOutput code:-5001 userInfo:details];
                 
-                [self connectionHandler:nil errorRecievingData:error];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self connectionHandler:nil errorRecievingData:error];
+                });
+
             }
         }
             break;
@@ -707,8 +750,8 @@ typedef enum{
                 
                 PCUpdateMobileNumberViewController *updateMobVC = [kStoryboard instantiateViewControllerWithIdentifier:@"PCUpdateMobileNumberViewController"];
                 
-                NSString *accessCode = [NSString stringWithString:
-                                        _codeTF.text];
+                NSString *accessCode = @"IE"; //[NSString stringWithString:
+                                        //_codeTF.text];
                 
                 accessCode = [accessCode stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
                 
