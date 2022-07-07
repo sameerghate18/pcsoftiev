@@ -17,7 +17,7 @@
 @property (strong, nonatomic) UIWindow *window;
 @property (strong, nonatomic) PCUserModel *loggedUser;
 @property (strong, nonatomic) PCCompanyModel *selectedCompany;
-@property (strong, nonatomic) NSString *selectedUserName, *selectedCompanyName, *baseURL, *userPhoneNumber, *accessCode;
+@property (strong, nonatomic) NSString *selectedUserName, *selectedCompanyName, *baseURL, *userPhoneNumber, *accessCode, *fcmToken;
 @property (nonatomic) BOOL userLoggedIn;
 @property (strong, nonatomic) NSString *appUniqueIdentifier;
 

@@ -86,7 +86,7 @@
     registerDeviceConnection.tag = kCheckDeviceRegisteredTag;
     
     //[defaults valueForKey:kAccessCode],
-    NSString *urlString = [NSString stringWithFormat:@"%@isregisterDevice?scocd=""&DeviceId=%@&MobNo=%@",
+    NSString *urlString = [NSString stringWithFormat:@"%@isregisterDevice?scocd=IE&DeviceId=%@&MobNo=%@",
                            appDel.baseURL,
                            appDel.appUniqueIdentifier,
                            [defaults valueForKey:kPhoneNumber]];

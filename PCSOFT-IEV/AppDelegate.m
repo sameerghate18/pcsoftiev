@@ -194,6 +194,7 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
         NSDictionary *dataDict = [NSDictionary dictionaryWithObject:fcmToken forKey:@"token"];
         [[NSNotificationCenter defaultCenter] postNotificationName:
          @"FCMToken" object:nil userInfo:dataDict];
+    self.fcmToken = fcmToken;
 }
 
 @end

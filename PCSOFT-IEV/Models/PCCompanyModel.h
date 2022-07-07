@@ -16,5 +16,6 @@
 @property (nonatomic, strong) NSString *LONG_CO_NM;
 @property (nonatomic, strong) NSString *NAME;
 @property (nonatomic, strong) NSString *ERRORMESSAGE;
+@property (nonatomic, strong) NSString *FLAG;
 
 @end

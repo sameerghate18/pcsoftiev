@@ -187,7 +187,6 @@ typedef enum{
     [SVProgressHUD showWithStatus:@"Please wait..."];
     
     NSString *accessCode = @"IE"; //_codeTF.text;
-    accessCode = [accessCode stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     
     NSString *phoneNumber = _phoneNumberTF.text;
     phoneNumber = [phoneNumber stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
@@ -210,17 +209,11 @@ typedef enum{
     registerDeviceConnection.delegate = self;
     registerDeviceConnection.tag = kCheckDeviceRegisteredTag;
     
-//    NSString *urlString = [NSString stringWithFormat:@"%@isregisterDevice?scocd=%@&DeviceId=%@&MobNo=%@",
-//                           kAppBaseURL,
-//                           _codeTF.text,
-//                           appDel.appUniqueIdentifier,
-//                           self.userPhoneNumber];
-    
-    NSString *urlString = [NSString stringWithFormat:@"%@registerDeviceN?scocd=IE&DeviceId=%@&MobNo=%@&token=%@&tokentype=ios",
-                           appDel.baseURL,
+    NSString *urlString = [NSString stringWithFormat:@"%@isregisterDevice?scocd=IE&DeviceId=%@&MobNo=%@",
+                           kAppBaseURL,
                            appDel.appUniqueIdentifier,
-                           self.userPhoneNumber,@"token"];
-    
+                           self.userPhoneNumber];
+
     setupConnectionType = SetupConnectionTypeCheckDevice;
     
     [registerDeviceConnection fetchDataForURL:urlString body:nil];
@@ -285,8 +278,27 @@ typedef enum{
     [registerDeviceConnection fetchDataForURL:urlString body:nil];
 }
 
-- (void)registerDevice
-{
+- (void)registerDeviceN {
+    
+    [SVProgressHUD showWithStatus:@"Registering device..."];
+
+    ConnectionHandler *registerDeviceConnection = [[ConnectionHandler alloc] init];
+    registerDeviceConnection.delegate = self;
+    registerDeviceConnection.tag = kRegisterDeviceTag;
+    
+    NSString *urlString = [NSString stringWithFormat:@"%@registerDeviceN?scocd=IE&DeviceId=%@&MobNo=%@&token=%@&tokentype=I",
+                           appDel.baseURL,
+                           appDel.appUniqueIdentifier,
+                           self.userPhoneNumber,
+                           appDel.fcmToken];
+    
+    setupConnectionType = SetupConnectionTypeDeviceRegister;
+    
+    [registerDeviceConnection fetchDataForURL:urlString body:nil];
+    
+}
+
+- (void)registerDevice {
     [SVProgressHUD showWithStatus:@"Registering device..."];
     
     NSString *accessCode = @"IE"; //[NSString stringWithString:
@@ -384,7 +396,14 @@ typedef enum{
                                 
                                 [[NSUserDefaults standardUserDefaults] setBool:YES forKey:IS_REGISTRATION_COMPLETE_KEY];
                                 [[NSUserDefaults standardUserDefaults] synchronize];
-                                [self verifyCode:nil];
+                                
+//                                [SVProgressHUD showSuccessWithStatus:@"Done"];
+                                
+                                PCViewController *compListVC = [kStoryboard instantiateViewControllerWithIdentifier:@"PCViewController"];
+                                [compListVC setTitle:@"Select your company"];
+                                
+                                [self.navigationController pushViewController:compListVC animated:NO];
+//                                [self verifyCode:nil];
                                 
                             }
                             else {
@@ -450,7 +469,7 @@ typedef enum{
             int totalLicenses = licenseModel.LIC_NOS==nil?100:[licenseModel.LIC_NOS intValue];
             int usedLicenses = [licenseModel.LIC_USED intValue];
             if (usedLicenses < totalLicenses) {
-                [self registerDevice];
+                [self registerDeviceN];
             }
             else {
                 
@@ -481,9 +500,18 @@ typedef enum{
                 NSString *activeString = [deviceRegisterModel.ACTIVE stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
                 
                 if ([activeString isEqualToString:@"A"]) {
-
                     
-                    [self verifyCode:nil];
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        
+                        [SVProgressHUD showSuccessWithStatus:@"Done"];
+                        
+                        PCViewController *compListVC = [kStoryboard instantiateViewControllerWithIdentifier:@"PCViewController"];
+                        [compListVC setTitle:@"Select your company"];
+                        
+                        [self.navigationController pushViewController:compListVC animated:NO];
+                    });
+                    
+//                    [self verifyCode:nil];
                 }
                 else {
                     
