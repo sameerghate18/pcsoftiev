@@ -2076,7 +2076,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CONTACT DETAILS" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6k3-Pa-Ovn">
-                                                    <rect key="frame" x="8" y="4" width="304" height="21"/>
+                                                    <rect key="frame" x="16" y="7" width="304" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="304" id="Pmc-8g-80Q"/>
                                                         <constraint firstAttribute="height" constant="21" id="rv8-Xh-lfa"/>
@@ -2131,7 +2131,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="6" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TlP-FL-TIV">
-                                                    <rect key="frame" x="8" y="0.0" width="304" height="94"/>
+                                                    <rect key="frame" x="16" y="3" width="304" height="94"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="304" id="MDp-Cb-Vlb"/>
                                                         <constraint firstAttribute="height" constant="94" id="ghc-A2-qS0"/>
@@ -2186,7 +2186,7 @@ PIN - 411004</string>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Call : +91-20-41034444" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lxy-1I-Yax">
-                                                    <rect key="frame" x="8" y="2" width="304" height="21"/>
+                                                    <rect key="frame" x="16" y="5" width="304" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="304" id="Gjg-lF-CAa"/>
                                                         <constraint firstAttribute="height" constant="21" id="Jae-bi-ANQ"/>
@@ -2235,7 +2235,7 @@ PIN - 411004</string>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="sales@pcsoftindia.com" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nwl-vi-jGt">
-                                                    <rect key="frame" x="8" y="2" width="304" height="21"/>
+                                                    <rect key="frame" x="16" y="5" width="304" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="304" id="G7t-Ya-Xbw"/>
                                                         <constraint firstAttribute="height" constant="21" id="lms-G3-BiN"/>
@@ -2284,7 +2284,7 @@ PIN - 411004</string>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="support@pcsoftindia.com" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gzf-Fg-E0D">
-                                                    <rect key="frame" x="8" y="2" width="304" height="21"/>
+                                                    <rect key="frame" x="16" y="5" width="304" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="304" id="ZJT-9k-5Sl"/>
                                                         <constraint firstAttribute="height" constant="21" id="dq3-kh-9JH"/>
@@ -2333,7 +2333,7 @@ PIN - 411004</string>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="www.pcsoftindia.com" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Un0-si-5AS">
-                                                    <rect key="frame" x="8" y="2" width="304" height="21"/>
+                                                    <rect key="frame" x="16" y="5" width="304" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="KsO-wQ-V91"/>
                                                         <constraint firstAttribute="width" constant="304" id="QNv-hd-D45"/>
@@ -2381,8 +2381,8 @@ PIN - 411004</string>
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="87"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="pcsoftlogo" translatesAutoresizingMaskIntoConstraints="NO" id="BIw-Ma-Hes">
-                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="86.666666666666671"/>
+                                                <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pcsoftlogo" translatesAutoresizingMaskIntoConstraints="NO" id="BIw-Ma-Hes">
+                                                    <rect key="frame" x="8" y="3" width="304" height="81"/>
                                                 </imageView>
                                             </subviews>
                                             <constraints>

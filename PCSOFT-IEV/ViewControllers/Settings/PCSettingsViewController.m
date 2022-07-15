@@ -7,6 +7,7 @@
 //
 
 #import "PCSettingsViewController.h"
+@import UserNotifications;
 
 @interface PCSettingsViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -38,6 +39,10 @@
 {
     switch (section) {
         case 0:
+            return 1;
+            break;
+            
+        case 1:
             return 1;
             break;
             
@@ -74,6 +79,39 @@
         }
             break;
             
+        case 1:
+        {
+            if (aCell==nil) {
+                aCell = [tableView dequeueReusableCellWithIdentifier:@"SwitchCell"];
+                aCell.textLabel.text = @"Push notifications";
+                aCell.textLabel.font = [UIFont boldSystemFontOfSize:15];
+                aCell.selectionStyle = UITableViewCellSelectionStyleNone;
+                aCell.backgroundColor = [UIColor clearColor];
+                UISwitch *switchView = [[UISwitch alloc] initWithFrame:CGRectZero];
+                aCell.accessoryView = switchView;
+                
+                [[UNUserNotificationCenter currentNotificationCenter] getNotificationSettingsWithCompletionHandler:^(UNNotificationSettings * _Nonnull settings) {
+                    if ([settings authorizationStatus] == UNAuthorizationStatusNotDetermined || [settings authorizationStatus] == UNAuthorizationStatusDenied) {
+                        
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            [switchView setOn:NO animated:NO];
+                            NSLog(@"requestAuthorizationWithOptions DENIED");
+                        });
+                        
+                    } else {
+                        
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            [switchView setOn:YES animated:NO];
+                            NSLog(@"requestAuthorizationWithOptions PRE-GRANTED");
+                        });
+                        
+                    }
+                }];
+                
+                [switchView addTarget:self action:@selector(notificationSwitchChanged:) forControlEvents:UIControlEventValueChanged];
+            }
+        }
+            
         default:
             break;
     }
@@ -93,8 +131,35 @@
     [defaults synchronize];
 }
 
+- (void) notificationSwitchChanged:(id)sender {
+    UISwitch* switchControl = sender;
+    
+    if (switchControl.on) {
+        
+        [[UNUserNotificationCenter currentNotificationCenter] requestAuthorizationWithOptions:(UNAuthorizationOptionAlert|UNAuthorizationOptionBadge|UNAuthorizationOptionSound) completionHandler:^(BOOL granted, NSError * _Nullable error) {
+            if (granted == true) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [switchControl setOn:TRUE];
+                    NSLog(@"push notifications GRANTED");
+                });
+                
+            } else {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [switchControl setOn:FALSE];
+                    NSLog(@"push notifications DENIED");
+                });
+            }
+        }];
+    }
+    else {
+        [switchControl setOn:FALSE];
+        [[UIApplication sharedApplication] unregisterForRemoteNotifications];
+    }
+}
+
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView   {
-    return 1;
+    return 2;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
@@ -120,12 +185,19 @@
 }
 
 - (nullable UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section   {
+    
     UILabel *footerLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, tableView.frame.size.width-40, 75)];
     footerLabel.backgroundColor = [UIColor clearColor];
     footerLabel.font = [UIFont systemFontOfSize:12];
     footerLabel.textColor = [UIColor lightGrayColor];
     footerLabel.numberOfLines = 3;
-    footerLabel.text = @"Turning on this feature will ask the user for login credentials whenever any payment authorization happens. It is recommended to keep this feature enabled.";
+    
+    if (section == 0) {
+        footerLabel.text = @"Turning on this feature will ask the user for login credentials whenever any payment authorization happens. It is recommended to keep this feature enabled.";
+    } else if (section == 1) {
+        footerLabel.text = @"You can turn on and off the push notifications through the Notifications section of the Settings app.";
+    }
+    
     footerLabel.textAlignment = NSTextAlignmentCenter;
     
     return footerLabel;

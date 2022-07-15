@@ -58,9 +58,9 @@
     [leftBtn setImage:[UIImage imageNamed:@"menu-icon.png"] forState:UIControlStateNormal];
     
     UIButton *rightBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [leftBtn setImage:[UIImage imageNamed:@"dailysales-side-icon.png"] forState:UIControlStateNormal];
+    [rightBtn setImage:[UIImage imageNamed:@"dailysales-side-icon.png"] forState:UIControlStateNormal];
     
-    UIBarButtonItem *barbtn = [[UIBarButtonItem alloc]  initWithImage:[UIImage imageNamed:@"menu_icon.png"] style:UIBarButtonItemStyleBordered target:self action:@selector(showSideMenu)];
+    UIBarButtonItem *barbtn = [[UIBarButtonItem alloc]  initWithImage:[UIImage imageNamed:@"menu_icon.png"] style:UIBarButtonItemStylePlain target:self action:@selector(showSideMenu)];
     
 //    UIBarButtonItem *barbtn = [[UIBarButtonItem alloc] initWithCustomView:leftBtn];
     
@@ -120,8 +120,7 @@
 -(IBAction)displaySalesPieChart:(id)sender
 {
     if (!_tableSourceData ) {
-        UIAlertView *noData = [[UIAlertView alloc] initWithTitle:@"Data not available" message:@"No sufficient data to present a graph.\nTry refreshing again." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        [noData show];
+        [Utility showAlertWithTitle:@"Data not available" message:@"No sufficient data to present a graph.\nTry refreshing again." buttonTitle:@"OK" inViewController:self];
         return;
     }
     
@@ -240,8 +239,7 @@
             
             [SVProgressHUD dismiss];
             
-            UIAlertView *noInternetalert = [[UIAlertView alloc] initWithTitle:@"IEV" message:@"Internet connection appears to be unavailable.\nPlease check your connection and try again." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-            [noInternetalert show];
+            [Utility showAlertWithTitle:@"IEV" message:@"Internet connection appears to be unavailable.\nPlease check your connection and try again." buttonTitle:@"OK" inViewController:self];
             
         });
         return;

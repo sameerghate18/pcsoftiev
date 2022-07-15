@@ -369,9 +369,25 @@
                 
                 [tableView deselectRowAtIndexPath:indexPath animated:YES];
                 
-                UIAlertView *confirmLogout = [[UIAlertView alloc] initWithTitle:@"Logout?" message:@"Are you sure you want to log out?" delegate:self cancelButtonTitle:@"Yes" otherButtonTitles:@"Cancel", nil];
-                confirmLogout.tag = 101;
-                [confirmLogout show];
+                UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Logout" message:@"Are you sure you want to log out?" preferredStyle:UIAlertControllerStyleAlert];
+                
+                UIAlertAction * yesAction = [UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                    
+                    [self logout];
+                    
+                }];
+                
+                UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                }];
+                
+                [alert addAction:yesAction];
+                [alert addAction:cancelAction];
+                
+                [self presentViewController:alert animated:YES completion:nil];
+                
+//                UIAlertView *confirmLogout = [[UIAlertView alloc] initWithTitle:@"Logout?" message:@"Are you sure you want to log out?" delegate:self cancelButtonTitle:@"Yes" otherButtonTitles:@"Cancel", nil];
+//                confirmLogout.tag = 101;
+//                [confirmLogout show];
                 return;
             }
             
@@ -460,8 +476,8 @@
         }
         else {
             
-            UIAlertView *logoutFailedAlert = [[UIAlertView alloc] initWithTitle:@"Logout" message:@"There seems some problem while logging out from the system. Please try again after some time." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-            [logoutFailedAlert show];
+            [Utility showAlertWithTitle:@"Logout" message:@"There seems some problem while logging out from the system. Please try again after some time." buttonTitle:@"OK" inViewController:self];
+            
         }
     });
 }
@@ -474,8 +490,7 @@
             
             [SVProgressHUD dismiss];
             
-            UIAlertView *noInternetalert = [[UIAlertView alloc] initWithTitle:@"IEV" message:@"Internet connection appears to be unavailable.\nPlease check your connection and try again." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-            [noInternetalert show];
+            [Utility showAlertWithTitle:@"IEV" message:@"Internet connection appears to be unavailable.\nPlease check your connection and try again." buttonTitle:@"OK" inViewController:self];
             
         });
         return;

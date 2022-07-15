@@ -230,12 +230,22 @@ typedef enum {
             
             [SVProgressHUD showSuccessWithStatus:@"Done"];
             
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Authorization" message:outputString delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-            alert.delegate = self;
-            alert.tag = 102;
-            [alert show];
+            UIAlertController *authAlert = [UIAlertController alertControllerWithTitle:@"Authorization" message:outputString preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction * okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+
+                [self.navigationController popViewControllerAnimated:YES];
+            }];
             
+            [authAlert addAction:okAction];
             
+            [self presentViewController:authAlert animated:YES completion:nil];
+            
+//
+//            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Authorization" message:outputString delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+//            alert.delegate = self;
+//            alert.tag = 102;
+//            [alert show];
+
         });
         
         
@@ -255,8 +265,7 @@ typedef enum {
             
             [SVProgressHUD dismiss];
             
-            UIAlertView *noInternetalert = [[UIAlertView alloc] initWithTitle:@"IEV" message:@"Internet connection appears to be unavailable.\nPlease check your connection and try again." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-            [noInternetalert show];
+            [Utility showAlertWithTitle:@"IEV" message:@"Internet connection appears to be unavailable.\nPlease check your connection and try again." buttonTitle:@"OK" inViewController:self];
             
         });
         return;
@@ -512,22 +521,77 @@ static NSString *cellIdentifier = @"POSOSingleTransactionCell";
 -(IBAction)presentActionSheet
 {
     //seq_no field having value greater than 1.(Do not allow if seq_no field contain '-1' or '1')
-    UIActionSheet *actionSheet;
-//
+//    UIActionSheet *actionSheet;
+    
+    UIAlertController *actionSheetControl = [UIAlertController alertControllerWithTitle:@"What do you want to do?" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     
     int seqno = [self.selectedTransaction.seq_no intValue];
     
     if ( (seqno == -1) || (seqno == 0) ) {
+        
+        UIAlertAction *approveAction = [UIAlertAction actionWithTitle:@"Approve this request" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+                    if ([defaults boolForKey:kPaymentAuthPwdEnabled]) {
+                        [self askForLogin];
+                    }
+                    else {
+                        [self initiateConfirmation];
+                    }
+                });
+            });
+            
+        }];
+        
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+           }];
+        
+        [actionSheetControl addAction:approveAction];
+        [actionSheetControl addAction:cancelAction];
+        
+        
 
-        actionSheet = [[UIActionSheet alloc] initWithTitle:@"What do you want to do?" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Approve this request",nil];
-        actionSheet.tag = 101;
+//        actionSheet = [[UIActionSheet alloc] initWithTitle:@"What do you want to do?" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Approve this request",nil];
+//        actionSheet.tag = 101;
     }
     else {
-        actionSheet = [[UIActionSheet alloc] initWithTitle:@"What do you want to do?" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:@"Send Back" otherButtonTitles:@"Approve this request",nil];
-        actionSheet.tag = 100;
+        
+        UIAlertAction *approveAction = [UIAlertAction actionWithTitle:@"Approve this request" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+                if ([defaults boolForKey:kPaymentAuthPwdEnabled]) {
+                    [self askForLogin];
+                }
+                else {
+                    [self initiateConfirmation];
+                }
+            });
+            
+        }];
+        
+        UIAlertAction *sendBackAction = [UIAlertAction actionWithTitle:@"Send Back" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self performSegueWithIdentifier:@"authToSendBack" sender:nil];
+            });
+            
+        }];
+        
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+           }];
+        
+        [actionSheetControl addAction:approveAction];
+        [actionSheetControl addAction:sendBackAction];
+        [actionSheetControl addAction:cancelAction];
+        
+//        actionSheet = [[UIActionSheet alloc] initWithTitle:@"What do you want to do?" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:@"Send Back" otherButtonTitles:@"Approve this request",nil];
+//        actionSheet.tag = 100;
     }
     
-    [actionSheet showInView:self.view];
+    [self presentViewController:actionSheetControl animated:TRUE completion:nil];
     
 }
 
@@ -592,6 +656,22 @@ static NSString *cellIdentifier = @"POSOSingleTransactionCell";
 
 -(IBAction)askForLogin
 {
+//    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Confirmation" message:@"Provide your login credentials to proceed.\nYou can change password preferences in the settings menu." preferredStyle:UIAlertControllerStyleAlert];
+//    UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+//
+//        [self.navigationController popViewControllerAnimated:YES];
+//    }];
+//
+//    UIAlertAction *authAction = [UIAlertAction actionWithTitle:@"Authorize" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+//
+//        [self.navigationController popViewControllerAnimated:YES];
+//    }];
+//
+//    [alert addAction:authAction];
+//    [alert addAction:cancelAction];
+//
+//    [self presentViewController:alert animated:YES completion:nil];
+    
     UIAlertView * alert =[[UIAlertView alloc ] initWithTitle:@"Confirmation" message:@"Provide your login credentials to proceed.\nYou can change password preferences in the settings menu." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles: nil];
     alert.alertViewStyle = UIAlertViewStyleLoginAndPasswordInput;
     alert.tag = 100;
@@ -642,9 +722,29 @@ static NSString *cellIdentifier = @"POSOSingleTransactionCell";
         
     }
     else {
-        UIAlertView *incorrectPwd = [[UIAlertView alloc] initWithTitle:@"Authorization failed" message:@"Incorrect credentials provided.\nCannot authorize this document." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:@"Retry", nil];
-        incorrectPwd.tag = 101;
-        [incorrectPwd show];
+        
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Authorization failed" message:@"Incorrect credentials provided.\nCannot authorize this document." preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            
+            
+        }];
+        
+        UIAlertAction *retryAction = [UIAlertAction actionWithTitle:@"Retry" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            
+            [self askForLogin];
+            
+        }];
+        
+        [alert addAction:retryAction];
+        [alert addAction:cancelAction];
+        
+        [self presentViewController:alert animated:YES completion:nil];
+        
+        
+//        UIAlertView *incorrectPwd = [[UIAlertView alloc] initWithTitle:@"Authorization failed" message:@"Incorrect credentials provided.\nCannot authorize this document." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:@"Retry", nil];
+//        incorrectPwd.tag = 101;
+//        [incorrectPwd show];
     }
 }
 

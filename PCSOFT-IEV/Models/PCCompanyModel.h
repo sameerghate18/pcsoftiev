@@ -17,5 +17,6 @@
 @property (nonatomic, strong) NSString *NAME;
 @property (nonatomic, strong) NSString *ERRORMESSAGE;
 @property (nonatomic, strong) NSString *FLAG;
+@property (nonatomic, strong) NSString *TBGRP;
 
 @end

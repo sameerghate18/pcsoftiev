@@ -137,8 +137,7 @@
             
             [SVProgressHUD dismiss];
             
-            UIAlertView *noInternetalert = [[UIAlertView alloc] initWithTitle:@"IEV" message:@"Internet connection appears to be unavailable.\nPlease check your connection and try again." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-            [noInternetalert show];
+            [Utility showAlertWithTitle:@"IEV" message:@"Internet connection appears to be unavailable.\nPlease check your connection and try again." buttonTitle:@"OK" inViewController:self];
             
         });
         return;
@@ -158,9 +157,9 @@
     PCRejectionsGraphViewController *graphVC = [kStoryboard instantiateViewControllerWithIdentifier:@"PCRejectionsGraphViewController"];
     
     if (rejectionsArray.count == 0) {
-        UIAlertView *noData = [[UIAlertView alloc] initWithTitle:@"Data not available" message:@"No sufficient data to present a graph.\nTry refreshing again." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        [noData show];
-        return;
+        
+        [Utility showAlertWithTitle:@"Data not available" message:@"No sufficient data to present a graph.\nTry refreshing again." buttonTitle:@"OK" inViewController:self];
+        
     }
     
     [graphVC setRejectionsData:rejectionsArray];

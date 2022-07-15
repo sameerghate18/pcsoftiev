@@ -129,7 +129,7 @@ typedef enum{
 
 -(IBAction)verifyURLInput {
     
-    // test url - https://www.ievmobile.com/ieverptest/service.svc/
+    // test url - https://www.ievmobile.com/https/service.svc/
     NSString *urlText = _urlTextfield.text;
     urlText = [urlText stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     
@@ -146,13 +146,10 @@ typedef enum{
             
         } else {
             //
-            UIAlertView *invalidURLAlert = [[UIAlertView alloc] initWithTitle:@"Invalid URL" message:@"Please paste a valid URL in the text box. Please make sure the URL ends with '/'." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-            [invalidURLAlert show];
-            
+            [Utility showAlertWithTitle:@"Invalid URL" message:@"Please paste a valid URL in the text box. Please make sure the URL ends with '/'." buttonTitle:@"OK" inViewController:self];
         }
     } else {
-        UIAlertView *emptyField = [[UIAlertView alloc] initWithTitle:@"Empty fields" message:@"Please paste the URL ending with '/' and provide your mobile number in the textboxes." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        [emptyField show];
+        [Utility showAlertWithTitle:@"Empty fields" message:@"Please paste or enter the URL ending with '/' and provide your mobile number to use the app." buttonTitle:@"OK" inViewController:self];
     }
 }
 
@@ -163,10 +160,10 @@ typedef enum{
         return [urlTest evaluateWithObject:urlText];
 }
 
-- (IBAction)registerButtonAction:(id)sender
-{
-    [self checkForIsDeviceAlreadyRegistered];
-}
+//- (IBAction)registerButtonAction:(id)sender
+//{
+//    [self checkForIsDeviceAlreadyRegistered];
+//}
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
@@ -193,8 +190,9 @@ typedef enum{
     
     if (accessCode.length == 0 || phoneNumber.length==0) {
         [SVProgressHUD dismiss];
-        UIAlertView *blankAccessCode = [[UIAlertView alloc] initWithTitle:@"IEV" message:@"You need to provide the access code and your 10-digit phone number to use the application." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-        [blankAccessCode show];
+        
+        [Utility showAlertWithTitle:@"IEV" message:@"Please paste or enter the URL ending with '/' and provide your mobile number to use the app." buttonTitle:@"OK" inViewController:self];
+
         return;
     }
     
@@ -210,7 +208,7 @@ typedef enum{
     registerDeviceConnection.tag = kCheckDeviceRegisteredTag;
     
     NSString *urlString = [NSString stringWithFormat:@"%@isregisterDevice?scocd=IE&DeviceId=%@&MobNo=%@",
-                           kAppBaseURL,
+                           appDel.baseURL,
                            appDel.appUniqueIdentifier,
                            self.userPhoneNumber];
 
@@ -241,10 +239,11 @@ typedef enum{
     updateDevieRegHandler.delegate = self;
     updateDevieRegHandler.tag = kUpdateDeviceRegisterTag;
     
-    NSString *urlString = [NSString stringWithFormat:@"%@updatedeviceid?scocd=IE&deviceid=%@&mobno=%@",
+    NSString *urlString = [NSString stringWithFormat:@"%@updatedeviceid?scocd=IE&deviceid=%@&mobno=%@&token=%@&tokentype=I",
                            appDel.baseURL,
                            appDel.appUniqueIdentifier,
-                           self.userPhoneNumber];
+                           self.userPhoneNumber,
+                           appDel.fcmToken];
     
     [updateDevieRegHandler fetchDataForURL:urlString body:nil];
     
@@ -261,8 +260,9 @@ typedef enum{
     
     if (accessCode.length == 0 || phoneNumber.length==0) {
         [SVProgressHUD dismiss];
-        UIAlertView *blankAccessCode = [[UIAlertView alloc] initWithTitle:@"IEV" message:@"You need to provide the access code and your 10-digit phone number to use the application." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-        [blankAccessCode show];
+        
+        [Utility showAlertWithTitle:@"IEV" message:@"You need to provide the access code and your 10-digit phone number to use the application." buttonTitle:@"OK" inViewController:self];
+
         return;
     }
     
@@ -311,8 +311,9 @@ typedef enum{
     
     if (accessCode.length == 0 || phoneNumber.length==0) {
         [SVProgressHUD dismiss];
-        UIAlertView *blankAccessCode = [[UIAlertView alloc] initWithTitle:@"IEV" message:@"You need to provide the access code and your 10-digit phone number to use the application." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-        [blankAccessCode show];
+        
+        [Utility showAlertWithTitle:@"IEV" message:@"You need to provide the access code and your 10-digit phone number to use the application." buttonTitle:@"OK" inViewController:self];
+        
         return;
     }
     
@@ -342,8 +343,9 @@ typedef enum{
     
     if (accessCode.length == 0 || phoneNumber.length==0) {
         [SVProgressHUD dismiss];
-        UIAlertView *blankAccessCode = [[UIAlertView alloc] initWithTitle:@"IEV" message:@"You need to provide the access code and your 10-digit phone number to use the application." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-        [blankAccessCode show];
+        
+        [Utility showAlertWithTitle:@"IEV" message:@"You need to provide the access code and your 10-digit phone number to use the application." buttonTitle:@"OK" inViewController:self];
+
         return;
     }
     
@@ -418,19 +420,48 @@ typedef enum{
                         }
                         else if ([model.IsDeviceRegistered isEqualToString:@"YES"] && [model.IsMobileRegistered isEqualToString:@"NO"]) {
                             
-                            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"IEV" message:@"Your mobile number is not registered. App will now begin registering your mobile number." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-                            alert.tag = 102;
-                            [alert show];
+                            dispatch_async(dispatch_get_main_queue(), ^{
+                                
+                                UIAlertController *registerMobileAlert = [UIAlertController alertControllerWithTitle:@"IEV" message:@"Your mobile number is not registered. Please select 'Continue' to register." preferredStyle:UIAlertControllerStyleAlert];
+                                
+                                UIAlertAction *contAction = [UIAlertAction actionWithTitle:@"Continue" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                                    
+                                    [self navigateToUpdateMobileNumberViewController];
+                                }];
+                                
+                                UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Dismiss" style:UIAlertActionStyleDefault handler:nil];
+                                
+                                [registerMobileAlert addAction:contAction];
+                                [registerMobileAlert addAction:cancelAction];
+                                
+                                [self presentViewController:registerMobileAlert animated:YES completion:nil];
+                            });
                             
                         }
                         else if ([model.IsDeviceRegistered isEqualToString:@"NO"] && [model.IsMobileRegistered isEqualToString:@"YES"]) {
-                            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"IEV" message:@"You have not registered your device. App will now begin registering your device." delegate:self cancelButtonTitle:@"Yes" otherButtonTitles:nil];
-                            alert.tag = 103;
-                            [alert show];
+                            
+                            dispatch_async(dispatch_get_main_queue(), ^{
+                                
+                                UIAlertController *registerDeviceAlert = [UIAlertController alertControllerWithTitle:@"IEV" message:@"You have not registered your device. Please select 'Continue' to register." preferredStyle:UIAlertControllerStyleAlert];
+                                
+                                UIAlertAction *contAction = [UIAlertAction actionWithTitle:@"Continue" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                                    
+                                    [self updateDeviceRegistration];
+                                }];
+                                
+                                [registerDeviceAlert addAction:contAction];
+                                
+                                [self presentViewController:registerDeviceAlert animated:YES completion:nil];
+                            });
+                            
                         }
                         else {
                             // device not registered. Proceed with device registration.
-                            [self updateLicenseCount];
+//                            [self updateLicenseCount];
+                            
+                            dispatch_async(dispatch_get_main_queue(), ^{
+                                [self registerDeviceN];
+                            });
                         }
                         
                         
@@ -469,16 +500,19 @@ typedef enum{
             int totalLicenses = licenseModel.LIC_NOS==nil?100:[licenseModel.LIC_NOS intValue];
             int usedLicenses = [licenseModel.LIC_USED intValue];
             if (usedLicenses < totalLicenses) {
-                [self registerDeviceN];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self registerDeviceN];
+                });
+                
             }
             else {
                 
                 dispatch_async(dispatch_get_main_queue(), ^{
                     
                     [SVProgressHUD dismiss];
-                    UIAlertView *licenseFull = [[UIAlertView alloc] initWithTitle:@"IEV" message:@"Available licenses for are already used.\nPlease contact your license adminstrator for getting access to the IEV app.\nMeanwhile, you can take a demo tour of the features." delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
-                    licenseFull.tag = 100;
-                    [licenseFull show];
+                    
+                    [Utility showAlertWithTitle:@"IEV" message:@"Available licenses for are already used.\nPlease contact your license adminstrator for getting access to the IEV app.\nMeanwhile, you can take a demo tour of the features." buttonTitle:@"OK" inViewController:self];
+
                 });
                 
                 return;
@@ -570,7 +604,7 @@ typedef enum{
                         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
                         [defaults setObject:companyURL forKey:kCompanyBaseURL];
                         [defaults synchronize];
-                        [appDel setBaseURL:companyURL];
+                        [self->appDel setBaseURL:companyURL];
                         
                         [self performSelector:@selector(getUsernamesList) withObject:nil afterDelay:1.0];
                         
@@ -580,8 +614,8 @@ typedef enum{
                         dispatch_async(dispatch_get_main_queue(), ^{
                             
                             [SVProgressHUD dismiss];
-                            UIAlertView *wrongCode = [[UIAlertView alloc] initWithTitle:@"Invalid code" message:@"Wrong access code provided. Please try again." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-                            [wrongCode show];
+                            
+                            [Utility showAlertWithTitle:@"Invalid code" message:@"Wrong access code provided. Please try again." buttonTitle:@"OK" inViewController:self];
                             
                         });
                         
@@ -605,14 +639,13 @@ typedef enum{
                         
                         [SVProgressHUD dismiss];
                         
-                        UIAlertView *invalidAlert = [[UIAlertView alloc] initWithTitle:@"Register" message:@"Unable to connect to PCSOFT services.\nPlease try again." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-                        [invalidAlert show];
+                        [Utility showAlertWithTitle:@"Register" message:@"Unable to connect to PCSOFT services.\nPlease try again." buttonTitle:@"OK" inViewController:self];
+
                     }
                     else if ([errorString  caseInsensitiveCompare:@"IEV C002"] == NSOrderedSame)   {
                         
-                        UIAlertView *invalidAlert = [[UIAlertView alloc] initWithTitle:@"Register" message:@"Invalid company code provided.\nPlease try again." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-                        [invalidAlert show];
-                        
+                        [Utility showAlertWithTitle:@"Register" message:@"Invalid company code provided.\nPlease try again." buttonTitle:@"OK" inViewController:self];
+
                     }
                 });
                 return;
@@ -658,14 +691,29 @@ typedef enum{
                 
                 if ([opString isEqualToString:@"true"]) {
                     [SVProgressHUD dismiss];
-                    UIAlertView *deviceSuccess = [[UIAlertView alloc] initWithTitle:@"Registration" message:@"Device registered succesfully." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-                    [deviceSuccess show];
+                    
+                    UIAlertController *deviceSuccessVC = [UIAlertController alertControllerWithTitle:@"Registration" message:@"Device registered succesfully." preferredStyle:UIAlertControllerStyleAlert];
+                    UIAlertAction * okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+
+                        PCViewController *compListVC = [kStoryboard instantiateViewControllerWithIdentifier:@"PCViewController"];
+                        [compListVC setTitle:@"Select your company"];
+                        
+                        [self.navigationController pushViewController:compListVC animated:NO];
+                    }];
+                    
+                    [deviceSuccessVC addAction:okAction];
+                    
+                    [self presentViewController:deviceSuccessVC animated:YES completion:nil];
+                    
+                    //                    UIAlertView *deviceSuccess = [[UIAlertView alloc] initWithTitle:@"Registration" message:@"Device registered succesfully." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                    //                    deviceSuccess.tag = 104;
+                    //                    [deviceSuccess show];
+                    
+                } else {
+                    
+                    [Utility showAlertWithTitle:@"Registration" message:@"Some unexpected error has occured, could not register the device." buttonTitle:@"OK" inViewController:self];
+
                 }
-                else {
-                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Registration" message:@"Some unexpected error has occured, could not register the device." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-                    [alert show];
-                }
-                
                 
             });
         }
@@ -685,8 +733,7 @@ typedef enum{
             
             [SVProgressHUD dismiss];
             
-            UIAlertView *noInternetalert = [[UIAlertView alloc] initWithTitle:@"IEV" message:@"Internet connection appears to be unavailable.\nPlease check your connection and try again." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-            [noInternetalert show];
+            [Utility showAlertWithTitle:@"IEV" message:@"Internet connection appears to be unavailable.\nPlease check your connection and try again." buttonTitle:@"OK" inViewController:self];
             
         });
         return;
@@ -696,8 +743,7 @@ typedef enum{
             
             [SVProgressHUD dismiss];
             
-            UIAlertView *noInternetalert = [[UIAlertView alloc] initWithTitle:@"IEV" message:[error localizedDescription] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-            [noInternetalert show];
+            [Utility showAlertWithTitle:@"IEV" message:[error localizedDescription] buttonTitle:@"OK" inViewController:self];
             
         });
         return;
@@ -753,6 +799,26 @@ typedef enum{
      */
 }
 
+- (void)navigateToUpdateMobileNumberViewController {
+    PCUpdateMobileNumberViewController *updateMobVC = [kStoryboard instantiateViewControllerWithIdentifier:@"PCUpdateMobileNumberViewController"];
+    
+    NSString *accessCode = @"IE"; //[NSString stringWithString:
+    //_codeTF.text];
+    
+    accessCode = [accessCode stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    
+    updateMobVC.accessCode = accessCode;
+    
+    NSString *phoneNumber = _phoneNumberTF.text;
+    phoneNumber = [phoneNumber stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    
+    updateMobVC.phoneNumber = phoneNumber;
+    
+    updateMobVC.delegate = self;
+    
+    [self presentViewController:updateMobVC animated:YES completion:NULL];
+}
+
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
     [SVProgressHUD dismiss];
@@ -773,26 +839,10 @@ typedef enum{
             }
             break;
             
-        case 102:
+        case 102: // Require mobile no. update alert
             if (buttonIndex == 0) {
                 
-                PCUpdateMobileNumberViewController *updateMobVC = [kStoryboard instantiateViewControllerWithIdentifier:@"PCUpdateMobileNumberViewController"];
-                
-                NSString *accessCode = @"IE"; //[NSString stringWithString:
-                                        //_codeTF.text];
-                
-                accessCode = [accessCode stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-                
-                updateMobVC.accessCode = accessCode;
-                
-                NSString *phoneNumber = _phoneNumberTF.text;
-                phoneNumber = [phoneNumber stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-                
-                updateMobVC.phoneNumber = phoneNumber;
-                
-                updateMobVC.delegate = self;
-                
-                [self presentViewController:updateMobVC animated:YES completion:NULL];
+                [self navigateToUpdateMobileNumberViewController];
                 
             }
             else if (buttonIndex == 1) {
@@ -800,10 +850,23 @@ typedef enum{
             }
             break;
             
-        case 103:
+        case 103: // Require device update alert
             if (buttonIndex == 0) {
                 
                 [self updateDeviceRegistration];
+            }
+            else if (buttonIndex == 1) {
+                
+            }
+            break;
+            
+        case 104: // Device update success alert
+            if (buttonIndex == 0) {
+                
+                PCViewController *compListVC = [kStoryboard instantiateViewControllerWithIdentifier:@"PCViewController"];
+                [compListVC setTitle:@"Select your company"];
+                
+                [self.navigationController pushViewController:compListVC animated:NO];
             }
             else if (buttonIndex == 1) {
                 

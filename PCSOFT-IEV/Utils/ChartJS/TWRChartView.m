@@ -98,41 +98,41 @@
     [self loadBarChart:barChart];
 }
 
-//- (void)loadLineChart:(TWRLineChart *)lineChart {
-//    if ([lineChart isKindOfClass:[TWRLineChart class]]) {
-//        _jsFileString = [TWRChartBuilder buildChartWithElement:lineChart];
-//        [self stringByEvaluatingJavaScriptFromString:_jsFileString];
-//        [self loadIndex];
-//    } else {
-//        NSException *exception = [NSException exceptionWithName:@"TWRChartInvalicChartElement"
-//                                                         reason:@"The element object provided to the chart view is not a valid line chart."
-//                                                       userInfo:nil];
-//        [exception raise];
-//    }
-//}
-//
-//- (void)loadLineChart:(TWRLineChart *)lineChart withCompletionHandler:(TWRAnimationCompletionBlock)block {
-//    _block = block;
-//    [self loadLineChart:lineChart];
-//}
+- (void)loadLineChart:(TWRLineChart *)lineChart {
+    if ([lineChart isKindOfClass:[TWRLineChart class]]) {
+        _jsFileString = [TWRChartBuilder buildChartWithElement:lineChart];
+        [self stringByEvaluatingJavaScriptFromString:_jsFileString];
+        [self loadIndex];
+    } else {
+        NSException *exception = [NSException exceptionWithName:@"TWRChartInvalicChartElement"
+                                                         reason:@"The element object provided to the chart view is not a valid line chart."
+                                                       userInfo:nil];
+        [exception raise];
+    }
+}
 
-//- (void)loadCircularChart:(TWRCircularChart *)circularChart {
-//    if ([circularChart isKindOfClass:[TWRCircularChart class]]) {
-//        _jsFileString = [TWRChartBuilder buildChartWithElement:circularChart];
-//        [self stringByEvaluatingJavaScriptFromString:_jsFileString];
-//        [self loadIndex];
-//    } else {
-//        NSException *exception = [NSException exceptionWithName:@"TWRChartInvalicChartElement"
-//                                                         reason:@"The element object provided to the chart view is not a valid circular chart."
-//                                                       userInfo:nil];
-//        [exception raise];
-//    }
-//}
-//
-//- (void)loadCircularChart:(TWRCircularChart *)circularChart withCompletionHandler:(TWRAnimationCompletionBlock)block {
-//    _block = block;
-//    [self loadCircularChart:circularChart];
-//}
+- (void)loadLineChart:(TWRLineChart *)lineChart withCompletionHandler:(TWRAnimationCompletionBlock)block {
+    _block = block;
+    [self loadLineChart:lineChart];
+}
+
+- (void)loadCircularChart:(TWRCircularChart *)circularChart {
+    if ([circularChart isKindOfClass:[TWRCircularChart class]]) {
+        _jsFileString = [TWRChartBuilder buildChartWithElement:circularChart];
+        [self stringByEvaluatingJavaScriptFromString:_jsFileString];
+        [self loadIndex];
+    } else {
+        NSException *exception = [NSException exceptionWithName:@"TWRChartInvalicChartElement"
+                                                         reason:@"The element object provided to the chart view is not a valid circular chart."
+                                                       userInfo:nil];
+        [exception raise];
+    }
+}
+
+- (void)loadCircularChart:(TWRCircularChart *)circularChart withCompletionHandler:(TWRAnimationCompletionBlock)block {
+    _block = block;
+    [self loadCircularChart:circularChart];
+}
 
 #pragma mark - Private API
 

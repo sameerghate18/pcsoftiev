@@ -15,5 +15,6 @@
 +(NSString*)stringWithCurrencySymbolPrefix:(NSString*)value forCurrencySymbol:(NSString*)currencySymbol;
 +(UIColor *)randomColor;
 +(NSString*)stringDateFromServerDate:(NSString*)serverDate;
++(void)showAlertWithTitle:(NSString*)title message:(NSString*)message buttonTitle:(NSString*)buttonTitle inViewController:(UIViewController*)viewController;
 
 @end

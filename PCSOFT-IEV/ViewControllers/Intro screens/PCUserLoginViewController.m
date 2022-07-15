@@ -167,8 +167,8 @@
                     
                     [SVProgressHUD dismiss];
                     
-                    UIAlertView *invalidAlert = [[UIAlertView alloc] initWithTitle:@"Sign in" message:@"Invalid user name provided.\nPlease try again." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-                    [invalidAlert show];
+                    [Utility showAlertWithTitle:@"Sign in" message:@"Invalid user name provided.\nPlease try again." buttonTitle:@"OK" inViewController:self];
+
                 }
                 else if ([outputString caseInsensitiveCompare:@"IEV002"] == NSOrderedSame) {
                     
@@ -176,8 +176,8 @@
                     
                     [SVProgressHUD dismiss];
                     
-                    UIAlertView *invalidAlert = [[UIAlertView alloc] initWithTitle:@"Sign in" message:@"Invalid password.\nPlease try again." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-                    [invalidAlert show];
+                    [Utility showAlertWithTitle:@"Sign in" message:@"Invalid password.\nPlease try again." buttonTitle:@"OK" inViewController:self];
+
                 }
                 else if ([outputString caseInsensitiveCompare:@"IEV003"] == NSOrderedSame) {
                     
@@ -185,26 +185,25 @@
                     
                     [SVProgressHUD dismiss];
                     
-                    UIAlertView *invalidAlert = [[UIAlertView alloc] initWithTitle:@"Sign in" message:@"Your login has been locked for this device.\nPlease contact PCSOFT ERP Solutions to access again." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-                    [invalidAlert show];
+                    [Utility showAlertWithTitle:@"Sign in" message:@"Your login has been locked for this device.\nPlease contact PCSOFT ERP Solutions to access again." buttonTitle:@"OK" inViewController:self];
                 }
                 else {
                     
                     [SVProgressHUD showSuccessWithStatus:@"Verified"];
                     
-                    appDel.userLoggedIn = YES;
+                    self->appDel.userLoggedIn = YES;
                     
                     NSString *name = [outputString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
                     
                     PCUserModel *loggedInUserModel = [[PCUserModel alloc] init];
                     
-                    [loggedInUserModel setUSER_ID:usernameString];
+                    [loggedInUserModel setUSER_ID:self->usernameString];
                     [loggedInUserModel setUSER_NAME:name];
-                    [loggedInUserModel setUSER_PSWD:passwordString];
+                    [loggedInUserModel setUSER_PSWD:self->passwordString];
                     
-                    [appDel setLoggedUser:loggedInUserModel];
+                    [self->appDel setLoggedUser:loggedInUserModel];
                     
-                    [appDel setSelectedUserName:name];
+                    [self->appDel setSelectedUserName:name];
                     
                     usernameTF.text = @"";
                     passwordTF.text = @"";
@@ -212,7 +211,6 @@
                     [self performSelector:@selector(pushToHomePage) withObject:nil afterDelay:0.5];
                     
                     loginFound =  YES;
-                    
                 }
             });
             
@@ -263,15 +261,59 @@
                         }
                         else if ([model.IsDeviceRegistered isEqualToString:@"YES"] && [model.IsMobileRegistered isEqualToString:@"NO"]) {
                             
-                            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"IEV" message:@"Your mobile number is not registered. Do you want to register?" delegate:self cancelButtonTitle:@"Yes" otherButtonTitles:@"No", nil];
-                            alert.tag = 102;
-                            [alert show];
+                            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"IEV" message:@"Your mobile number is not registered. Do you want to register?" preferredStyle:UIAlertControllerStyleAlert];
+                            
+                            UIAlertAction * yesAction = [UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                                
+                                NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+                                
+                                PCUpdateMobileNumberViewController *updateMobVC = [kStoryboard instantiateViewControllerWithIdentifier:@"PCUpdateMobileNumberViewController"];
+                                
+                                updateMobVC.accessCode = [defaults valueForKey:kAccessCode];
+                                updateMobVC.phoneNumber = [defaults valueForKey:kPhoneNumber];
+                                updateMobVC.delegate = self;
+                                
+                                dispatch_async(dispatch_get_main_queue(), ^{
+                                    [self presentViewController:updateMobVC animated:YES completion:NULL];
+                                });
+                            }];
+                            
+                            UIAlertAction * noAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                                
+                            }];
+                            
+                            [alert addAction:yesAction];
+                            [alert addAction:noAction];
+                            
+                            dispatch_async(dispatch_get_main_queue(), ^{
+                                [self presentViewController:alert animated:YES completion:nil];
+                            });
+                            
+                            
+//                            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"IEV" message:@"Your mobile number is not registered. Do you want to register?" delegate:self cancelButtonTitle:@"Yes" otherButtonTitles:@"No", nil];
+//                            alert.tag = 102;
+//                            [alert show];
                             
                         }
                         else if ([model.IsDeviceRegistered isEqualToString:@"NO"] && [model.IsMobileRegistered isEqualToString:@"YES"]) {
-                            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"IEV" message:@"You have not registered your device. App will now proceed with registration." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-                            alert.tag = 103;
-                            [alert show];
+                            
+                            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"IEV" message:@"You have not registered your device. App will now proceed with registration." preferredStyle:UIAlertControllerStyleAlert];
+                            
+                            UIAlertAction * yesAction = [UIAlertAction actionWithTitle:@"Continue" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                                
+                                [self updateDeviceRegistration];
+                                
+                            }];
+                            
+                            [alert addAction:yesAction];
+                            
+                            dispatch_async(dispatch_get_main_queue(), ^{
+                                [self presentViewController:alert animated:YES completion:nil];
+                            });
+                            
+//                            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"IEV" message:@"You have not registered your device. App will now proceed with registration." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+//                            alert.tag = 103;
+//                            [alert show];
                         }
                         else {
                         }
@@ -325,8 +367,7 @@
             
             [SVProgressHUD dismiss];
             
-            UIAlertView *noInternetalert = [[UIAlertView alloc] initWithTitle:@"IEV" message:@"Internet connection appears to be unavailable.\nPlease check your connection and try again." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-            [noInternetalert show];
+            [Utility showAlertWithTitle:@"IEV" message:@"Internet connection appears to be unavailable.\nPlease check your connection and try again." buttonTitle:@"OK" inViewController:self];
         });
         return;
     }
@@ -335,14 +376,27 @@
         
         [SVProgressHUD dismiss];
         
-        UIAlertView *errorAlert = [[UIAlertView alloc] initWithTitle:@"IEV" message:[error localizedDescription] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"IEV" message:[error localizedDescription] preferredStyle:UIAlertControllerStyleAlert];
         
-        if ([error code] == -5002) {
-            errorAlert.tag = 1000;
-            errorAlert.delegate = self;
-        }
+        UIAlertAction * okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            
+            if ([error code] == -5002) {
+                [self backToRegistration];
+            }
+        }];
         
-        [errorAlert show];
+        [alert addAction:okAction];
+        [self presentViewController:alert animated:YES completion:nil];
+        
+        
+//        UIAlertView *errorAlert = [[UIAlertView alloc] initWithTitle:@"IEV" message:[error localizedDescription] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+//
+//        if ([error code] == -5002) {
+//            errorAlert.tag = 1000;
+//            errorAlert.delegate = self;
+//        }
+//
+//        [errorAlert show];
     });
     return;
 }

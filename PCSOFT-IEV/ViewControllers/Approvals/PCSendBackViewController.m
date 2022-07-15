@@ -70,7 +70,7 @@
         
         NSString *remarkStr = self.remarkTextview.text;
         remarkStr = [remarkStr stringByReplacingOccurrencesOfString:@" " withString:@"+"];
-        remarkStr = [remarkStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        remarkStr = [remarkStr stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
         
         NSString *urlString = [NSString stringWithFormat:@"%@SendBack?scocd=%@&userid=%@&doctype=%@&docno=%@&sendto=%@&sbremark=%@",appDel.baseURL,
                                [defaults valueForKey:kSelectedCompanyCode],
@@ -83,9 +83,8 @@
         [sendbackConnection fetchDataForURL:urlString body:nil];
     }
     else {
-    
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Send Back" message:[NSString stringWithFormat:@"Entered seq number should be more than 0 and less than %@",self.selectedTransaction.seq_no] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-    [alert show];
+        
+        [Utility showAlertWithTitle:@"Send Back" message:[NSString stringWithFormat:@"Entered seq number should be more than 0 and less than %@",self.selectedTransaction.seq_no] buttonTitle:@"OK" inViewController:self];
 
     }
     
@@ -97,13 +96,32 @@
         
         NSString *opString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
         
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Send Back" message:opString delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        alert.delegate = self;
-        alert.tag = 100;
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Send Back" message:opString preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction * okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            
+            [self dismissViewControllerAnimated:YES completion:^{
+                
+                if ([self->_delegate respondsToSelector:@selector(sendBackDidFinishSendingBackDoc)]) {
+                    [self->_delegate sendBackDidFinishSendingBackDoc];
+                }
+                
+            }];
+            
+        }];
+        
+        [alert addAction:okAction];
+        
+        [self presentViewController:alert animated:YES completion:nil];
+        
+        
+//        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Send Back" message:opString delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+//        alert.delegate = self;
+//        alert.tag = 100;
         
         [SVProgressHUD dismiss];
         
-        [alert show];
+//        [alert show];
         
     });
     
@@ -117,8 +135,8 @@
             
             [SVProgressHUD dismiss];
             
-            UIAlertView *noInternetalert = [[UIAlertView alloc] initWithTitle:@"IEV" message:@"Internet connection appears to be unavailable.\nPlease check your connection and try again." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-            [noInternetalert show];
+            [Utility showAlertWithTitle:@"IEV" message:@"Internet connection appears to be unavailable.\nPlease check your connection and try again." buttonTitle:@"OK" inViewController:self];
+            
             
         });
         return;

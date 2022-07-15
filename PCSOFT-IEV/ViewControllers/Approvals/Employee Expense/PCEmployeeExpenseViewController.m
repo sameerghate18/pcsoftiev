@@ -383,7 +383,7 @@
     ConnectionHandler *conn = [[ConnectionHandler alloc] init];
 
     NSString *sancAmountStr = [NSString stringWithFormat:@"[{\"sanc_amt\":%ld,\"id_key\":\"%@\"}]", (long)model.sanc_amt, model.id_key];
-    NSString *encodedStr = [sancAmountStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSString *encodedStr = [sancAmountStr stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     NSString *docNo = [_selectedTransaction.doc_no stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     NSString *url = GET_SUBMIT_EXPENSE_URL(appDel.baseURL, appDel.selectedCompany.CO_CD, appDel.loggedUser.USER_ID, docNo, encodedStr);
     //[{%22sanc_amt%22:253.00,%22id_key%22:%2201%22}]
@@ -465,9 +465,9 @@
         index<kmJSONArrayCount-1?[KMjson appendString:@","]:[KMjson appendString:@""];
         index==kmJSONArrayCount-1?[KMjson appendString:@"]"]:nil;
     }
-    
-    NSString *encodedItemJSON = [itemJSON stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    NSString *encodedkmJSON = [KMjson stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+
+    NSString *encodedItemJSON = [itemJSON stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    NSString *encodedkmJSON = [KMjson stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     NSString *docNo = [_selectedTransaction.doc_no stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     NSString *url = GET_PAGE_SUBMIT_URL(appDel.baseURL, appDel.selectedCompany.CO_CD, appDel.loggedUser.USER_ID, docNo , encodedItemJSON,encodedkmJSON);
 

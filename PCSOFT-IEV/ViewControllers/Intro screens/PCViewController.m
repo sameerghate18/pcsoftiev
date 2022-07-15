@@ -23,7 +23,7 @@ typedef enum {
 
 @interface PCViewController () <NSURLConnectionDelegate, UITableViewDataSource, UITableViewDelegate,ConnectionHandlerDelegate>
 {
-    UIAlertView *alert;
+//    UIAlertView *alert;
     NSMutableData *recievedData;
     NSMutableArray *companyList;
     NSMutableArray *usersList;
@@ -133,16 +133,40 @@ typedef enum {
             [companyList addObjectsFromArray:[sortedArray copy]];
             
             if (companyList.count == 0) {
-                UIAlertView *noCompList = [[UIAlertView alloc] initWithTitle:@"No companies found." message:@"Could not find list of companies." delegate:self cancelButtonTitle:@"Retry" otherButtonTitles:@"Go back",nil];
-                noCompList.tag = 100;
-                [noCompList show];
+                
+                UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"No companies found." message:@"Could not find list of companies." preferredStyle:UIAlertControllerStyleAlert];
+                
+                UIAlertAction * retryAction = [UIAlertAction actionWithTitle:@"Retry" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                    
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [self pullData];
+                    });
+                }];
+                
+                UIAlertAction * gobackAction = [UIAlertAction actionWithTitle:@"Go back" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                    
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [self.navigationController popViewControllerAnimated:TRUE];
+                    });
+                }];
+                
+                [alert addAction:retryAction];
+                [alert addAction:gobackAction];
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self presentViewController:alert animated:YES completion:nil];
+                });
+                
+//                UIAlertView *noCompList = [[UIAlertView alloc] initWithTitle:@"No companies found." message:@"Could not find list of companies." delegate:self cancelButtonTitle:@"Retry" otherButtonTitles:@"Go back",nil];
+//                noCompList.tag = 100;
+//                [noCompList show];
                 return;
             }
             
             dispatch_async(dispatch_get_main_queue(), ^{
                 [SVProgressHUD showSuccessWithStatus:@"Done"];
-                [_companyTableview reloadInputViews];
-                [_companyTableview reloadData];
+                [self->_companyTableview reloadInputViews];
+                [self->_companyTableview reloadData];
             });
             
         }
@@ -156,8 +180,7 @@ typedef enum {
                 errorString = [errorString capitalizedString];
                 
                 if ([errorString  caseInsensitiveCompare:@"IEV C003"] == NSOrderedSame) {
-                    UIAlertView *invalidAlert = [[UIAlertView alloc] initWithTitle:@"Sign in" message:@"Invalid connection string to connect to company.\nPlease try again." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-                    [invalidAlert show];
+                    [Utility showAlertWithTitle:@"Sign in" message:@"Invalid connection string to connect to company.\nPlease try again." buttonTitle:@"OK" inViewController:self];
                 }
             });
         }
@@ -200,9 +223,7 @@ typedef enum {
             
             [SVProgressHUD dismiss];
             
-            UIAlertView *noInternetalert = [[UIAlertView alloc] initWithTitle:@"IEV" message:@"Internet connection appears to be unavailable.\nPlease check your connection and try again." delegate:self cancelButtonTitle:@"Retry" otherButtonTitles:nil];
-            noInternetalert.tag = 101;
-            [noInternetalert show];
+            [Utility showAlertWithTitle:@"IEV" message:@"Internet connection appears to be unavailable.\nPlease check your connection and try again." buttonTitle:@"OK" inViewController:self];
             
         });
         return;
@@ -210,9 +231,25 @@ typedef enum {
     
     dispatch_async(dispatch_get_main_queue(), ^{
         [SVProgressHUD dismiss];
-        UIAlertView *noCompList = [[UIAlertView alloc] initWithTitle:@"Error." message:@"Could not fetch data from server." delegate:self cancelButtonTitle:@"Retry" otherButtonTitles:nil];
-        noCompList.tag = 100;
-        [noCompList show];
+        
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Error." message:@"Could not fetch data from server." preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction * retryAction = [UIAlertAction actionWithTitle:@"Retry" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self pullData];
+            });
+        }];
+        
+        [alert addAction:retryAction];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self presentViewController:alert animated:YES completion:nil];
+        });
+        
+//        UIAlertView *noCompList = [[UIAlertView alloc] initWithTitle:@"Error." message:@"Could not fetch data from server." delegate:self cancelButtonTitle:@"Retry" otherButtonTitles:nil];
+//        noCompList.tag = 100;
+//        [noCompList show];
     });
 
     if (dataType == DATA_TYPE_COMPANYLIST) {

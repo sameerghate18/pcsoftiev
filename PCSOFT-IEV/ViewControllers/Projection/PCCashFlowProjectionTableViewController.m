@@ -48,7 +48,7 @@
     [self setTitle:@"Cash Flow Projection"];
     self.navigationItem.hidesBackButton = YES;
     
-    UIBarButtonItem *barbtn = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"menu_icon.png"] style:UIBarButtonItemStyleBordered target:self action:@selector(showSideMenu)];
+    UIBarButtonItem *barbtn = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"menu_icon.png"] style:UIBarButtonItemStylePlain target:self action:@selector(showSideMenu)];
     
     self.navigationItem.leftBarButtonItem = barbtn;
     
@@ -93,8 +93,9 @@
     PCProjectionGraphViewController *graphVC = [kStoryboard instantiateViewControllerWithIdentifier:@"PCProjectionGraphViewController"];
     
     if (projectionArray.count == 0) {
-        UIAlertView *noData = [[UIAlertView alloc] initWithTitle:@"Data not available" message:@"No sufficient data to present a graph.\nTry refreshing again." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        [noData show];
+        
+        [Utility showAlertWithTitle:@"Data not available" message:@"No sufficient data to present a graph.\nTry refreshing again." buttonTitle:@"OK" inViewController:self];
+        
         return;
     }
     
@@ -167,8 +168,7 @@
         
         dispatch_async(dispatch_get_main_queue(), ^{
             
-            UIAlertView *noInternetalert = [[UIAlertView alloc] initWithTitle:@"IEV" message:@"Internet connection appears to be unavailable.\nPlease check your connection and try again." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-            [noInternetalert show];
+            [Utility showAlertWithTitle:@"IEV" message:@"Internet connection appears to be unavailable.\nPlease check your connection and try again." buttonTitle:@"OK" inViewController:self];
             
         });
         return;

@@ -55,8 +55,6 @@ typedef enum
 //#define kAppBaseURL @"http://www.ievmobile.com/getiev/Service.svc/"
 #define kAppBaseURL @"https://ievmobile.com/https/Service.svc/"
 
-
-
 #define kCompanyBaseURL @"CompanyBaseURL"
 #define kSelectedCompanyCode @"selectedCompanyCode"
 #define kSelectedCompanyLongname @"selectedCompanyLongName"

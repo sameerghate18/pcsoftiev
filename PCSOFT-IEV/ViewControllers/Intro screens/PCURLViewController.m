@@ -72,13 +72,13 @@
             
         } else {
             //
-            UIAlertView *invalidURLAlert = [[UIAlertView alloc] initWithTitle:@"Invalid URL" message:@"Please paste a valid URL in the text box. Please make sure the URL ends with '/'." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-            [invalidURLAlert show];
+            [Utility showAlertWithTitle:@"Invalid URL" message:@"Please paste a valid URL in the text box. Please make sure the URL ends with '/'." buttonTitle:@"OK" inViewController:self];
             
         }
     } else {
-        UIAlertView *emptyField = [[UIAlertView alloc] initWithTitle:@"Empty field" message:@"Please paste the URL in the text box. Please make sure the URL ends with '/'." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        [emptyField show];
+        
+        [Utility showAlertWithTitle:@"Empty field" message:@"Please paste the URL in the text box. Please make sure the URL ends with '/'." buttonTitle:@"OK" inViewController:self];
+        
     }
 }
 

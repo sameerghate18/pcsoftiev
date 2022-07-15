@@ -119,12 +119,42 @@
   
   if (transactionsList.count == 0) {
     
-    dispatch_async(dispatch_get_main_queue(), ^{
-      [SVProgressHUD showErrorWithStatus:@"No Authorizations"];
-      UIAlertView *noCompList = [[UIAlertView alloc] initWithTitle:@"No authorizations" message:@"No authorizations available at the moment." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:@"Retry",nil];
-      noCompList.tag = 100;
-      [noCompList show];
-    });
+      dispatch_async(dispatch_get_main_queue(), ^{
+          [SVProgressHUD showErrorWithStatus:@"No Authorizations"];
+          
+          UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"No authorizations" message:@"No authorizations available at the moment." preferredStyle:UIAlertControllerStyleAlert];
+          
+          UIAlertAction * okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+              
+              NSArray *vcArr = self.navigationController.viewControllers;
+              
+              if ([[vcArr objectAtIndex:vcArr.count-2] isKindOfClass:[PCPOSOHomeTableViewController class]]) {
+                
+                [self.navigationController popViewControllerAnimated:YES];
+              }
+              else {
+                [self showSideMenu];
+              }
+              
+              
+          }];
+          
+          UIAlertAction * retryAction = [UIAlertAction actionWithTitle:@"Retry" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+              
+              [self refreshPOSO];
+              
+          }];
+          
+          [alert addAction:okAction];
+          [alert addAction:retryAction];
+          
+          [self presentViewController:alert animated:YES completion:nil];
+          
+          
+//          UIAlertView *noCompList = [[UIAlertView alloc] initWithTitle:@"No authorizations" message:@"No authorizations available at the moment." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:@"Retry",nil];
+//          noCompList.tag = 100;
+//          [noCompList show];
+      });
     return;
   }
   
@@ -143,8 +173,7 @@
       
       [SVProgressHUD dismiss];
       
-      UIAlertView *noInternetalert = [[UIAlertView alloc] initWithTitle:@"IEV" message:@"Internet connection appears to be unavailable.\nPlease check your connection and try again." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-      [noInternetalert show];
+        [Utility showAlertWithTitle:@"IEV" message:@"Internet connection appears to be unavailable.\nPlease check your connection and try again." buttonTitle:@"OK" inViewController:self];
       
     });
     return;

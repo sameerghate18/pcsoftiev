@@ -86,4 +86,17 @@
     return finalString;
 }
 
++(void)showAlertWithTitle:(NSString*)title message:(NSString*)message buttonTitle:(NSString*)buttonTitle inViewController:(UIViewController*)viewController {
+    
+    UIAlertController *deviceSuccessVC = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction * okAction = [UIAlertAction actionWithTitle:buttonTitle style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    }];
+    
+    [deviceSuccessVC addAction:okAction];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [viewController presentViewController:deviceSuccessVC animated:YES completion:nil];
+    });
+    
+}
+
 @end

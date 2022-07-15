@@ -53,8 +53,7 @@
     
     if (phoneNumber.length==0) {
         [SVProgressHUD dismiss];
-        UIAlertView *blankAccessCode = [[UIAlertView alloc] initWithTitle:@"IEV" message:@"You need to provide your 10-digit phone number to register." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-        [blankAccessCode show];
+        [Utility showAlertWithTitle:@"IEV" message:@"You need to provide your 10-digit phone number to register." buttonTitle:@"OK" inViewController:self];
         return;
     }
     
@@ -99,8 +98,7 @@
         }
         else {
             
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Update Mobile number" message:@"Some unexpected error has occured. Please try again after sometime." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-            [alert show];
+            [Utility showAlertWithTitle:@"Update Mobile number" message:@"Some unexpected error has occured. Please try again after sometime." buttonTitle:@"OK" inViewController:self];
             
         }
     });
@@ -114,8 +112,7 @@
             
             [SVProgressHUD dismiss];
             
-            UIAlertView *noInternetalert = [[UIAlertView alloc] initWithTitle:@"IEV" message:@"Internet connection appears to be unavailable.\nPlease check your connection and try again." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-            [noInternetalert show];
+            [Utility showAlertWithTitle:@"IEV" message:@"Internet connection appears to be unavailable.\nPlease check your connection and try again." buttonTitle:@"OK" inViewController:self];
             
         });
         return;
