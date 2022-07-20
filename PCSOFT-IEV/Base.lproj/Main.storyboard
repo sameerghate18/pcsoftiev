@@ -627,7 +627,7 @@
                                     </imageView>
                                     <textField opaque="NO" clipsSubviews="YES" tag="100" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="login ID" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="j4b-gj-aGX">
                                         <rect key="frame" x="20" y="99" width="273" height="36"/>
-                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="36" id="En3-m8-m11"/>
                                             <constraint firstAttribute="width" constant="273" id="awj-3A-LGO"/>
@@ -650,7 +650,7 @@
                                     </textField>
                                     <textField opaque="NO" clipsSubviews="YES" tag="102" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="password" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="XGJ-ys-nHN">
                                         <rect key="frame" x="20" y="159" width="273" height="36"/>
-                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                     </textField>
@@ -2381,7 +2381,7 @@ PIN - 411004</string>
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="87"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pcsoftlogo" translatesAutoresizingMaskIntoConstraints="NO" id="BIw-Ma-Hes">
+                                                <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="pcsoftlogo" translatesAutoresizingMaskIntoConstraints="NO" id="BIw-Ma-Hes">
                                                     <rect key="frame" x="8" y="3" width="304" height="81"/>
                                                 </imageView>
                                             </subviews>
@@ -4522,7 +4522,7 @@ PIN - 411004</string>
                                 </connections>
                             </tableView>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bordered" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="DWE-2O-HEg">
-                                <rect key="frame" x="129" y="108" width="156" height="29"/>
+                                <rect key="frame" x="238" y="108" width="156" height="29"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="28" id="KqL-LB-qOd"/>
                                     <constraint firstAttribute="width" constant="156" id="sc5-bU-fJ6"/>
@@ -4546,12 +4546,24 @@ PIN - 411004</string>
                                     <action selector="toggleSalesType:" destination="X23-7D-o6y" eventType="valueChanged" id="t0c-FO-x2P"/>
                                 </connections>
                             </segmentedControl>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="Selected group code" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ZUs-p3-LHX">
+                                <rect key="frame" x="20" y="108" width="210" height="28"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="28" id="y9e-F0-Iem"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="XLC-Yp-r1L"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="UAi-q2-ck8" firstAttribute="top" secondItem="352-y5-udI" secondAttribute="top" id="3wa-ch-h2l"/>
                             <constraint firstItem="PIY-hb-Vhy" firstAttribute="leading" secondItem="XLC-Yp-r1L" secondAttribute="leading" id="4Gh-oi-e7A"/>
+                            <constraint firstItem="ZUs-p3-LHX" firstAttribute="top" secondItem="PIY-hb-Vhy" secondAttribute="bottom" constant="20" id="5hE-Fn-Bbw"/>
+                            <constraint firstItem="DWE-2O-HEg" firstAttribute="leading" secondItem="ZUs-p3-LHX" secondAttribute="trailing" constant="8" symbolic="YES" id="6JX-Pb-EPv"/>
+                            <constraint firstItem="ZUs-p3-LHX" firstAttribute="leading" secondItem="XLC-Yp-r1L" secondAttribute="leading" constant="20" id="7K2-Mh-Eil"/>
                             <constraint firstItem="XLC-Yp-r1L" firstAttribute="top" secondItem="PIY-hb-Vhy" secondAttribute="bottom" constant="-44" id="7cW-Ej-NR1"/>
                             <constraint firstItem="UAi-q2-ck8" firstAttribute="leading" secondItem="352-y5-udI" secondAttribute="leadingMargin" constant="-20" id="7vD-8e-4Fq"/>
                             <constraint firstItem="QzE-y6-I8S" firstAttribute="top" secondItem="XLC-Yp-r1L" secondAttribute="top" constant="110" id="CpT-CW-dAg"/>
@@ -4559,7 +4571,7 @@ PIN - 411004</string>
                                 <variation key="heightClass=regular-widthClass=compact" constant="-20"/>
                             </constraint>
                             <constraint firstItem="PIY-hb-Vhy" firstAttribute="top" secondItem="352-y5-udI" secondAttribute="top" id="L9y-rG-F0y"/>
-                            <constraint firstItem="DWE-2O-HEg" firstAttribute="centerX" secondItem="XLC-Yp-r1L" secondAttribute="centerX" id="Lb2-P6-JO3"/>
+                            <constraint firstItem="XLC-Yp-r1L" firstAttribute="trailing" secondItem="DWE-2O-HEg" secondAttribute="trailing" constant="20" id="Ol6-SL-Oel"/>
                             <constraint firstItem="DWE-2O-HEg" firstAttribute="top" secondItem="PIY-hb-Vhy" secondAttribute="bottom" constant="20" id="T7i-pt-SGs"/>
                             <constraint firstAttribute="bottom" secondItem="UAi-q2-ck8" secondAttribute="bottom" id="cnz-sT-4KH"/>
                             <constraint firstAttribute="trailingMargin" secondItem="UAi-q2-ck8" secondAttribute="trailing" constant="-20" id="rkt-5U-nAP"/>
@@ -4575,7 +4587,6 @@ PIN - 411004</string>
                                 <exclude reference="7vD-8e-4Fq"/>
                                 <exclude reference="cnz-sT-4KH"/>
                                 <exclude reference="rkt-5U-nAP"/>
-                                <exclude reference="Lb2-P6-JO3"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
@@ -4584,11 +4595,11 @@ PIN - 411004</string>
                                 <include reference="7vD-8e-4Fq"/>
                                 <include reference="cnz-sT-4KH"/>
                                 <include reference="rkt-5U-nAP"/>
-                                <include reference="Lb2-P6-JO3"/>
                             </mask>
                         </variation>
                     </view>
                     <connections>
+                        <outlet property="groupLabelTextbox" destination="ZUs-p3-LHX" id="tJ2-AV-297"/>
                         <outlet property="salesTable" destination="QzE-y6-I8S" id="Btc-Ny-fNo"/>
                     </connections>
                 </viewController>

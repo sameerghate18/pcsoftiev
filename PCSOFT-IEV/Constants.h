@@ -53,7 +53,7 @@ typedef enum
 //#define kAppBaseURL @"http://115.115.180.253/getiev/Service.svc/"
 // domain name
 //#define kAppBaseURL @"http://www.ievmobile.com/getiev/Service.svc/"
-#define kAppBaseURL @"https://ievmobile.com/https/Service.svc/"
+//#define kAppBaseURL @"https://ievmobile.com/https/Service.svc/"
 
 #define kCompanyBaseURL @"CompanyBaseURL"
 #define kSelectedCompanyCode @"selectedCompanyCode"
@@ -78,7 +78,11 @@ typedef enum
 
 #define kCompanyListService @"GetAllCompany"
 #define kUsernamesService @"GetUser?scocd="
+#define kTblGrpService @"tbgrplst?scocd="
 #define kCompanySalesService @"gettodayssale?scocd="
+#define kGetSalesForGroup(selComp,grpCode) \
+[NSString stringWithFormat:@"GetTodaysSaleTB?scocd=%@&tbgrp=%@",selComp,grpCode];  \
+
 #define kUserLogoutService @"logout?scocd="
 
 #define kInvoicesService @"GetInvoice?scocd="
@@ -140,3 +144,5 @@ typedef enum
 // Settings
 
 #define kPaymentAuthPwdEnabled @"AuthPwdEnabled"
+
+#define noInternetMessage @"Internet connection appears to be unavailable.\nPlease check your connection and try again."

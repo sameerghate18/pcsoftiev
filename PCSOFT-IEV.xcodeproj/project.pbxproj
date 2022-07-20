@@ -36,7 +36,6 @@
 		423A3E701BE50CFB00F68DCD /* Utility.m in Sources */ = {isa = PBXBuildFile; fileRef = 423A3E091BE50CFB00F68DCD /* Utility.m */; };
 		423A3E711BE50CFB00F68DCD /* XYPieChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 423A3E0C1BE50CFB00F68DCD /* XYPieChart.m */; };
 		423A3E751BE50D3A00F68DCD /* ConnectionHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 423A3E731BE50D3A00F68DCD /* ConnectionHandler.m */; };
-		423A3E8C1BE50D7500F68DCD /* ERPMobile_v1.6.8.ipa in Resources */ = {isa = PBXBuildFile; fileRef = 423A3E771BE50D7500F68DCD /* ERPMobile_v1.6.8.ipa */; };
 		423A3E8D1BE50D7500F68DCD /* PCAttendanceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 423A3E791BE50D7500F68DCD /* PCAttendanceModel.m */; };
 		423A3E8E1BE50D7500F68DCD /* PCCompanyModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 423A3E7B1BE50D7500F68DCD /* PCCompanyModel.m */; };
 		423A3E8F1BE50D7500F68DCD /* PCDeviceLicenseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 423A3E7D1BE50D7500F68DCD /* PCDeviceLicenseModel.m */; };
@@ -94,6 +93,7 @@
 		42FB60961FE6DAE400E1318B /* EmpExpenseKMModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 42FB60951FE6DAE400E1318B /* EmpExpenseKMModel.m */; };
 		42FB60991FE6DE1800E1318B /* EmpExpenseItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 42FB60981FE6DE1800E1318B /* EmpExpenseItemModel.m */; };
 		A5692EDDEC753A0BDB1C19B1 /* Pods_PCSOFT_IEV.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF316DE2AAECC2EC84452893 /* Pods_PCSOFT_IEV.framework */; };
+		D1260B982886739400A605E5 /* PCTblGroupModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D1260B962886739400A605E5 /* PCTblGroupModel.m */; };
 		D1AFB0B028747A3200AF7C2B /* FirebaseAnalytics.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1AFB0AF28747A3200AF7C2B /* FirebaseAnalytics.xcframework */; };
 		D1AFB0B428747F6300AF7C2B /* FirebaseCore.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1AFB0B328747F6300AF7C2B /* FirebaseCore.xcframework */; };
 		D1AFB0C82874814C00AF7C2B /* SwiftFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1AFB0C72874814C00AF7C2B /* SwiftFile.swift */; };
@@ -184,7 +184,6 @@
 		423A3E721BE50D3A00F68DCD /* ConnectionHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ConnectionHandler.h; path = "PCSOFT-IEV/ConnectionHandler.h"; sourceTree = SOURCE_ROOT; };
 		423A3E731BE50D3A00F68DCD /* ConnectionHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ConnectionHandler.m; path = "PCSOFT-IEV/ConnectionHandler.m"; sourceTree = SOURCE_ROOT; };
 		423A3E741BE50D3A00F68DCD /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Constants.h; path = "PCSOFT-IEV/Constants.h"; sourceTree = SOURCE_ROOT; };
-		423A3E771BE50D7500F68DCD /* ERPMobile_v1.6.8.ipa */ = {isa = PBXFileReference; lastKnownFileType = file; path = ERPMobile_v1.6.8.ipa; sourceTree = "<group>"; };
 		423A3E781BE50D7500F68DCD /* PCAttendanceModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCAttendanceModel.h; sourceTree = "<group>"; };
 		423A3E791BE50D7500F68DCD /* PCAttendanceModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCAttendanceModel.m; sourceTree = "<group>"; };
 		423A3E7A1BE50D7500F68DCD /* PCCompanyModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCCompanyModel.h; sourceTree = "<group>"; };
@@ -301,6 +300,8 @@
 		654D78FC646980DDF1C3322C /* Pods-PCSOFT-IEV.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PCSOFT-IEV.release.xcconfig"; path = "Target Support Files/Pods-PCSOFT-IEV/Pods-PCSOFT-IEV.release.xcconfig"; sourceTree = "<group>"; };
 		69768E5FF34DBDDF15C95FC6 /* Pods-PCSOFT-IEV.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PCSOFT-IEV.debug.xcconfig"; path = "Target Support Files/Pods-PCSOFT-IEV/Pods-PCSOFT-IEV.debug.xcconfig"; sourceTree = "<group>"; };
 		92626C504D0D7FAF7485486C /* Pods-PCSOFT-IEV.distadhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PCSOFT-IEV.distadhoc.xcconfig"; path = "Target Support Files/Pods-PCSOFT-IEV/Pods-PCSOFT-IEV.distadhoc.xcconfig"; sourceTree = "<group>"; };
+		D1260B962886739400A605E5 /* PCTblGroupModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCTblGroupModel.m; sourceTree = "<group>"; };
+		D1260B972886739400A605E5 /* PCTblGroupModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCTblGroupModel.h; sourceTree = "<group>"; };
 		D1AFB0AF28747A3200AF7C2B /* FirebaseAnalytics.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = FirebaseAnalytics.xcframework; sourceTree = "<group>"; };
 		D1AFB0B128747A5F00AF7C2B /* Firebase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Firebase.h; sourceTree = "<group>"; };
 		D1AFB0B228747AA400AF7C2B /* module.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = module.modulemap; sourceTree = "<group>"; };
@@ -597,7 +598,6 @@
 		423A3E761BE50D7500F68DCD /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				423A3E771BE50D7500F68DCD /* ERPMobile_v1.6.8.ipa */,
 				423A3E781BE50D7500F68DCD /* PCAttendanceModel.h */,
 				423A3E791BE50D7500F68DCD /* PCAttendanceModel.m */,
 				423A3E7A1BE50D7500F68DCD /* PCCompanyModel.h */,
@@ -620,6 +620,8 @@
 				423A3E8B1BE50D7500F68DCD /* PCUserModel.m */,
 				42D219F0211A0ADF00A7F815 /* PCApprovalListModel.h */,
 				42D219F1211A0ADF00A7F815 /* PCApprovalListModel.m */,
+				D1260B972886739400A605E5 /* PCTblGroupModel.h */,
+				D1260B962886739400A605E5 /* PCTblGroupModel.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -959,7 +961,6 @@
 				423A3F0E1BE52BDD00F68DCD /* PCRejectionsTableViewCell.xib in Resources */,
 				423A3EBF1BE5117A00F68DCD /* index.html in Resources */,
 				4286C6A71BE92E090003B8FC /* AttendanceDetailCell.xib in Resources */,
-				423A3E8C1BE50D7500F68DCD /* ERPMobile_v1.6.8.ipa in Resources */,
 				423A3D1D1BE4E2E900F68DCD /* LaunchScreen.storyboard in Resources */,
 				423A3D1A1BE4E2E900F68DCD /* Assets.xcassets in Resources */,
 				42B613101BEDF27B0062432A /* ChartNew.min.js in Resources */,
@@ -1040,6 +1041,7 @@
 				423A3E1F1BE50CFB00F68DCD /* TWRBarChart.m in Sources */,
 				D1AFB0C82874814C00AF7C2B /* SwiftFile.swift in Sources */,
 				423A3EA11BE50E6700F68DCD /* PCAccessCodeViewController.m in Sources */,
+				D1260B982886739400A605E5 /* PCTblGroupModel.m in Sources */,
 				423A3E691BE50CFB00F68DCD /* SSKeychainQuery.m in Sources */,
 				D1AFB10E287862AC00AF7C2B /* AFURLResponseSerialization.m in Sources */,
 				423A3E931BE50D7500F68DCD /* PCRejectionModel.m in Sources */,
@@ -1162,7 +1164,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PROVISIONING_PROFILE = "6b8e5d55-2079-430d-9496-f66f37f6353b";
@@ -1213,7 +1215,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PROVISIONING_PROFILE = "80568c79-42df-4700-95d3-75d7c394f76e";
 				SDKROOT = iphoneos;
@@ -1231,7 +1233,7 @@
 				CODE_SIGN_ENTITLEMENTS = "PCSOFT-IEV/PCSOFT-IEV.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 50;
+				CURRENT_PROJECT_VERSION = 51;
 				DEVELOPMENT_TEAM = 7VKE5C6GBK;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(PROJECT_DIR)/PCSOFT-IEV/PrefixHeader.pch";
@@ -1263,7 +1265,7 @@
 				CODE_SIGN_ENTITLEMENTS = "PCSOFT-IEV/PCSOFT-IEV.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Harsha Jain (7VKE5C6GBK)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				CURRENT_PROJECT_VERSION = 50;
+				CURRENT_PROJECT_VERSION = 51;
 				DEVELOPMENT_TEAM = 7VKE5C6GBK;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(PROJECT_DIR)/PCSOFT-IEV/PrefixHeader.pch";
@@ -1327,7 +1329,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PROVISIONING_PROFILE = "e31086c5-e5ef-4b04-8ec3-b03a9289febe";
 				SDKROOT = iphoneos;
@@ -1345,7 +1347,7 @@
 				CODE_SIGN_ENTITLEMENTS = "PCSOFT-IEV/PCSOFT-IEV.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Harsha Jain (7VKE5C6GBK)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				CURRENT_PROJECT_VERSION = 50;
+				CURRENT_PROJECT_VERSION = 51;
 				DEVELOPMENT_TEAM = 7VKE5C6GBK;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(PROJECT_DIR)/PCSOFT-IEV/PrefixHeader.pch";

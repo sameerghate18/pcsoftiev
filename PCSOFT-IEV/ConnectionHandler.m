@@ -65,7 +65,7 @@
   if ([reachability currentReachabilityStatus] != NotReachable ) {
     
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:urlString] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:1800];
-    request.HTTPMethod = @"GET";
+    request.HTTPMethod = kHTTP_Method_GET;
     
     NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration] ;
     [configuration setRequestCachePolicy:NSURLRequestUseProtocolCachePolicy];
@@ -78,6 +78,9 @@
       
     }];
     [dataTask resume];
+  } else {
+      NSError *noInternetError = [NSError errorWithDomain:@"com.ERPMobile.IEV" code:-5000 userInfo:nil];
+      completionBlock(nil, noInternetError);
   }
 }
 

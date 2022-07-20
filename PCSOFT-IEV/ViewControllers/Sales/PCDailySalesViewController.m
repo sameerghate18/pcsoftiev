@@ -12,10 +12,14 @@
 #import <QuartzCore/QuartzCore.h>
 #import "PCDailySalesTableViewCell.h"
 #import "PCDailySalesGraphViewController.h"
+#import "PCTblGroupModel.h"
 
-@interface PCDailySalesViewController () <ConnectionHandlerDelegate, UITableViewDataSource, UITableViewDelegate>
+@interface PCDailySalesViewController () <ConnectionHandlerDelegate, UITableViewDataSource, UITableViewDelegate, UIPickerViewDelegate, UIPickerViewDataSource>
 {
     NSMutableArray *dailySales;
+    PCTblGroupModel *grpMenuItems;
+    PCTblGroupModelElement *selectedGroup;
+    NSInteger currentIndexOnRoll, userSelectedIndex;
     NSString *currentMonth, *lastMonth, *previousToLastMonth;
     SalesType salesType;
     NSString *selectedSalesTypeCurrencyCode;
@@ -26,8 +30,10 @@
 @property (nonatomic, weak) IBOutlet UIImageView *boxImgView1, *boxImgView2;
 
 @property (nonatomic, weak) IBOutlet UIButton *refreshBtn;
+@property (nonatomic, weak) IBOutlet UITextField *groupLabelTextbox;
 
 @property (nonatomic, weak) IBOutlet UITableView *salesTable;
+@property (nonatomic, strong) UIPickerView *grpMenuPicker;
 
 @property (nonatomic, strong) NSDictionary *salesData, *exportSalesData, *tableSourceData;
 
@@ -75,7 +81,7 @@
     salesType = SalesTypeDomestic;
     selectedSalesTypeCurrencyCode = [[NSString alloc] init];
     
-    [self fetchDailySalesData:nil];
+    [self fetchTableGroups];
     // Do any additional setup after loading the view.
 }
 
@@ -163,6 +169,93 @@
     [_salesTable reloadData];
 }
 
+-(void)fetchTableGroups {
+    
+    AppDelegate *appDel = (AppDelegate*)[[UIApplication sharedApplication] delegate];
+    
+    [SVProgressHUD showWithStatus:@"Loading data..." maskType:SVProgressHUDMaskTypeBlack];
+    ConnectionHandler *handler = [[ConnectionHandler alloc] init];
+    handler.delegate = self;
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSString *companyCode = [defaults valueForKey:kSelectedCompanyCode];
+    
+    NSString *url = [NSString stringWithFormat:@"%@/%@%@",appDel.baseURL,kTblGrpService,companyCode];
+    [handler fetchDataForGETURL:url body:nil completion:^(id responseData, NSError *error) {
+        
+        if (error) {
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                NSString *msg = @"Error details not available.";
+                
+                if ([error code] == -5000) {
+                    msg = noInternetMessage;
+                } else {
+                    msg = [error localizedDescription];
+                }
+                
+                [SVProgressHUD dismiss];
+                [Utility showAlertWithTitle:@"IEV" message:msg buttonTitle:@"OK" inViewController:self];
+            });
+            return;
+        }
+        
+        self->grpMenuItems = PCTblGroupModelFromData((NSData*)responseData, &error);
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            if (self->grpMenuItems.count > 0) {
+                // Populate menu
+                [self createGrpMenu];
+            } else {
+                [Utility showAlertWithTitle:@"Daily Sales" message:@"No groups found." buttonTitle:@"Ok" inViewController:self];
+            }
+            
+        });
+        
+    }];
+    
+}
+
+-(void)createGrpMenu {
+    
+    UIToolbar *menuToolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 40)];
+    UIBarButtonItem *cancel = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(menuBarCancelPressed)];
+    UIBarButtonItem *space = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+    UIBarButtonItem *done = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStyleDone target:self action:@selector(menuBarDonePressed)];
+    
+    menuToolbar.items = @[cancel,space,done];
+    
+    self.grpMenuPicker = [[UIPickerView alloc] init];
+    self.grpMenuPicker.dataSource = self;
+    self.grpMenuPicker.delegate = self;
+    self.grpMenuPicker.showsSelectionIndicator = true;
+    
+    self.groupLabelTextbox.inputAccessoryView = menuToolbar;
+    self.groupLabelTextbox.inputView = self.grpMenuPicker;
+    
+    currentIndexOnRoll = userSelectedIndex = 0;
+    selectedGroup = [self->grpMenuItems objectAtIndex:userSelectedIndex];
+    self.groupLabelTextbox.text = selectedGroup.descr;
+    [self fetchDailySalesData:nil];
+    
+}
+
+-(void)menuBarCancelPressed {
+    
+    [self.groupLabelTextbox resignFirstResponder];
+}
+
+-(void)menuBarDonePressed {
+     
+    // fetch sales data for selected group code
+    selectedGroup = [self->grpMenuItems objectAtIndex:currentIndexOnRoll];
+    self.groupLabelTextbox.text = selectedGroup.descr;
+    [self.groupLabelTextbox resignFirstResponder];
+    [self fetchDailySalesData:nil];
+}
+
 -(IBAction)fetchDailySalesData:(id)sender
 {
     AppDelegate *appDel = (AppDelegate*)[[UIApplication sharedApplication] delegate];
@@ -174,7 +267,8 @@
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSString *companyCode = [defaults valueForKey:kSelectedCompanyCode];
     
-    NSString *url = [NSString stringWithFormat:@"%@/%@%@",appDel.baseURL,kCompanySalesService,companyCode];
+    NSString *params = kGetSalesForGroup(companyCode, selectedGroup.code);
+    NSString *url = [NSString stringWithFormat:@"%@/%@",appDel.baseURL,params];
     
     [handler fetchDataForURL:url body:nil];
 }
@@ -190,44 +284,51 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             [SVProgressHUD showSuccessWithStatus:@"Done"];
             
-            NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithDictionary:[dailySales objectAtIndex:0]];
+            NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithDictionary:[self->dailySales objectAtIndex:0]];
             if ([[dict valueForKey:@"CUR_DESC"] rangeOfString:@"RUPEE"].location != NSNotFound) {
                 [dict setValue:@"INR" forKey:@"CUR_DESC"];
             }
             
-            if (dailySales.count > 1) {
+            if (self->dailySales.count > 1) {
                 
-                NSMutableDictionary *exportDict = [NSMutableDictionary dictionaryWithDictionary:[dailySales objectAtIndex:1]];
+                NSMutableDictionary *exportDict = [NSMutableDictionary dictionaryWithDictionary:[self->dailySales objectAtIndex:1]];
                 
                 if ([[exportDict valueForKey:@"CUR_DESC"] rangeOfString:@"RUPEE"].location != NSNotFound) {
                     [exportDict setValue:@"INR" forKey:@"CUR_DESC"];
                 }
                 
-                _exportSalesData = [[NSDictionary alloc] initWithDictionary:exportDict copyItems:YES];
+                self->_exportSalesData = [[NSDictionary alloc] initWithDictionary:exportDict copyItems:YES];
             }
             
-            _salesData = [[NSDictionary alloc] initWithDictionary:dict copyItems:YES];
+            self->_salesData = [[NSDictionary alloc] initWithDictionary:dict copyItems:YES];
             
-            _lastUpdateLabel.text = [NSString stringWithFormat:@"Last updated : %@",[Utility lastRefreshString]];
+            self->_lastUpdateLabel.text = [NSString stringWithFormat:@"Last updated : %@",[Utility lastRefreshString]];
             
             [self getDates];
             
-            if (salesType == SalesTypeDomestic) {
-                selectedSalesTypeCurrencyCode = [_salesData valueForKey:@"CUR_DESC"];
-                _tableSourceData = _salesData;
+            if (self->salesType == SalesTypeDomestic) {
+                self->selectedSalesTypeCurrencyCode = [self->_salesData valueForKey:@"CUR_DESC"];
+                self->_tableSourceData = self->_salesData;
             }
             else {
-                selectedSalesTypeCurrencyCode = [_exportSalesData valueForKey:@"CUR_DESC"];
-                _tableSourceData = _exportSalesData;
+                self->selectedSalesTypeCurrencyCode = [self->_exportSalesData valueForKey:@"CUR_DESC"];
+                self->_tableSourceData = self->_exportSalesData;
             }
             
-            lastRefreshTime = [Utility lastRefreshString];
+            self->lastRefreshTime = [Utility lastRefreshString];
             
-            [_salesTable reloadData];
+            [self->_salesTable reloadData];
+            self->userSelectedIndex = self->currentIndexOnRoll;
         });
     }
     else {
-    [SVProgressHUD showErrorWithStatus:@"Failed"];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self->selectedGroup = [self->grpMenuItems objectAtIndex:self->userSelectedIndex];
+            self.groupLabelTextbox.text = self->selectedGroup.descr;
+            
+            [SVProgressHUD showErrorWithStatus:@"Failed"];
+        });
+    
     }
 }
 
@@ -239,7 +340,7 @@
             
             [SVProgressHUD dismiss];
             
-            [Utility showAlertWithTitle:@"IEV" message:@"Internet connection appears to be unavailable.\nPlease check your connection and try again." buttonTitle:@"OK" inViewController:self];
+            [Utility showAlertWithTitle:@"IEV" message:noInternetMessage buttonTitle:@"OK" inViewController:self];
             
         });
         return;
@@ -247,6 +348,11 @@
     
     dispatch_async(dispatch_get_main_queue(), ^{
         [SVProgressHUD showErrorWithStatus:@"Failed"];
+    });
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self->selectedGroup = [self->grpMenuItems objectAtIndex:self->userSelectedIndex];
+        self.groupLabelTextbox.text = self->selectedGroup.descr;
     });
 }
 
@@ -358,6 +464,24 @@ static NSString *lastUpdateCellIdentifier = @"lastUpdateCellIdentifier";
         return cell;
         
     }
+}
+
+- (nullable NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
+    
+    PCTblGroupModelElement *item = [grpMenuItems objectAtIndex:row];
+    return item.descr;
+}
+
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
+    return grpMenuItems.count;
+}
+
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
+    return 1;
+}
+
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
+    self->currentIndexOnRoll = row;
 }
 
 @end
