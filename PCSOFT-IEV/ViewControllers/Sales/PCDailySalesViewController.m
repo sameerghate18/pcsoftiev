@@ -298,6 +298,9 @@
                 }
                 
                 self->_exportSalesData = [[NSDictionary alloc] initWithDictionary:exportDict copyItems:YES];
+                
+            } else {
+                self.exportSalesData = nil;
             }
             
             self->_salesData = [[NSDictionary alloc] initWithDictionary:dict copyItems:YES];

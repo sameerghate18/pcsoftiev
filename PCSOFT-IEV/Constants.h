@@ -48,12 +48,10 @@ typedef enum
 
 #define IS_REGISTRATION_COMPLETE_KEY @"isRegistrationCompleted"
 
-//#define kAppBaseURL @"http://www.int-e-view.com:88/Service.svc/"
-//#define kAppBaseURL @"http://115.115.180.253/pcsoftiev/service.svc/"
-//#define kAppBaseURL @"http://115.115.180.253/getiev/Service.svc/"
-// domain name
-//#define kAppBaseURL @"http://www.ievmobile.com/getiev/Service.svc/"
+// Below URLs are not to be used.
 //#define kAppBaseURL @"https://ievmobile.com/https/Service.svc/"
+//#define kVerifyCodeURL @"https://ievmobile.com/https/Service.svc/GetServiceUrl?scocd="
+//#define kLicenseAddURL @"https://ievmobile.com/https/Service.svc/GetUpdateLic?scocd="
 
 #define kCompanyBaseURL @"CompanyBaseURL"
 #define kSelectedCompanyCode @"selectedCompanyCode"
@@ -61,18 +59,6 @@ typedef enum
 #define kSelectedCompanyName @"selectedCompanyName"
 #define kAccessCode @"accessCode"
 #define kPhoneNumber @"phoneNumber"
-
-//#define kVerifyCodeURL @"http://www.int-e-view.com:88/Service.svc/GetServiceUrl?scocd="
-//#define kVerifyCodeURL @"http://115.115.180.253/pcsoftiev/service.svc/GetServiceUrl?scocd="
-//#define kVerifyCodeURL @"http://115.115.180.253/getiev/Service.svc/GetServiceUrl?scocd="
-//#define kVerifyCodeURL @"http://www.ievmobile.com/getiev/Service.svc/GetServiceUrl?scocd="
-#define kVerifyCodeURL @"https://ievmobile.com/https/Service.svc/GetServiceUrl?scocd="
-
-//#define kLicenseAddURL @"http://www.int-e-view.com:88/service.svc/GetUpdateLic?scocd="
-//#define kLicenseAddURL @"http://115.115.180.253/pcsoftiev/service.svc/GetUpdateLic?scocd="
-//#define kLicenseAddURL @"http://115.115.180.253/getiev/Service.svc/GetUpdateLic?scocd="
-//#define kLicenseAddURL @"http://www.ievmobile.com/getiev/Service.svc/GetUpdateLic?scocd="
-#define kLicenseAddURL @"https://ievmobile.com/https/Service.svc/GetUpdateLic?scocd="
 
 #define kCheckForDeviceAlreadyRegistered @""
 

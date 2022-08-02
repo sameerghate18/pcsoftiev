@@ -354,9 +354,9 @@ typedef enum{
     verifyCode.delegate = self;
     verifyCode.tag = kGetServiceURLTag;
     
-    NSString *urlString = [NSString stringWithFormat:@"%@%@",kVerifyCodeURL,accessCode];
-    setupConnectionType = SetupConnectionTypeUpdateLicense;
-    [verifyCode fetchDataForURL:urlString body:nil];
+//    NSString *urlString = [NSString stringWithFormat:@"%@%@",kVerifyCodeURL,accessCode];
+//    setupConnectionType = SetupConnectionTypeUpdateLicense;
+//    [verifyCode fetchDataForURL:urlString body:nil];
 }
 
 - (void)getUsernamesList

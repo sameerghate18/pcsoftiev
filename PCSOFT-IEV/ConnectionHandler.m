@@ -27,6 +27,12 @@
     
     NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration] ;
     [configuration setRequestCachePolicy:NSURLRequestUseProtocolCachePolicy];
+      if (@available(iOS 13.0, *)) {
+          [configuration setTLSMinimumSupportedProtocolVersion:tls_protocol_version_TLSv10];
+      } else {
+          // Fallback on earlier versions
+          [configuration setTLSMinimumSupportedProtocol:kTLSProtocol1];
+      }
     
     NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration];
     NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
