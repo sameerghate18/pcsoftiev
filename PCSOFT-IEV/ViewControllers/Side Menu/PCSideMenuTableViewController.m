@@ -403,14 +403,14 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
-- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
-{
-    if (alertView.tag == 101) {
-        if (buttonIndex == 0) {
-            [self logout];
-        }
-    }
-}
+//- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
+//{
+//    if (alertView.tag == 101) {
+//        if (buttonIndex == 0) {
+//            [self logout];
+//        }
+//    }
+//}
 
 - (void)logout
 {

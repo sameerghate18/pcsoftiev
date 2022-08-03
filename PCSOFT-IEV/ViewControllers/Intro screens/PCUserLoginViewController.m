@@ -446,47 +446,47 @@
 
 }
 
-- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
-{
-    switch (alertView.tag) {
-        case 1000:
-            if (buttonIndex == 0) {
-                [self backToRegistration];
-            }
-            break;
-            
-        case 102:
-            if (buttonIndex == 0) {
-                
-                NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-                
-                PCUpdateMobileNumberViewController *updateMobVC = [kStoryboard instantiateViewControllerWithIdentifier:@"PCUpdateMobileNumberViewController"];
-                
-                updateMobVC.accessCode = [defaults valueForKey:kAccessCode];
-                
-                updateMobVC.phoneNumber = [defaults valueForKey:kPhoneNumber];
-                
-                updateMobVC.delegate = self;
-                
-                [self presentViewController:updateMobVC animated:YES completion:NULL];
-                
-            }
-            else if (buttonIndex == 1) {
-                
-            }
-            break;
-            
-        case 103:
+//- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
+//{
+//    switch (alertView.tag) {
+//        case 1000:
 //            if (buttonIndex == 0) {
-            
-                [self updateDeviceRegistration];
+//                [self backToRegistration];
+//            }
+//            break;
+//
+//        case 102:
+//            if (buttonIndex == 0) {
+//
+//                NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+//
+//                PCUpdateMobileNumberViewController *updateMobVC = [kStoryboard instantiateViewControllerWithIdentifier:@"PCUpdateMobileNumberViewController"];
+//
+//                updateMobVC.accessCode = [defaults valueForKey:kAccessCode];
+//
+//                updateMobVC.phoneNumber = [defaults valueForKey:kPhoneNumber];
+//
+//                updateMobVC.delegate = self;
+//
+//                [self presentViewController:updateMobVC animated:YES completion:NULL];
+//
 //            }
 //            else if (buttonIndex == 1) {
-//                
+//
 //            }
-            break;
-    }
-}
+//            break;
+//
+//        case 103:
+////            if (buttonIndex == 0) {
+//
+//                [self updateDeviceRegistration];
+////            }
+////            else if (buttonIndex == 1) {
+////
+////            }
+//            break;
+//    }
+//}
 
 - (void)backToRegistration
 {

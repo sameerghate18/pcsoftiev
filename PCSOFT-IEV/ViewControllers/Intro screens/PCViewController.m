@@ -317,16 +317,16 @@ typedef enum {
 //    
 //    return footerLbl;
 //}
-- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
-{
-    if (alertView.tag == 100 || alertView.tag == 101) {
-        if (buttonIndex == 0) {
-            [self pullData];
-        }
-    }
-    
-    if (alertView.tag == 100 && (buttonIndex == 1)) {
-        [self.navigationController popViewControllerAnimated:TRUE];
-    }
-}
+//- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
+//{
+//    if (alertView.tag == 100 || alertView.tag == 101) {
+//        if (buttonIndex == 0) {
+//            [self pullData];
+//        }
+//    }
+//
+//    if (alertView.tag == 100 && (buttonIndex == 1)) {
+//        [self.navigationController popViewControllerAnimated:TRUE];
+//    }
+//}
 @end

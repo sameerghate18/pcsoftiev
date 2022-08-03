@@ -151,28 +151,28 @@
     [self dismissViewControllerAnimated:YES completion:NULL];
 }
 
-- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
-{
-    [SVProgressHUD dismiss];
-    
-    switch (alertView.tag) {
-        case 100:
-            if (buttonIndex == 0) {
-                [self dismissViewControllerAnimated:YES completion:^{
-                    
-                    if ([_delegate respondsToSelector:@selector(sendBackDidFinishSendingBackDoc)]) {
-                        
-                        [_delegate sendBackDidFinishSendingBackDoc];
-                    }
-                    
-                }];
-            }
-            break;
-            
-            default:
-            break;
-    }
-}
+//- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
+//{
+//    [SVProgressHUD dismiss];
+//    
+//    switch (alertView.tag) {
+//        case 100:
+//            if (buttonIndex == 0) {
+//                [self dismissViewControllerAnimated:YES completion:^{
+//                    
+//                    if ([_delegate respondsToSelector:@selector(sendBackDidFinishSendingBackDoc)]) {
+//                        
+//                        [_delegate sendBackDidFinishSendingBackDoc];
+//                    }
+//                    
+//                }];
+//            }
+//            break;
+//            
+//            default:
+//            break;
+//    }
+//}
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {

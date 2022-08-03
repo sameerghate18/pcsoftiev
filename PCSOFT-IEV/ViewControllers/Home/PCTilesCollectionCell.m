@@ -21,7 +21,7 @@
 
 -(void)drawRect:(CGRect)rect
 {
-    self.backgroundColor = [UIColor redColor];
+    self.backgroundColor = [UIColor clearColor];
 }
 /*
 // Only override drawRect: if you perform custom drawing.

@@ -272,30 +272,30 @@
 
 #pragma mark - Alertview Delegate
 
-- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
-{
-  switch (alertView.tag) {
-    case 100:
-      if (buttonIndex == 1) {
-        [self refreshPOSO];
-      }
-      else if (buttonIndex == 0) {
-        NSArray *vcArr = self.navigationController.viewControllers;
-        
-        if ([[vcArr objectAtIndex:vcArr.count-2] isKindOfClass:[PCPOSOHomeTableViewController class]]) {
-          
-          [self.navigationController popViewControllerAnimated:YES];
-        }
-        else {
-          [self showSideMenu];
-        }
-      }
-      break;
-      
-    default:
-      break;
-  }
-}
+//- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
+//{
+//  switch (alertView.tag) {
+//    case 100:
+//      if (buttonIndex == 1) {
+//        [self refreshPOSO];
+//      }
+//      else if (buttonIndex == 0) {
+//        NSArray *vcArr = self.navigationController.viewControllers;
+//        
+//        if ([[vcArr objectAtIndex:vcArr.count-2] isKindOfClass:[PCPOSOHomeTableViewController class]]) {
+//          
+//          [self.navigationController popViewControllerAnimated:YES];
+//        }
+//        else {
+//          [self showSideMenu];
+//        }
+//      }
+//      break;
+//      
+//    default:
+//      break;
+//  }
+//}
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
   
