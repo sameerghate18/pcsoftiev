@@ -463,6 +463,14 @@
                                         <color key="textColor" name="custom black"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="phonePad" enablesReturnKeyAutomatically="YES"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
+                                                <integer key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="layer.borderColor">
+                                                <color key="value" name="custom black"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Wf-cf-HGC">
                                         <rect key="frame" x="92.666666666666657" y="114" width="95" height="35"/>
@@ -640,6 +648,14 @@
                                         <color key="textColor" name="custom black"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <textInputTraits key="textInputTraits"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
+                                                <integer key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="layer.borderColor">
+                                                <color key="value" name="custom black"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
                                         <variation key="default">
                                             <mask key="constraints">
                                                 <exclude reference="awj-3A-LGO"/>
@@ -660,6 +676,14 @@
                                         <color key="textColor" name="custom black"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
+                                                <integer key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="layer.borderColor">
+                                                <color key="value" name="custom black"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H4f-Op-pG8">
                                         <rect key="frame" x="20" y="225" width="273" height="43"/>
@@ -4575,7 +4599,7 @@ PIN - 411004</string>
                                     <segment title="Export"/>
                                 </segments>
                                 <color key="tintColor" name="custom black"/>
-                                <color key="selectedSegmentTintColor" name="custom black"/>
+                                <color key="selectedSegmentTintColor" name="custom white"/>
                                 <variation key="default">
                                     <mask key="constraints">
                                         <exclude reference="sc5-bU-fJ6"/>
@@ -4600,6 +4624,14 @@ PIN - 411004</string>
                                 <color key="textColor" name="custom black"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
+                                        <integer key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="layer.borderColor">
+                                        <color key="value" name="custom black"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <outlet property="delegate" destination="X23-7D-o6y" id="XDw-6v-5xc"/>
                                 </connections>
@@ -4614,6 +4646,14 @@ PIN - 411004</string>
                                 <color key="textColor" name="custom black"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
+                                        <integer key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="layer.borderColor">
+                                        <color key="value" name="custom black"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <outlet property="delegate" destination="X23-7D-o6y" id="Nxk-Si-ybE"/>
                                 </connections>
@@ -5750,7 +5790,7 @@ PIN - 411004</string>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="75" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="wg1-U4-JGb">
                                 <rect key="frame" x="20" y="169" width="374" height="639"/>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" name="custom white"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="288" id="cJn-Za-wXx"/>
                                     <constraint firstAttribute="height" constant="300" id="uJe-Qe-gyb">
@@ -5940,7 +5980,8 @@ PIN - 411004</string>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="1bs-yn-Fwm">
                                 <rect key="frame" x="20" y="169" width="374" height="653"/>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" name="custom white"/>
+                                <color key="tintColor" name="custom yellow"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TransactionIdentifier" rowHeight="75" id="9xu-xg-aT4" customClass="PCPOSOTransactionsTableViewCell">
                                         <rect key="frame" x="0.0" y="50" width="374" height="75"/>
@@ -5974,6 +6015,8 @@ PIN - 411004</string>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
+                                            <color key="backgroundColor" name="custom white"/>
+                                            <color key="tintColor" name="custom yellow"/>
                                             <constraints>
                                                 <constraint firstItem="ye7-XG-CaV" firstAttribute="leading" secondItem="VlA-nV-nIi" secondAttribute="leadingMargin" id="5XT-sr-Twi"/>
                                                 <constraint firstItem="ye7-XG-CaV" firstAttribute="trailing" secondItem="VlA-nV-nIi" secondAttribute="trailingMargin" id="CZy-Iw-PTr"/>
@@ -5986,6 +6029,7 @@ PIN - 411004</string>
                                                 <constraint firstItem="ye7-XG-CaV" firstAttribute="top" secondItem="VlA-nV-nIi" secondAttribute="topMargin" id="uUV-bN-B1U"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" name="custom white"/>
                                         <connections>
                                             <outlet property="dateLabel" destination="LuG-vW-yk8" id="sjE-pz-gEl"/>
                                             <outlet property="docNumberLabel" destination="S6x-PX-yQm" id="59g-tG-4Lu"/>
