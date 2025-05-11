@@ -64,6 +64,24 @@
         tableDataDictionary = @{@"Description":self.selectedModel.descr,
                                 @"Code":self.selectedModel.code,
                                 @"Quantity":[NSString stringWithFormat:@"%@",self.selectedModel.qty]};
+        
+    } else if([doctype containsString:@"PM"] || [doctype containsString:@"SM"]) {
+            //show quantity,desc,code
+        titles_details = @[@"Description",
+                           @"Code",
+                           @"Quantity",
+                           @"Rate",
+                           @"Old Value",
+                           @"New Value"];
+        
+        tableDataDictionary = @{@"Description":self.selectedModel.descr,
+                                
+                                @"Code":self.selectedModel.code,
+                                @"Quantity":[NSString stringWithFormat:@"%@",self.selectedModel.qty],
+                                @"Rate":[Utility stringWithCurrencySymbolPrefix:[NSString stringWithFormat:@"%@",self.selectedModel.rate] forCurrencySymbol:self.selectedModel.cursymbl],
+                                @"Old Value":[Utility stringWithCurrencySymbolPrefix:[NSString stringWithFormat:@"%@",self.selectedModel.value] forCurrencySymbol:self.selectedModel.cursymbl],
+                                @"New Value":[Utility stringWithCurrencySymbolForValue: [NSString stringWithFormat:@"%@",self.selectedModel.total] forCurrencyCode:DEFAULT_CURRENCY_CODE]};
+        
     } else {
       
       if ([doctype isEqualToString:@"22"]) {
@@ -171,7 +189,7 @@ static NSString *cellIdentifier = @"POSOSingleTransactionCell";
     
     CGSize size = [cell systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
     
-    return size.height;
+    return size.height + 10;
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField

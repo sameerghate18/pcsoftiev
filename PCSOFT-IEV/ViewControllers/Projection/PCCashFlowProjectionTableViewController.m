@@ -119,11 +119,16 @@
     [refreshControl beginRefreshing];
     
     NSDateFormatter *df = [[NSDateFormatter alloc] init];
-    [df setDateFormat:@"yyyy-MM-dd"];
+    [df setDateFormat:@"dd-MM-yyyy"];
     NSString *today = [df stringFromDate:[NSDate date]];
-    NSString *url = [NSString stringWithFormat:@"%@GetCashFlow?scocd=%@&sDate=%@",appDel.baseURL,appDel.selectedCompany.CO_CD,today];
+//    NSString *url = [NSString stringWithFormat:@"%@GetCashFlow?scocd=%@&sDate=%@",appDel.baseURL,appDel.selectedCompany.CO_CD,today];
 
-    [handler fetchDataForURL:url body:nil];//2014-04-15
+    NSDictionary *postDict = [[NSDictionary alloc] initWithObjectsAndKeys:
+                              appDel.selectedCompany.CO_CD, kScoCodeKey,
+                              today,@"sDate",
+                              nil];
+    
+    [handler fetchDataForURL:[NSString stringWithFormat:@"%@/iev/GetCashFlow",appDel.baseURL] body:postDict];//2014-04-15
 }
 
 -(IBAction)showSideMenu
@@ -136,11 +141,13 @@
 -(void)connectionHandler:(ConnectionHandler*)conHandler didRecieveData:(NSData*)data
 {
     NSError *error = nil;
-    NSArray *arr = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
+    NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
     
     projectionArray = [[NSMutableArray alloc] init];
     
-    if (arr.count > 0) {
+    if (dict != nil) {
+        
+        NSArray *arr = [dict objectForKey:kDataKey];
         
         for (NSDictionary *dict in arr) {
             PCProjectionModel *model = [[PCProjectionModel alloc] init];
@@ -252,7 +259,7 @@
         cell1.textLabel.text = @"No cash flow projection data available.";
         cell1.backgroundColor = [UIColor clearColor];
         cell1.textLabel.font = [UIFont boldSystemFontOfSize:12];
-        cell1.textLabel.textColor = [UIColor darkGrayColor];
+        cell1.textLabel.textColor = [UIColor colorNamed:kCustomGray];
         cell1.textLabel.textAlignment = NSTextAlignmentCenter;
         cell1.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell1;
@@ -306,7 +313,7 @@
         UILabel *footerLbl = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 320, 30)];
         footerLbl.textAlignment = NSTextAlignmentCenter;
         footerLbl.font = [UIFont systemFontOfSize:13];
-        footerLbl.textColor = [UIColor darkGrayColor];
+        footerLbl.textColor = [UIColor colorNamed:kCustomGray];
         if (lastRefreshTime != nil) {
             footerLbl.text = [NSString stringWithFormat:@"Last updated : %@",lastRefreshTime];
         }

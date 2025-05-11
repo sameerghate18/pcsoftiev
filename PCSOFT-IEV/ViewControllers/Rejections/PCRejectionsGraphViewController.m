@@ -93,7 +93,7 @@
     [self.pieChart setPieRadius:120.0f];
     [self.pieChart setShowPercentage:NO];
     [self.pieChart setLabelFont:[UIFont boldSystemFontOfSize:12]];
-    [self.pieChart setLabelColor:[UIColor whiteColor]];
+    [self.pieChart setLabelColor:[UIColor colorNamed:kCustomWhite]];
     [self.pieChart setBackgroundColor:[UIColor clearColor]];
     
     [self.pieContainerView addSubview:self.pieChart];

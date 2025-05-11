@@ -48,6 +48,8 @@ typedef enum
 
 #define IS_REGISTRATION_COMPLETE_KEY @"isRegistrationCompleted"
 
+// https://app.ieverp.com/barcode/sahyadri/
+//  https://app.ieverp.com/ievsrv/
 // Below URLs are not to be used.
 //#define kAppBaseURL @"https://ievmobile.com/https/Service.svc/"
 //#define kVerifyCodeURL @"https://ievmobile.com/https/Service.svc/GetServiceUrl?scocd="
@@ -59,12 +61,18 @@ typedef enum
 #define kSelectedCompanyName @"selectedCompanyName"
 #define kAccessCode @"accessCode"
 #define kPhoneNumber @"phoneNumber"
+#define kScoCodeKey @"scocd"
+#define kDeviceIDKey @"DeviceID"
+#define kMobNoKey @"MobNo"
+#define kTokenKey @"token"
+#define kTokenTypeKey @"tokentype"
+#define kDataKey @"data"
 
 #define kCheckForDeviceAlreadyRegistered @""
 
-#define kCompanyListService @"GetAllCompany"
-#define kUsernamesService @"GetUser?scocd="
-#define kTblGrpService @"tbgrplst?scocd="
+#define kCompanyListService @"/iev/GetAllCompany"
+#define kUsernamesService @"/iev/GetUser?scocd="
+#define kTblGrpService @"/iev/tbgrplst"
 #define kCompanySalesService @"gettodayssale?scocd="
 #define kGetSalesForGroup(selComp,grpCode) \
 [NSString stringWithFormat:@"GetTodaysSaleTB?scocd=%@&tbgrp=%@",selComp,grpCode];  \
@@ -81,15 +89,15 @@ typedef enum
 #define kCashFlowService @"GetCashFlow?scocd=SE&sDate=2014-04-15"
 
 #define GET_EECount_URL(baseURL, scocd,userId) \
-[NSString stringWithFormat:@"%@/authlstcnt?scocd=%@&userId=%@",baseURL,scocd,userId];  \
+[NSString stringWithFormat:@"%@/iev/authlstcnt?scocd=%@&userId=%@",baseURL,scocd,userId];  \
 
 // Get the list of pending authorizations for the user
 #define GET_Pending_Auths_URL(baseURL, scocd,userId) \
-[NSString stringWithFormat:@"%@/authlstcnt?SCOCD=%@&USERID=%@",baseURL,scocd,userId];  \
+[NSString stringWithFormat:@"%@/iev/authlstcnt?SCOCD=%@&USERID=%@",baseURL,scocd,userId];  \
 
 // Get details of pending authorization for the selected doctype
 #define GET_Auths_List_URL(baseURL,scocd,userId,doctype) \
-[NSString stringWithFormat:@"%@/authlist?SCOCD=%@&USERID=%@&type=%@",baseURL,scocd,userId,doctype];  \
+[NSString stringWithFormat:@"%@/iev/authlist?SCOCD=%@&USERID=%@&type=%@",baseURL,scocd,userId,doctype];  \
 
 #define GET_EE_DETAIL_URL(baseURL,scocd,userId,doctype,docno)    \
 [NSString stringWithFormat:@"%@/GetDocDtlEXP?scocd=%@&userId=%@&doctype=%@&docno=%@",baseURL,scocd,userId,doctype,docno];  \
@@ -132,3 +140,10 @@ typedef enum
 #define kPaymentAuthPwdEnabled @"AuthPwdEnabled"
 
 #define noInternetMessage @"Internet connection appears to be unavailable.\nPlease check your connection and try again."
+
+#define kCustomGray @"custom gray"
+#define kCustomBlack @"custom black"
+#define kCustomWhite @"custom white"
+#define kCustomYellow @"custom yellow"
+#define kCustomBlue @"custom blue"
+

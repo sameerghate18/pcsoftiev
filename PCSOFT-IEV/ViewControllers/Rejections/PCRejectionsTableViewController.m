@@ -53,7 +53,7 @@
     [searchView setBackgroundColor:[UIColor colorWithRed:0.988 green:0.741 blue:0.192 alpha:1.0]];
     UILabel *lbl = [[UILabel alloc] initWithFrame:CGRectMake(0, 20, 320, 25)];
     lbl.font = [UIFont boldSystemFontOfSize:15];
-    lbl.textColor = [UIColor blackColor];
+    lbl.textColor = [UIColor colorNamed:kCustomBlack];
     lbl.textAlignment = NSTextAlignmentCenter;
     lbl.text = @"Provide a search value";
     [searchView addSubview:lbl];
@@ -72,7 +72,7 @@
     
     CALayer *layer = self.tableView.tableHeaderView.layer;
     layer.borderWidth = 1.0f;
-    layer.borderColor = (__bridge CGColorRef)([UIColor blackColor]);
+    layer.borderColor = (__bridge CGColorRef)([UIColor colorNamed:kCustomBlack]);
     layer.cornerRadius = 5.0f;
 }
 
@@ -131,18 +131,25 @@
     
     AppDelegate *appDel = (AppDelegate*)[[UIApplication sharedApplication] delegate];
     
-    NSString *rejectionURL = [NSString stringWithFormat:@"%@/GetRejection?scocd=%@&Xvalue=%@",appDel.baseURL,appDel.selectedCompany.CO_CD,searchText];
+//    NSString *rejectionURL = [NSString stringWithFormat:@"%@/GetRejection?scocd=%@&Xvalue=%@",appDel.baseURL,appDel.selectedCompany.CO_CD,searchText];
     
     ConnectionHandler *handler = [[ConnectionHandler alloc] init];
     handler.delegate = self;
+    
+    NSDictionary *postDict = [[NSDictionary alloc] initWithObjectsAndKeys:
+                              appDel.selectedCompany.CO_CD, kScoCodeKey,
+                              searchText,@"Xvalue",
+                              nil];
 
-    [handler fetchDataForURL:rejectionURL body:nil];
+    [handler fetchDataForURL:[NSString stringWithFormat:@"%@/iev/GetRejection",appDel.baseURL] body:postDict];
 }
 
 -(void)connectionHandler:(ConnectionHandler*)conHandler didRecieveData:(NSData*)data
 {
     NSError *error = nil;
-    NSArray *arr = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
+    NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
+    
+    NSArray *arr = [dict objectForKey:kDataKey];
     
     rejectionsArray = [[NSMutableArray alloc] init];
     
@@ -153,6 +160,7 @@
             [model setValuesForKeysWithDictionary:dict];
             [rejectionsArray addObject:model];
         }
+        NSLog(@"rejectionsArray - %d", rejectionsArray.count);
         lastRefreshTime = [Utility lastRefreshString];
         
         if (!refreshControl) {
@@ -168,10 +176,10 @@
     
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.tableView reloadData];
-        [refreshControl endRefreshing];
-        if (isKeyboardRefresh) {
+        [self->refreshControl endRefreshing];
+        if (self->isKeyboardRefresh) {
             [SVProgressHUD dismiss];
-            isKeyboardRefresh = NO;
+            self->isKeyboardRefresh = NO;
         }
     });
     
@@ -192,11 +200,11 @@
     }
     
     dispatch_async(dispatch_get_main_queue(), ^{
-        if (isKeyboardRefresh) {
+        if (self->isKeyboardRefresh) {
             [SVProgressHUD dismiss];
-            isKeyboardRefresh = NO;
+            self->isKeyboardRefresh = NO;
         }
-        [refreshControl endRefreshing];
+        [self->refreshControl endRefreshing];
     });
 }
 
@@ -266,7 +274,7 @@ static NSString *reuseIdent1 = @"CellIdentifier";
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:reuseIdent1];
         }
         
-        cell.textLabel.textColor = [UIColor darkGrayColor];
+        cell.textLabel.textColor = [UIColor colorNamed:kCustomGray];
         cell.textLabel.font = [UIFont boldSystemFontOfSize:13];
         cell.textLabel.textAlignment = NSTextAlignmentCenter;
         cell.textLabel.text = @"No rejected items for this value. Refresh again.";
@@ -281,7 +289,7 @@ static NSString *reuseIdent1 = @"CellIdentifier";
     UILabel *footerLbl = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 320, 30)];
     footerLbl.textAlignment = NSTextAlignmentCenter;
     footerLbl.font = [UIFont systemFontOfSize:13];
-    footerLbl.textColor = [UIColor darkGrayColor];
+    footerLbl.textColor = [UIColor colorNamed:kCustomGray];
     
     if (lastRefreshTime != nil) {
         footerLbl.text = [NSString stringWithFormat:@"Last updated : %@",lastRefreshTime];

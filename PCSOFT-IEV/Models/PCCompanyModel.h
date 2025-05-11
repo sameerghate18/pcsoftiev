@@ -18,5 +18,9 @@
 @property (nonatomic, strong) NSString *ERRORMESSAGE;
 @property (nonatomic, strong) NSString *FLAG;
 @property (nonatomic, strong) NSString *TBGRP;
+@property (nonatomic, strong) NSString *binloc;
+@property (nonatomic, strong) NSString *qc;
+@property (nonatomic, strong) NSString *OILVERTICAL;
+@property (nonatomic, strong) NSString *agent;
 
 @end

@@ -61,8 +61,8 @@
     passwordTF.layer.cornerRadius = 5.0f;
     loginButton.layer.cornerRadius = 10.0f;
     [loginButton setClipsToBounds:YES];
-    usernameTF.layer.borderColor = (__bridge CGColorRef)([UIColor blackColor]);
-    passwordTF.layer.borderColor = (__bridge CGColorRef)([UIColor blackColor]);
+    usernameTF.layer.borderColor = (__bridge CGColorRef)([UIColor colorNamed:@"custom blsck"]);
+    passwordTF.layer.borderColor = (__bridge CGColorRef)([UIColor colorNamed:@"custom blsck"]);
     
     UITapGestureRecognizer *tapper = [[UITapGestureRecognizer alloc]
                                       initWithTarget:self action:@selector(handleSingleTap:)];
@@ -86,12 +86,22 @@
     registerDeviceConnection.tag = kCheckDeviceRegisteredTag;
     
     //[defaults valueForKey:kAccessCode],
-    NSString *urlString = [NSString stringWithFormat:@"%@isregisterDevice?scocd=IE&DeviceId=%@&MobNo=%@",
-                           appDel.baseURL,
-                           appDel.appUniqueIdentifier,
-                           [defaults valueForKey:kPhoneNumber]];
+//    NSString *urlString = [NSString stringWithFormat:@"%@isregisterDevice?scocd=IE&DeviceId=%@&MobNo=%@",
+//                           appDel.baseURL,
+//                           appDel.appUniqueIdentifier,
+//                           [defaults valueForKey:kPhoneNumber]];
     
-    [registerDeviceConnection fetchDataForURL:urlString body:nil];
+    NSDictionary *postDict = [[NSDictionary alloc] initWithObjectsAndKeys:@"IE", kScoCodeKey,
+                              appDel.appUniqueIdentifier,kDeviceIDKey,
+                              [defaults valueForKey:kPhoneNumber],kMobNoKey,
+                              nil,kTokenKey,
+                              nil,kTokenTypeKey, nil];
+    
+    NSString *urlString = [NSString stringWithFormat:@"%@/iev/isregisterDevice",appDel.baseURL];
+    
+    [registerDeviceConnection fetchDataForURL:urlString body:postDict];
+    
+//    [registerDeviceConnection fetchDataForURL:urlString body:nil];
 }
 
 - (void)handleSingleTap:(UITapGestureRecognizer *)sender
@@ -139,9 +149,16 @@
     loginCheck.tag = kUserLoginTag;
     
     //authenticate?scocd=SE&userid=00126&pass=V
-    NSString *url = [NSString stringWithFormat:@"%@/authenticate?scocd=%@&userid=%@&pass=%@",appDel.baseURL,appDel.selectedCompany.CO_CD,username,password];
+//    NSString *url = [NSString stringWithFormat:@"%@/authenticate?scocd=%@&userid=%@&pass=%@",appDel.baseURL,appDel.selectedCompany.CO_CD,username,password];
+//
     
-    [loginCheck fetchDataForURL:url body:nil];
+    NSString *cocd = appDel.selectedCompany.CO_CD;
+    
+    NSDictionary *postDict = [[NSDictionary alloc] initWithObjectsAndKeys: cocd, kScoCodeKey, username,@"userid", password,@"pass", nil];
+    
+    [loginCheck fetchDataForURL:[NSString stringWithFormat:@"%@/iev/authenticate",appDel.baseURL] body:postDict];
+    
+//    [loginCheck fetchDataForURL:url body:nil];
 }
 
 -(void)connectionHandler:(ConnectionHandler*)conHandler didRecieveData:(NSData*)data
@@ -150,73 +167,126 @@
         case kUserLoginTag:
         {
             
-            NSString *outputString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+            NSError *error = nil;
+            NSDictionary *opDict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
             
-            outputString = [outputString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+            BOOL result = [[opDict objectForKey:@"Status"] boolValue];
             
-            outputString = [outputString substringWithRange:NSMakeRange(1, outputString.length-2)];
-            outputString = [outputString capitalizedString];
-            
-            __block BOOL loginFound = NO;
-            
-            dispatch_async(dispatch_get_main_queue(), ^{
+            if (!error) {
                 
-                if ([outputString  caseInsensitiveCompare:@"IEV001"] == NSOrderedSame) {
+                dispatch_async(dispatch_get_main_queue(), ^{
                     
-                    loginFound =  NO;
+                    __block BOOL loginFound = NO;
                     
-                    [SVProgressHUD dismiss];
-                    
-                    [Utility showAlertWithTitle:@"Sign in" message:@"Invalid user name provided.\nPlease try again." buttonTitle:@"OK" inViewController:self];
-
-                }
-                else if ([outputString caseInsensitiveCompare:@"IEV002"] == NSOrderedSame) {
-                    
-                    loginFound =  NO;
-                    
-                    [SVProgressHUD dismiss];
-                    
-                    [Utility showAlertWithTitle:@"Sign in" message:@"Invalid password.\nPlease try again." buttonTitle:@"OK" inViewController:self];
-
-                }
-                else if ([outputString caseInsensitiveCompare:@"IEV003"] == NSOrderedSame) {
-                    
-                    loginFound =  NO;
-                    
-                    [SVProgressHUD dismiss];
-                    
-                    [Utility showAlertWithTitle:@"Sign in" message:@"Your login has been locked for this device.\nPlease contact PCSOFT ERP Solutions to access again." buttonTitle:@"OK" inViewController:self];
-                }
-                else {
-                    
-                    [SVProgressHUD showSuccessWithStatus:@"Verified"];
-                    
-                    self->appDel.userLoggedIn = YES;
-                    
-                    NSString *name = [outputString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-                    
-                    PCUserModel *loggedInUserModel = [[PCUserModel alloc] init];
-                    
-                    [loggedInUserModel setUSER_ID:self->usernameString];
-                    [loggedInUserModel setUSER_NAME:name];
-                    [loggedInUserModel setUSER_PSWD:self->passwordString];
-                    
-                    [self->appDel setLoggedUser:loggedInUserModel];
-                    
-                    [self->appDel setSelectedUserName:name];
-                    
-                    usernameTF.text = @"";
-                    passwordTF.text = @"";
-                    
-                    [self performSelector:@selector(pushToHomePage) withObject:nil afterDelay:0.5];
-                    
-                    loginFound =  YES;
-                }
-            });
-            
-            if (!loginFound) {
-                
+                    if (result == false) {
+                        
+                        loginFound =  NO;
+                        
+                        [SVProgressHUD dismiss];
+                        
+                        [Utility showAlertWithTitle:@"Sign in" message:[opDict objectForKey:@"ErrorMessage"] buttonTitle:@"OK" inViewController:self];
+                        
+                    } else {
+                        
+                        NSString *outputString = [[NSString alloc] initWithString:[opDict objectForKey:@"SuccessMessage"]];
+                        outputString = [outputString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+                        outputString = [outputString capitalizedString];
+                        
+                        [SVProgressHUD showSuccessWithStatus:@"Verified"];
+                        
+                        self->appDel.userLoggedIn = YES;
+                        
+                        NSString *name = [outputString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+                        
+                        PCUserModel *loggedInUserModel = [[PCUserModel alloc] init];
+                        
+                        [loggedInUserModel setUSER_ID:self->usernameString];
+                        [loggedInUserModel setUSER_NAME:name];
+                        [loggedInUserModel setUSER_PSWD:self->passwordString];
+                        
+                        [self->appDel setLoggedUser:loggedInUserModel];
+                        
+                        [self->appDel setSelectedUserName:name];
+                        
+                        self->usernameTF.text = @"";
+                        self->passwordTF.text = @"";
+                        
+                        [self performSelector:@selector(pushToHomePage) withObject:nil afterDelay:0.5];
+                        
+                        loginFound =  YES;
+                    }
+                });
             }
+            
+            
+            
+            //            outputString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+            //
+            //            outputString = [outputString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+            //
+            //            outputString = [outputString substringWithRange:NSMakeRange(1, outputString.length-2)];
+            //            outputString = [outputString capitalizedString];
+            
+            //            __block BOOL loginFound = NO;
+            //
+            //            dispatch_async(dispatch_get_main_queue(), ^{
+            //
+            //                if ([outputString  caseInsensitiveCompare:@"IEV001"] == NSOrderedSame) {
+            //
+            //                    loginFound =  NO;
+            //
+            //                    [SVProgressHUD dismiss];
+            //
+            //                    [Utility showAlertWithTitle:@"Sign in" message:@"Invalid user name provided.\nPlease try again." buttonTitle:@"OK" inViewController:self];
+            //
+            //                }
+            //                else if ([outputString caseInsensitiveCompare:@"IEV002"] == NSOrderedSame) {
+            //
+            //                    loginFound =  NO;
+            //
+            //                    [SVProgressHUD dismiss];
+            //
+            //                    [Utility showAlertWithTitle:@"Sign in" message:@"Invalid password.\nPlease try again." buttonTitle:@"OK" inViewController:self];
+            //
+            //                }
+            //                else if ([outputString caseInsensitiveCompare:@"IEV003"] == NSOrderedSame) {
+            //
+            //                    loginFound =  NO;
+            //
+            //                    [SVProgressHUD dismiss];
+            //
+            //                    [Utility showAlertWithTitle:@"Sign in" message:@"Your login has been locked for this device.\nPlease contact PCSOFT ERP Solutions to access again." buttonTitle:@"OK" inViewController:self];
+            //                }
+            //                else {
+            //
+            //                    [SVProgressHUD showSuccessWithStatus:@"Verified"];
+            //
+            //                    self->appDel.userLoggedIn = YES;
+            //
+            //                    NSString *name = [outputString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+            //
+            //                    PCUserModel *loggedInUserModel = [[PCUserModel alloc] init];
+            //
+            //                    [loggedInUserModel setUSER_ID:self->usernameString];
+            //                    [loggedInUserModel setUSER_NAME:name];
+            //                    [loggedInUserModel setUSER_PSWD:self->passwordString];
+            //
+            //                    [self->appDel setLoggedUser:loggedInUserModel];
+            //
+            //                    [self->appDel setSelectedUserName:name];
+            //
+            //                    usernameTF.text = @"";
+            //                    passwordTF.text = @"";
+            //
+            //                    [self performSelector:@selector(pushToHomePage) withObject:nil afterDelay:0.5];
+            //
+            //                    loginFound =  YES;
+            //                }
+            //            });
+            //
+            //            if (!loginFound) {
+            //
+            //            }
             
         }
             
@@ -225,16 +295,16 @@
         case kCheckDeviceRegisteredTag:
         {
             NSError *error = nil;
-            NSArray *opArray = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
+            NSDictionary *opDict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
             
             if (!error) {
                 
-                if (opArray.count > 0) {
+                if (opDict != nil) {
                     
-                    NSDictionary *dict = [opArray objectAtIndex:0];
+                    //                    NSDictionary *dict = [opArray objectAtIndex:0];
                     
                     PCDeviceRegisterCheckModel *model = [[PCDeviceRegisterCheckModel alloc] init];
-                    [model setValuesForKeysWithDictionary:dict];
+                    [model setValuesForKeysWithDictionary:[[opDict objectForKey:@"data"] objectAtIndex:0]];
                     
                     dispatch_async(dispatch_get_main_queue(), ^{
                         
@@ -290,9 +360,9 @@
                             });
                             
                             
-//                            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"IEV" message:@"Your mobile number is not registered. Do you want to register?" delegate:self cancelButtonTitle:@"Yes" otherButtonTitles:@"No", nil];
-//                            alert.tag = 102;
-//                            [alert show];
+                            //                            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"IEV" message:@"Your mobile number is not registered. Do you want to register?" delegate:self cancelButtonTitle:@"Yes" otherButtonTitles:@"No", nil];
+                            //                            alert.tag = 102;
+                            //                            [alert show];
                             
                         }
                         else if ([model.IsDeviceRegistered isEqualToString:@"NO"] && [model.IsMobileRegistered isEqualToString:@"YES"]) {
@@ -311,9 +381,9 @@
                                 [self presentViewController:alert animated:YES completion:nil];
                             });
                             
-//                            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"IEV" message:@"You have not registered your device. App will now proceed with registration." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-//                            alert.tag = 103;
-//                            [alert show];
+                            //                            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"IEV" message:@"You have not registered your device. App will now proceed with registration." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                            //                            alert.tag = 103;
+                            //                            [alert show];
                         }
                         else {
                         }
@@ -327,7 +397,7 @@
         default:
             break;
     }
-
+    
 }
 
 -(void)updateDeviceRegistration {
@@ -345,7 +415,15 @@
                            appDel.appUniqueIdentifier,
                            [defaults valueForKey:kPhoneNumber]];
     
-    [updateDevieRegHandler fetchDataForURL:urlString body:nil];
+    NSDictionary *postDict = [[NSDictionary alloc] initWithObjectsAndKeys:
+                              [defaults valueForKey:kAccessCode], kScoCodeKey,
+                              appDel.appUniqueIdentifier,@"deviceid",
+                              [defaults valueForKey:kPhoneNumber],@"mobno",
+                              nil];
+    
+    [updateDevieRegHandler fetchDataForURL:[NSString stringWithFormat:@"%@/iev/updatedeviceid",appDel.baseURL] body:postDict];
+    
+//    [updateDevieRegHandler fetchDataForURL:urlString body:nil];
     
 }
 

@@ -81,19 +81,39 @@ typedef enum {
     [SVProgressHUD showWithStatus:@"Please wait" maskType:SVProgressHUDMaskTypeBlack];
     
     NSString *urlString;
+    NSDictionary *postDict;
     
     if (dataType == DATA_TYPE_COMPANYLIST) {
         dataTypeURL = [NSMutableString stringWithString:kCompanyListService];
         urlString = [NSString stringWithFormat:@"%@/%@",appDel.baseURL,dataTypeURL];
         
+        ConnectionHandler *handler = [[ConnectionHandler alloc] init];
+        handler.delegate = self;
+        
+        [handler fetchDataForURL:urlString body:nil];
     }
     else if (dataType == DATA_TYPE_USERLIST) {
-        urlString = [NSString stringWithFormat:@"%@/%@%@",appDel.baseURL,kUsernamesService,dataTypeURL];
+//        urlString = [NSString stringWithFormat:@"%@/%@%@",appDel.baseURL,kUsernamesService,dataTypeURL];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [SVProgressHUD showSuccessWithStatus:@"Done"];
+            
+            PCUserLoginViewController *uvc = [kStoryboard instantiateViewControllerWithIdentifier:@"PCUserLoginViewController"];
+            [uvc setUsersList:self->usersList];
+            [uvc setSeletedCompany:self->selectedCompany];
+            [self.navigationController pushViewController:uvc animated:NO];
+        });
     }
     
-    ConnectionHandler *handler = [[ConnectionHandler alloc] init];
-    handler.delegate = self;
-    [handler fetchDataForURL:urlString body:nil];
+//    ConnectionHandler *handler = [[ConnectionHandler alloc] init];
+//    handler.delegate = self;
+    
+    //    NSDictionary *postDict = [[NSDictionary alloc] initWithObjectsAndKeys:
+    //                              [defaults valueForKey:kAccessCode], kScoCodeKey,
+    //                              appDel.appUniqueIdentifier,"deviceid",
+    //                              [defaults valueForKey:kPhoneNumber],"mobno",
+    //                              nil];
+    
+//    [handler fetchDataForURL:urlString body:nil];
 }
 
 -(void)connectionHandler:(ConnectionHandler*)conHandler didRecieveData:(NSData*)data
@@ -113,8 +133,9 @@ typedef enum {
         
         id output = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
         
-        if ([output isKindOfClass:[NSArray class]]) {
-            arr = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
+        if ([output isKindOfClass:[NSDictionary class]]) {
+            arr = [output objectForKey:kDataKey];
+//            arr = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
             
             for (NSDictionary *dict in arr) {
                 PCCompanyModel *cMod = [[PCCompanyModel alloc] init];
@@ -183,10 +204,11 @@ typedef enum {
                     [Utility showAlertWithTitle:@"Sign in" message:@"Invalid connection string to connect to company.\nPlease try again." buttonTitle:@"OK" inViewController:self];
                 }
             });
+        } else {
+            
         }
         
-    }
-    else if (dataType == DATA_TYPE_USERLIST) {
+    } else if (dataType == DATA_TYPE_USERLIST) {
         
         if (!usersList) {
             usersList = [[NSMutableArray alloc] init];
@@ -277,6 +299,7 @@ typedef enum {
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         [cell.textLabel setFont:[UIFont boldSystemFontOfSize:13.0f]];
         cell.backgroundColor = [UIColor clearColor];
+        cell.textLabel.textColor = [UIColor colorNamed:kCustomBlack];
     }
     
     PCCompanyModel *mod = [companyList objectAtIndex:indexPath.row];

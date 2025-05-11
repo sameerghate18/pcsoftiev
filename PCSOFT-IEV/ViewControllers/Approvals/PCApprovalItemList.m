@@ -27,12 +27,12 @@
     self.view.layer.cornerRadius = 10.0;
     self.view.layer.masksToBounds = YES;
     self.view.layer.borderWidth = 1.0;
-    self.view.layer.borderColor = [UIColor blackColor].CGColor;
+    self.view.layer.borderColor = [UIColor colorNamed:kCustomBlack].CGColor;
     
     self.tableView.layer.cornerRadius = 10.0;
     self.tableView.layer.masksToBounds = YES;
     self.tableView.layer.borderWidth = 1.0;
-    self.tableView.layer.borderColor = [UIColor blackColor].CGColor;
+    self.tableView.layer.borderColor = [UIColor colorNamed:kCustomBlack].CGColor;
 }
 
 - (void)didReceiveMemoryWarning {

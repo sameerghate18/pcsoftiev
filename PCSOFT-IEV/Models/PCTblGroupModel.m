@@ -35,7 +35,8 @@ PCTblGroupModel *_Nullable PCTblGroupModelFromData(NSData *data, NSError **error
 {
     @try {
         id json = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:error];
-        return *error ? nil : map(json, λ(id x, [PCTblGroupModelElement fromJSONDictionary:x]));
+        id json1 = [json objectForKey:kDataKey];
+        return *error ? nil : map(json1, λ(id x, [PCTblGroupModelElement fromJSONDictionary:x]));
     } @catch (NSException *exception) {
         *error = [NSError errorWithDomain:@"JSONSerialization" code:-1 userInfo:@{ @"exception": exception }];
         return nil;

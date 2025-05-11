@@ -83,10 +83,17 @@
 }
 
 -(BOOL)validateURL:(NSString*)urlText {
-    NSString *urlRegEx =
-        @"(http|https)://((\\w)*|([0-9]*)|([-|_])*)+([\\.|/]((\\w)*|([0-9]*)|([-|_])*))+/";
-        NSPredicate *urlTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", urlRegEx];
-        return [urlTest evaluateWithObject:urlText];
+    
+    // [A-Za-z]+://([A-Za-z0-9]+(\.[A-Za-z0-9]+)+):[0-9]+/[A-Za-z0-9]+\.[A-Za-z0-9]+/
+    
+//    NSString *urlRegEx = @"[A-Za-z]+://([A-Za-z0-9])[:0-9]+/[A-Za-z0-9]+\\.[A-Za-z0-9]+/";
+//    NSString *urlRegEx = @"([0-9]+)";
+    
+//    NSString *urlRegEx =
+//        @"(http|https|ftp)://((\\w)*|([0-9]*)|([-|_])*)+[\\:|[0-9]*]+([\\.|/]((\\w)*|([0-9]*)|([-|_])*))+/";
+//        NSPredicate *urlTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", urlRegEx];
+//        return [urlTest evaluateWithObject:urlText];
+    return true;
 }
 
 - (void)getUsernamesList
@@ -98,7 +105,11 @@
     
     NSString *url = [NSString stringWithFormat:@"%@/%@",companyURL,kUsernamesService];
     
-    [fetchUsers fetchDataForURL:url body:nil];
+    NSDictionary *postDict = [[NSDictionary alloc] initWithObjectsAndKeys:
+                              appDel.selectedCompany.CO_CD, kScoCodeKey,
+                              nil];
+    
+    [fetchUsers fetchDataForURL:[NSString stringWithFormat:@"%@/iev/GetUser",companyURL] body:postDict];
 }
 
 -(void)connectionHandler:(ConnectionHandler*)conHandler didRecieveData:(NSData*)data

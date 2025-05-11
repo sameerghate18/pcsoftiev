@@ -77,7 +77,12 @@
     [df setDateFormat:@"YYYY-MM-dd"];
     
     NSString *url = [NSString stringWithFormat:@"%@/%@%@",appDel.baseURL,kInvoicesService,appDel.selectedCompany.CO_CD];
-    [handler fetchDataForURL:url body:nil];//2014-04-15
+    
+    NSDictionary *postDict = [[NSDictionary alloc] initWithObjectsAndKeys:
+                              appDel.selectedCompany.CO_CD, kScoCodeKey,
+                              nil];
+    
+    [handler fetchDataForURL:[NSString stringWithFormat:@"%@/iev/GetInvoice",appDel.baseURL] body:postDict];//2014-04-15
 }
 
 -(void)connectionHandler:(ConnectionHandler*)conHandler didRecieveData:(NSData*)data
@@ -156,7 +161,7 @@
         cell1.textLabel.text = @"No invoices available.";
         cell1.backgroundColor = [UIColor clearColor];
         cell1.textLabel.font = [UIFont boldSystemFontOfSize:12];
-        cell1.textLabel.textColor = [UIColor darkGrayColor];
+        cell1.textLabel.textColor = [UIColor colorNamed:kCustomGray];
         cell1.textLabel.textAlignment = NSTextAlignmentCenter;
         return cell1;
     }
@@ -182,7 +187,7 @@
     UILabel *footerLbl = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 320, 30)];
     footerLbl.textAlignment = NSTextAlignmentCenter;
     footerLbl.font = [UIFont systemFontOfSize:13];
-    footerLbl.textColor = [UIColor darkGrayColor];
+    footerLbl.textColor = [UIColor colorNamed:kCustomGray];
     if (lastRefreshTime != nil) {
         footerLbl.text = [NSString stringWithFormat:@"Last updated : %@",lastRefreshTime];
     }

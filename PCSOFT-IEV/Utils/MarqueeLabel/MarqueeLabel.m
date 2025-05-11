@@ -676,7 +676,7 @@ CGPoint MLOffsetCGPoint(CGPoint point, CGFloat offset);
     
     // Set up colors
     NSObject *transparent = (NSObject *)[[UIColor clearColor] CGColor];
-    NSObject *opaque = (NSObject *)[[UIColor blackColor] CGColor];
+    NSObject *opaque = (NSObject *)[[UIColor colorNamed:kCustomBlack] CGColor];
     
     gradientMask.bounds = self.layer.bounds;
     gradientMask.position = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds));
@@ -761,7 +761,7 @@ CGPoint MLOffsetCGPoint(CGPoint point, CGFloat offset);
     NSArray *keyTimes = nil;
     NSTimeInterval totalDuration;
     NSObject *transp = (NSObject *)[[UIColor clearColor] CGColor];
-    NSObject *opaque = (NSObject *)[[UIColor blackColor] CGColor];
+    NSObject *opaque = (NSObject *)[[UIColor colorNamed:kCustomBlack] CGColor];
     
     // Create new animation
     CAKeyframeAnimation *animation = [CAKeyframeAnimation animationWithKeyPath:@"colors"];
@@ -1335,7 +1335,7 @@ CGPoint MLOffsetCGPoint(CGPoint point, CGFloat offset);
 - (NSArray *)gradientColors {
     if (!_gradientColors) {
         NSObject *transparent = (NSObject *)[[UIColor clearColor] CGColor];
-        NSObject *opaque = (NSObject *)[[UIColor blackColor] CGColor];
+        NSObject *opaque = (NSObject *)[[UIColor colorNamed:kCustomBlack] CGColor];
         _gradientColors = [NSArray arrayWithObjects: transparent, opaque, opaque, transparent, nil];
     }
     return _gradientColors;

@@ -37,7 +37,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(enableSubmitButtonAction) name:@"EnableSubmitButtonNotification" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateItemsArray:) name:@"ExpenseItemUpdatedNotification" object:nil];
     [self.submitButton setEnabled:FALSE];
-    [self.submitButton setBackgroundColor:[UIColor grayColor]];
+    [self.submitButton setBackgroundColor:[UIColor colorNamed:kCustomGray]];
     [self populateFields];
     [self getDetailsForTransaction:self.selectedTransaction];
 }
@@ -49,7 +49,7 @@
 
 - (void)disableSubmitButton {
     [self.submitButton setEnabled:FALSE];
-    [self.submitButton setBackgroundColor:[UIColor grayColor]];
+    [self.submitButton setBackgroundColor:[UIColor colorNamed:kCustomGray]];
 }
 
 - (void)updateItemsArray:(NSNotification*)notification    {
@@ -109,8 +109,28 @@
     NSString *docType = [_selectedTransaction.doc_type stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     NSString *docNo = [_selectedTransaction.doc_no stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     
-    NSString *url1 = GET_EE_DETAIL_URL(appDel.baseURL, appDel.selectedCompany.CO_CD, appDel.loggedUser.USER_ID, docType, docNo);
-    [conn fetchDataForGETURL:url1 body:nil completion:^(id responseData, NSError *error) {
+//    NSString *url1 = GET_EE_DETAIL_URL(appDel.baseURL, appDel.selectedCompany.CO_CD, appDel.loggedUser.USER_ID, docType, docNo);
+    NSString *url = [NSString stringWithFormat:@"%@/iev/GetDocDtlEXP",appDel.baseURL];
+    
+    NSDictionary *postDict = [[NSDictionary alloc] initWithObjectsAndKeys:appDel.selectedCompany.CO_CD, kScoCodeKey,
+                              @"", @"lstExpTrnDt",
+                              @"", @"lstExptrnKm",
+                              @"", @"Lnitem",
+                              @"", @"tbgrp",
+                              @"", @"sDate",
+                              @"", @"rPerson",
+                              appDel.loggedUser.USER_ID, @"userid",
+                              @"", @"type",
+                              docType, @"doc_type",
+                              docNo, @"doc_no",
+                              @"", @"sendto",
+                              @"", @"SbRemark",
+                              @"", @"empno",
+                              @"", @"levelno",
+                              @"", @"frToDate",
+                              @"", @"sr",nil];
+    
+    [conn fetchDataForGETURL:url body:postDict completion:^(id responseData, NSError *error) {
         
         if (error) {
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -148,10 +168,30 @@
     [SVProgressHUD showWithStatus:@"Getting details"];
     AppDelegate *appDel = (AppDelegate*)[[UIApplication sharedApplication] delegate];
     NSString *doctypeStr = [model.doc_type stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    NSString *url = GET_EE_Exp_KM_URL(appDel.baseURL,  appDel.selectedCompany.CO_CD, appDel.loggedUser.USER_ID, doctypeStr, model.doc_no)
+//    NSString *url = GET_EE_Exp_KM_URL(appDel.baseURL,  appDel.selectedCompany.CO_CD, appDel.loggedUser.USER_ID, doctypeStr, model.doc_no)
+    NSString *url = [NSString stringWithFormat:@"%@/iev/GetDocDtlEXPKm",appDel.baseURL];
+    
+    NSDictionary *postDict = [[NSDictionary alloc] initWithObjectsAndKeys:appDel.selectedCompany.CO_CD, kScoCodeKey,
+                              @"", @"lstExpTrnDt",
+                              @"", @"lstExptrnKm",
+                              @"", @"Lnitem",
+                              @"", @"tbgrp",
+                              @"", @"sDate",
+                              @"", @"rPerson",
+                              appDel.loggedUser.USER_ID, @"userid",
+                              @"", @"type",
+                              doctypeStr, @"doc_type",
+                              model.doc_no, @"doc_no",
+                              @"", @"sendto",
+                              @"", @"SbRemark",
+                              @"", @"empno",
+                              @"", @"levelno",
+                              @"", @"frToDate",
+                              @"", @"sr",nil];
+    
     
     ConnectionHandler *conn = [[ConnectionHandler alloc] init];
-    [conn fetchDataForGETURL:url body:nil completion:^(id responseData, NSError *error) {
+    [conn fetchDataForGETURL:url body:postDict completion:^(id responseData, NSError *error) {
         
         if (error) {
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -206,7 +246,7 @@
         }
         else {
             [self.submitButton setEnabled:FALSE];
-            [self.submitButton setBackgroundColor:[UIColor grayColor]];
+            [self.submitButton setBackgroundColor:[UIColor colorNamed:kCustomGray]];
         }
     }
 }
@@ -331,38 +371,109 @@
     
     ConnectionHandler *conn = [[ConnectionHandler alloc] init];
     
-    NSString *url = [NSString stringWithFormat:@"%@/authorised?scocd=%@&userId=%@&doctype=%@&docno=%@",
-                     appDel.baseURL,appDel.selectedCompany.CO_CD,appDel.loggedUser.USER_ID,[_selectedTransaction.doc_type stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]],[_selectedTransaction.doc_no stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]];
+//    NSString *url = [NSString stringWithFormat:@"%@/authorised?scocd=%@&userId=%@&doctype=%@&docno=%@",
+//                     appDel.baseURL,appDel.selectedCompany.CO_CD,appDel.loggedUser.USER_ID,[_selectedTransaction.doc_type stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]],[_selectedTransaction.doc_no stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]];
     
-    [conn fetchDataForGETURL:url body:nil completion:^(id responseData, NSError *error) {
+//    NSDictionary *postDict = [[NSDictionary alloc] initWithObjectsAndKeys:
+//                              appDel.selectedCompany.CO_CD, kScoCodeKey,
+//                              appDel.loggedUser.USER_ID, @"userid",
+//                              [_selectedTransaction.doc_type stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]], @"doctype",
+//                              [_selectedTransaction.doc_no stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]], @"docno",
+//                              nil];
+    
+    NSDictionary *postDict = @{
+        @"lstExpTrnDt":@[],
+        @"lstExptrnKm":@[],
+        @"Lnitem":@[],
+        @"scocd":appDel.selectedCompany.CO_CD,
+        @"tbgrp":@"null",
+        @"sDate":@"null",
+        @"rPerson":@"null",
+        @"userId":appDel.loggedUser.USER_ID,
+        @"type":@"null",
+        @"doc_type":[_selectedTransaction.doc_type stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]],
+        @"doc_no":[_selectedTransaction.doc_no stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]],
+        @"sendto":@0,
+        @"SbRemark":@"null",
+        @"empno":@"null",
+        @"levelno":@0,
+        @"frToDate":@"null",
+        @"sr":@"null"};
+    
+    [conn fetchDataForGETURL:[NSString stringWithFormat:@"%@/iev/authorised",appDel.baseURL] body:postDict completion:^(id responseData, NSError *error) {
         
-        NSString *outputString = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
-        outputString = [outputString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-        outputString = [outputString substringWithRange:NSMakeRange(1, outputString.length-2)];
+        NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:&error];
         
-        dispatch_async(dispatch_get_main_queue(), ^{
+        if (error == nil) {
+            BOOL status = [[dict objectForKey:@"Status"] boolValue];
             
-            [SVProgressHUD showSuccessWithStatus:@"Done"];
+            NSString *outputString = @"";
             
-            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Authorization" message:outputString preferredStyle:UIAlertControllerStyleAlert];
-            [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                [self.navigationController popViewControllerAnimated:YES];
-            }]];
-            [self presentViewController:alert animated:YES completion:nil];
-        });
-        
+            if (status == true) {
+                outputString = [dict objectForKey:@"SuccessMessage"];
+            } else {
+                outputString = [dict objectForKey:@"ErrorMessage"];
+            }
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                [SVProgressHUD showSuccessWithStatus:@"Done"];
+                
+                UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Authorization" message:outputString preferredStyle:UIAlertControllerStyleAlert];
+                [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                    [self.navigationController popViewControllerAnimated:YES];
+                }]];
+                [self presentViewController:alert animated:YES completion:nil];
+            });
+        } else {
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                [SVProgressHUD showErrorWithStatus:@"Error"];
+                
+                UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Authorization" message:@"Error" preferredStyle:UIAlertControllerStyleAlert];
+                [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                    [self.navigationController popViewControllerAnimated:YES];
+                }]];
+                [self presentViewController:alert animated:YES completion:nil];
+            });
+            
+        }
+
     }];
 }
 
 -(void)getKMDetails:(EmpExpenseItemModel*)model {
     AppDelegate *appDel = (AppDelegate*)[[UIApplication sharedApplication] delegate];
     NSString *doctypeStr = [model.doc_type stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    NSString *url = GET_EE_Exp_KM_URL(appDel.baseURL,  appDel.selectedCompany.CO_CD, appDel.loggedUser.USER_ID, doctypeStr, model.doc_no)
+//    NSString *url = GET_EE_Exp_KM_URL(appDel.baseURL,  appDel.selectedCompany.CO_CD, appDel.loggedUser.USER_ID, doctypeStr, model.doc_no)
+    
+    NSString *url = [NSString stringWithFormat:@"%@/iev/GetDocDtlEXPKm",appDel.baseURL];
+    
+    NSDictionary *postDict = [[NSDictionary alloc] initWithObjectsAndKeys:appDel.selectedCompany.CO_CD, kScoCodeKey,
+                              @"", @"lstExpTrnDt",
+                              @"", @"lstExptrnKm",
+                              @"", @"Lnitem",
+                              @"", @"tbgrp",
+                              @"", @"sDate",
+                              @"", @"rPerson",
+                              appDel.loggedUser.USER_ID, @"userid",
+                              @"", @"type",
+                              doctypeStr, @"doc_type",
+                              model.doc_no, @"doc_no",
+                              @"", @"sendto",
+                              @"", @"SbRemark",
+                              @"", @"empno",
+                              @"", @"levelno",
+                              @"", @"frToDate",
+                              @"", @"sr",nil];
+    
     
     ConnectionHandler *conn = [[ConnectionHandler alloc] init];
-    [conn fetchDataForGETURL:url body:nil completion:^(id responseData, NSError *error) {
+    [conn fetchDataForGETURL:url body:postDict completion:^(id responseData, NSError *error) {
         
-        NSArray *arr = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:&error];
+        NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:&error];
+        NSArray *arr = [dict objectForKey:kDataKey];
         
         NSMutableArray *kmArray = [[NSMutableArray alloc] init];
         for (NSDictionary *dict in arr) {
@@ -385,10 +496,32 @@
     NSString *sancAmountStr = [NSString stringWithFormat:@"[{\"sanc_amt\":%ld,\"id_key\":\"%@\"}]", (long)model.sanc_amt, model.id_key];
     NSString *encodedStr = [sancAmountStr stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     NSString *docNo = [_selectedTransaction.doc_no stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    NSString *url = GET_SUBMIT_EXPENSE_URL(appDel.baseURL, appDel.selectedCompany.CO_CD, appDel.loggedUser.USER_ID, docNo, encodedStr);
+    NSString *doctypeStr = [model.doc_type stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    
+//    NSString *url = GET_SUBMIT_EXPENSE_URL(appDel.baseURL, appDel.selectedCompany.CO_CD, appDel.loggedUser.USER_ID, docNo, encodedStr);
     //[{%22sanc_amt%22:253.00,%22id_key%22:%2201%22}]
     
-    [conn fetchDataForGETURL:url body:nil completion:^(id responseData, NSError *error) {
+    NSString *url = [NSString stringWithFormat:@"%@/iev/submitexpE",appDel.baseURL];
+    
+    NSDictionary *postDict = [[NSDictionary alloc] initWithObjectsAndKeys:appDel.selectedCompany.CO_CD, kScoCodeKey,
+                              sancAmountStr, @"lstExpTrnDt",
+                              @"", @"lstExptrnKm",
+                              @"", @"Lnitem",
+                              appDel.loggedUser.USER_ID, @"userid",
+                              @"", @"type",
+                              doctypeStr, @"doc_type",
+                              model.doc_no, @"doc_no",
+                              @"", @"sendto",
+                              @"", @"SbRemark",
+                              @"", @"empno",
+                              @"", @"levelno",
+                              @"", @"frToDate",
+                              @"", @"sr",
+                              @"", @"tbgrp",
+                              @"", @"sDate",
+                              @"", @"rPerson", nil];
+    
+    [conn fetchDataForGETURL:url body:postDict completion:^(id responseData, NSError *error) {
         
         NSString *outputString = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
         outputString = [outputString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
@@ -469,9 +602,31 @@
     NSString *encodedItemJSON = [itemJSON stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     NSString *encodedkmJSON = [KMjson stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     NSString *docNo = [_selectedTransaction.doc_no stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    NSString *url = GET_PAGE_SUBMIT_URL(appDel.baseURL, appDel.selectedCompany.CO_CD, appDel.loggedUser.USER_ID, docNo , encodedItemJSON,encodedkmJSON);
+//    NSString *doctypeStr = [model.doc_type stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+//    NSString *url = GET_PAGE_SUBMIT_URL(appDel.baseURL, appDel.selectedCompany.CO_CD, appDel.loggedUser.USER_ID, docNo , encodedItemJSON,encodedkmJSON);
+    
+    NSString *url = [NSString stringWithFormat:@"%@/iev/submitexpE",appDel.baseURL];
+    
+    NSDictionary *postDict = [[NSDictionary alloc] initWithObjectsAndKeys:appDel.selectedCompany.CO_CD, kScoCodeKey,
+                              encodedItemJSON, @"lstExpTrnDt",
+                              encodedkmJSON, @"lstExptrnKm",
+                              @"", @"Lnitem",
+                              @"", @"tbgrp",
+                              @"", @"sDate",
+                              @"", @"rPerson",
+                              appDel.loggedUser.USER_ID, @"userid",
+                              @"", @"type",
+                              @"EP", @"doc_type",
+                              docNo, @"doc_no",
+                              0, @"sendto",
+                              @"", @"SbRemark",
+                              @"", @"empno",
+                              0, @"levelno",
+                              @"", @"frToDate",
+                              @"", @"sr",nil];
+    
 
-    [conn fetchDataForGETURL:url body:nil completion:^(id responseData, NSError *error) {
+    [conn fetchDataForGETURL:url body:postDict completion:^(id responseData, NSError *error) {
         
         if (error) {
             dispatch_async(dispatch_get_main_queue(), ^{

@@ -16,5 +16,6 @@
 @property (nonatomic, strong) NSString *ID_KEY;
 @property (nonatomic, strong) NSString *MOBILE_NO;
 @property (nonatomic, strong) NSString *ACTIVE;
+@property (nonatomic, strong) NSString *GCMID;
 
 @end

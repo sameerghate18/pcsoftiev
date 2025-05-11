@@ -84,18 +84,24 @@
     
     AppDelegate *appDel = (AppDelegate*)[[UIApplication sharedApplication] delegate];
     
-    NSString *rejectionURL = [NSString stringWithFormat:@"%@/GetRejection?scocd=%@",appDel.baseURL,appDel.selectedCompany.CO_CD];//&Xvalue=%@
+    NSString *rejectionURL = [NSString stringWithFormat:@"%@/iev/GetRejection?scocd=%@",appDel.baseURL,appDel.selectedCompany.CO_CD];//&Xvalue=%@
     
     ConnectionHandler *handler = [[ConnectionHandler alloc] init];
     handler.delegate = self;
     
-    [handler fetchDataForURL:rejectionURL body:nil];
+    NSDictionary *postDict = [[NSDictionary alloc] initWithObjectsAndKeys:
+                              appDel.selectedCompany.CO_CD, kScoCodeKey,
+                              nil];
+    
+    [handler fetchDataForURL:[NSString stringWithFormat:@"%@/iev/GetRejection",appDel.baseURL] body:postDict];
 }
 
 -(void)connectionHandler:(ConnectionHandler*)conHandler didRecieveData:(NSData*)data
 {
     NSError *error = nil;
-    NSArray *arr = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
+    NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
+    
+    NSArray *arr = [dict objectForKey:kDataKey];
     
     rejectionsArray = [[NSMutableArray alloc] init];
     
@@ -238,7 +244,7 @@ static NSString *noitemsCellIdentifier = @"NoItemsCell";
     UILabel *footerLbl = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 320, 30)];
     footerLbl.textAlignment = NSTextAlignmentCenter;
     footerLbl.font = [UIFont systemFontOfSize:13];
-    footerLbl.textColor = [UIColor darkGrayColor];
+    footerLbl.textColor = [UIColor colorNamed:kCustomGray];
     
     if (lastRefreshTime != nil) {
         footerLbl.text = [NSString stringWithFormat:@"Last updated : %@",lastRefreshTime];

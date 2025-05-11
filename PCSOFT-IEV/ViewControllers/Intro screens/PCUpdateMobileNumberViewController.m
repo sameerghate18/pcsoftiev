@@ -63,13 +63,19 @@
     updateMobileHandler.delegate = self;
     updateMobileHandler.tag = kUpdateMobileNumberTag;
     
-    NSString *urlString = [NSString stringWithFormat:@"%@updatemobileno?scocd=%@&deviceid=%@&mobno=%@",
+    NSString *urlString = [NSString stringWithFormat:@"%@/updatemobileno?scocd=%@&deviceid=%@&mobno=%@",
                            appDel.baseURL,
                            _accessCode,
                            appDel.appUniqueIdentifier,
                            phoneNumber];
     
-    [updateMobileHandler fetchDataForURL:urlString body:nil];
+    NSDictionary *postDict = [[NSDictionary alloc] initWithObjectsAndKeys:
+                              _accessCode, kScoCodeKey,
+                              appDel.appUniqueIdentifier,@"deviceid",
+                              phoneNumber,@"mobno",
+                              nil];
+    
+    [updateMobileHandler fetchDataForURL:[NSString stringWithFormat:@"%@/iev/updatemobileno",appDel.baseURL] body:postDict];
 }
 
 -(void)connectionHandler:(ConnectionHandler*)conHandler didRecieveData:(NSData*)data
@@ -77,10 +83,14 @@
     
     dispatch_async(dispatch_get_main_queue(), ^{
         
-        NSString *opString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-        opString = [opString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        NSError *error = nil;
+        NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
         
-        if ([opString isEqualToString:@"true"]) {
+        BOOL status = [[dict objectForKey:@"Status"] boolValue];
+        
+        if (status == true) {
+            
+            NSString *opString = [dict objectForKey:@"SuccessMessage"];
             
             [SVProgressHUD showSuccessWithStatus:@"Done"];
             
@@ -95,12 +105,36 @@
                 }
             }
             [self dismissViewControllerAnimated:YES completion:NULL];
+        } else {
+            [SVProgressHUD showErrorWithStatus:@"Error"];
+            NSString *errMsg = [dict objectForKey:@"ErrorMessage"];
+            [Utility showAlertWithTitle:@"Update Mobile number" message:errMsg buttonTitle:@"OK" inViewController:self];
         }
-        else {
-            
-            [Utility showAlertWithTitle:@"Update Mobile number" message:@"Some unexpected error has occured. Please try again after sometime." buttonTitle:@"OK" inViewController:self];
-            
-        }
+        
+//        NSString *opString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+//        opString = [opString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+//        
+//        if ([opString isEqualToString:@"true"]) {
+//            
+//            [SVProgressHUD showSuccessWithStatus:@"Done"];
+//            
+//            if ([self.phoneNumber isEqualToString:self.updatedMobileNumber]) {
+//                if ([self.delegate respondsToSelector:@selector(mobileNumberRemainUnchanged)]) {
+//                    [self.delegate mobileNumberRemainUnchanged];
+//                }
+//            }
+//            else {
+//                if ([self.delegate respondsToSelector:@selector(didUpdateMobileNumber:)]) {
+//                    [self.delegate didUpdateMobileNumber:self.updatedMobileNumber];
+//                }
+//            }
+//            [self dismissViewControllerAnimated:YES completion:NULL];
+//        }
+//        else {
+//            
+//            [Utility showAlertWithTitle:@"Update Mobile number" message:@"Some unexpected error has occured. Please try again after sometime." buttonTitle:@"OK" inViewController:self];
+//            
+//        }
     });
 }
 

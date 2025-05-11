@@ -86,6 +86,16 @@
     return finalString;
 }
 
++(NSString*)stringDateFromServerDateYYYYMM:(NSString*)serverDate  {
+    //4/2/2016 12:00:00 AM
+    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+    [dateFormat setDateFormat:@"yyyyMM"];
+    NSDate *newDate = [dateFormat dateFromString:serverDate];
+     [dateFormat setDateFormat:@"MMM yyyy"];
+    NSString *finalString = [dateFormat stringFromDate:newDate];
+    return finalString;
+}
+
 +(void)showAlertWithTitle:(NSString*)title message:(NSString*)message buttonTitle:(NSString*)buttonTitle inViewController:(UIViewController*)viewController {
     
     UIAlertController *deviceSuccessVC = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];

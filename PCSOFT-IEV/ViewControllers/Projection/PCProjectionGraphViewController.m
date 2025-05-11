@@ -148,6 +148,8 @@ static NSString *reuseIdentifierForAmount = @"reuseIdentifierForAmount";
         
         amtCell.textLabel.text = [NSString stringWithFormat:@"Amount in-hand : %@", [Utility stringWithCurrencySymbolForValue:model.INHANDAMT forCurrencyCode:DEFAULT_CURRENCY_CODE]];
         
+        amtCell.textLabel.textColor = [UIColor colorNamed:kCustomBlack];
+        
         return amtCell;
     }
     

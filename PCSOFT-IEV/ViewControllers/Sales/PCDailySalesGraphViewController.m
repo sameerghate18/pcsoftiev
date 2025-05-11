@@ -10,6 +10,7 @@
 
 #import <QuartzCore/QuartzCore.h>
 #import "XYPieChart.h"
+#import "PCDailySalesModel.h"
 
 @implementation PCSalesGraphCell
 
@@ -69,23 +70,23 @@
     
     self.pieChart = [[XYPieChart alloc] initWithFrame:self.pieContainerView.bounds];
     
-    NSNumber *currentMonth = [NSNumber numberWithLongLong:[[_salesData valueForKey:@"CURRMTH"] longLongValue]];
-    NSNumber *lastMonth = [NSNumber numberWithLongLong:[[_salesData valueForKey:@"LASTMTH"] longLongValue]];
-    NSNumber *prevToLastMonth = [NSNumber numberWithLongLong:[[_salesData valueForKey:@"PREVMTH"] longLongValue]];
-    NSNumber *totalYear = [NSNumber numberWithLongLong:[[_salesData valueForKey:@"CURRYR"] longLongValue]];
+//    NSNumber *currentMonth = [NSNumber numberWithLongLong:[[_salesData valueForKey:@"CURRMTH"] longLongValue]];
+//    NSNumber *lastMonth = [NSNumber numberWithLongLong:[[_salesData valueForKey:@"LASTMTH"] longLongValue]];
+//    NSNumber *prevToLastMonth = [NSNumber numberWithLongLong:[[_salesData valueForKey:@"PREVMTH"] longLongValue]];
+//    NSNumber *totalYear = [NSNumber numberWithLongLong:[[_salesData valueForKey:@"CURRYR"] longLongValue]];
     
-    NSNumber *remainingAmount = [NSNumber numberWithLongLong:[totalYear longLongValue] - ([currentMonth longLongValue] +[lastMonth longLongValue] + [prevToLastMonth longLongValue])];
+//    NSNumber *remainingAmount = [NSNumber numberWithLongLong:[totalYear longLongValue] - ([currentMonth longLongValue] +[lastMonth longLongValue] + [prevToLastMonth longLongValue])];
     
-    valuesArray = @[currentMonth,lastMonth,prevToLastMonth,remainingAmount];
+    valuesArray = _salesData;// @[currentMonth,lastMonth,prevToLastMonth,remainingAmount];
 //    valuesArray = @[@10000000,lastMonth,@10000000,remainingAmount];
-    monthsArray = @[_currentMonthString,_lastMonthString,_prevToLastMonthString,@"Current year"];
+    monthsArray = _salesData; //@[_currentMonthString,_lastMonthString,_prevToLastMonthString,@"Current year"];
     colorsArray = [[NSMutableArray alloc] initWithCapacity:1];
     
     [self.pieChart setDelegate:self];
     [self.pieChart setDataSource:self];
     [self.pieChart setPieRadius:120];
     [self.pieChart setShowPercentage:NO];
-    [self.pieChart setLabelColor:[UIColor whiteColor]];
+    [self.pieChart setLabelColor:[UIColor colorNamed:kCustomWhite]];
     [self.pieChart setBackgroundColor:[UIColor clearColor]];
     
     for (int i = 0; i < valuesArray.count; i++) {
@@ -115,7 +116,8 @@
 
 - (CGFloat)pieChart:(XYPieChart *)pieChart valueForSliceAtIndex:(NSUInteger)index
 {
-    return [[valuesArray objectAtIndex:index] floatValue];
+    PCDailySalesModel *model = [valuesArray objectAtIndex:index];
+    return [[NSNumber numberWithLongLong:[model.MTHAMT longLongValue]] floatValue];
 }
 
 - (UIColor *)pieChart:(XYPieChart *)pieChart colorForSliceAtIndex:(NSUInteger)index
@@ -125,7 +127,8 @@
 
 - (NSString *)pieChart:(XYPieChart *)pieChart textForSliceAtIndex:(NSUInteger)index
 {
-    return [monthsArray objectAtIndex:index];
+    PCDailySalesModel *model = [valuesArray objectAtIndex:index];
+    return [Utility stringDateFromServerDateYYYYMM:model.YRMTH];
 }
 
 #pragma mark - XYPieChart Delegate
@@ -170,7 +173,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 4;
+    return valuesArray.count + 1;
 }
 
 
@@ -179,7 +182,7 @@ static NSString *reuseIdentifierForAmount = @"amountCell";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.row == 3) {
+    if (indexPath.row == valuesArray.count) {
         UITableViewCell *amtCell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifierForAmount];
         
         if (amtCell == nil) {
@@ -190,15 +193,20 @@ static NSString *reuseIdentifierForAmount = @"amountCell";
             amtCell.textLabel.textAlignment = NSTextAlignmentCenter;
         }
         
-        amtCell.textLabel.text = [NSString stringWithFormat:@"Current year : %@", [Utility stringWithCurrencySymbolForValue:[_salesData valueForKey:@"CURRYR"] forCurrencyCode:self.currencyCode]];
+        PCDailySalesModel *model = [valuesArray objectAtIndex:0];
+        amtCell.textLabel.text = [NSString stringWithFormat:@"Total Yearly: %@", [Utility stringWithCurrencySymbolForValue:model.CURRYR forCurrencyCode:self.currencyCode]];
+        
+        amtCell.textLabel.textColor = [UIColor colorNamed:kCustomBlack];
         
         return amtCell;
     }
     
     PCSalesGraphCell *cell = (PCSalesGraphCell*)[tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
     
-    cell.monthLabel.text = [monthsArray objectAtIndex:indexPath.row];
-    cell.salesAmountLabel.text = [Utility stringWithCurrencySymbolForValue:[NSString stringWithFormat:@"%@", [valuesArray objectAtIndex:indexPath.row]] forCurrencyCode:self.currencyCode];
+    PCDailySalesModel *model = [valuesArray objectAtIndex:indexPath.row];
+    
+    cell.monthLabel.text = [Utility stringDateFromServerDateYYYYMM:model.YRMTH];
+    cell.salesAmountLabel.text = [Utility stringWithCurrencySymbolForValue:model.MTHAMT forCurrencyCode:self.currencyCode];
     [cell.legendView setBackgroundColor:[colorsArray objectAtIndex:indexPath.row]];
     
     return cell;

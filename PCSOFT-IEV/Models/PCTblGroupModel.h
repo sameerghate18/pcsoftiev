@@ -9,7 +9,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-typedef NSArray<PCTblGroupModelElement *> PCTblGroupModel;
+typedef NSMutableArray<PCTblGroupModelElement *> PCTblGroupModel;
 
 #pragma mark - Top-level marshaling functions
 

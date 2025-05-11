@@ -80,7 +80,16 @@
                                seqno,
                                remarkStr];
         
-        [sendbackConnection fetchDataForURL:urlString body:nil];
+        NSDictionary *postDict = @{
+            kScoCodeKey: [defaults valueForKey:kSelectedCompanyCode],
+            @"userid": appDel.loggedUser.USER_ID,
+            @"doctype": [_selectedTransaction.doc_type stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]],
+            @"docno": [_selectedTransaction.doc_no stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]],
+            @"sendto": seqno,
+            @"sbremark": remarkStr
+        };
+        
+        [sendbackConnection fetchDataForURL:[NSString stringWithFormat:@"%@/iev/SendBack",appDel.baseURL] body:postDict];
     }
     else {
         

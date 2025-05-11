@@ -154,10 +154,14 @@ typedef enum{
 }
 
 -(BOOL)validateURL:(NSString*)urlText {
-    NSString *urlRegEx =
-        @"(http|https)://((\\w)*|([0-9]*)|([-|_])*)+([\\.|/]((\\w)*|([0-9]*)|([-|_])*))+/";
-        NSPredicate *urlTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", urlRegEx];
-        return [urlTest evaluateWithObject:urlText];
+    
+//    NSString *urlRegEx = @"[A-Za-z]+://([A-Za-z0-9])[:0-9]+/[A-Za-z0-9]+\\.[A-Za-z0-9]+/";
+    
+//    NSString *urlRegEx =
+//        @"(http|https)://((\\w)*|([0-9]*)|([-|_])*)+([\\.|/]((\\w)*|([0-9]*)|([-|_])*))+/";
+//        NSPredicate *urlTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", urlRegEx];
+//        return [urlTest evaluateWithObject:urlText];
+    return true;
 }
 
 //- (IBAction)registerButtonAction:(id)sender
@@ -207,14 +211,21 @@ typedef enum{
     registerDeviceConnection.delegate = self;
     registerDeviceConnection.tag = kCheckDeviceRegisteredTag;
     
-    NSString *urlString = [NSString stringWithFormat:@"%@isregisterDevice?scocd=IE&DeviceId=%@&MobNo=%@",
-                           appDel.baseURL,
-                           appDel.appUniqueIdentifier,
-                           self.userPhoneNumber];
+//    NSString *urlString = [NSString stringWithFormat:@"%@isregisterDevice?scocd=IE&DeviceId=%@&MobNo=%@",
+//                           appDel.baseURL,
+//                           appDel.appUniqueIdentifier,
+//                           self.userPhoneNumber];
+    
+    NSString *urlString = [NSString stringWithFormat:@"%@/iev/isregisterDevice",appDel.baseURL];
+    
+    //{"scocd":"IE","DeviceId":"a731ae7017ad0120","MobNo":"8787878787","token":null,"tokentype":null}
+    
+    NSDictionary *postDict = [[NSDictionary alloc] initWithObjectsAndKeys:@"IE", kScoCodeKey,appDel.appUniqueIdentifier,kDeviceIDKey,self.userPhoneNumber,kMobNoKey, nil,kTokenKey,nil,kTokenTypeKey, nil];
+    
 
     setupConnectionType = SetupConnectionTypeCheckDevice;
     
-    [registerDeviceConnection fetchDataForURL:urlString body:nil];
+    [registerDeviceConnection fetchDataForURL:urlString body:postDict];
 }
 
 -(void)updateMobileNumberToServer   {
@@ -223,14 +234,22 @@ typedef enum{
     updateMobileHandler.delegate = self;
     updateMobileHandler.tag = kUpdateMobileNumberTag;
         
-    NSString *urlString = [NSString stringWithFormat:@"%@updatemobileno?scocd=IE&deviceid=%@&mobno=%@",
+    NSString *urlString = [NSString stringWithFormat:@"%@/iev/updatemobileno?scocd=IE&deviceid=%@&mobno=%@",
                            appDel.baseURL,
                            appDel.appUniqueIdentifier,
                            self.userPhoneNumber];
     
     setupConnectionType = SetupConnectionTypeCheckDevice;
     
-    [updateMobileHandler fetchDataForURL:urlString body:nil];
+    NSDictionary *postDict = [[NSDictionary alloc] initWithObjectsAndKeys:
+                              @"IE", kScoCodeKey,
+                              appDel.appUniqueIdentifier,@"deviceid",
+                              self.userPhoneNumber,@"mobno",
+                              nil];
+  
+  [updateMobileHandler fetchDataForURL:[NSString stringWithFormat:@"%@/iev/updatemobileno",appDel.baseURL] body:postDict];
+    
+//    [updateMobileHandler fetchDataForURL:urlString body:nil];
 }
 
 -(void)updateDeviceRegistration {
@@ -239,13 +258,22 @@ typedef enum{
     updateDevieRegHandler.delegate = self;
     updateDevieRegHandler.tag = kUpdateDeviceRegisterTag;
     
-    NSString *urlString = [NSString stringWithFormat:@"%@updatedeviceid?scocd=IE&deviceid=%@&mobno=%@&token=%@&tokentype=I",
-                           appDel.baseURL,
-                           appDel.appUniqueIdentifier,
-                           self.userPhoneNumber,
-                           appDel.fcmToken];
+//    NSString *urlString = [NSString stringWithFormat:@"%@updatedeviceid?scocd=IE&deviceid=%@&mobno=%@&token=%@&tokentype=I",
+//                           appDel.baseURL,
+//                           appDel.appUniqueIdentifier,
+//                           self.userPhoneNumber,
+//                           appDel.fcmToken];
     
-    [updateDevieRegHandler fetchDataForURL:urlString body:nil];
+//    NSDictionary *postDict = [[NSDictionary alloc] initWithObjectsAndKeys:@"IE", kScoCodeKey,
+//                              appDel.appUniqueIdentifier,@"deviceid",
+//                              self.userPhoneNumber,@"mobno",
+//                              appDel.fcmToken, @"token",
+//                              "I",@"tokentype",
+//                              nil];
+    
+    NSDictionary *postDict = [[NSDictionary alloc] initWithObjectsAndKeys:appDel.appUniqueIdentifier,@"deviceid",self.userPhoneNumber,@"mobno",appDel.fcmToken, @"token",@"IE", kScoCodeKey,@"I",@"tokentype",nil];
+    
+    [updateDevieRegHandler fetchDataForURL:[NSString stringWithFormat:@"%@/iev/updatedeviceid",appDel.baseURL] body:postDict];
     
 }
 
@@ -272,10 +300,14 @@ typedef enum{
     registerDeviceConnection.delegate = self;
     registerDeviceConnection.tag = kUpdateLicenseTag;
     
-    NSString *urlString = [NSString stringWithFormat:@"%@GetUpdateLic?scocd=IE",appDel.baseURL];
+    NSString *urlString = [NSString stringWithFormat:@"%@/iev/GetUpdateLic?scocd=IE",appDel.baseURL];
     setupConnectionType = SetupConnectionTypeUpdateLicense;
     
-    [registerDeviceConnection fetchDataForURL:urlString body:nil];
+    NSDictionary *postDict = [[NSDictionary alloc] initWithObjectsAndKeys:
+                              @"IE", kScoCodeKey,
+                              nil];
+    
+    [registerDeviceConnection fetchDataForURL:[NSString stringWithFormat:@"%@/iev/GetUpdateLic",appDel.baseURL] body:postDict];
 }
 
 - (void)registerDeviceN {
@@ -286,7 +318,7 @@ typedef enum{
     registerDeviceConnection.delegate = self;
     registerDeviceConnection.tag = kRegisterDeviceTag;
     
-    NSString *urlString = [NSString stringWithFormat:@"%@registerDeviceN?scocd=IE&DeviceId=%@&MobNo=%@&token=%@&tokentype=I",
+    NSString *urlString = [NSString stringWithFormat:@"%@/iev/registerDeviceN?scocd=IE&DeviceId=%@&MobNo=%@&token=%@&tokentype=I",
                            appDel.baseURL,
                            appDel.appUniqueIdentifier,
                            self.userPhoneNumber,
@@ -294,7 +326,15 @@ typedef enum{
     
     setupConnectionType = SetupConnectionTypeDeviceRegister;
     
-    [registerDeviceConnection fetchDataForURL:urlString body:nil];
+    NSDictionary *postDict = [[NSDictionary alloc] initWithObjectsAndKeys:
+                              @"IE", kScoCodeKey,
+                              appDel.appUniqueIdentifier, @"DeviceId",
+                              self.userPhoneNumber, @"MobNo",
+                              appDel.fcmToken, @"token",
+                              @"I", @"tokentype",
+                              nil];
+    
+    [registerDeviceConnection fetchDataForURL:[NSString stringWithFormat:@"%@/iev/registerdeviceid",appDel.baseURL] body:postDict];
     
 }
 
@@ -321,7 +361,7 @@ typedef enum{
     registerDeviceConnection.delegate = self;
     registerDeviceConnection.tag = kRegisterDeviceTag;
     
-    NSString *urlString = [NSString stringWithFormat:@"%@registerDeviceID?scocd=%@&DeviceId=%@&MobNo=%@",
+    NSString *urlString = [NSString stringWithFormat:@"%@/iev/registerDeviceID?scocd=%@&DeviceId=%@&MobNo=%@",
                            appDel.baseURL,
                            accessCode,
                            appDel.appUniqueIdentifier,
@@ -329,7 +369,13 @@ typedef enum{
     
     setupConnectionType = SetupConnectionTypeDeviceRegister;
     
-    [registerDeviceConnection fetchDataForURL:urlString body:nil];
+    NSDictionary *postDict = [[NSDictionary alloc] initWithObjectsAndKeys:
+                              accessCode, kScoCodeKey,
+                              appDel.appUniqueIdentifier, @"DeviceId",
+                              phoneNumber, @"MobNo",
+                              nil];
+    
+    [registerDeviceConnection fetchDataForURL:[NSString stringWithFormat:@"%@/iev/registerDeviceID",appDel.baseURL] body:postDict];
 }
 
 -(void)verifyCode:(NSString*)userCode
@@ -378,16 +424,17 @@ typedef enum{
         case kCheckDeviceRegisteredTag:
         {
             NSError *error = nil;
-            NSArray *opArray = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
+            NSDictionary *opDict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
             
             if (!error) {
                 
-                if (opArray.count > 0) {
+                if (opDict != nil) {
                     
-                    NSDictionary *dict = [opArray objectAtIndex:0];
+//                    NSDictionary *dict = [opArray objectAtIndex:0];
                     
                     PCDeviceRegisterCheckModel *model = [[PCDeviceRegisterCheckModel alloc] init];
-                    [model setValuesForKeysWithDictionary:dict];
+                    
+                    [model setValuesForKeysWithDictionary:[[opDict objectForKey:kDataKey] objectAtIndex:0]];
                     
                     dispatch_async(dispatch_get_main_queue(), ^{
                         
@@ -486,36 +533,54 @@ typedef enum{
         case kUpdateLicenseTag:
         {
             NSError *error = nil;
-            NSArray *arr = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
+            NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
             
-            if (arr.count > 0) {
-                NSDictionary *dict = [arr objectAtIndex:0];
-                licenseModel = [[PCDeviceLicenseModel alloc] init];
-                [licenseModel setValuesForKeysWithDictionary:dict];
-            }
-            else {
+            BOOL status = [[dict objectForKey:@"Status"] boolValue];
+            
+            if (status == true) {
                 
-            }
-            // TODO : 100 needs to be replaced with a definite number.
-            int totalLicenses = licenseModel.LIC_NOS==nil?100:[licenseModel.LIC_NOS intValue];
-            int usedLicenses = [licenseModel.LIC_USED intValue];
-            if (usedLicenses < totalLicenses) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [self registerDeviceN];
-                });
+                NSArray *arr = [dict objectForKey:kDataKey];
                 
-            }
-            else {
+                if (arr.count > 0) {
+                    NSDictionary *dict = [arr objectAtIndex:0];
+                    licenseModel = [[PCDeviceLicenseModel alloc] init];
+                    [licenseModel setValuesForKeysWithDictionary:dict];
+                }
+                else {
+                    
+                }
+                // TODO : 100 needs to be replaced with a definite number.
+                int totalLicenses = licenseModel.LIC_NOS==nil?100:[licenseModel.LIC_NOS intValue];
+                int usedLicenses = [licenseModel.LIC_USED intValue];
+                if (usedLicenses < totalLicenses) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [self registerDeviceN];
+                    });
+                    
+                }
+                else {
+                    
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        
+                        [SVProgressHUD dismiss];
+                        
+                        [Utility showAlertWithTitle:@"IEV" message:@"Available licenses for are already used.\nPlease contact your license adminstrator for getting access to the IEV app.\nMeanwhile, you can take a demo tour of the features." buttonTitle:@"OK" inViewController:self];
+                        
+                    });
+                    
+                    return;
+                }
+            } else {
+                NSString *failMsg = [dict objectForKey:@"ErrorMessage"];
                 
                 dispatch_async(dispatch_get_main_queue(), ^{
                     
                     [SVProgressHUD dismiss];
                     
-                    [Utility showAlertWithTitle:@"IEV" message:@"Available licenses for are already used.\nPlease contact your license adminstrator for getting access to the IEV app.\nMeanwhile, you can take a demo tour of the features." buttonTitle:@"OK" inViewController:self];
-
+                    [Utility showAlertWithTitle:@"IEV" message:failMsg buttonTitle:@"OK" inViewController:self];
+                    
                 });
                 
-                return;
             }
         }
             
@@ -524,36 +589,52 @@ typedef enum{
         case kRegisterDeviceTag:
         {
             NSError *error = nil;
-            NSArray *arr = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
+            NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
             
-            if (arr.count > 0) {
-                NSDictionary *dict = [arr objectAtIndex:0];
-                deviceRegisterModel = [[PCDeviceRegisterModel alloc] init];
-                [deviceRegisterModel setValuesForKeysWithDictionary:dict];
+            BOOL status = [[dict objectForKey:@"Status"] boolValue];
+            
+            if (status == true) {
                 
-                NSString *activeString = [deviceRegisterModel.ACTIVE stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+                NSArray *arr = [dict objectForKey:kDataKey];
                 
-                if ([activeString isEqualToString:@"A"]) {
+                if (arr.count > 0) {
+                    NSDictionary *dict = [arr objectAtIndex:0];
+                    deviceRegisterModel = [[PCDeviceRegisterModel alloc] init];
+                    [deviceRegisterModel setValuesForKeysWithDictionary:dict];
                     
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        
-                        [SVProgressHUD showSuccessWithStatus:@"Done"];
-                        
-                        PCViewController *compListVC = [kStoryboard instantiateViewControllerWithIdentifier:@"PCViewController"];
-                        [compListVC setTitle:@"Select your company"];
-                        
-                        [self.navigationController pushViewController:compListVC animated:NO];
-                    });
+                    NSString *activeString = [deviceRegisterModel.ACTIVE stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
                     
-//                    [self verifyCode:nil];
-                }
-                else {
+                    if ([activeString isEqualToString:@"A"]) {
+                        
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            
+                            [SVProgressHUD showSuccessWithStatus:@"Done"];
+                            
+                            PCViewController *compListVC = [kStoryboard instantiateViewControllerWithIdentifier:@"PCViewController"];
+                            [compListVC setTitle:@"Select your company"];
+                            
+                            [self.navigationController pushViewController:compListVC animated:NO];
+                        });
+                        
+                        //                    [self verifyCode:nil];
+                    }
+                    else {
+                        
+                        NSMutableDictionary* details = [NSMutableDictionary dictionary];
+                        [details setValue:@"Your limited use of IEV services for this device has ended.\nPlease contact PCSOFT ERP Solutions for enabling IEV services." forKey: NSLocalizedDescriptionKey];
+                        NSError *error_device = [NSError errorWithDomain:kErrorDomainDeviceErrors code:-5002 userInfo:details];
+                        
+                        [self connectionHandler:nil errorRecievingData:error_device];
+                    }
+                    
+                } else {
+                    NSString *errMsg = [dict objectForKey:@"ErrorMessage"];
                     
                     NSMutableDictionary* details = [NSMutableDictionary dictionary];
-                    [details setValue:@"Your limited use of IEV services for this device has ended.\nPlease contact PCSOFT ERP Solutions for enabling IEV services." forKey: NSLocalizedDescriptionKey];
-                    NSError *error_device = [NSError errorWithDomain:kErrorDomainDeviceErrors code:-5002 userInfo:details];
+                    [details setValue:errMsg forKey: NSLocalizedDescriptionKey];
+                    NSError *error_blank = [NSError errorWithDomain:kErrorDomainBlankOutput code:-5003 userInfo:details];
                     
-                    [self connectionHandler:nil errorRecievingData:error_device];
+                    [self connectionHandler:nil errorRecievingData:error_blank];
                 }
             }
             else {
@@ -563,7 +644,6 @@ typedef enum{
                 
                 [self connectionHandler:nil errorRecievingData:error_blank];
             }
-            
         }
             break;
             
@@ -684,17 +764,20 @@ typedef enum{
             
         case kUpdateDeviceRegisterTag:
         {
+            NSError *error = nil;
+            NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
+            
+            BOOL status = [[dict objectForKey:@"Status"] boolValue];
+            
             dispatch_async(dispatch_get_main_queue(), ^{
                 
-                NSString *opString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-                opString = [opString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-                
-                if ([opString isEqualToString:@"true"]) {
+                if (status == true) {
+
                     [SVProgressHUD dismiss];
                     
                     UIAlertController *deviceSuccessVC = [UIAlertController alertControllerWithTitle:@"Registration" message:@"Device registered succesfully." preferredStyle:UIAlertControllerStyleAlert];
                     UIAlertAction * okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-
+                        
                         PCViewController *compListVC = [kStoryboard instantiateViewControllerWithIdentifier:@"PCViewController"];
                         [compListVC setTitle:@"Select your company"];
                         
@@ -705,16 +788,11 @@ typedef enum{
                     
                     [self presentViewController:deviceSuccessVC animated:YES completion:nil];
                     
-                    //                    UIAlertView *deviceSuccess = [[UIAlertView alloc] initWithTitle:@"Registration" message:@"Device registered succesfully." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-                    //                    deviceSuccess.tag = 104;
-                    //                    [deviceSuccess show];
-                    
                 } else {
-                    
-                    [Utility showAlertWithTitle:@"Registration" message:@"Some unexpected error has occured, could not register the device." buttonTitle:@"OK" inViewController:self];
-
+                    [SVProgressHUD dismiss];
+                    NSString *errMsg = [dict objectForKey:@"ErrorMessage"];
+                    [Utility showAlertWithTitle:@"Registration" message:errMsg buttonTitle:@"OK" inViewController:self];
                 }
-                
             });
         }
             
@@ -748,55 +826,6 @@ typedef enum{
         });
         return;
     }
-    
-    /*
-    dispatch_async(dispatch_get_main_queue(), ^{
-        
-        [SVProgressHUD dismiss];
-        
-        switch (conHandler.tag) {
-                
-            case kCheckDeviceRegisteredTag:
-            {
-                
-            }
-                break;
-                
-            case kUpdateLicenseTag:
-            {
-                
-            }
-                
-                break;
-                
-            case kRegisterDeviceTag:
-            {
-                
-            }
-                break;
-                
-            case kGetServiceURLTag:
-            {
-                
-            }
-                
-                break;
-                
-            case kGetUserNamesListTag:
-            {
-                
-            }
-                break;
-                
-            default:
-                break;
-        }
-        
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"IEV" message:@"Some unexpected error has occured. Please try again after sometime." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        [alert show];
-        
-    });
-     */
 }
 
 - (void)navigateToUpdateMobileNumberViewController {

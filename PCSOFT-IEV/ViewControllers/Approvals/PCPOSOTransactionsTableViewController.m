@@ -49,7 +49,7 @@
   self.tableView.layer.cornerRadius = 10.0;
   self.tableView.layer.masksToBounds = YES;
   self.tableView.layer.borderWidth = 1.0;
-  self.tableView.layer.borderColor = [UIColor blackColor].CGColor;
+  self.tableView.layer.borderColor = [UIColor colorNamed:kCustomBlack].CGColor;
   
   appDel = (AppDelegate*)[[UIApplication sharedApplication] delegate];
   
@@ -94,75 +94,83 @@
                                      self.selectedApprovalType.doc_type);
   
   NSLog(@"\ngetAllTransactions - %@\n", url);
+    
+    NSDictionary *postDict = [[NSDictionary alloc] initWithObjectsAndKeys:
+                              appDel.selectedCompany.CO_CD, kScoCodeKey,
+                              appDel.loggedUser.USER_ID,@"USERID",
+                              self.selectedApprovalType.doc_type,@"type",
+                              nil];
   
-  [handler fetchDataForURL:url body:nil];
+  [handler fetchDataForURL:[NSString stringWithFormat:@"%@/iev/authlist",appDel.baseURL] body:postDict];
 }
 
 -(void)connectionHandler:(ConnectionHandler*)conHandler didRecieveData:(NSData*)data
 {
-  if (!transactionsList) {
-    transactionsList = [[NSMutableArray alloc] init];
-  }
-  
-  [transactionsList removeAllObjects];
-  
-  NSError *error = nil;
-  NSArray *arr = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
-  
-  for (NSDictionary *dict in arr) {
+    if (!transactionsList) {
+        transactionsList = [[NSMutableArray alloc] init];
+    }
     
-    PCTransactionModel *cMod = [[PCTransactionModel alloc] init];
-    [cMod setValuesForKeysWithDictionary:dict];
-    [transactionsList addObject:cMod];
-  }
-  
-  
-  if (transactionsList.count == 0) {
+    [transactionsList removeAllObjects];
     
-      dispatch_async(dispatch_get_main_queue(), ^{
-          [SVProgressHUD showErrorWithStatus:@"No Authorizations"];
-          
-          UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"No authorizations" message:@"No authorizations available at the moment." preferredStyle:UIAlertControllerStyleAlert];
-          
-          UIAlertAction * okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-              
-              NSArray *vcArr = self.navigationController.viewControllers;
-              
-              if ([[vcArr objectAtIndex:vcArr.count-2] isKindOfClass:[PCPOSOHomeTableViewController class]]) {
+    NSError *error = nil;
+    NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
+    
+    NSArray *arr = [dict objectForKey:kDataKey];
+    
+    for (NSDictionary *dict in arr) {
+        
+        PCTransactionModel *cMod = [[PCTransactionModel alloc] init];
+        [cMod setValuesForKeysWithDictionary:dict];
+        [transactionsList addObject:cMod];
+    }
+    
+    
+    if (transactionsList.count == 0) {
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [SVProgressHUD showErrorWithStatus:@"No Authorizations"];
+            
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"No authorizations" message:@"No authorizations available at the moment." preferredStyle:UIAlertControllerStyleAlert];
+            
+            UIAlertAction * okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 
-                [self.navigationController popViewControllerAnimated:YES];
-              }
-              else {
-                [self showSideMenu];
-              }
-              
-              
-          }];
-          
-          UIAlertAction * retryAction = [UIAlertAction actionWithTitle:@"Retry" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-              
-              [self refreshPOSO];
-              
-          }];
-          
-          [alert addAction:okAction];
-          [alert addAction:retryAction];
-          
-          [self presentViewController:alert animated:YES completion:nil];
-          
-          
-//          UIAlertView *noCompList = [[UIAlertView alloc] initWithTitle:@"No authorizations" message:@"No authorizations available at the moment." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:@"Retry",nil];
-//          noCompList.tag = 100;
-//          [noCompList show];
-      });
-    return;
-  }
-  
-  dispatch_async(dispatch_get_main_queue(), ^{
-    [refreshControl endRefreshing];
-    [SVProgressHUD showSuccessWithStatus:@"Done"];
-    [self.tableView reloadData];
-  });
+                NSArray *vcArr = self.navigationController.viewControllers;
+                
+                if ([[vcArr objectAtIndex:vcArr.count-2] isKindOfClass:[PCPOSOHomeTableViewController class]]) {
+                    
+                    [self.navigationController popViewControllerAnimated:YES];
+                }
+                else {
+                    [self showSideMenu];
+                }
+                
+                
+            }];
+            
+            UIAlertAction * retryAction = [UIAlertAction actionWithTitle:@"Retry" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                
+                [self refreshPOSO];
+                
+            }];
+            
+            [alert addAction:okAction];
+            [alert addAction:retryAction];
+            
+            [self presentViewController:alert animated:YES completion:nil];
+            
+            
+            //          UIAlertView *noCompList = [[UIAlertView alloc] initWithTitle:@"No authorizations" message:@"No authorizations available at the moment." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:@"Retry",nil];
+            //          noCompList.tag = 100;
+            //          [noCompList show];
+        });
+        return;
+    }
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self->refreshControl endRefreshing];
+        [SVProgressHUD showSuccessWithStatus:@"Done"];
+        [self.tableView reloadData];
+    });
 }
 
 -(void)connectionHandler:(ConnectionHandler*)conHandler errorRecievingData:(NSError*)error
@@ -223,7 +231,12 @@
   cell.selectionStyle = UITableViewCellSelectionStyleDefault;
   cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
   
-  cell.titleLabel.text = model.party_name;
+    if (model.party_name.length > 0) {
+        cell.titleLabel.text = model.party_name;
+    } else {
+        cell.titleLabel.text = model.doc_desc;
+    }
+    
 //  if (cell == nil) {
 //    cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:identifier];
 //    cell.textLabel.font = [UIFont boldSystemFontOfSize:14];

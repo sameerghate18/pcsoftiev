@@ -50,9 +50,9 @@
     
     appDel = (AppDelegate*)[[UIApplication sharedApplication] delegate];
     
-    titles = [[NSMutableArray alloc] initWithObjects:@"Daily Sales",@"Cash Flow", @"Rejections",@"Attendance",@"PO/SO Transactions",nil];
+    titles = [[NSMutableArray alloc] initWithObjects:@"Daily Sales",@"Cash Flow", @"Rejections",@"Approvals",nil];
     
-    images = [[NSMutableArray alloc] initWithObjects:@"dailysales-home",@"cashflow-home", @"rejections-home",@"attendance-home",@"approvals-home",nil];
+    images = [[NSMutableArray alloc] initWithObjects:@"dailysales-home",@"cashflow-home", @"rejections-home",@"approvals-tile-home",nil];
     
     [_userLabel setText:[NSString stringWithFormat:@"Welcome, %@",appDel.loggedUser.USER_NAME]];
     
@@ -79,15 +79,17 @@
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
-    return 2;
+    return 1;
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    if (section == 1) {
-        return 1;
-    }
-    return titles.count-1;
+//    if (section == 1) {
+//        return 1;
+//    }
+//    return titles.count-1;
+//    
+    return titles.count;
 }
 
 static NSString *reportsCell = @"reportCell";
@@ -113,16 +115,18 @@ static NSString *transactionsCell = @"transactionCell";
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section == 1) {
-        return CGSizeMake(225, 85);
-    }
+//    if (indexPath.section == 1) {
+//        return CGSizeMake(225, 85);
+//    }
+//    
+//    if (indexPath.row!=3) {
+//        return  CGSizeMake(100, 100);
+//    }
+//    else {
+//        return CGSizeMake(225, 85);
+//    }
     
-    if (indexPath.row!=4) {
-        return  CGSizeMake(100, 100);
-    }
-    else {
-        return CGSizeMake(225, 85);
-    }
+    return  CGSizeMake(100, 100);
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
@@ -188,7 +192,7 @@ static NSString *transactionsCell = @"transactionCell";
         }
             break;
             
-        case 3:
+        case 4:
         {
             if( [mainNavController.topViewController isKindOfClass:[PCAttendanceTableViewController class]] )
                 [appDel.slideViewController showMainViewControllerAnimated:YES];
@@ -202,7 +206,7 @@ static NSString *transactionsCell = @"transactionCell";
         }
             break;
             
-        case 4:
+        case 3:
             if( [mainNavController.topViewController isKindOfClass:[PCPOSOTransactionsTableViewController class]] )
                 [appDel.slideViewController showMainViewControllerAnimated:YES];
             else

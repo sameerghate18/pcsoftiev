@@ -14,6 +14,7 @@
 #import "PCApprovalItemList.h"
 #import "MarqueeLabel.h"
 #import "PCSendBackViewController.h"
+#import "PCOrderTermsViewController.h"
 
 typedef enum {
     ConnectionTypeGetDetails,
@@ -41,8 +42,11 @@ typedef enum {
 @property (nonatomic, weak) IBOutlet UILabel *docNumberLabel;
 @property (nonatomic, weak) IBOutlet UILabel *partyNameTypeLabel;
 @property (nonatomic, weak) IBOutlet UILabel *docTaxesLabel;
+@property (nonatomic, weak) IBOutlet UILabel *amendmentorAgentTypeLabel;
+@property (nonatomic, weak) IBOutlet UILabel *amendmentorAgentTypeLabelValue;
 @property (nonatomic, weak) IBOutlet UIStoryboardSegue *containerSegue;
-@property (nonatomic, weak) IBOutlet NSLayoutConstraint *doctaxHeightConstraint, *doctaxValueHeightConstraint;
+@property (nonatomic, weak) IBOutlet NSLayoutConstraint *doctaxHeightConstraint, *doctaxValueHeightConstraint, *amendTypeValueHeightConstraint, *amendTypeLabelHeightConstraint, *orderTermsButtonWidthConstraint, *actionButtonCentreConstraint;
+@property (nonatomic, weak) IBOutlet UIButton *orderTermsButton;
 
 @end
 
@@ -51,17 +55,29 @@ typedef enum {
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    if (([self.selectedTransaction.doc_type containsString: @"37"]) || ([self.selectedTransaction.doc_type containsString: @"49"]) ){
+        self.orderTermsButton.hidden = false;
+//        self->_orderTermsButtonWidthConstraint.constant = 150;
+        self.amendmentorAgentTypeLabel.text = @"Agent Name:";
+    } else if (([self.selectedTransaction.doc_type containsString: @"PM"]) || ([self.selectedTransaction.doc_type containsString: @"SM"]) ){
+        self.orderTermsButton.hidden = true;
+        self.amendmentorAgentTypeLabel.text = @"Amendment Type:";
+    } else {
+        self.orderTermsButton.hidden = true;
+    }
+    // selectedTransaction
   
   purchaseDocTypes = [[NSArray alloc] initWithObjects:@"02",
                  @"05", @"21", @"22", @"23", @"25", @"24",
                  @"33", @"34", @"38", @"47", @"4O", @"37",
                  @"3F", @"64", @"3D", @"30", @"3N", @"69",
-                 @"71", @"FP", @"72", @"PM", nil];
+                 @"71", @"FP", @"72", @"PM", @"SM", nil];
     
     self.detailsTable.layer.cornerRadius = 10.0;
     self.detailsTable.layer.masksToBounds = YES;
     self.detailsTable.layer.borderWidth = 1.0;
-    self.detailsTable.layer.borderColor = [UIColor blackColor].CGColor;
+    self.detailsTable.layer.borderColor = [UIColor colorNamed:kCustomBlack].CGColor;
     
     appDel = (AppDelegate*)[[UIApplication sharedApplication] delegate];
     
@@ -85,6 +101,8 @@ typedef enum {
     
     self.doctaxHeightConstraint.constant = 21;
     self.doctaxValueHeightConstraint.constant = 21;
+    self->_amendTypeLabelHeightConstraint.constant = 0;
+    self->_amendTypeValueHeightConstraint.constant = 0;
   
   NSString *docType = self.selectedTransaction.doc_type;
   NSString *partyNameLabel = @"Customer:";
@@ -102,10 +120,13 @@ typedef enum {
   }
   else if ([docType containsString:@"11"] || [docType containsString:@"15"]) {
     partyNameLabel= @"Cash:";
+  } else if ([self.selectedTransaction.doc_type containsString:@"PM"] || [self.selectedTransaction.doc_type containsString:@"SM"]) {
+      self->_amendTypeLabelHeightConstraint.constant = 21;
+      self->_amendTypeValueHeightConstraint.constant = 21;
   } else {
     partyNameLabel = @"Customer:";
   }
-  
+    
   self.partyNameTypeLabel.text = partyNameLabel;
   
 }
@@ -128,16 +149,28 @@ typedef enum {
     
     conn.delegate = self;
     
-    NSString *url = [NSString stringWithFormat:@"%@/authlistDetail?scocd=%@&userid=%@&doctype=%@&docno=%@",
-                     appDel.baseURL,
-                     appDel.selectedCompany.CO_CD,
-                     appDel.loggedUser.USER_ID,
-                     [_selectedTransaction.doc_type stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]],
-                     [_selectedTransaction.doc_no stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]];
+    NSDictionary *postDict = @{
+        @"lstExpTrnDt":@[],
+        @"lstExptrnKm":@[],
+        @"Lnitem":@[],
+        @"scocd":appDel.selectedCompany.CO_CD,
+        @"tbgrp":@"null",
+        @"sDate":@"null",
+        @"rPerson":@"null",
+        @"userId":appDel.loggedUser.USER_ID,
+        @"type":@"null",
+        @"doc_type":[_selectedTransaction.doc_type stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]],
+        @"doc_no":[_selectedTransaction.doc_no stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]],
+        @"sendto":@0,
+        @"SbRemark":@"null",
+        @"empno":@"null",
+        @"levelno":@0,
+        @"frToDate":@"null",
+        @"sr":@"null"};
     
-  NSLog(@"\ngetDetailsForTransaction %@\n",url);
-  
-  [conn fetchDataForURL:url body:nil];
+//  NSLog(@"\ngetDetailsForTransaction %@\n",url);
+
+    [conn fetchDataForURL:[NSString stringWithFormat:@"%@/iev/Authlistdetail",appDel.baseURL] body:postDict];
 }
 
 -(void)connectionHandler:(ConnectionHandler*)conHandler didRecieveData:(NSData*)data
@@ -151,8 +184,9 @@ typedef enum {
         
         NSNumber *totalValue = @0;
         
+        NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
         
-        NSArray *arr = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
+        NSArray *arr = [dict objectForKey:kDataKey];
         
         if (arr.count > 0) {
             
@@ -195,6 +229,14 @@ typedef enum {
               self.descriptionLabel.text = self->_selectedTransaction.doc_ref;
             }
             
+            if (([self.selectedTransaction.doc_type containsString: @"37"]) || ([self.selectedTransaction.doc_type containsString: @"49"]) ){
+                self.amendmentorAgentTypeLabelValue.text = self->_selectedTransaction.agentname;
+            } else if (([self.selectedTransaction.doc_type containsString: @"PM"]) || ([self.selectedTransaction.doc_type containsString: @"SM"]) ){
+                self.amendmentorAgentTypeLabelValue.text = self->_selectedTransaction.amendtype;
+            } else {
+                self.amendmentorAgentTypeLabelValue.text = @"";
+            }
+            
             self.partyNameLabel.marqueeType = MLContinuous;
             self.descriptionLabel.rate = 15.0;
             self.partyNameLabel.animationCurve = UIViewAnimationOptionCurveEaseInOut;
@@ -209,9 +251,9 @@ typedef enum {
             self.descriptionLabel.leadingBuffer = 0.0f;
             self.descriptionLabel.trailingBuffer = 15.0f;
             
-            [refItemListVC setItemsListArray:detailModelsArray];
-            [refItemListVC setSelectedDoctype:self.selectedTransaction.doc_type];
-            [refItemListVC.tableView reloadData];
+            [self->refItemListVC setItemsListArray:self->detailModelsArray];
+            [self->refItemListVC setSelectedDoctype:self.selectedTransaction.doc_type];
+            [self->refItemListVC.tableView reloadData];
             
 //            [self pushToListViews];
 //            [_detailsTable reloadData];
@@ -220,35 +262,49 @@ typedef enum {
     }
     else if (connType == ConnectionTypeAuthorize) {
         
-        NSString *outputString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
         
-        outputString = [outputString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-        
-        outputString = [outputString substringWithRange:NSMakeRange(1, outputString.length-2)];
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
+        if (error == nil) {
+            BOOL status = [[dict objectForKey:@"Status"] boolValue];
             
-            [SVProgressHUD showSuccessWithStatus:@"Done"];
+            NSString *opString = @"";
             
-            UIAlertController *authAlert = [UIAlertController alertControllerWithTitle:@"Authorization" message:outputString preferredStyle:UIAlertControllerStyleAlert];
-            UIAlertAction * okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            if (status == true) {
+                
+                opString = [dict objectForKey:@"SuccessMessage"];
+                
+            } else {
+                
+                opString = [dict objectForKey:@"ErrorMessage"];
+            }
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                [SVProgressHUD showSuccessWithStatus:@"Done"];
+                
+                UIAlertController *authAlert = [UIAlertController alertControllerWithTitle:@"Authorization" message:opString preferredStyle:UIAlertControllerStyleAlert];
+                UIAlertAction * okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
 
-                [self.navigationController popViewControllerAnimated:YES];
-            }];
+                    [self.navigationController popViewControllerAnimated:YES];
+                }];
+                
+                [authAlert addAction:okAction];
+                
+                [self presentViewController:authAlert animated:YES completion:nil];
+            });
+        } else {
             
-            [authAlert addAction:okAction];
-            
-            [self presentViewController:authAlert animated:YES completion:nil];
-            
-//
-//            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Authorization" message:outputString delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-//            alert.delegate = self;
-//            alert.tag = 102;
-//            [alert show];
-
-        });
-        
-        
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                [SVProgressHUD showErrorWithStatus:@"Error"];
+                
+                UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Authorization" message:@"Error" preferredStyle:UIAlertControllerStyleAlert];
+                [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                    [self.navigationController popViewControllerAnimated:YES];
+                }]];
+                [self presentViewController:alert animated:YES completion:nil];
+            });
+        }
     }
     else if (connType == ConnectionTypeSendBack)    {
         
@@ -296,7 +352,7 @@ typedef enum {
         navViewController.view.layer.cornerRadius = 10.0;
         navViewController.view.layer.masksToBounds = YES;
         navViewController.view.layer.borderWidth = 1.0;
-        navViewController.view.layer.borderColor = [UIColor blackColor].CGColor;
+        navViewController.view.layer.borderColor = [UIColor colorNamed:kCustomBlack].CGColor;
         
         refItemListVC = (PCApprovalItemList*)[navViewController viewControllers][0];
     }
@@ -304,7 +360,22 @@ typedef enum {
         PCSendBackViewController *sendBackVC = segue.destinationViewController;
         sendBackVC.delegate = self;
         sendBackVC.selectedTransaction = self.selectedTransaction;
+    } else if ([segueName isEqualToString:@"singleTrxToOrderTermsSegue"]) {
+
+        PCOrderTermsViewController *orderTermsVC = (PCOrderTermsViewController *) segue.destinationViewController;
+        orderTermsVC.selectedModel = self.selectedTransaction;
     }
+}
+
+-(IBAction)orderTermsButtonAction:(id)sender {
+    
+    [self performSegueWithIdentifier:@"singleTrxToOrderTermsSegue" sender:nil];
+    
+//    PCOrderTermsViewController *orderTermsVC = [kStoryboard instantiateViewControllerWithIdentifier:@"PCOrderTermsViewController"];
+////    orderTermsVC.selectedModel = self.selectedTransaction;
+//    orderTermsVC.modalPresentationStyle = UIModalPresentationFullScreen;
+//    [self presentViewController:orderTermsVC animated:true completion:nil];
+    
 }
 
 -(void)pushToListViews
@@ -758,12 +829,34 @@ static NSString *cellIdentifier = @"POSOSingleTransactionCell";
     
     conn.delegate = self;
     
-    NSString *url = [NSString stringWithFormat:@"%@/authorised?scocd=%@&userId=%@&doctype=%@&docno=%@",
-        appDel.baseURL,appDel.selectedCompany.CO_CD,appDel.loggedUser.USER_ID,[_selectedTransaction.doc_type stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]],[_selectedTransaction.doc_no stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]];
+//    NSString *url = [NSString stringWithFormat:@"%@/authorised?scocd=%@&userId=%@&doctype=%@&docno=%@",
+//        appDel.baseURL,appDel.selectedCompany.CO_CD,appDel.loggedUser.USER_ID,[_selectedTransaction.doc_type stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]],[_selectedTransaction.doc_no stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]];
+//  
+//  NSLog(@"\n%@\n",url);
+    
+//    NSDictionary *postDict = [[NSDictionary alloc] initWithObjectsAndKeys:appDel.selectedCompany.CO_CD, kScoCodeKey,appDel.loggedUser.USER_ID,@"userid",[_selectedTransaction.doc_type stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]],@"doctype", [_selectedTransaction.doc_no stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]],@"docno", nil];
+    
+    NSDictionary *postDict = @{
+        @"lstExpTrnDt":@[],
+        @"lstExptrnKm":@[],
+        @"Lnitem":@[],
+        @"scocd":appDel.selectedCompany.CO_CD,
+        @"tbgrp":@"null",
+        @"sDate":@"null",
+        @"rPerson":@"null",
+        @"userId":appDel.loggedUser.USER_ID,
+        @"type":@"null",
+        @"doc_type":[_selectedTransaction.doc_type stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]],
+        @"doc_no":[_selectedTransaction.doc_no stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]],
+        @"sendto":@0,
+        @"SbRemark":@"null",
+        @"empno":@"null",
+        @"levelno":@0,
+        @"frToDate":@"null",
+        @"sr":@"null"};
+    
   
-  NSLog(@"\n%@\n",url);
-  
-    [conn fetchDataForURL:url body:nil];
+    [conn fetchDataForURL:[NSString stringWithFormat:@"%@/iev/authorised",appDel.baseURL] body:postDict];
 }
 
 -(void)sendBackDidFinishSendingBackDoc  {

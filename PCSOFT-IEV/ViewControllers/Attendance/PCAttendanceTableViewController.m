@@ -102,8 +102,14 @@ static NSString *lastUpdateCellIdentifier = @"lastUpdateCellIdentifier";
                      appDel.selectedCompany.CO_CD,
                      appDel.loggedUser.USER_ID,
                      date];
+    
+    NSDictionary *postDict = [[NSDictionary alloc] initWithObjectsAndKeys:
+                              appDel.selectedCompany.CO_CD, kScoCodeKey,
+                              appDel.loggedUser.USER_ID,@"rPerson",
+                              date,@"sDate",
+                              nil];
 
-    [handler fetchDataForURL:url body:nil];
+    [handler fetchDataForURL:[NSString stringWithFormat:@"%@/iev/GetAttendance",appDel.baseURL] body:postDict];
 }
 
 -(void)connectionHandler:(ConnectionHandler*)conHandler didRecieveData:(NSData*)data
@@ -195,7 +201,7 @@ static NSString *lastUpdateCellIdentifier = @"lastUpdateCellIdentifier";
         if (lastUpdateCell==nil) {
             lastUpdateCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:lastUpdateCellIdentifier];
             lastUpdateCell.textLabel.font = [UIFont systemFontOfSize:13];
-            lastUpdateCell.textLabel.textColor = [UIColor darkGrayColor];
+            lastUpdateCell.textLabel.textColor = [UIColor colorNamed:kCustomGray];
 //            lastUpdateCell.textLabel.backgroundColor = [UIColor clearColor];
             lastUpdateCell.textLabel.textAlignment = NSTextAlignmentCenter;
 //            lastUpdateCell.contentView.backgroundColor = [UIColor clearColor];

@@ -12,7 +12,8 @@
 
 @interface PCDailySalesGraphViewController : UIViewController
 
-@property (nonatomic, strong) NSDictionary *salesData;
+//@property (nonatomic, strong) NSDictionary *salesData;
+@property (nonatomic, strong) NSArray *salesData;
 @property (nonatomic, strong) NSString *currentMonthString;
 @property (nonatomic, strong) NSString *lastMonthString;
 @property (nonatomic, strong) NSString *prevToLastMonthString;

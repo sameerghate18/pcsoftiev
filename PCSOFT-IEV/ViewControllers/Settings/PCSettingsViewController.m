@@ -174,9 +174,9 @@
 
 - (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section   {
     UILabel *headerLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, tableView.frame.size.width-40, 20)];
-    headerLabel.backgroundColor = [UIColor darkGrayColor];
+    headerLabel.backgroundColor = [UIColor colorNamed:kCustomGray];
     headerLabel.font = [UIFont systemFontOfSize:13];
-    headerLabel.textColor = [UIColor whiteColor];
+    headerLabel.textColor = [UIColor colorNamed:kCustomWhite];
     headerLabel.numberOfLines = 1;
     headerLabel.text = @"Payments Authorization";
     headerLabel.textAlignment = NSTextAlignmentLeft;
@@ -189,7 +189,7 @@
     UILabel *footerLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, tableView.frame.size.width-40, 75)];
     footerLabel.backgroundColor = [UIColor clearColor];
     footerLabel.font = [UIFont systemFontOfSize:12];
-    footerLabel.textColor = [UIColor lightGrayColor];
+    footerLabel.textColor = [UIColor colorNamed:kCustomGray];
     footerLabel.numberOfLines = 3;
     
     if (section == 0) {

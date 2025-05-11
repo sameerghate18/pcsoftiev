@@ -49,8 +49,8 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
-    _reportsArray = @[@"Sales", @"Cash Flow Projection", @"Rejections", @"Attendance"];
-    _reportsIconsArray = @[@"dailysales-side-icon.png",@"cashflow-side-icon.png",@"rejections-side-icon.png",@"attendance-side-icon.png"];
+    _reportsArray = @[@"Sales", @"Cash Flow Projection", @"Rejections"];
+    _reportsIconsArray = @[@"dailysales-side-icon.png",@"cashflow-side-icon.png",@"rejections-side-icon.png"];
     
 //    _transactionsArray = @[@"Purchase Indents",@"Purchase Order", @"Sale Order", @"Expense Booking", @"Bill Passing", @"Payments", @"Employee Expense"];
     _transactionsArray = @[@"Approvals"];
@@ -70,7 +70,7 @@
     
     UILabel *lbl = [[UILabel alloc] initWithFrame:CGRectMake(50, 50, 250, 10)];
     lbl.font = [UIFont systemFontOfSize:12];
-    lbl.textColor = [UIColor lightGrayColor];
+    lbl.textColor = [UIColor colorNamed:kCustomGray];
     lbl.text = @"PCSOFT ERP Solutions Pvt. Ltd.";
     
     [tblHdr addSubview:lbl];
@@ -173,7 +173,7 @@
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
         cell.contentView.backgroundColor = [UIColor clearColor];
-        cell.textLabel.textColor = [UIColor whiteColor];
+        cell.textLabel.textColor = [UIColor colorNamed:kCustomWhite];
         cell.imageView.contentMode = UIViewContentModeScaleAspectFit;
     }
     

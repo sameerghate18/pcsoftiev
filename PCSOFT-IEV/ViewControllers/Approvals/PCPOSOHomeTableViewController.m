@@ -46,7 +46,7 @@
     self.tableView.layer.cornerRadius = 10.0;
     self.tableView.layer.masksToBounds = YES;
     self.tableView.layer.borderWidth = 1.0;
-    self.tableView.layer.borderColor = [UIColor blackColor].CGColor;
+    self.tableView.layer.borderColor = [UIColor colorNamed:kCustomBlack].CGColor;
     
     UIBarButtonItem *barbtn = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"menu_icon.png"]
                                                                style:UIBarButtonItemStylePlain
@@ -60,29 +60,42 @@
 
 - (void)getExpenseListCount {
     AppDelegate *appDel = (AppDelegate*)[[UIApplication sharedApplication] delegate];
-    NSString *url = GET_EECount_URL(appDel.baseURL, appDel.selectedCompany.CO_CD, appDel.loggedUser.USER_ID);
-  
-  [SVProgressHUD showWithStatus:@"Fetching list..." maskType:SVProgressHUDMaskTypeBlack];
-  
-  NSLog(@"\ngetExpenseListCount - %@\n",url);
-  
+    //    NSString *url = GET_EECount_URL(appDel.baseURL, appDel.selectedCompany.CO_CD, appDel.loggedUser.USER_ID);
+    
+    NSString *url = [NSString stringWithFormat:@"%@/iev/authlstcnt",appDel.baseURL];
+    
+    NSDictionary *postDict = [[NSDictionary alloc] initWithObjectsAndKeys:appDel.selectedCompany.CO_CD, kScoCodeKey, appDel.loggedUser.USER_ID, @"userid", nil];
+    
+    [SVProgressHUD showWithStatus:@"Fetching list..." maskType:SVProgressHUDMaskTypeBlack];
+    
+    NSLog(@"\ngetExpenseListCount - %@\n",url);
+    
     ConnectionHandler *conn = [[ConnectionHandler alloc] init];
     
-    [conn fetchDataForGETURL:url body:nil completion:^(id responseData, NSError *error) {
+    [conn fetchDataForGETURL:url body:postDict completion:^(id responseData, NSError *error) {
         
-        NSArray  *arr = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:&error];
+        NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:&error];
         
         dispatch_async(dispatch_get_main_queue(), ^{
-            if (arr.count > 0) {
+            if (dict != nil) {
                 
-                for (NSDictionary *dict in arr) {
-                    PCApprovalListModel *model = [[PCApprovalListModel alloc] initWithDictionary:dict];
-                    [titleArray addObject:model];
+                BOOL status = [[dict objectForKey:@"Status"] boolValue];
+                
+                if (status == true) {
+                    NSArray *arr = [dict objectForKey:kDataKey];
+                    if (arr > 0) {
+                        for (NSDictionary *dict in arr) {
+                            PCApprovalListModel *model = [[PCApprovalListModel alloc] initWithDictionary:dict];
+                            [self->titleArray addObject:model];
+                        }
+                    }
+                } else {
+                    [Utility showAlertWithTitle:@"Approvals" message:@"No approvals available." buttonTitle:@"OK" inViewController:self];
                 }
                 [self.tableView reloadData];
             }
-          
-          [SVProgressHUD dismiss];
+            
+            [SVProgressHUD dismiss];
         });
     }];
 }
@@ -125,7 +138,7 @@ static NSString *reuseIdentifier = @"txCell";
      UILabel *label = [[UILabel alloc] init];
      label.font = [UIFont boldSystemFontOfSize:fontSize];
      label.textAlignment = NSTextAlignmentCenter;
-     label.textColor = [UIColor whiteColor];
+     label.textColor = [UIColor colorNamed:kCustomWhite];
      label.backgroundColor = [UIColor redColor];
     
      // Add count to label and size to fit
