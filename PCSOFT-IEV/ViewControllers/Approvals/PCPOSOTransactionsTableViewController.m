@@ -121,8 +121,16 @@
         
         PCTransactionModel *cMod = [[PCTransactionModel alloc] init];
         [cMod setValuesForKeysWithDictionary:dict];
+        cMod.doc_type = [cMod.doc_type stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        cMod.user_name = [cMod.user_name stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
         [transactionsList addObject:cMod];
     }
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self->refreshControl endRefreshing];
+        [SVProgressHUD showSuccessWithStatus:@"Done"];
+        [self.tableView reloadData];
+    });
     
     
     if (transactionsList.count == 0) {
@@ -143,8 +151,6 @@
                 else {
                     [self showSideMenu];
                 }
-                
-                
             }];
             
             UIAlertAction * retryAction = [UIAlertAction actionWithTitle:@"Retry" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -157,20 +163,11 @@
             [alert addAction:retryAction];
             
             [self presentViewController:alert animated:YES completion:nil];
-            
-            
-            //          UIAlertView *noCompList = [[UIAlertView alloc] initWithTitle:@"No authorizations" message:@"No authorizations available at the moment." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:@"Retry",nil];
-            //          noCompList.tag = 100;
-            //          [noCompList show];
         });
         return;
     }
     
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self->refreshControl endRefreshing];
-        [SVProgressHUD showSuccessWithStatus:@"Done"];
-        [self.tableView reloadData];
-    });
+    
 }
 
 -(void)connectionHandler:(ConnectionHandler*)conHandler errorRecievingData:(NSError*)error
@@ -216,7 +213,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  return 75;
+  return 100;
 }
 
 
@@ -265,6 +262,8 @@
       cell.docNumberLabel.text = model.doc_no;
     }
   }
+    
+    cell.docUsernameLabel.text = [model.UserName stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
   
   NSString *dateStr = [Utility stringDateFromServerDate:model.doc_date];
   cell.dateLabel.text = dateStr;//model.doc_date;

@@ -34,12 +34,13 @@ typedef enum
     NSString *lastRefreshTime;
     PCFinYearsModel *selectedFinYear;
     PickerType pickerType;
+    BOOL isCheckBoxSelected;
 }
 
 @property (nonatomic, strong) IBOutlet UILabel *todaysSales, *totalSales, *lastUpdateLabel;
 @property (nonatomic, weak) IBOutlet UIImageView *boxImgView1, *boxImgView2;
 
-@property (nonatomic, weak) IBOutlet UIButton *refreshBtn;
+@property (nonatomic, weak) IBOutlet UIButton *refreshBtn, *checkBoxButton, *submitButton;
 @property (nonatomic, weak) IBOutlet UITextField *groupLabelTextbox;
 @property (nonatomic, weak) IBOutlet UITextField *finYearTextbox;
 
@@ -71,6 +72,10 @@ typedef enum
     self.navigationItem.hidesBackButton = YES;
     
     [self setTitle:@"Daily Sales"];
+    
+    isCheckBoxSelected = false;
+    [self.checkBoxButton setImage:[UIImage imageNamed:@"uncheck.png"] forState:UIControlStateNormal];
+    [self.checkBoxButton setImage:[UIImage imageNamed:@"check.png"] forState:UIControlStateSelected];
     
     UIButton *leftBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [leftBtn setImage:[UIImage imageNamed:@"menu-icon.png"] forState:UIControlStateNormal];
@@ -128,6 +133,22 @@ typedef enum
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(IBAction)checkButtonAction {
+    
+//    isCheckBoxSelected = !isCheckBoxSelected;
+    
+    _checkBoxButton.selected = !_checkBoxButton.selected;
+    isCheckBoxSelected = _checkBoxButton.selected;
+    
+//    if (isCheckBoxSelected == true) {
+//        [self.checkBoxButton setImage:[UIImage imageNamed:@"check.png"] forState:UIControlStateNormal];
+//    } else {
+//        [self.checkBoxButton setImage:[UIImage imageNamed:@"uncheck.png"] forState:UIControlStateNormal];
+//        
+//        self.checkBoxButton image
+//    }
 }
 
 -(IBAction)showSideMenu
@@ -225,7 +246,11 @@ typedef enum
         
         dispatch_async(dispatch_get_main_queue(), ^{
             
+            [SVProgressHUD dismiss];
+            
             if (self->grpMenuItems.count > 0) {
+                
+                self.submitButton.enabled = true;
                 
                 PCTblGroupModelElement *allGroup = [[PCTblGroupModelElement alloc] init];
                 allGroup.code = @"";
@@ -236,6 +261,7 @@ typedef enum
                 [self getFinYears];
             } else {
                 [Utility showAlertWithTitle:@"Daily Sales" message:@"No groups found." buttonTitle:@"Ok" inViewController:self];
+                self.submitButton.enabled = false;
             }
         });
     }];
@@ -338,7 +364,7 @@ typedef enum
         
         dispatch_async(dispatch_get_main_queue(), ^{
             if (dict != nil) {
-                
+
                 NSArray *arr = [dict objectForKey:kDataKey];
                 
                 for (NSDictionary *dict in arr) {
@@ -346,8 +372,16 @@ typedef enum
                     [model setValuesForKeysWithDictionary:dict];
                     [self->finYearsArray addObject:model];
                 }
-//                [self.tableView reloadData];
-                [self createFinYearPicker];
+                
+                if (self->finYearsArray.count > 0) {
+                    [self createFinYearPicker];
+                    self.submitButton.enabled = true;
+                } else {
+                    self.submitButton.enabled = false;
+                }
+                
+            } else {
+                self.submitButton.enabled = false;
             }
             
             [SVProgressHUD dismiss];
@@ -369,6 +403,7 @@ typedef enum
                               companyCode, kScoCodeKey,
                               selectedGroup.code,@"tbgrp",
                               selectedFinYear.CURRYR,@"frToDate",
+                              [NSNumber numberWithBool:isCheckBoxSelected], @"ShowNetAmt",
                               nil];
     
     [handler fetchDataForGETURL:[NSString stringWithFormat:@"%@/iev/GetTodaysSaleTBN",appDel.baseURL] body:postDict completion:^(id responseData, NSError *error) {

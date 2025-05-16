@@ -13,7 +13,7 @@
 @interface PCApprovalItemDetailTableViewController ()
 
 {
-    NSArray *titles_details;
+    NSArray *titles_details, *doctypeGroup1, *doctypeGroup2, *doctypeGroup3;
     NSNumber *doctype;
     BOOL specialCase;
     NSDictionary *tableDataDictionary;
@@ -26,6 +26,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    doctypeGroup1 = @[@"PM", @"SM"];
+    doctypeGroup2 = @[@"11", @"12", @"15", @"16", @"21", @"22"];
+    doctypeGroup3 = @[@"3E", @"4H"];
+    
     self.view.layer.cornerRadius = 10.0;
     self.view.layer.masksToBounds = YES;
     self.view.layer.borderWidth = 1.0;
@@ -35,38 +39,103 @@
     self.tableView.layer.masksToBounds = YES;
     self.tableView.layer.borderWidth = 1.0;
     self.tableView.layer.borderColor = [UIColor blackColor].CGColor;
+    
+    [self configureCellData];
   
-  titles_details = @[@"Description",
-                     
-                     @"Code",
-                     @"Quantity",
-                     @"Rate",
-                     @"Value",
-                     @"Line Taxes"];
-  
-  tableDataDictionary = @{@"Description":self.selectedModel.descr,
-                          
-                          @"Code":self.selectedModel.code,
-                          @"Quantity":[NSString stringWithFormat:@"%@",self.selectedModel.qty],
-                          @"Rate":[Utility stringWithCurrencySymbolPrefix:[NSString stringWithFormat:@"%@",self.selectedModel.rate] forCurrencySymbol:self.selectedModel.cursymbl],
-                          @"Value":[Utility stringWithCurrencySymbolPrefix:[NSString stringWithFormat:@"%@",self.selectedModel.value] forCurrencySymbol:self.selectedModel.cursymbl],
-                          @"Line Taxes":[Utility stringWithCurrencySymbolForValue: [NSString stringWithFormat:@"%@",self.selectedModel.line_taxes] forCurrencyCode:DEFAULT_CURRENCY_CODE]};
-  
-  NSString *doctype = [self.selectedDoctype stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-  NSNumber *doctypeInt = [NSNumber numberWithInt:[self.selectedDoctype intValue]];
-  
-    if([doctype isEqualToString:@"3E"] || [doctype isEqualToString:@"4H"]) {
-        //show quantity,desc,code
-        titles_details = @[@"Description",
-                           @"Code",
-                           @"Quantity"];
+//  titles_details = @[@"Description",
+//                     @"Code",
+//                     @"Quantity",
+//                     @"Rate",
+//                     @"Basic Value",
+//                     @"Line Taxes"];
+//  
+//  tableDataDictionary = @{@"Description":self.selectedModel.descr,
+//                          
+//                          @"Code":self.selectedModel.code,
+//                          @"Quantity":[NSString stringWithFormat:@"%@",self.selectedModel.qty],
+//                          @"Rate":[Utility stringWithCurrencySymbolPrefix:[NSString stringWithFormat:@"%@",self.selectedModel.rate] forCurrencySymbol:self.selectedModel.cursymbl],
+//                          @"Basic Value":[Utility stringWithCurrencySymbolPrefix:[NSString stringWithFormat:@"%@",self.selectedModel.value] forCurrencySymbol:self.selectedModel.cursymbl],
+//                          @"Line Taxes":[Utility stringWithCurrencySymbolForValue: [NSString stringWithFormat:@"%@",self.selectedModel.line_taxes] forCurrencyCode:DEFAULT_CURRENCY_CODE]};
+//  
+//  NSString *doctype = [self.selectedDoctype stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+//  NSNumber *doctypeInt = [NSNumber numberWithInt:[self.selectedDoctype intValue]];
+//  
+//    if([doctype isEqualToString:@"3E"] || [doctype isEqualToString:@"4H"]) {
+//        //show quantity,desc,code
+//        titles_details = @[@"Description",
+//                           @"Code",
+//                           @"Quantity"];
+//        
+//        tableDataDictionary = @{@"Description":self.selectedModel.descr,
+//                                @"Code":self.selectedModel.code,
+//                                @"Quantity":[NSString stringWithFormat:@"%@",self.selectedModel.qty]};
+//        
+//    } else if([doctype containsString:@"PM"] || [doctype containsString:@"SM"]) {
+//            //show quantity,desc,code
+//        titles_details = @[@"Description",
+//                           @"Code",
+//                           @"Quantity",
+//                           @"Rate",
+//                           @"Old Value",
+//                           @"New Value"];
+//        
+//        tableDataDictionary = @{@"Description":self.selectedModel.descr,
+//                                
+//                                @"Code":self.selectedModel.code,
+//                                @"Quantity":[NSString stringWithFormat:@"%@",self.selectedModel.qty],
+//                                @"Rate":[Utility stringWithCurrencySymbolPrefix:[NSString stringWithFormat:@"%@",self.selectedModel.rate] forCurrencySymbol:self.selectedModel.cursymbl],
+//                                @"Old Value":[Utility stringWithCurrencySymbolPrefix:[NSString stringWithFormat:@"%@",self.selectedModel.value] forCurrencySymbol:self.selectedModel.cursymbl],
+//                                @"New Value":[Utility stringWithCurrencySymbolForValue: [NSString stringWithFormat:@"%@",self.selectedModel.total] forCurrencyCode:DEFAULT_CURRENCY_CODE]};
+//        
+//    } else {
+//      
+//      if ([doctype isEqualToString:@"22"]) {
+//        titles_details = @[@"Description",
+//                           @"Sub A/c Description",
+//                           @"Code",
+//                           @"Value"];
+//        
+//        tableDataDictionary = @{@"Description":self.selectedModel.descr,
+//                                @"Sub A/c Description":self.selectedModel.subdesc.length>0?self.selectedModel.subdesc:@"Not Available",
+//                                @"Code":self.selectedModel.code,
+//                                @"Value":[Utility stringWithCurrencySymbolPrefix:[NSString stringWithFormat:@"%@",self.selectedModel.value] forCurrencySymbol:self.selectedModel.cursymbl]};
+//      } else if (([doctypeInt compare:@15] != NSOrderedSame) && ([doctypeInt compare:@16] != NSOrderedSame)) {
+//        //show line taxes
+//        titles_details = @[@"Description",
+//                           @"Code",
+//                           @"Quantity",
+//                           @"Rate",
+//                           @"Value",
+//                           @"Line Taxes"];
+//        
+//        tableDataDictionary = @{@"Description":self.selectedModel.descr,
+//                                
+//                                @"Code":self.selectedModel.code,
+//                                @"Quantity":[NSString stringWithFormat:@"%@",self.selectedModel.qty],
+//                                @"Rate":[Utility stringWithCurrencySymbolPrefix:[NSString stringWithFormat:@"%@",self.selectedModel.rate] forCurrencySymbol:self.selectedModel.cursymbl],
+//                                @"Value":[Utility stringWithCurrencySymbolPrefix:[NSString stringWithFormat:@"%@",self.selectedModel.value] forCurrencySymbol:self.selectedModel.cursymbl],
+//                                @"Line Taxes":[Utility stringWithCurrencySymbolForValue: [NSString stringWithFormat:@"%@",self.selectedModel.line_taxes] forCurrencyCode:DEFAULT_CURRENCY_CODE]};
+//      } else if (!([doctypeInt compare:@30] == NSOrderedAscending) && ([doctypeInt compare:@23] != NSOrderedSame)) {
+//        //show quantity and rate
+//        titles_details = @[@"Description",
+//                           @"Code",
+//                           @"Quantity",
+//                           @"Rate"];
+//        
+//        tableDataDictionary = @{@"Description":self.selectedModel.descr,
+//                                @"Code":self.selectedModel.code,
+//                                @"Quantity":[NSString stringWithFormat:@"%@",self.selectedModel.qty],
+//                                @"Rate":[Utility stringWithCurrencySymbolPrefix:[NSString stringWithFormat:@"%@",self.selectedModel.rate] forCurrencySymbol:self.selectedModel.cursymbl]};
+//      }
+//    }
+}
+
+- (void)configureCellData {
+    
+    NSString *docType = [self.selectedDoctype stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    
+    if ([doctypeGroup1 containsObject:docType]) {
         
-        tableDataDictionary = @{@"Description":self.selectedModel.descr,
-                                @"Code":self.selectedModel.code,
-                                @"Quantity":[NSString stringWithFormat:@"%@",self.selectedModel.qty]};
-        
-    } else if([doctype containsString:@"PM"] || [doctype containsString:@"SM"]) {
-            //show quantity,desc,code
         titles_details = @[@"Description",
                            @"Code",
                            @"Quantity",
@@ -75,32 +144,39 @@
                            @"New Value"];
         
         tableDataDictionary = @{@"Description":self.selectedModel.descr,
-                                
                                 @"Code":self.selectedModel.code,
                                 @"Quantity":[NSString stringWithFormat:@"%@",self.selectedModel.qty],
                                 @"Rate":[Utility stringWithCurrencySymbolPrefix:[NSString stringWithFormat:@"%@",self.selectedModel.rate] forCurrencySymbol:self.selectedModel.cursymbl],
                                 @"Old Value":[Utility stringWithCurrencySymbolPrefix:[NSString stringWithFormat:@"%@",self.selectedModel.value] forCurrencySymbol:self.selectedModel.cursymbl],
                                 @"New Value":[Utility stringWithCurrencySymbolForValue: [NSString stringWithFormat:@"%@",self.selectedModel.total] forCurrencyCode:DEFAULT_CURRENCY_CODE]};
         
-    } else {
-      
-      if ([doctype isEqualToString:@"22"]) {
+    } else if ([doctypeGroup2 containsObject:docType]) {
+        
         titles_details = @[@"Description",
-                           @"Sub A/c Description",
                            @"Code",
-                           @"Value"];
+                           @"Basic Value"];
         
         tableDataDictionary = @{@"Description":self.selectedModel.descr,
-                                @"Sub A/c Description":self.selectedModel.subdesc.length>0?self.selectedModel.subdesc:@"Not Available",
                                 @"Code":self.selectedModel.code,
-                                @"Value":[Utility stringWithCurrencySymbolPrefix:[NSString stringWithFormat:@"%@",self.selectedModel.value] forCurrencySymbol:self.selectedModel.cursymbl]};
-      } else if (([doctypeInt compare:@15] != NSOrderedSame) && ([doctypeInt compare:@16] != NSOrderedSame)) {
-        //show line taxes
+                                @"Basic Value":[Utility stringWithCurrencySymbolForValue: [NSString stringWithFormat:@"%@",self.selectedModel.total] forCurrencyCode:DEFAULT_CURRENCY_CODE]};
+        
+    } else if ([doctypeGroup3 containsObject:docType]) {
+        
+        titles_details = @[@"Description",
+                           @"Code",
+                           @"Quantity"];
+        
+        tableDataDictionary = @{@"Description":self.selectedModel.descr,
+                                @"Code":self.selectedModel.code,
+                                @"Quantity":[NSString stringWithFormat:@"%@",self.selectedModel.qty]};
+        
+    } else {
+        
         titles_details = @[@"Description",
                            @"Code",
                            @"Quantity",
                            @"Rate",
-                           @"Value",
+                           @"Basic Value",
                            @"Line Taxes"];
         
         tableDataDictionary = @{@"Description":self.selectedModel.descr,
@@ -108,20 +184,9 @@
                                 @"Code":self.selectedModel.code,
                                 @"Quantity":[NSString stringWithFormat:@"%@",self.selectedModel.qty],
                                 @"Rate":[Utility stringWithCurrencySymbolPrefix:[NSString stringWithFormat:@"%@",self.selectedModel.rate] forCurrencySymbol:self.selectedModel.cursymbl],
-                                @"Value":[Utility stringWithCurrencySymbolPrefix:[NSString stringWithFormat:@"%@",self.selectedModel.value] forCurrencySymbol:self.selectedModel.cursymbl],
+                                @"Basic Value":[Utility stringWithCurrencySymbolPrefix:[NSString stringWithFormat:@"%@",self.selectedModel.value] forCurrencySymbol:self.selectedModel.cursymbl],
                                 @"Line Taxes":[Utility stringWithCurrencySymbolForValue: [NSString stringWithFormat:@"%@",self.selectedModel.line_taxes] forCurrencyCode:DEFAULT_CURRENCY_CODE]};
-      } else if (!([doctypeInt compare:@30] == NSOrderedAscending) && ([doctypeInt compare:@23] != NSOrderedSame)) {
-        //show quantity and rate
-        titles_details = @[@"Description",
-                           @"Code",
-                           @"Quantity",
-                           @"Rate"];
         
-        tableDataDictionary = @{@"Description":self.selectedModel.descr,
-                                @"Code":self.selectedModel.code,
-                                @"Quantity":[NSString stringWithFormat:@"%@",self.selectedModel.qty],
-                                @"Rate":[Utility stringWithCurrencySymbolPrefix:[NSString stringWithFormat:@"%@",self.selectedModel.rate] forCurrencySymbol:self.selectedModel.cursymbl]};
-      }
     }
 }
 

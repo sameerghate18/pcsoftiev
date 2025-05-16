@@ -24,26 +24,47 @@ typedef enum {
 
 @interface PCSingleTransactionViewController () <UITableViewDelegate, UITableViewDataSource, ConnectionHandlerDelegate, UIActionSheetDelegate,PCSendBackViewControllerDelegate>
 {
-    NSArray *titles_basic, *titles_details;//, *data;
     NSDictionary *tableDataDictionary;
     PCTransactionDetailModel *detailModel;
     ConnectionType connType;
     AppDelegate *appDel;
     NSMutableArray *detailModelsArray;
     PCApprovalItemList *refItemListVC;
-    NSArray *purchaseDocTypes;
+    NSArray *purchaseDocTypes, *doctypeGroup1, *doctypeGroup2, *doctypeGroup3, *doctypeGroup4, *doctypeGroup5, *doctypeGroup6;
 }
 
+@property (nonatomic, weak) IBOutlet UILabel *label1;
+@property (nonatomic, weak) IBOutlet UILabel *label2;
+@property (nonatomic, weak) IBOutlet UILabel *label3;
+@property (nonatomic, weak) IBOutlet UILabel *label4;
+@property (nonatomic, weak) IBOutlet UILabel *label5;
+@property (nonatomic, weak) IBOutlet UILabel *label6;
+@property (nonatomic, weak) IBOutlet UILabel *label7;
+@property (nonatomic, weak) IBOutlet UILabel *label8;
+
+@property (nonatomic, weak) IBOutlet UILabel *label1value;
+@property (nonatomic, weak) IBOutlet UILabel *label2value;
+@property (nonatomic, weak) IBOutlet UILabel *label3value;
+@property (nonatomic, weak) IBOutlet UILabel *label4value;
+@property (nonatomic, weak) IBOutlet UILabel *label5value;
+@property (nonatomic, weak) IBOutlet MarqueeLabel *label6value;
+@property (nonatomic, weak) IBOutlet MarqueeLabel *label7value;
+@property (nonatomic, weak) IBOutlet UILabel *label8value;
+
+
+
 @property (nonatomic, weak) IBOutlet UITableView *detailsTable;
-@property (nonatomic, weak) IBOutlet MarqueeLabel *partyNameLabel;
-@property (nonatomic, weak) IBOutlet MarqueeLabel *descriptionLabel;
-@property (nonatomic, weak) IBOutlet UILabel *valueLabel;
-@property (nonatomic, weak) IBOutlet UILabel *dateLabel;
-@property (nonatomic, weak) IBOutlet UILabel *docNumberLabel;
-@property (nonatomic, weak) IBOutlet UILabel *partyNameTypeLabel;
-@property (nonatomic, weak) IBOutlet UILabel *docTaxesLabel;
-@property (nonatomic, weak) IBOutlet UILabel *amendmentorAgentTypeLabel;
-@property (nonatomic, weak) IBOutlet UILabel *amendmentorAgentTypeLabelValue;
+//@property (nonatomic, weak) IBOutlet MarqueeLabel *partyNameLabel;
+//@property (nonatomic, weak) IBOutlet MarqueeLabel *descriptionLabel;
+//@property (nonatomic, weak) IBOutlet UILabel *valueLabel;
+//@property (nonatomic, weak) IBOutlet UILabel *dateLabel;
+//@property (nonatomic, weak) IBOutlet UILabel *docNumberLabel;
+//@property (nonatomic, weak) IBOutlet UILabel *partyNameTypeLabel;
+//@property (nonatomic, weak) IBOutlet UILabel *docTaxesLabel;
+//@property (nonatomic, weak) IBOutlet UILabel *amendmentorAgentTypeLabel;
+//@property (nonatomic, weak) IBOutlet UILabel *amendmentorAgentTypeLabelValue;
+//@property (nonatomic, weak) IBOutlet UILabel *userLabel;
+//@property (nonatomic, weak) IBOutlet UILabel *userValueLabel;
 @property (nonatomic, weak) IBOutlet UIStoryboardSegue *containerSegue;
 @property (nonatomic, weak) IBOutlet NSLayoutConstraint *doctaxHeightConstraint, *doctaxValueHeightConstraint, *amendTypeValueHeightConstraint, *amendTypeLabelHeightConstraint, *orderTermsButtonWidthConstraint, *actionButtonCentreConstraint;
 @property (nonatomic, weak) IBOutlet UIButton *orderTermsButton;
@@ -55,80 +76,201 @@ typedef enum {
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+
+    doctypeGroup1 = @[@"37", @"49"];
+    doctypeGroup2 = @[@"PM", @"SM"];
+    doctypeGroup3 = @[@"11", @"15", @"3E"];
+    doctypeGroup4 = @[@"12", @"16"];
+    doctypeGroup5 = @[@"21", @"22"];
+//    doctypeGroup6 = @[@"3E"];
     
-    if (([self.selectedTransaction.doc_type containsString: @"37"]) || ([self.selectedTransaction.doc_type containsString: @"49"]) ){
-        self.orderTermsButton.hidden = false;
-//        self->_orderTermsButtonWidthConstraint.constant = 150;
-        self.amendmentorAgentTypeLabel.text = @"Agent Name:";
-    } else if (([self.selectedTransaction.doc_type containsString: @"PM"]) || ([self.selectedTransaction.doc_type containsString: @"SM"]) ){
-        self.orderTermsButton.hidden = true;
-        self.amendmentorAgentTypeLabel.text = @"Amendment Type:";
-    } else {
-        self.orderTermsButton.hidden = true;
-    }
-    // selectedTransaction
-  
-  purchaseDocTypes = [[NSArray alloc] initWithObjects:@"02",
-                 @"05", @"21", @"22", @"23", @"25", @"24",
-                 @"33", @"34", @"38", @"47", @"4O", @"37",
-                 @"3F", @"64", @"3D", @"30", @"3N", @"69",
-                 @"71", @"FP", @"72", @"PM", @"SM", nil];
-    
+    purchaseDocTypes = [[NSArray alloc] initWithObjects:@"4G", @"38", @"4H", @"EP", @"01", @"02", @"03", @"04", @"05", @"14", @"20", @"23", @"1R", @"2Y", @"2Z", @"2A", @"28", @"29", @"34", @"47", nil];
+
     self.detailsTable.layer.cornerRadius = 10.0;
     self.detailsTable.layer.masksToBounds = YES;
     self.detailsTable.layer.borderWidth = 1.0;
     self.detailsTable.layer.borderColor = [UIColor colorNamed:kCustomBlack].CGColor;
     
     appDel = (AppDelegate*)[[UIApplication sharedApplication] delegate];
-    
-    titles_basic = @[@"Document Description",
-                            @"Document number",
-                           @"Party name",
-                    ];
-    
-    titles_details = @[@"Description",
-                       @"Item",
-                       @"Quantity",
-                       @"Rate",
-                       @"Total",
-                       @"Value"];
-    
+
     [self getDetailsForTransaction:_selectedTransaction];
     
 }
 
 -(void)viewWillAppear:(BOOL)animated    {
     
-    self.doctaxHeightConstraint.constant = 21;
-    self.doctaxValueHeightConstraint.constant = 21;
-    self->_amendTypeLabelHeightConstraint.constant = 0;
-    self->_amendTypeValueHeightConstraint.constant = 0;
+    [self configureHeaderViewTitles];
   
-  NSString *docType = self.selectedTransaction.doc_type;
-  NSString *partyNameLabel = @"Customer:";
+//  NSString *docType = self.selectedTransaction.doc_type;
+//  NSString *partyNameLabel = @"Customer:";
   
-  if ([docType containsString:@"3E"]) {
-    partyNameLabel = @"Employee:";
-    self.doctaxHeightConstraint.constant = 0;
-    self.doctaxValueHeightConstraint.constant = 0;
-  }
-  else if ([purchaseDocTypes containsObject:docType]) {
-    partyNameLabel = @"Supplier:";
-  }
-  else if ([docType containsString:@"12"] || [docType containsString:@"16"]) {
-    partyNameLabel = @"Bank:";
-  }
-  else if ([docType containsString:@"11"] || [docType containsString:@"15"]) {
-    partyNameLabel= @"Cash:";
-  } else if ([self.selectedTransaction.doc_type containsString:@"PM"] || [self.selectedTransaction.doc_type containsString:@"SM"]) {
-      self->_amendTypeLabelHeightConstraint.constant = 21;
-      self->_amendTypeValueHeightConstraint.constant = 21;
-  } else {
-    partyNameLabel = @"Customer:";
-  }
+//  if ([docType containsString:@"3E"]) {
+//    partyNameLabel = @"Employee:";
+//    self.doctaxHeightConstraint.constant = 0;
+//    self.doctaxValueHeightConstraint.constant = 0;
+//  }
+//  else if ([purchaseDocTypes containsObject:docType]) {
+//    partyNameLabel = @"Customer:";
+//  }
+//  else if ([docType containsString:@"12"] || [docType containsString:@"16"]) {
+//    partyNameLabel = @"Bank:";
+//  }
+//  else if ([docType containsString:@"11"] || [docType containsString:@"15"]) {
+//    partyNameLabel= @"Cash:";
+//  } else if ([self.selectedTransaction.doc_type containsString:@"PM"] || [self.selectedTransaction.doc_type containsString:@"SM"]) {
+//      partyNameLabel = @"Customer:";
+//      self->_amendTypeLabelHeightConstraint.constant = 21;
+//      self->_amendTypeValueHeightConstraint.constant = 21;
+//  } else if ([self.selectedTransaction.doc_type containsString:@"37"] || [self.selectedTransaction.doc_type containsString:@"49"]) {
+//      partyNameLabel = @"Supplier:";
+//      self->_amendTypeLabelHeightConstraint.constant = 21;
+//      self->_amendTypeValueHeightConstraint.constant = 21;
+//  }else {
+//    partyNameLabel = @"Customer:";
+//  }
+//    
+//  self.partyNameTypeLabel.text = partyNameLabel;
+}
+
+-(void)configureHeaderViewTitles {
     
-  self.partyNameTypeLabel.text = partyNameLabel;
-  
+    // all doctypes @"37", @"4G", @"49", @"3E", @"38", @"4H", @"EP", @"PM", @"SM", @"01", @"02", @"03", @"04", @"05", @"11", @"12", @"14", @"15", @"16", @"20", @"21", @"22", @"23", @"1R", @"2Y", @"2Z", @"2A", @"28", @"29", @"34", @"47"
+    
+    NSString *docType = self.selectedTransaction.doc_type;
+    
+    if ([doctypeGroup1 containsObject:docType]) {
+        self.label1.text = @"Supplier:";
+        self.label2.text = @"Total Value:";
+        self.label3.text = @"Document Taxes:";
+        self.label4.text = @"Date:";
+        self.label5.text = @"Document No:";
+        self.label6.text = @"Narration:";
+        self.label7.text = @"Agent:";
+        self.label8.text = @"User:";
+        self.orderTermsButton.hidden = false;
+        
+    } else if ([doctypeGroup2 containsObject:docType]) {
+        self.label1.text = @"Customer:";
+        self.label2.text = @"Total Value:";
+        self.label3.text = @"Document Taxes:";
+        self.label4.text = @"Date:";
+        self.label5.text = @"Document No:";
+        self.label6.text = @"Narration:";
+        self.label7.text = @"Amendment Type:";
+        self.label8.text = @"User:";
+        self.orderTermsButton.hidden = true;
+        
+    } else if ([doctypeGroup3 containsObject:docType]) {
+        self.label1.text = @"Customer:";
+        self.label2.text = @"Total Quantity:";
+        self.label3.text = @"Total Value:";
+        self.label4.text = @"Document Taxes:";
+        self.label5.text = @"Date:";
+        self.label6.text = @"Document No:";
+        self.label7.text = @"Narration:";
+        self.label8.text = @"User:";
+        self.orderTermsButton.hidden = true;
+        
+    } else {
+        self.label1.text = @"Customer:";
+        self.label2.text = @"Total Value:";
+        self.label3.text = @"Document Taxes:";
+        self.label4.text = @"Date:";
+        self.label5.text = @"Document No:";
+        self.label6.text = @"Narration:";
+        self.label7.text = @"User:";
+        self.label8.hidden = true;
+        self.orderTermsButton.hidden = true;
+    }
+    
+    if ([doctypeGroup4 containsObject:docType]) {
+        self.label1.text = @"Bank:";
+    }
+}
+
+-(void)applyHeaderViewLabelValues {
+    
+    NSNumber *totalValue = [NSNumber numberWithLongLong:([self.selectedTransaction.im_basic longLongValue] + [self.selectedTransaction.doc_taxs longLongValue])];
+    
+    NSString *totalValueString = [Utility stringWithCurrencySymbolPrefix:[NSString stringWithFormat:@"%@", totalValue] forCurrencySymbol:self.selectedTransaction.cursymbl];
+    
+    NSString *taxesString = [Utility stringWithCurrencySymbolPrefix:[NSString stringWithFormat:@"%@", self.selectedTransaction.doc_taxs] forCurrencySymbol:self.selectedTransaction.cursymbl];
+    
+    NSString *docType = self.selectedTransaction.doc_type;
+    
+    NSString *dateString = [Utility stringDateFromServerDate:self.selectedTransaction.doc_date];
+    
+    if ([doctypeGroup1 containsObject:docType]) {
+        
+        self.label1value.text = self.selectedTransaction.party_name;
+        self.label2value.text = totalValueString;
+        self.label3value.text = taxesString;
+        self.label4value.text = dateString;
+        self.label5value.text = self.selectedTransaction.doc_no;
+        self.label6value.text = self.selectedTransaction.doc_ref;
+        self.label7value.text = self.selectedTransaction.agentname;
+        self.label8value.text = self.selectedTransaction.UserName;
+        self.orderTermsButton.hidden = false;
+        
+    } else if ([doctypeGroup2 containsObject:docType]) {
+        self.label1value.text = self.selectedTransaction.party_name;
+        self.label2value.text = totalValueString;
+        self.label3value.text = taxesString;
+        self.label4value.text = dateString;
+        self.label5value.text = self.selectedTransaction.doc_no;
+        self.label6value.text = self.selectedTransaction.doc_ref;
+        self.label7value.text = self.selectedTransaction.amendtype;
+        self.label8value.text = self.selectedTransaction.UserName;
+        self.orderTermsButton.hidden = true;
+        
+    } else if ([doctypeGroup3 containsObject:docType]) {
+        
+        NSNumber *totalQty = @0;
+        
+        for (PCTransactionDetailModel *model in detailModelsArray) {
+            totalQty = [NSNumber numberWithLongLong:([totalQty longLongValue] + [model.qty longLongValue])];
+          }
+        
+        self.label1value.text = self.selectedTransaction.party_name;
+        self.label2value.text = [totalQty stringValue];
+        self.label3value.text = totalValueString;
+        self.label4value.text = taxesString;
+        self.label5value.text = dateString;
+        self.label6value.text = self.selectedTransaction.doc_no;
+        self.label7value.text = self.selectedTransaction.doc_ref;
+        self.label8value.text = self.selectedTransaction.UserName;
+        self.orderTermsButton.hidden = true;
+        
+    } else {
+        self.label1value.text = self.selectedTransaction.party_name;
+        self.label2value.text = totalValueString;
+        self.label3value.text = taxesString;
+        self.label4value.text = dateString;
+        self.label5value.text = self.selectedTransaction.doc_no;
+        self.label6value.text = self.selectedTransaction.doc_ref;
+        self.label7value.text = self.selectedTransaction.UserName;
+        self.label8value.hidden = true;
+        self.orderTermsButton.hidden = true;
+    }
+    
+    if ([doctypeGroup4 containsObject:docType]) {
+        self.label1value.text = self.selectedTransaction.doc_desc;
+    }
+    
+    self.label6value.marqueeType = MLContinuous;
+    self.label6value.rate = 15.0;
+    self.label6value.animationCurve = UIViewAnimationOptionCurveEaseInOut;
+    self.label6value.fadeLength = 5.0f;
+    self.label6value.leadingBuffer = 0.0f;
+    self.label6value.trailingBuffer = 15.0f;
+    
+    self.label7value.marqueeType = MLContinuous;
+    self.label7value.rate = 35.0;
+    self.label7value.animationCurve = UIViewAnimationOptionCurveEaseInOut;
+    self.label7value.fadeLength = 5.0f;
+    self.label7value.leadingBuffer = 0.0f;
+    self.label7value.trailingBuffer = 15.0f;
+    
 }
 
 -(IBAction)pop:(id)sender
@@ -182,8 +324,6 @@ typedef enum {
         detailModelsArray = nil;
         detailModelsArray = [[NSMutableArray alloc] init];
         
-        NSNumber *totalValue = @0;
-        
         NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
         
         NSArray *arr = [dict objectForKey:kDataKey];
@@ -194,70 +334,79 @@ typedef enum {
                 PCTransactionDetailModel *detail_Model = [[PCTransactionDetailModel alloc] init];
                 [detail_Model setValuesForKeysWithDictionary:dict];
                 [detailModelsArray addObject:detail_Model];
-                totalValue = [NSNumber numberWithLongLong:([totalValue longLongValue] + [detail_Model.value longLongValue])];
             }
-        }
-        else {
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                [self applyHeaderViewLabelValues];
+                
+                [self->refItemListVC setItemsListArray:self->detailModelsArray];
+                [self->refItemListVC setSelectedDoctype:self.selectedTransaction.doc_type];
+                [self->refItemListVC.tableView reloadData];
+                
+            });
         }
         
-        dispatch_async(dispatch_get_main_queue(), ^{
+//        if (arr.count > 0) {
+//            
+//            for (NSDictionary *dict in arr) {
+//                PCTransactionDetailModel *detail_Model = [[PCTransactionDetailModel alloc] init];
+//                [detail_Model setValuesForKeysWithDictionary:dict];
+//                [detailModelsArray addObject:detail_Model];
+//                totalValue = [NSNumber numberWithLongLong:([totalValue longLongValue] + [detail_Model.total longLongValue])];
+//            }
+//        }
+//        else {
+//        }
+//        
+//        if ([self.selectedTransaction.doc_type containsString:@"37"]) {
+//            totalValue = [NSNumber numberWithLongLong:[self.selectedTransaction.im_basic longLongValue]];
+//        }
+        
+//        dispatch_async(dispatch_get_main_queue(), ^{
             
-            if ([self.selectedTransaction.doc_type containsString:@"3E"]) {
-              
-              self.valueLabel.text = [Utility stringWithCurrencySymbolPrefix:[NSString stringWithFormat:@"%@",self->_selectedTransaction.im_basic] forCurrencySymbol:self->_selectedTransaction.cursymbl];
-            }
-            else {
-              self.valueLabel.text = [Utility stringWithCurrencySymbolPrefix:[NSString stringWithFormat:@"%@",totalValue] forCurrencySymbol:self->_selectedTransaction.cursymbl];
-            }
+//            if ([self.selectedTransaction.doc_type containsString:@"3E"]) {
+//              
+//              self.valueLabel.text = [Utility stringWithCurrencySymbolPrefix:[NSString stringWithFormat:@"%@",self->_selectedTransaction.im_basic] forCurrencySymbol:self->_selectedTransaction.cursymbl];
+//            }
+//            else {
+//              self.valueLabel.text = [Utility stringWithCurrencySymbolPrefix:[NSString stringWithFormat:@"%@",totalValue] forCurrencySymbol:self->_selectedTransaction.cursymbl];
+//            }
+//            
+//          self.dateLabel.text = self->_selectedTransaction.doc_date;
+//          self.docNumberLabel.text = self->_selectedTransaction.doc_no;
+//            
+//            if ([self.selectedTransaction.doc_type containsString:@"3E"]) {
+//                self.docTaxesLabel.text = @"Not Applicable";
+//            }
+//            else {
+//              self.docTaxesLabel.text = [Utility stringWithCurrencySymbolPrefix:[NSString stringWithFormat:@"%@",self->_selectedTransaction.doc_taxs] forCurrencySymbol:self->_selectedTransaction.cursymbl];
+//            }
+//            
+//            //Marquee Label
+//            if ([self.selectedTransaction.doc_type containsString:@"3E"]) {
+//                self.descriptionLabel.text = @"Not Available";
+//            }
+//            else {
+//              self.partyNameLabel.text = self->_selectedTransaction.party_name;
+//              self.descriptionLabel.text = self->_selectedTransaction.doc_ref;
+//            }
+//            
+//            if (([self.selectedTransaction.doc_type containsString: @"37"]) || ([self.selectedTransaction.doc_type containsString: @"49"]) ){
+//                self.amendmentorAgentTypeLabelValue.text = self->_selectedTransaction.agentname;
+//            } else if (([self.selectedTransaction.doc_type containsString: @"PM"]) || ([self.selectedTransaction.doc_type containsString: @"SM"]) ){
+//                self.amendmentorAgentTypeLabelValue.text = self->_selectedTransaction.amendtype;
+//            } else {
+//                self.amendmentorAgentTypeLabelValue.text = @"";
+//            }
             
-          self.dateLabel.text = self->_selectedTransaction.doc_date;
-          self.docNumberLabel.text = self->_selectedTransaction.doc_no;
-            
-            if ([self.selectedTransaction.doc_type containsString:@"3E"]) {
-                self.docTaxesLabel.text = @"Not Applicable";
-            }
-            else {
-              self.docTaxesLabel.text = [Utility stringWithCurrencySymbolPrefix:[NSString stringWithFormat:@"%@",self->_selectedTransaction.doc_taxs] forCurrencySymbol:self->_selectedTransaction.cursymbl];
-            }
-            
-            //Marquee Label
-            if ([self.selectedTransaction.doc_type containsString:@"3E"]) {
-                self.descriptionLabel.text = @"Not Available";
-            }
-            else {
-              self.partyNameLabel.text = self->_selectedTransaction.party_name;
-              self.descriptionLabel.text = self->_selectedTransaction.doc_ref;
-            }
-            
-            if (([self.selectedTransaction.doc_type containsString: @"37"]) || ([self.selectedTransaction.doc_type containsString: @"49"]) ){
-                self.amendmentorAgentTypeLabelValue.text = self->_selectedTransaction.agentname;
-            } else if (([self.selectedTransaction.doc_type containsString: @"PM"]) || ([self.selectedTransaction.doc_type containsString: @"SM"]) ){
-                self.amendmentorAgentTypeLabelValue.text = self->_selectedTransaction.amendtype;
-            } else {
-                self.amendmentorAgentTypeLabelValue.text = @"";
-            }
-            
-            self.partyNameLabel.marqueeType = MLContinuous;
-            self.descriptionLabel.rate = 15.0;
-            self.partyNameLabel.animationCurve = UIViewAnimationOptionCurveEaseInOut;
-            self.partyNameLabel.fadeLength = 5.0f;
-            self.partyNameLabel.leadingBuffer = 0.0f;
-            self.partyNameLabel.trailingBuffer = 15.0f;
-            
-            self.descriptionLabel.marqueeType = MLContinuous;
-            self.descriptionLabel.rate = 35.0;
-            self.descriptionLabel.animationCurve = UIViewAnimationOptionCurveEaseInOut;
-            self.descriptionLabel.fadeLength = 5.0f;
-            self.descriptionLabel.leadingBuffer = 0.0f;
-            self.descriptionLabel.trailingBuffer = 15.0f;
-            
-            [self->refItemListVC setItemsListArray:self->detailModelsArray];
-            [self->refItemListVC setSelectedDoctype:self.selectedTransaction.doc_type];
-            [self->refItemListVC.tableView reloadData];
+//            [self->refItemListVC setItemsListArray:self->detailModelsArray];
+//            [self->refItemListVC setSelectedDoctype:self.selectedTransaction.doc_type];
+//            [self->refItemListVC.tableView reloadData];
             
 //            [self pushToListViews];
 //            [_detailsTable reloadData];
-        });
+//        });
         
     }
     else if (connType == ConnectionTypeAuthorize) {

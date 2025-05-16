@@ -41,8 +41,6 @@
     
     titleArray = [[NSMutableArray alloc] init];
 
-    [self getExpenseListCount];
-    
     self.tableView.layer.cornerRadius = 10.0;
     self.tableView.layer.masksToBounds = YES;
     self.tableView.layer.borderWidth = 1.0;
@@ -58,7 +56,16 @@
 //    [self.tableView reloadData];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    
+    [self getExpenseListCount];
+    
+}
+
 - (void)getExpenseListCount {
+    
+    [self->titleArray removeAllObjects];
+    
     AppDelegate *appDel = (AppDelegate*)[[UIApplication sharedApplication] delegate];
     //    NSString *url = GET_EECount_URL(appDel.baseURL, appDel.selectedCompany.CO_CD, appDel.loggedUser.USER_ID);
     
@@ -84,18 +91,24 @@
                 if (status == true) {
                     NSArray *arr = [dict objectForKey:kDataKey];
                     if (arr > 0) {
+                        
                         for (NSDictionary *dict in arr) {
                             PCApprovalListModel *model = [[PCApprovalListModel alloc] initWithDictionary:dict];
                             [self->titleArray addObject:model];
                         }
+                    } else {
+                        [Utility showAlertWithTitle:@"Approvals" message:@"No approvals available." buttonTitle:@"OK" inViewController:self];
                     }
                 } else {
                     [Utility showAlertWithTitle:@"Approvals" message:@"No approvals available." buttonTitle:@"OK" inViewController:self];
                 }
+                
+                [SVProgressHUD dismiss];
                 [self.tableView reloadData];
+            } else {
+                [SVProgressHUD dismiss];
+                [Utility showAlertWithTitle:@"Approvals" message:@"No approvals available." buttonTitle:@"OK" inViewController:self];
             }
-            
-            [SVProgressHUD dismiss];
         });
     }];
 }

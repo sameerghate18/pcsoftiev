@@ -17,7 +17,7 @@
 @property (nonatomic, strong) NSNumber *im_basic;
 @property (nonatomic, strong) NSString *party_name;
 @property (nonatomic, strong) NSString *user_name;
-@property (nonatomic, strong) NSString *doc_taxs;
+@property (nonatomic, strong) NSNumber *doc_taxs;
 @property (nonatomic, strong) NSNumber *seq_no;
 @property (nonatomic, strong) NSString *doc_ref;
 @property (nonatomic, strong) NSString *cursymbl;
@@ -37,4 +37,5 @@
 @property (nonatomic, strong) NSString *EXC_CD;
 @property (nonatomic, strong) NSString *TPR_CD;
 @property (nonatomic, strong) NSString *agentname;
+@property (nonatomic, strong) NSString *UserName;
 @end

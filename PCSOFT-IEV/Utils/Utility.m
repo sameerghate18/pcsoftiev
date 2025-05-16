@@ -58,11 +58,22 @@
 
 +(NSString*)stringWithCurrencySymbolPrefix:(NSString*)value forCurrencySymbol:(NSString*)currencySymbol
 {
-  if (currencySymbol.length == 0) {
-    return [Utility stringWithCurrencySymbolForValue:value forCurrencyCode:DEFAULT_CURRENCY_CODE];
-  } else {
-    return [NSString stringWithFormat:@"%@ %@",currencySymbol,value];
-  }
+    if (currencySymbol.length == 0) {
+        return [Utility stringWithCurrencySymbolForValue:value forCurrencyCode:DEFAULT_CURRENCY_CODE];
+    } else {
+        
+        NSNumberFormatter *currencyFormatter = [[NSNumberFormatter alloc] init];
+        [currencyFormatter setMaximumFractionDigits:2];
+        [currencyFormatter setMinimumFractionDigits:2];
+        [currencyFormatter setCurrencySymbol:@""];
+        [currencyFormatter setAlwaysShowsDecimalSeparator:YES];
+        [currencyFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
+        
+        NSNumber *someAmount = [NSNumber numberWithDouble:[value doubleValue]];
+        NSString *string = [currencyFormatter stringFromNumber:someAmount];
+        NSString *string1 = [NSString stringWithFormat:@"%@ %@",currencySymbol,string];
+        return string1;
+    }
 }
 
 
@@ -79,7 +90,7 @@
 +(NSString*)stringDateFromServerDate:(NSString*)serverDate  {
     //4/2/2016 12:00:00 AM
     NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-    [dateFormat setDateFormat:@"MM/dd/yyyy HH:mm:ss a"];
+    [dateFormat setDateFormat:@"dd/MM/yyyy HH:mm:ss"];
     NSDate *newDate = [dateFormat dateFromString:serverDate];
      [dateFormat setDateFormat:@"dd/MM/yyyy"];
     NSString *finalString = [dateFormat stringFromDate:newDate];
