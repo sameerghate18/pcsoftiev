@@ -73,6 +73,9 @@ typedef enum
     
     [self setTitle:@"Daily Sales"];
     
+    self.domesticSalesData = [[NSMutableArray alloc] init];
+    self.exportSalesData = [[NSMutableArray alloc] init];
+    
     isCheckBoxSelected = false;
     [self.checkBoxButton setImage:[UIImage imageNamed:@"uncheck.png"] forState:UIControlStateNormal];
     [self.checkBoxButton setImage:[UIImage imageNamed:@"check.png"] forState:UIControlStateSelected];
@@ -99,7 +102,16 @@ typedef enum
     selectedSalesTypeCurrencyCode = [[NSString alloc] init];
     
     finYearsArray = [[NSMutableArray alloc] init];
-    [self fetchTableGroups];
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    if ([[defaults valueForKey:kSelectedCompanyTbGrp]  isEqual: @1]) {
+        [self fetchTableGroups];
+        self.groupLabelTextbox.hidden = false;
+    } else {
+        self.groupLabelTextbox.hidden = true;
+        [self getFinYears];
+    }
+    
     // Do any additional setup after loading the view.
 }
 
@@ -317,7 +329,7 @@ typedef enum
     pickerType = PickerTypeFinYear;
 
     selectedGroup = [grpMenuItems objectAtIndex:0];
-    [self fetchDailySalesData:nil];
+//    [self fetchDailySalesData:nil];
 }
 
 -(void)menuBarCancelPressed {
@@ -391,6 +403,10 @@ typedef enum
 
 -(IBAction)fetchDailySalesData:(id)sender
 {
+    [self.domesticSalesData removeAllObjects];
+    [self.exportSalesData removeAllObjects];
+    [self.tableSourceData removeAllObjects];
+    
     AppDelegate *appDel = (AppDelegate*)[[UIApplication sharedApplication] delegate];
     
     [SVProgressHUD showWithStatus:@"Loading data..." maskType:SVProgressHUDMaskTypeBlack];
@@ -399,10 +415,15 @@ typedef enum
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSString *companyCode = [defaults valueForKey:kSelectedCompanyCode];
     
+    NSString *groupCode = @" ";
+    if ([[defaults valueForKey:kSelectedCompanyTbGrp]  isEqual: @1]) {
+        groupCode = selectedGroup.code;
+    }
+    
     NSDictionary *postDict = [[NSDictionary alloc] initWithObjectsAndKeys:
                               companyCode, kScoCodeKey,
-                              selectedGroup.code,@"tbgrp",
-                              selectedFinYear.CURRYR,@"frToDate",
+                              groupCode, @"tbgrp",
+                              selectedFinYear.CURRYR, @"frToDate",
                               [NSNumber numberWithBool:isCheckBoxSelected], @"ShowNetAmt",
                               nil];
     
@@ -418,58 +439,62 @@ typedef enum
                 
                 if (error1 == nil) {
                     
-                    dispatch_async(dispatch_get_main_queue(), ^{
+                    BOOL status = [[dict objectForKey:@"Status"] boolValue];
+                    
+                    if (status == true) {
                         
-                        NSArray *arr = [dict objectForKey:kDataKey];
-                        NSLog(@"fetchDailySalesData data- %@",arr);
-                        
-                        if (arr.count > 0) {
+                        dispatch_async(dispatch_get_main_queue(), ^{
                             
-                            self.domesticSalesData = [[NSMutableArray alloc] init];
-                            self.exportSalesData = [[NSMutableArray alloc] init];
+                            NSArray *arr = [dict objectForKey:kDataKey];
+                            NSLog(@"fetchDailySalesData data- %@",arr);
                             
-                            for (NSDictionary *dict in arr) {
-                                PCDailySalesModel *model = [[PCDailySalesModel alloc] init];
-                                [model setValuesForKeysWithDictionary:dict];
+                            if (arr.count > 0) {
                                 
-                                if (([model.CUR_DESC rangeOfString:@"RUPEE"].location != NSNotFound) || ([model.CUR_DESC rangeOfString:@"INR"].location != NSNotFound)) {
-                                    model.CUR_DESC = @"INR";
-                                    [self.domesticSalesData addObject:model]; // Domestic Sales
-                                } else {
+                                for (NSDictionary *dict in arr) {
+                                    PCDailySalesModel *model = [[PCDailySalesModel alloc] init];
+                                    [model setValuesForKeysWithDictionary:dict];
                                     
-                                    if (([model.CUR_DESC rangeOfString:@"USD"].location != NSNotFound) || ([model.CUR_DESC rangeOfString:@"US DOLLAR"].location != NSNotFound) || ([model.CUR_DESC rangeOfString:@"USDOLLAR"].location != NSNotFound)) {
-                                        model.CUR_DESC = @"USD";
-                                        [self.exportSalesData addObject:model]; // Domestic Sales
+                                    if (([model.CUR_DESC rangeOfString:@"RUPEE"].location != NSNotFound) || ([model.CUR_DESC rangeOfString:@"INR"].location != NSNotFound)) {
+                                        model.CUR_DESC = @"INR";
+                                        [self.domesticSalesData addObject:model]; // Domestic Sales
                                     } else {
-                                        self->selectedSalesTypeCurrencyCode = model.CUR_DESC;
+                                        
+                                        if (([model.CUR_DESC rangeOfString:@"USD"].location != NSNotFound) || ([model.CUR_DESC rangeOfString:@"US DOLLAR"].location != NSNotFound) || ([model.CUR_DESC rangeOfString:@"USDOLLAR"].location != NSNotFound)) {
+                                            model.CUR_DESC = @"USD";
+                                        } else {
+                                            self->selectedSalesTypeCurrencyCode = model.CUR_DESC;
+                                        }
                                         [self.exportSalesData addObject:model]; // Export Sales
                                     }
                                 }
-                            }
-
-                            self->lastRefreshTime = [Utility lastRefreshString];
-                            self->_lastUpdateLabel.text = [NSString stringWithFormat:@"Last updated: %@",self->lastRefreshTime];
-                            
-                            if (self->salesType == SalesTypeDomestic) {
-                                self->selectedSalesTypeCurrencyCode = @"INR";
-                                self->_tableSourceData = self->_domesticSalesData;
+                                
+                                self->lastRefreshTime = [Utility lastRefreshString];
+                                self->_lastUpdateLabel.text = [NSString stringWithFormat:@"Last updated: %@",self->lastRefreshTime];
+                                
+                                if (self->salesType == SalesTypeDomestic) {
+                                    self->selectedSalesTypeCurrencyCode = @"INR";
+                                    self->_tableSourceData = self->_domesticSalesData;
+                                } else {
+                                    PCDailySalesModel *model = [self->_exportSalesData objectAtIndex:0];
+                                    self->selectedSalesTypeCurrencyCode = model.CUR_DESC;
+                                    self->_tableSourceData = self->_exportSalesData;
+                                }
+                                
+                                [self->_salesTable reloadData];
+                                self->userSelectedIndex = self->currentIndexOnRoll;
+                                
+                                [SVProgressHUD showSuccessWithStatus:@"Done"];
+                                
                             } else {
-                                PCDailySalesModel *model = [self->_exportSalesData objectAtIndex:0];
-                                self->selectedSalesTypeCurrencyCode = model.CUR_DESC;
-                                self->_tableSourceData = self->_exportSalesData;
+                                NSLog(@"fetchDailySalesData - error no ARR");
+                                [SVProgressHUD dismiss];
+                                [Utility showAlertWithTitle:@"Daily Sales" message:@"No data available for the selected combination." buttonTitle:@"OK" inViewController:self];
                             }
-
-                            [self->_salesTable reloadData];
-                            self->userSelectedIndex = self->currentIndexOnRoll;
-                            
-                            [SVProgressHUD showSuccessWithStatus:@"Done"];
-                            
-                        } else {
-                            NSLog(@"fetchDailySalesData - error no ARR");
-                            [SVProgressHUD dismiss];
-                            [Utility showAlertWithTitle:@"Daily Sales" message:@"No data available for the selected combination." buttonTitle:@"OK" inViewController:self];
-                        }
-                    });
+                        });
+                    } else {                        
+                        [SVProgressHUD dismiss];
+                        [Utility showAlertWithTitle:@"Daily Sales" message:@"Error fetching data." buttonTitle:@"OK" inViewController:self];
+                    }
                 } else {
                     [SVProgressHUD dismiss];
                     [Utility showAlertWithTitle:@"Daily Sales" message:@"Error fetching data." buttonTitle:@"OK" inViewController:self];
@@ -481,6 +506,8 @@ typedef enum
                 [Utility showAlertWithTitle:@"Daily Sales" message:[NSString stringWithFormat:@"Error fetching data. \n%@",error] buttonTitle:@"OK" inViewController:self];
                 NSLog(@"fetchDailySalesData - error %@",error);
             }
+            
+            [self->_salesTable reloadData];
             
         });
     }];

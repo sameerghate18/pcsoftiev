@@ -59,6 +59,7 @@ typedef enum
 #define kSelectedCompanyCode @"selectedCompanyCode"
 #define kSelectedCompanyLongname @"selectedCompanyLongName"
 #define kSelectedCompanyName @"selectedCompanyName"
+#define kSelectedCompanyTbGrp @"selectedCompanyTbGrp"
 #define kAccessCode @"accessCode"
 #define kPhoneNumber @"phoneNumber"
 #define kScoCodeKey @"scocd"

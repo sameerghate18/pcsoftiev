@@ -21,11 +21,11 @@ typedef enum {
     DATA_TYPE_USERLIST
 }DATA_TYPE;
 
-@interface PCViewController () <NSURLConnectionDelegate, UITableViewDataSource, UITableViewDelegate,ConnectionHandlerDelegate>
+@interface PCViewController () <NSURLConnectionDelegate, UITableViewDataSource, UITableViewDelegate,ConnectionHandlerDelegate, UISearchBarDelegate>
 {
 //    UIAlertView *alert;
     NSMutableData *recievedData;
-    NSMutableArray *companyList;
+    NSMutableArray *companyList, *filteredCompanyList;
     NSMutableArray *usersList;
     DATA_TYPE dataType;
     NSMutableString *dataTypeURL;
@@ -37,6 +37,8 @@ typedef enum {
 @property (nonatomic, weak) IBOutlet UIButton *backButton;
 
 @property (nonatomic, weak) IBOutlet UIImageView *bgImageView;
+
+@property (nonatomic, weak) IBOutlet UISearchBar *companySearchBar;
 
 @end
 
@@ -125,7 +127,12 @@ typedef enum {
             companyList = [[NSMutableArray alloc] init];
         }
         
+        if (!filteredCompanyList) {
+            filteredCompanyList = [[NSMutableArray alloc] init];
+        }
+        
         [companyList removeAllObjects];
+        [filteredCompanyList removeAllObjects];
         
         NSError *error = nil;
         NSArray *arr;
@@ -152,6 +159,7 @@ typedef enum {
             
             [companyList removeAllObjects];
             [companyList addObjectsFromArray:[sortedArray copy]];
+            [filteredCompanyList addObjectsFromArray:companyList];
             
             if (companyList.count == 0) {
                 
@@ -282,10 +290,57 @@ typedef enum {
     }
 }
 
+-(void)searchCompanyList:(NSString *)searchText {
+    
+    NSLog(@"searchCompanyList - %@", searchText);
+    
+    @try
+      {
+        [filteredCompanyList removeAllObjects];
+
+        if ([searchText length] > 0)
+        {
+            
+            NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"NAME contains[c] %@", searchText];
+
+            NSArray *results = [companyList filteredArrayUsingPredicate:resultPredicate];
+            [filteredCompanyList addObjectsFromArray:results];
+            
+//            for (int i = 0; i < [companyList count] ; i++)
+//            {
+//                PCCompanyModel *cmp = [companyList objectAtIndex:i];
+//                
+//                if ([cmp.NAME localizedCaseInsensitiveContainsString:searchText]) {
+//                    NSLog(@"%@ == %@",cmp.NAME,searchText);
+//                    [filteredCompanyList addObject:cmp];
+//                }
+//            }
+                
+//                if (cmp.NAME.length >= searchText.length)
+//                {
+//                    NSRange titleResultsRange = [cmp.CO_CD rangeOfString:searchText options:NSCaseInsensitiveSearch];
+//                    if (titleResultsRange.length > 0)
+//                    {
+//                        [filteredCompanyList addObject:cmp];
+//                    }
+//                }
+//            }
+        } else {
+//            [filteredCompanyList addObjectsFromArray:companyList];
+        }
+          
+        [_companyTableview reloadData];
+    }
+    @catch (NSException *exception) {
+        
+    }
+
+}
+
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return companyList.count;
+    return filteredCompanyList.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -302,7 +357,7 @@ typedef enum {
         cell.textLabel.textColor = [UIColor colorNamed:kCustomBlack];
     }
     
-    PCCompanyModel *mod = [companyList objectAtIndex:indexPath.row];
+    PCCompanyModel *mod = [filteredCompanyList objectAtIndex:indexPath.row];
     
     cell.textLabel.text = mod.NAME;
     
@@ -312,7 +367,7 @@ typedef enum {
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     dataType = DATA_TYPE_USERLIST;
-    PCCompanyModel *mod = [companyList objectAtIndex:indexPath.row];
+    PCCompanyModel *mod = [filteredCompanyList objectAtIndex:indexPath.row];
     AppDelegate *appDel = (AppDelegate*)[[UIApplication sharedApplication] delegate];
     [appDel setSelectedCompany:mod];
     
@@ -320,6 +375,13 @@ typedef enum {
     [defaults setValue:mod.CO_CD forKey:kSelectedCompanyCode];
     [defaults setValue:mod.LONG_CO_NM forKey:kSelectedCompanyLongname];
     [defaults setValue:mod.NAME forKey:kSelectedCompanyName];
+    
+    if (mod.TBGRP == true) {
+        [defaults setValue:@1 forKey:kSelectedCompanyTbGrp];
+    } else {
+        [defaults setValue:@0 forKey:kSelectedCompanyTbGrp];
+    }
+    
     [defaults synchronize];
     
     selectedCompany = mod.LONG_CO_NM;
@@ -352,4 +414,19 @@ typedef enum {
 //        [self.navigationController popViewControllerAnimated:TRUE];
 //    }
 //}
+
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
+    [self searchCompanyList:searchText];
+}
+
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
+    [filteredCompanyList removeAllObjects];
+    [filteredCompanyList addObjectsFromArray:companyList];
+    [_companyTableview reloadData];
+}
+
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
+    
+    [self searchCompanyList:searchBar.text];
+}
 @end
