@@ -420,13 +420,14 @@ typedef enum {
 }
 
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
+    [searchBar resignFirstResponder];
     [filteredCompanyList removeAllObjects];
     [filteredCompanyList addObjectsFromArray:companyList];
     [_companyTableview reloadData];
 }
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
-    
+    [searchBar resignFirstResponder];
     [self searchCompanyList:searchBar.text];
 }
 @end

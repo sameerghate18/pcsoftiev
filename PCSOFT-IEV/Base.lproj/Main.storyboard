@@ -74,6 +74,8 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="6GR-G1-Cn6"/>
                                 </constraints>
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="barTintColor" name="custom yellow"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <connections>
                                     <outlet property="delegate" destination="9xV-vv-kBM" id="TEb-Cm-1bS"/>
@@ -241,7 +243,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2lS-Bp-1dd">
                                 <rect key="frame" x="18" y="319" width="378" height="258"/>
                                 <subviews>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="https://app.ieverp.com/ievsrv/" borderStyle="line" placeholder="Company URL" textAlignment="center" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5qc-hZ-ELC">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="Company URL" textAlignment="center" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5qc-hZ-ELC">
                                         <rect key="frame" x="8" y="109" width="362" height="38"/>
                                         <color key="backgroundColor" name="custom white"/>
                                         <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -3826,7 +3828,7 @@ PIN - 411004</string>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nse-lU-Nww" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <view contentMode="scaleToFill" ambiguous="YES" id="m9L-4V-dSN">
+                <view contentMode="scaleToFill" id="m9L-4V-dSN">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
@@ -3849,7 +3851,7 @@ PIN - 411004</string>
                                 </mask>
                             </variation>
                         </label>
-                        <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FMh-RW-DPh">
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FMh-RW-DPh">
                             <rect key="frame" x="132" y="0.0" width="1" height="30"/>
                             <color key="backgroundColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
