@@ -6857,12 +6857,13 @@ PIN - 411004</string>
                             </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Default level no. is 0" textAlignment="natural" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vxV-Bc-aV6">
                                 <rect key="frame" x="159" y="174" width="235" height="30"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="46I-dd-okh"/>
                                     <constraint firstAttribute="width" constant="235" id="XIv-Fs-JJt"/>
                                 </constraints>
-                                <color key="textColor" name="custom white"/>
+                                <color key="textColor" name="custom black"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                 <variation key="default">
@@ -6954,7 +6955,6 @@ PIN - 411004</string>
                                 <exclude reference="zLo-uQ-O3X"/>
                                 <exclude reference="Cs2-j1-TOl"/>
                                 <exclude reference="w67-wb-pAJ"/>
-                                <exclude reference="vxV-Bc-aV6"/>
                                 <exclude reference="Rr6-1d-AZy"/>
                             </mask>
                             <mask key="constraints">

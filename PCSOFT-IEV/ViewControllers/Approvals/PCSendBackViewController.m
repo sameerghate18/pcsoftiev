@@ -54,10 +54,20 @@
         seqno = @0;
     }
     else {
-        seqno = [NSNumber numberWithDouble:[levelNoStr doubleValue]];
+        seqno = [NSNumber numberWithInt:[levelNoStr intValue]];
     }
     
-    if ((seqno >= [NSNumber numberWithInt:0])  &&  ([self.selectedTransaction.seq_no compare:seqno] == NSOrderedDescending)) {
+    if (seqno >= 0) {
+        NSLog(@"pass 1");
+    }
+    
+    if ([self.selectedTransaction.seq_no compare:seqno] == NSOrderedDescending) {
+        NSLog(@"pass 2");
+    }
+    
+    
+    //( [self.selectedTransaction.seq_no compare:seqno] == NSOrderedDescending)
+    if ((seqno >= 0)  &&  ([self.selectedTransaction.seq_no compare:seqno] == NSOrderedDescending)) {
         
         [SVProgressHUD showWithStatus:@"Please wait..." maskType:SVProgressHUDMaskTypeBlack];
         
@@ -69,22 +79,12 @@
         sendbackConnection.delegate = self;
         
         NSString *remarkStr = self.remarkTextview.text;
-        remarkStr = [remarkStr stringByReplacingOccurrencesOfString:@" " withString:@"+"];
-        remarkStr = [remarkStr stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-        
-        NSString *urlString = [NSString stringWithFormat:@"%@SendBack?scocd=%@&userid=%@&doctype=%@&docno=%@&sendto=%@&sbremark=%@",appDel.baseURL,
-                               [defaults valueForKey:kSelectedCompanyCode],
-                               appDel.loggedUser.USER_ID,
-                               [self.selectedTransaction.doc_type stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]],
-                               self.selectedTransaction.doc_no,
-                               seqno,
-                               remarkStr];
         
         NSDictionary *postDict = @{
             kScoCodeKey: [defaults valueForKey:kSelectedCompanyCode],
             @"userid": appDel.loggedUser.USER_ID,
-            @"doctype": [_selectedTransaction.doc_type stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]],
-            @"docno": [_selectedTransaction.doc_no stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]],
+            @"doc_type": [_selectedTransaction.doc_type stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]],
+            @"doc_no": [_selectedTransaction.doc_no stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]],
             @"sendto": seqno,
             @"sbremark": remarkStr
         };
@@ -93,7 +93,7 @@
     }
     else {
         
-        [Utility showAlertWithTitle:@"Send Back" message:[NSString stringWithFormat:@"Entered seq number should be more than 0 and less than %@",self.selectedTransaction.seq_no] buttonTitle:@"OK" inViewController:self];
+        [Utility showAlertWithTitle:@"Send Back" message:[NSString stringWithFormat:@"Entered level number should be more than 0 and less than %@",self.selectedTransaction.seq_no] buttonTitle:@"OK" inViewController:self];
 
     }
     
@@ -103,7 +103,19 @@
 {
     dispatch_async(dispatch_get_main_queue(), ^{
         
-        NSString *opString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        NSError *error = nil;
+        
+        NSString *opString = @"";
+        
+        NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
+        
+        BOOL status = [[dict objectForKey:@"Status"] boolValue];
+        
+        if (status == true) {
+            opString = [dict objectForKey:@"SuccessMessage"];
+        } else {
+            opString = [dict objectForKey:@"ErrorMessage"];
+        }
         
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Send Back" message:opString preferredStyle:UIAlertControllerStyleAlert];
         
