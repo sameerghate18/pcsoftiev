@@ -194,7 +194,7 @@ static NSString *reuseIdentifierForAmount = @"amountCell";
         }
         
         PCDailySalesModel *model = [valuesArray objectAtIndex:0];
-        amtCell.textLabel.text = [NSString stringWithFormat:@"Total Yearly: %@", [Utility stringWithCurrencySymbolForValue:model.CURRYR forCurrencyCode:self.currencyCode]];
+        amtCell.textLabel.text = [NSString stringWithFormat:@"Total Yearly: %@", [Utility stringWithCurrencySymbolForValue:model.CURRYR forCurrencySymbol:model.CUR_SYMB]];
         
         amtCell.textLabel.textColor = [UIColor colorNamed:kCustomBlack];
         
@@ -206,7 +206,7 @@ static NSString *reuseIdentifierForAmount = @"amountCell";
     PCDailySalesModel *model = [valuesArray objectAtIndex:indexPath.row];
     
     cell.monthLabel.text = [Utility stringDateFromServerDateYYYYMM:model.YRMTH];
-    cell.salesAmountLabel.text = [Utility stringWithCurrencySymbolForValue:model.MTHAMT forCurrencyCode:self.currencyCode];
+    cell.salesAmountLabel.text = [Utility stringWithCurrencySymbolForValue:model.MTHAMT forCurrencySymbol:model.CUR_SYMB];
     [cell.legendView setBackgroundColor:[colorsArray objectAtIndex:indexPath.row]];
     
     return cell;

@@ -1236,7 +1236,7 @@
 				CODE_SIGN_ENTITLEMENTS = "PCSOFT-IEV/PCSOFT-IEV.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 74;
+				CURRENT_PROJECT_VERSION = 75;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 7VKE5C6GBK;
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 7VKE5C6GBK;
@@ -1249,7 +1249,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.4.1;
+				MARKETING_VERSION = 1.4.2;
 				MODULEMAP_FILE = "/Users/harshajain/Work/projects/pcsoftiev/PCSOFT-IEV";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.pcsofterp.IEV;
@@ -1272,9 +1272,10 @@
 				CODE_SIGN_ENTITLEMENTS = "PCSOFT-IEV/PCSOFT-IEV.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Harsha Jain (7VKE5C6GBK)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				CURRENT_PROJECT_VERSION = 74;
+				CURRENT_PROJECT_VERSION = 75;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 7VKE5C6GBK;
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 7VKE5C6GBK;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(PROJECT_DIR)/PCSOFT-IEV/PrefixHeader.pch";
 				INFOPLIST_FILE = "PCSOFT-IEV/Info.plist";
@@ -1284,13 +1285,14 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.4.1;
+				MARKETING_VERSION = 1.4.2;
 				MODULEMAP_FILE = "/Users/harshajain/Work/projects/pcsoftiev/PCSOFT-IEV";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.pcsofterp.IEV;
 				PRODUCT_NAME = "PCSOFT IEV";
 				PROVISIONING_PROFILE = "80568c79-42df-4700-95d3-75d7c394f76e";
 				PROVISIONING_PROFILE_SPECIFIER = ERP_AppStoreDistProfile;
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = ERP_AppStoreDistProfile;
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
@@ -1357,7 +1359,7 @@
 				CODE_SIGN_ENTITLEMENTS = "PCSOFT-IEV/PCSOFT-IEV.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Harsha Jain (7VKE5C6GBK)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				CURRENT_PROJECT_VERSION = 74;
+				CURRENT_PROJECT_VERSION = 75;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 7VKE5C6GBK;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -1369,7 +1371,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.4.1;
+				MARKETING_VERSION = 1.4.2;
 				MODULEMAP_FILE = "/Users/harshajain/Work/projects/pcsoftiev/PCSOFT-IEV";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.pcsofterp.IEV;

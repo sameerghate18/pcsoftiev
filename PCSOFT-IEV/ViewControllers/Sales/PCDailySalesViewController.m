@@ -30,7 +30,6 @@ typedef enum
     NSInteger currentIndexOnRoll, userSelectedIndex;
     NSString *currentMonth, *lastMonth, *previousToLastMonth;
     SalesType salesType;
-    NSString *selectedSalesTypeCurrencyCode;
     NSString *lastRefreshTime;
     PCFinYearsModel *selectedFinYear;
     PickerType pickerType;
@@ -99,7 +98,6 @@ typedef enum
     self.navigationItem.rightBarButtonItem = rightBarbtn;
     
     salesType = SalesTypeDomestic;
-    selectedSalesTypeCurrencyCode = [[NSString alloc] init];
     
     finYearsArray = [[NSMutableArray alloc] init];
     
@@ -179,7 +177,6 @@ typedef enum
     
     PCDailySalesGraphViewController *graphVC = [kStoryboard instantiateViewControllerWithIdentifier:@"PCDailySalesGraphViewController"];
     
-    [graphVC setCurrencyCode:selectedSalesTypeCurrencyCode];
     [graphVC setSelectedSalesType:salesType];
     [graphVC setSalesData:_tableSourceData];
     [graphVC setCurrentMonthString:currentMonth];
@@ -199,7 +196,6 @@ typedef enum
     switch (segment.selectedSegmentIndex) {
         case 0:
         {
-            selectedSalesTypeCurrencyCode = @"INR";
             _tableSourceData = _domesticSalesData;
             salesType = SalesTypeDomestic;
         }
@@ -207,8 +203,6 @@ typedef enum
             
         case 1:
         {
-            PCDailySalesModel *model = [self->_exportSalesData objectAtIndex:0];
-            selectedSalesTypeCurrencyCode = model.CUR_DESC;
             _tableSourceData = _exportSalesData;
             salesType = SalesTypeExport;
         }
@@ -445,51 +439,69 @@ typedef enum
                         
                         dispatch_async(dispatch_get_main_queue(), ^{
                             
-                            NSArray *arr = [dict objectForKey:kDataKey];
-                            NSLog(@"fetchDailySalesData data- %@",arr);
+                            NSDictionary *dict1 = [dict objectForKey:@"data2"];
                             
-                            if (arr.count > 0) {
+                            NSArray *domesticJson = [dict1 objectForKey:@"Domestic"];
+                            NSLog(@"fetchDailySalesData domesticJson- %@",domesticJson);
+                            
+                            if (domesticJson.count > 0) {
                                 
-                                for (NSDictionary *dict in arr) {
+                                for (NSDictionary *dict in domesticJson) {
+                                    PCDailySalesModel *model = [[PCDailySalesModel alloc] init];
+                                    [model setValuesForKeysWithDictionary:dict];
+                                    model.CUR_SYMB = [model.CUR_SYMB stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+                                    model.CUR_SYMB = @"₹";
+                                    model.CUR_DESC = @"INR";
+                                
+                                    [self.domesticSalesData addObject:model]; // Domestic Sales
+                                }
+                            } else {
+                                NSLog(@"fetchDailySalesData - error no domesticJson");
+                                [SVProgressHUD dismiss];
+                                [Utility showAlertWithTitle:@"Daily Sales" message:@"No domestic sales data available for the selected combination." buttonTitle:@"OK" inViewController:self];
+                            }
+                            
+                            NSArray *exportJson = [dict1 objectForKey:@"Export"];
+                            NSLog(@"fetchDailySalesData exportJson- %@",exportJson);
+                            
+                            if (exportJson.count > 0) {
+                                
+                                for (NSDictionary *dict in exportJson) {
                                     PCDailySalesModel *model = [[PCDailySalesModel alloc] init];
                                     [model setValuesForKeysWithDictionary:dict];
                                     
-                                    if (([model.CUR_DESC rangeOfString:@"RUPEE"].location != NSNotFound) || ([model.CUR_DESC rangeOfString:@"INR"].location != NSNotFound)) {
+                                    model.CUR_SYMB = [model.CUR_SYMB stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+                                    
+                                    if (([model.CUR_SYMB rangeOfString:@"$"].location != NSNotFound)){
+                                        model.CUR_DESC = @"USD";
+                                    } else if (([model.CUR_DESC rangeOfString:@"₹"].location != NSNotFound)) {
                                         model.CUR_DESC = @"INR";
-                                        [self.domesticSalesData addObject:model]; // Domestic Sales
-                                    } else {
-                                        
-                                        if (([model.CUR_DESC rangeOfString:@"USD"].location != NSNotFound) || ([model.CUR_DESC rangeOfString:@"US DOLLAR"].location != NSNotFound) || ([model.CUR_DESC rangeOfString:@"USDOLLAR"].location != NSNotFound)) {
-                                            model.CUR_DESC = @"USD";
-                                        } else {
-                                            self->selectedSalesTypeCurrencyCode = model.CUR_DESC;
-                                        }
-                                        [self.exportSalesData addObject:model]; // Export Sales
+                                    } else if (model.CUR_DESC.length == 0) {
+                                        model.CUR_SYMB = @"₹";
+                                        model.CUR_DESC = @"INR";
                                     }
+                                    
+                                    [self.exportSalesData addObject:model]; // Export Sales
                                 }
-                                
-                                self->lastRefreshTime = [Utility lastRefreshString];
-                                self->_lastUpdateLabel.text = [NSString stringWithFormat:@"Last updated: %@",self->lastRefreshTime];
-                                
-                                if (self->salesType == SalesTypeDomestic) {
-                                    self->selectedSalesTypeCurrencyCode = @"INR";
-                                    self->_tableSourceData = self->_domesticSalesData;
-                                } else {
-                                    PCDailySalesModel *model = [self->_exportSalesData objectAtIndex:0];
-                                    self->selectedSalesTypeCurrencyCode = model.CUR_DESC;
-                                    self->_tableSourceData = self->_exportSalesData;
-                                }
-                                
-                                [self->_salesTable reloadData];
-                                self->userSelectedIndex = self->currentIndexOnRoll;
-                                
-                                [SVProgressHUD showSuccessWithStatus:@"Done"];
-                                
                             } else {
-                                NSLog(@"fetchDailySalesData - error no ARR");
+                                NSLog(@"fetchDailySalesData - error no exportJson");
                                 [SVProgressHUD dismiss];
-                                [Utility showAlertWithTitle:@"Daily Sales" message:@"No data available for the selected combination." buttonTitle:@"OK" inViewController:self];
+                                [Utility showAlertWithTitle:@"Daily Sales" message:@"No export sales data available for the selected combination." buttonTitle:@"OK" inViewController:self];
                             }
+                            
+                            self->lastRefreshTime = [Utility lastRefreshString];
+                            self->_lastUpdateLabel.text = [NSString stringWithFormat:@"Last updated: %@",self->lastRefreshTime];
+                            
+                            if (self->salesType == SalesTypeDomestic) {
+                                self->_tableSourceData = self->_domesticSalesData;
+                            } else {
+                                self->_tableSourceData = self->_exportSalesData;
+                            }
+                            
+                            [self->_salesTable reloadData];
+                            self->userSelectedIndex = self->currentIndexOnRoll;
+                            
+                            [SVProgressHUD showSuccessWithStatus:@"Done"];
                         });
                     } else {                        
                         [SVProgressHUD dismiss];
@@ -582,7 +594,7 @@ static NSString *lastUpdateCellIdentifier = @"lastUpdateCellIdentifier";
             PCDailySalesModel *model = [self.tableSourceData objectAtIndex:0];
             
             cell.headerLabel.text = @"Today's Sale";
-            cell.subtitleLabel.text = [Utility stringWithCurrencySymbolForValue:model.CURR_AMT forCurrencyCode:selectedSalesTypeCurrencyCode];
+            cell.subtitleLabel.text = [Utility stringWithCurrencySymbolForValue:model.CURR_AMT forCurrencySymbol:model.CUR_SYMB];
             return cell;
         } else {
             UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:noitemsCellIdentifier];
@@ -596,7 +608,7 @@ static NSString *lastUpdateCellIdentifier = @"lastUpdateCellIdentifier";
         PCDailySalesModel *model = [self.tableSourceData objectAtIndex:0];
         
         cell.headerLabel.text = @"Total Yearly";
-        cell.subtitleLabel.text = [Utility stringWithCurrencySymbolForValue:model.CURRYR forCurrencyCode:selectedSalesTypeCurrencyCode];
+        cell.subtitleLabel.text = [Utility stringWithCurrencySymbolForValue:model.CURRYR forCurrencySymbol:model.CUR_SYMB];
         return cell;
         
     } else {
@@ -607,7 +619,7 @@ static NSString *lastUpdateCellIdentifier = @"lastUpdateCellIdentifier";
         
         NSString *monthString = [Utility stringDateFromServerDateYYYYMM:model.YRMTH];
         cell.headerLabel.text = monthString;
-        cell.subtitleLabel.text = [Utility stringWithCurrencySymbolForValue:model.MTHAMT forCurrencyCode:selectedSalesTypeCurrencyCode];
+        cell.subtitleLabel.text = [Utility stringWithCurrencySymbolForValue:model.MTHAMT forCurrencySymbol:model.CUR_SYMB];
         cell.subtitleLabel.textAlignment = NSTextAlignmentCenter;
         return cell;
         

@@ -37,6 +37,41 @@
     return string;
 }
 
+
++(NSString*)stringWithFormattedNumberValue:(NSString*)valStr {
+    
+    NSNumberFormatter *currencyFormatter = [[NSNumberFormatter alloc] init];
+    [currencyFormatter setMaximumFractionDigits:2];
+    [currencyFormatter setMinimumFractionDigits:2];
+    [currencyFormatter setAlwaysShowsDecimalSeparator:YES];
+    [currencyFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
+    [currencyFormatter setCurrencyCode:@""];
+    
+    NSNumber *someAmount = [NSNumber numberWithDouble:[valStr doubleValue]];
+    NSString *string = [currencyFormatter stringFromNumber:someAmount];
+    
+    return string;
+}
+
++(NSString*)stringWithCurrencySymbolForValue:(NSString*)valStr forCurrencySymbol:(NSString*)currencySymbol
+{
+    
+//    NSLocale *lcl = [[NSLocale alloc] initWithLocaleIdentifier:@"en_IN"];
+    
+    NSNumberFormatter *currencyFormatter = [[NSNumberFormatter alloc] init];
+//    [currencyFormatter setLocale:lcl];
+    [currencyFormatter setMaximumFractionDigits:2];
+    [currencyFormatter setCurrencySymbol:currencySymbol];
+    [currencyFormatter setMinimumFractionDigits:2];
+    [currencyFormatter setAlwaysShowsDecimalSeparator:YES];
+    [currencyFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
+    
+    NSNumber *someAmount = [NSNumber numberWithDouble:[valStr doubleValue]];
+    NSString *string = [currencyFormatter stringFromNumber:someAmount];
+    
+    return string;
+}
+
 +(NSString*)stringWithCurrencySymbolForValue:(NSString*)valStr forCurrencyCode:(NSString*)currencyCode
 {
     

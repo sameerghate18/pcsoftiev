@@ -11,6 +11,8 @@
 @interface Utility : NSObject
 
 +(NSString*)lastRefreshString;
++(NSString*)stringWithFormattedNumberValue:(NSString*)valStr;
++(NSString*)stringWithCurrencySymbolForValue:(NSString*)valStr forCurrencySymbol:(NSString*)currencySymbol;
 +(NSString*)stringWithCurrencySymbolForValue:(NSString*)valStr forCurrencyCode:(NSString*)currencyCode;
 +(NSString*)stringWithCurrencySymbolPrefix:(NSString*)value forCurrencySymbol:(NSString*)currencySymbol;
 +(UIColor *)randomColor;
